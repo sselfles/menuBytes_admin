@@ -1,3 +1,7 @@
+
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,11 +33,11 @@ public class login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         foodHubLogo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("6.14FoodHub");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -53,13 +57,18 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogin.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btnLogin.setText("Login");
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -76,7 +85,7 @@ public class login extends javax.swing.JFrame {
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,7 +96,7 @@ public class login extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(430, Short.MAX_VALUE))
         );
 
@@ -110,10 +119,20 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        dashboard db = new dashboard();
+        db.setVisible(true);
+        close();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        
+    }//GEN-LAST:event_btnLoginKeyPressed
+
+    public void close(){
+        WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+    }
     /**
      * @param args the command line arguments
      */
@@ -151,8 +170,8 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel foodHubLogo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
