@@ -1,6 +1,7 @@
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,16 +20,28 @@ public class view_cart extends javax.swing.JFrame {
     /**
      * Creates new form view_cart
      */
+    private String table_no;
+    
+    public void setTableNo(String table_no)
+    {
+        this.table_no = table_no;
+    } 
+    
+    public String getTableNo(){
+        return this.table_no;
+    }
+
+    public view_cart(String table_no) {
+        initComponents();
+        //Data to be displayed in the JTable
+        this.table_no = table_no;
+        addRowToPendingJtable();  
+        addRowToCompletedJtable();
+        setSubtotal("PENDING");
+    }
+    
     public view_cart() {
         initComponents();
-        
-        //Data to be displayed in the JTable
-        String[] row_pending = {"2", "Shawarma", "75"};
-        
-        
-        DefaultTableModel pending_model = (DefaultTableModel) tbl_pending_orders.getModel();
-        pending_model.addRow(row_pending);
-        
     }
 
     /**
@@ -245,9 +258,7 @@ public class view_cart extends javax.swing.JFrame {
         tbl_pending_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbl_pending_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Qty", "Product", "Price"
@@ -316,9 +327,7 @@ public class view_cart extends javax.swing.JFrame {
         tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbl_completed_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Qty", "Product", "Price"
@@ -626,6 +635,53 @@ public class view_cart extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+  
+    
+    public ArrayList ListOrders(String status){
+        ArrayList<Order> orderArrayList = new ArrayList<Order>();
+        orderArrayList = DatabaseConnection.getInstance().returnOrdersAccordingToStatusTableNo(status, table_no);
+        return orderArrayList;
+    }
+    
+    public void addRowToPendingJtable(){
+        DefaultTableModel model = (DefaultTableModel)tbl_pending_orders.getModel();
+        if(!ListOrders("PENDING").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("PENDING");
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < orderArrayList.size(); position++){
+            rowData[0] = orderArrayList.get(position).getQuantity();
+            rowData[1] = orderArrayList.get(position).getProduct_name();
+            rowData[2] = orderArrayList.get(position).getProduct_price();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public void addRowToCompletedJtable(){
+        DefaultTableModel model = (DefaultTableModel)tbl_completed_orders.getModel();
+        if(!ListOrders("COMPLETE").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("COMPLETE");
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < orderArrayList.size(); position++){
+            rowData[0] = orderArrayList.get(position).getQuantity();
+            rowData[1] = orderArrayList.get(position).getProduct_name();
+            rowData[2] = orderArrayList.get(position).getProduct_price();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public void setSubtotal(String status){
+        String subTotal = null;
+        subTotal = DatabaseConnection.getInstance().returnTotalAmountByTable(status, table_no);
+        if(subTotal!=null){
+            Double VAT = (Double.valueOf(subTotal)/ 1.12) * 0.12;
+            txtVat.setText(String.format("%.2f", VAT));
+            txtSubtotal.setText(subTotal);
+            txtTotal_amount.setText(subTotal);
+        }
+    }
+
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         close();
@@ -643,10 +699,13 @@ public class view_cart extends javax.swing.JFrame {
 
     private void btn_pending_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pending_ordersMouseClicked
         jTabbedPane1.setSelectedIndex(0);
+        setSubtotal("PENDING");
+        
     }//GEN-LAST:event_btn_pending_ordersMouseClicked
 
     private void btn_completed_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_completed_ordersMouseClicked
         jTabbedPane1.setSelectedIndex(1);
+        setSubtotal("COMPLETE");
     }//GEN-LAST:event_btn_completed_ordersMouseClicked
     
     public void close(){

@@ -1,6 +1,7 @@
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -118,11 +119,37 @@ public class login extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
-
+    private void validateCredentials(String username, String password){
+        String check_username = DatabaseConnection.getInstance().checkUsernameExistence(username);
+        String check_match_password = DatabaseConnection.getInstance().checkUsernamePassword(username, password);
+        
+        if(check_username!=null){
+            if(check_match_password!=null){
+                dashboard db = new dashboard();
+                db.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Login Successful!", "Login Successful", JOptionPane.PLAIN_MESSAGE);
+                close();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Incorrect Password! \nPlease re-type your password again.", "Incorrect Password", JOptionPane.PLAIN_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Username does not exist!", "Incorrect Username", JOptionPane.PLAIN_MESSAGE);
+        }
+        
+    }
+    
+    
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        dashboard db = new dashboard();
-        db.setVisible(true);
-        close();
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        if(username.equals("") || password.equals("")){
+             JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
+        }else{
+            validateCredentials(username, password);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
