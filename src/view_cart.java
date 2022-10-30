@@ -1,6 +1,7 @@
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,16 +20,77 @@ public class view_cart extends javax.swing.JFrame {
     /**
      * Creates new form view_cart
      */
+    
+    private String table_no;
+    
+    public void setTableNo(String table_no)
+    {
+        this.table_no = table_no;
+    } 
+    
+    public String getTableNo(){
+        return this.table_no;
+    }
+    
+    public ArrayList ListOrders(String status){
+        ArrayList<Order> orderArrayList = new ArrayList<Order>();
+        orderArrayList = DatabaseConnection.getInstance().returnOrdersAccordingToStatusTableNo(status, table_no);
+        return orderArrayList;
+        /*
+        Order order = new Order("1", "Shawarma Wrap", "2", "45", "90", "table_1", "30/10/22", "PENDING");
+        orderArrayList.add(order);*/
+    }
+    
+    public void addRowToPendingJtable(){
+        DefaultTableModel model = (DefaultTableModel)tbl_pending_orders.getModel();
+        if(!ListOrders("PENDING").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("PENDING");
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < orderArrayList.size(); position++){
+            rowData[0] = orderArrayList.get(position).getQuantity();
+            rowData[1] = orderArrayList.get(position).getProduct_name();
+            rowData[2] = orderArrayList.get(position).getProduct_price();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public void addRowToCompletedJtable(){
+        DefaultTableModel model = (DefaultTableModel)tbl_completed_orders.getModel();
+        if(!ListOrders("COMPLETE").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("COMPLETE");
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < orderArrayList.size(); position++){
+            rowData[0] = orderArrayList.get(position).getQuantity();
+            rowData[1] = orderArrayList.get(position).getProduct_name();
+            rowData[2] = orderArrayList.get(position).getProduct_price();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public void setSubtotal(String status){
+        String subTotal = null;
+        subTotal = DatabaseConnection.getInstance().returnTotalAmountByTable(status, table_no);
+        if(subTotal!=null){
+            Double VAT = (Double.valueOf(subTotal)/ 1.12) * 0.12;
+            txtVat.setText(String.format("%.2f", VAT));
+            txtSubtotal.setText(subTotal);
+            txtTotal_amount.setText(subTotal);
+        }
+    }
+    
     public view_cart() {
         initComponents();
-        
+    }
+    
+    public view_cart(String table_no) {
+        initComponents();
         //Data to be displayed in the JTable
-        String[] row_pending = {"2", "Shawarma", "75"};
-        
-        
-        DefaultTableModel pending_model = (DefaultTableModel) tbl_pending_orders.getModel();
-        pending_model.addRow(row_pending);
-        
+        this.table_no = table_no;
+        addRowToPendingJtable();  
+        addRowToCompletedJtable();
+        setSubtotal("PENDING");
     }
 
     /**
@@ -307,7 +369,7 @@ public class view_cart extends javax.swing.JFrame {
         list_completed_orders.setBackground(new java.awt.Color(255, 255, 255));
         list_completed_orders.setBorder(null);
 
-        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbl_completed_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -331,8 +393,9 @@ public class view_cart extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbl_completed_orders.setCellSelectionEnabled(false);
         tbl_completed_orders.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_completed_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        tbl_completed_orders.setRowHeight(40);
         tbl_completed_orders.setSelectionBackground(new java.awt.Color(255, 102, 102));
         tbl_completed_orders.getTableHeader().setResizingAllowed(false);
         tbl_completed_orders.getTableHeader().setReorderingAllowed(false);
@@ -359,8 +422,8 @@ public class view_cart extends javax.swing.JFrame {
             completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(completed_orders_tavLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(506, Short.MAX_VALUE))
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", completed_orders_tav);
@@ -634,12 +697,21 @@ public class view_cart extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_pending_ordersMouseClicked
 
     private void btn_completed_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_completed_ordersMouseClicked
+        setSubtotal("COMPLETE");
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_btn_completed_ordersMouseClicked
+
+    @Override
+    public void dispose() {
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+        
     }
     /**
      * @param args the command line arguments
