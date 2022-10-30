@@ -390,7 +390,7 @@
                                       <Component id="jLabel34" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                                       <Component id="jLabel33" alignment="0" min="-2" pref="263" max="-2" attributes="0"/>
                                       <Component id="jLabel35" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
-                                      <Component id="jLabel36" alignment="0" min="-2" pref="263" max="-2" attributes="0"/>
+                                      <Component id="txtTotalAmountTable2" alignment="0" min="-2" pref="263" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
@@ -409,7 +409,7 @@
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="jLabel35" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel36" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="txtTotalAmountTable2" min="-2" pref="70" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel34" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -453,7 +453,7 @@
                     <Property name="text" type="java.lang.String" value="Total Amount :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel36">
+                <Component class="javax.swing.JLabel" name="txtTotalAmountTable2">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Century Gothic" size="48" style="1"/>
@@ -513,7 +513,7 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel9" min="-2" pref="172" max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" pref="172" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" alignment="0" pref="219" max="32767" attributes="0"/>
+                                      <Component id="txtTotalAmountTable1" alignment="0" pref="219" max="32767" attributes="0"/>
                                       <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
@@ -533,7 +533,7 @@
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="txtTotalAmountTable1" min="-2" pref="70" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -577,7 +577,7 @@
                     <Property name="text" type="java.lang.String" value="Total Amount :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
+                <Component class="javax.swing.JLabel" name="txtTotalAmountTable1">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Century Gothic" size="48" style="1"/>
@@ -643,10 +643,8 @@
                               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="btn_others_category" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jSeparator3" alignment="0" min="-2" pref="447" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jSeparator3" alignment="0" min="-2" pref="447" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="905" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="41" max="32767" attributes="0"/>
