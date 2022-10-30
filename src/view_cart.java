@@ -245,7 +245,9 @@ public class view_cart extends javax.swing.JFrame {
         tbl_pending_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbl_pending_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Qty", "Product", "Price"
@@ -269,7 +271,10 @@ public class view_cart extends javax.swing.JFrame {
         tbl_pending_orders.setGridColor(new java.awt.Color(255, 255, 255));
         tbl_pending_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
         tbl_pending_orders.setRowHeight(40);
-        tbl_pending_orders.setSelectionBackground(new java.awt.Color(255, 102, 102));
+        tbl_pending_orders.setRowSelectionAllowed(false);
+        tbl_pending_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tbl_pending_orders.setShowVerticalLines(false);
+        tbl_pending_orders.setSurrendersFocusOnKeystroke(true);
         tbl_pending_orders.getTableHeader().setResizingAllowed(false);
         tbl_pending_orders.getTableHeader().setReorderingAllowed(false);
         list_pending_orders.setViewportView(tbl_pending_orders);
@@ -306,11 +311,14 @@ public class view_cart extends javax.swing.JFrame {
 
         list_completed_orders.setBackground(new java.awt.Color(255, 255, 255));
         list_completed_orders.setBorder(null);
+        list_completed_orders.setOpaque(false);
 
-        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbl_completed_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Qty", "Product", "Price"
@@ -331,9 +339,13 @@ public class view_cart extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbl_completed_orders.setCellSelectionEnabled(false);
         tbl_completed_orders.setGridColor(new java.awt.Color(255, 255, 255));
-        tbl_completed_orders.setSelectionBackground(new java.awt.Color(255, 102, 102));
+        tbl_completed_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        tbl_completed_orders.setRowHeight(40);
+        tbl_completed_orders.setRowSelectionAllowed(false);
+        tbl_completed_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tbl_completed_orders.setShowVerticalLines(false);
+        tbl_completed_orders.setSurrendersFocusOnKeystroke(true);
         tbl_completed_orders.getTableHeader().setResizingAllowed(false);
         tbl_completed_orders.getTableHeader().setReorderingAllowed(false);
         list_completed_orders.setViewportView(tbl_completed_orders);
@@ -351,16 +363,16 @@ public class view_cart extends javax.swing.JFrame {
         completed_orders_tavLayout.setHorizontalGroup(
             completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, completed_orders_tavLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
         completed_orders_tavLayout.setVerticalGroup(
             completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(completed_orders_tavLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(506, Short.MAX_VALUE))
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         jTabbedPane1.addTab("tab1", completed_orders_tav);
