@@ -61,6 +61,9 @@ public class dashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         order_queue = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        roundPanel1 = new roundPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        notification_table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -85,16 +88,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel6 = new javax.swing.JPanel();
-        menu_product = new roundPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        roundPanel2 = new roundPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        roundPanel4 = new roundPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        menu_list = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -269,6 +263,66 @@ public class dashboard extends javax.swing.JFrame {
         );
 
         sidePane.add(order_queue, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 360, 70));
+
+        roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel1.setRoundBottomLeft(50);
+        roundPanel1.setRoundBottomRight(50);
+        roundPanel1.setRoundTopLeft(50);
+        roundPanel1.setRoundTopRight(50);
+
+        notification_table.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        notification_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Notifications"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        notification_table.setGridColor(new java.awt.Color(230, 0, 0));
+        notification_table.setRowHeight(60);
+        notification_table.setRowMargin(10);
+        notification_table.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        notification_table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(notification_table);
+        if (notification_table.getColumnModel().getColumnCount() > 0) {
+            notification_table.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
+        roundPanel1.setLayout(roundPanel1Layout);
+        roundPanel1Layout.setHorizontalGroup(
+            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        roundPanel1Layout.setVerticalGroup(
+            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+
+        sidePane.add(roundPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 320, 380));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 990));
 
@@ -490,135 +544,45 @@ public class dashboard extends javax.swing.JFrame {
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setOpaque(false);
 
-        menu_product.setBackground(new java.awt.Color(255, 255, 255));
-        menu_product.setRoundBottomLeft(70);
-        menu_product.setRoundBottomRight(70);
-        menu_product.setRoundTopLeft(70);
-        menu_product.setRoundTopRight(70);
-        menu_product.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menu_productMouseClicked(evt);
+        menu_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        menu_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Product Name", "Price", "Availability"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Float.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel4.setText("Pork Samgyupsal Rice Bowl");
-
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel11.setText("75.00");
-
-        javax.swing.GroupLayout menu_productLayout = new javax.swing.GroupLayout(menu_product);
-        menu_product.setLayout(menu_productLayout);
-        menu_productLayout.setHorizontalGroup(
-            menu_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menu_productLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(menu_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        menu_productLayout.setVerticalGroup(
-            menu_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menu_productLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        roundPanel2.setRoundBottomLeft(70);
-        roundPanel2.setRoundBottomRight(70);
-        roundPanel2.setRoundTopLeft(70);
-        roundPanel2.setRoundTopRight(70);
-
-        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel15.setText("Pork Samgyupsal Rice Bowl");
-
-        jLabel21.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel21.setText("75.00");
-
-        javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
-        roundPanel2.setLayout(roundPanel2Layout);
-        roundPanel2Layout.setHorizontalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        roundPanel2Layout.setVerticalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        roundPanel4.setRoundBottomLeft(70);
-        roundPanel4.setRoundBottomRight(70);
-        roundPanel4.setRoundTopLeft(70);
-        roundPanel4.setRoundTopRight(70);
-
-        jLabel24.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel24.setText("Pork Samgyupsal Rice Bowl");
-
-        jLabel27.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel27.setText("75.00");
-
-        javax.swing.GroupLayout roundPanel4Layout = new javax.swing.GroupLayout(roundPanel4);
-        roundPanel4.setLayout(roundPanel4Layout);
-        roundPanel4Layout.setHorizontalGroup(
-            roundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(roundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        roundPanel4Layout.setVerticalGroup(
-            roundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel4Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(menu_product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roundPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roundPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(menu_product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(456, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setViewportView(jPanel6);
+        menu_list.setGridColor(new java.awt.Color(230, 0, 0));
+        menu_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        menu_list.setRowHeight(80);
+        menu_list.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        menu_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        menu_list.setShowVerticalLines(false);
+        menu_list.setSurrendersFocusOnKeystroke(true);
+        menu_list.getTableHeader().setResizingAllowed(false);
+        menu_list.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(menu_list);
+        if (menu_list.getColumnModel().getColumnCount() > 0) {
+            menu_list.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -777,6 +741,9 @@ public class dashboard extends javax.swing.JFrame {
         list_orders.getTableHeader().setResizingAllowed(false);
         list_orders.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(list_orders);
+        if (list_orders.getColumnModel().getColumnCount() > 0) {
+            list_orders.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1388,11 +1355,6 @@ public class dashboard extends javax.swing.JFrame {
     private void btn_checkout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkout1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_checkout1MouseClicked
-
-    private void menu_productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_productMouseClicked
-        product_details productDetails = new product_details();
-        productDetails.setVisible(true);
-    }//GEN-LAST:event_menu_productMouseClicked
     
     
     
@@ -1453,24 +1415,17 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -1480,7 +1435,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -1498,11 +1452,11 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1514,16 +1468,15 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JTable list_orders;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel menu;
-    private roundPanel menu_product;
+    private javax.swing.JTable menu_list;
     private javax.swing.JPanel menu_tab;
+    private javax.swing.JTable notification_table;
     private javax.swing.JTable order_breakdown;
     private javax.swing.JPanel order_queue;
     private javax.swing.JPanel order_queue_tab;
     private javax.swing.JLabel order_total_amount;
     private javax.swing.JLabel remove_order;
-    private roundPanel roundPanel2;
-    private roundPanel roundPanel3;
-    private roundPanel roundPanel4;
+    private roundPanel roundPanel1;
     private javax.swing.JPanel sidePane;
     private javax.swing.JLabel txtTotalAmountTable1;
     private javax.swing.JLabel txtTotalAmountTable2;
