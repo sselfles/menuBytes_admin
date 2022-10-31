@@ -103,6 +103,7 @@ public class view_cart extends javax.swing.JFrame {
         setTitle("Cart");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Cart"); // NOI18N
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
