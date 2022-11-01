@@ -20,10 +20,10 @@ public class SqlStatements {
                 return instance;
             }
 	}
-        
+     //REVISE:DONE   
     private String returnOrdersAccordingToStatusTableNo = "SELECT order_items.order_id,\n" +
-" product.product_name, \n" +
-" order_items.quantity,\n" +
+"product.product_name,\n" +
+"order_items.quantity,\n" +
 "IF(order_items.product_bundle,product.product_bundle,product.product_price) AS price,\n" +
 "cast(((IF(order_items.product_bundle,product.product_bundle,product.product_price))*(cast(order_items.quantity as decimal(13,2)))) as decimal(13,2))\n" +
 "AS total,\n" +
@@ -31,26 +31,27 @@ public class SqlStatements {
 "DATE(orders.created_at) AS date,\n" +
 "order_status.order_status\n" +
 "FROM order_items \n" +
-"INNER JOIN \n" +
+"INNER JOIN\n" +
 "product ON product.product_id = order_items.product_id\n" +
 "INNER JOIN\n" +
 "orders ON orders.order_id = order_items.order_id\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = order_items.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.order_id = orders.order_id\n" +
+"payment ON payment.user_id = orders.user_id\n" +
 "WHERE order_status = (?) AND orders.created_by = (?) AND DATE(orders.created_at) = curdate()\n" +
-"AND (payment.payment_id IS NULL OR payment.payment_status IS NULL OR payment.payment_status = \"PENDING\"); ";
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\"); ";
     
+    //REVISE:DONE
     private String returnTotalAmountByTable ="SELECT \n" +
 "SUM(orders.total) AS total_amount\n" +
 "FROM orders\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.order_id = orders.order_id\n" +
-"WHERE order_status = (?) AND orders.created_by = (?) \n" +
-"AND (payment.payment_id IS NULL OR payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
+"payment ON payment.user_id = orders.user_id\n" +
+"WHERE orders.created_by = (?) \n" +
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "AND DATE(orders.created_at) = curdate(); ";
     
     private String checkUsernameExistence = "SELECT user_id FROM user WHERE user_name = (?);";
@@ -66,9 +67,9 @@ public class SqlStatements {
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.order_id = orders.order_id\n" +
+"payment ON payment.user_id = orders.user_id\n" +
 "WHERE DATE(orders.created_at) = curdate()\n" +
-"AND (payment.payment_id IS NULL OR payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "AND (order_status.order_status = \"PENDING\" or order_status.order_status = \"ACCEPTED\")\n" +
 "; ";
     
@@ -80,9 +81,9 @@ public class SqlStatements {
 "INNER JOIN\n" +
 "orders ON order_items.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.order_id = orders.order_id\n" +
+"payment ON payment.user_id = orders.user_id\n" +
 "WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
-"AND (payment.payment_id IS NULL OR payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "; ";
 
     private String updateOrderStatusByOrderID = "UPDATE order_status\n" +

@@ -674,7 +674,7 @@ public class view_cart extends javax.swing.JFrame {
     
     public void setSubtotal(String status){
         String subTotal = null;
-        subTotal = DatabaseConnection.getInstance().returnTotalAmountByTable(status, table_no);
+        subTotal = DatabaseConnection.getInstance().returnTotalAmountByTable(table_no);
         if(subTotal!=null){
             Double VAT = (Double.valueOf(subTotal)/ 1.12) * 0.12;
             txtVat.setText(String.format("%.2f", VAT));

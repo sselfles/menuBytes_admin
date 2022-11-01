@@ -89,14 +89,13 @@ public class DatabaseConnection {
         return orderArrayList;
     }
      
-     public String returnTotalAmountByTable(String status, String table_no){
+     public String returnTotalAmountByTable(String table_no){
         Connection connection = null;
         String total_amount = null;
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getReturnTotalAmountByTable());
-        preparedStatement.setString(1, status);
-        preparedStatement.setString(2, table_no);
+        preparedStatement.setString(1, table_no);
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){

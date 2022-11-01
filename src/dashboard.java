@@ -1351,14 +1351,14 @@ public class dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
      public void addTotalAmountToTable1(){
-        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("PENDING", "table_1");
+        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_1");
         if(total_amount != null){
             txtTotalAmountTable1.setText(total_amount);
         }
     }
     
      public void addTotalAmountToTable2(){
-        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("PENDING", "table_2");
+        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_2");
         if(total_amount != null){
             txtTotalAmountTable2.setText(total_amount);
         }
