@@ -39,7 +39,7 @@ public class SqlStatements {
 "order_status ON order_status.order_id = order_items.order_id\n" +
 "LEFT JOIN\n" +
 "payment ON payment.user_id = orders.user_id\n" +
-"WHERE order_status = (?) AND orders.created_by = (?) AND DATE(orders.created_at) = curdate()\n" +
+"WHERE order_status = (?) AND orders.created_by = (?) AND DATE(orders.created_at) = curdate() AND order_status.order_status != \"REJECTED\" \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\"); ";
     
     //REVISE:DONE
@@ -50,7 +50,7 @@ public class SqlStatements {
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
 "payment ON payment.user_id = orders.user_id\n" +
-"WHERE orders.created_by = (?) \n" +
+"WHERE orders.created_by = (?) AND order_status.order_status != \"REJECTED\" \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "AND DATE(orders.created_at) = curdate(); ";
     
@@ -100,6 +100,19 @@ public class SqlStatements {
 "IF((product.product_bundle IS NULL),product.product_price,product.product_bundle) AS price,product.product_availability\n" +
 "FROM product WHERE product_category = (?)\n" +
 "ORDER BY product_id;";
+    
+    private String retrieveAllProducts = "SELECT product.product_id, product.product_name, product.product_price, product.product_availability\n" +
+"FROM product\n" +
+"UNION\n" +
+"SELECT product_id, \n" +
+"IF((product.product_bundle IS NULL),product.product_name,CONCAT(\"(B1G1) \",product.product_name)) AS name,\n" +
+"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle) AS price,product.product_availability\n" +
+"FROM product\n" +
+"ORDER BY product_id;";
+
+    public String getRetrieveAllProducts() {
+        return retrieveAllProducts;
+    }
 
     public String getRetrieveProductsAccordingToCategory() {
         return retrieveProductsAccordingToCategory;

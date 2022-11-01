@@ -54,6 +54,7 @@ public class dashboard extends javax.swing.JFrame {
         addTotalAmountToTable1();
         addTotalAmountToTable2();   
         addRowToListOrderQueueTable();
+        addDefaultRowToMenuList();
     }
 
     /**
@@ -1420,6 +1421,7 @@ public class dashboard extends javax.swing.JFrame {
     
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
+        addDefaultRowToMenuList();
     }//GEN-LAST:event_menuMouseClicked
 
     private void menuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMousePressed
@@ -1523,6 +1525,27 @@ public class dashboard extends javax.swing.JFrame {
         model.setRowCount(0);
         if(! menuList(productCategory).isEmpty()){
         ArrayList<Product> menuArrayList = menuList(productCategory);
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < menuArrayList.size(); position++){
+            rowData[0] = menuArrayList.get(position).getProduct_name();
+            rowData[1] = menuArrayList.get(position).getProduct_price();
+            rowData[2] = menuArrayList.get(position).getProduct_availability();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public ArrayList menuDefaultList(){
+        ArrayList<Product> orderMenuList = new ArrayList<Product>();
+        orderMenuList = DatabaseConnection.getInstance().retrieveAllProducts();
+        return orderMenuList;
+    }
+    
+    public void addDefaultRowToMenuList(){
+        DefaultTableModel model = (DefaultTableModel)menu_list.getModel();
+        model.setRowCount(0);
+        if(! menuDefaultList().isEmpty()){
+        ArrayList<Product> menuArrayList = menuDefaultList();
         Object rowData[] = new Object[3];
         for(int position = 0; position < menuArrayList.size(); position++){
             rowData[0] = menuArrayList.get(position).getProduct_name();

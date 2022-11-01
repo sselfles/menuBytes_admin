@@ -247,4 +247,30 @@ public class DatabaseConnection {
         }
         return orderArrayList;
      }
+     
+     public ArrayList<Product> retrieveAllProducts(){
+                 Connection connection = null;
+        ArrayList<Product> orderArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveAllProducts()); 
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              orderArrayList.add(new Product(
+                              resultSet.getString(1), 
+                              resultSet.getString(2), 
+                              resultSet.getString(3), 
+                              resultSet.getString(4)));
+            }}
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderArrayList;
+         
+     }
 }
