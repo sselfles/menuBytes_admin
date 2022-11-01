@@ -660,8 +660,8 @@ public class view_cart extends javax.swing.JFrame {
     
     public void addRowToCompletedJtable(){
         DefaultTableModel model = (DefaultTableModel)tbl_completed_orders.getModel();
-        if(!ListOrders("COMPLETE").isEmpty()){
-        ArrayList<Order> orderArrayList = ListOrders("COMPLETE");
+        if(!ListOrders("COMPLETED").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("COMPLETED");
         Object rowData[] = new Object[3];
         for(int position = 0; position < orderArrayList.size(); position++){
             rowData[0] = orderArrayList.get(position).getQuantity();
@@ -706,7 +706,7 @@ public class view_cart extends javax.swing.JFrame {
 
     private void btn_completed_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_completed_ordersMouseClicked
         jTabbedPane1.setSelectedIndex(1);
-        setSubtotal("COMPLETE");
+        setSubtotal("COMPLETED");
     }//GEN-LAST:event_btn_completed_ordersMouseClicked
     
     public void close(){

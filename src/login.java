@@ -125,7 +125,7 @@ public class login extends javax.swing.JFrame {
         
         if(check_username!=null){
             if(check_match_password!=null){
-                dashboard db = new dashboard();
+                dashboard db = new dashboard(check_match_password);
                 db.setVisible(true);
                 JOptionPane.showMessageDialog(null, "Login Successful!", "Login Successful", JOptionPane.PLAIN_MESSAGE);
                 close();
@@ -142,14 +142,17 @@ public class login extends javax.swing.JFrame {
     
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
-        
-        if(username.equals("") || password.equals("")){
-             JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
-        }else{
-            validateCredentials(username, password);
-        }
+//        String username = txtUsername.getText();
+//        String password = txtPassword.getText();
+//        
+//        if(username.equals("") || password.equals("")){
+//             JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
+//        }else{
+//            validateCredentials(username, password);
+//        }
+        dashboard db = new dashboard("1");
+                db.setVisible(true);
+                close();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed

@@ -772,7 +772,7 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="3">
                         <Column editable="false" title="Product Name" type="java.lang.String"/>
-                        <Column editable="false" title="Price" type="java.lang.Float"/>
+                        <Column editable="false" title="Price" type="java.lang.String"/>
                         <Column editable="false" title="Availability" type="java.lang.String"/>
                       </Table>
                     </Property>
@@ -864,7 +864,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel41" alignment="1" pref="85" max="32767" attributes="0"/>
+                                  <Component id="btnShawarma" alignment="1" pref="85" max="32767" attributes="0"/>
                                   <Component id="jLabel40" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -874,7 +874,7 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel41" max="32767" attributes="0"/>
+                              <Component id="btnShawarma" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel40" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -895,13 +895,16 @@
                         <Property name="text" type="java.lang.String" value="Shawarma"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel41">
+                    <Component class="javax.swing.JLabel" name="btnShawarma">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/images/shawarmalogo.png"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnShawarmaMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -924,7 +927,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel20" pref="85" max="32767" attributes="0"/>
+                              <Component id="btnAddOns" pref="85" max="32767" attributes="0"/>
                               <Component id="jLabel19" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -934,7 +937,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel20" max="32767" attributes="0"/>
+                          <Component id="btnAddOns" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -955,12 +958,15 @@
                     <Property name="text" type="java.lang.String" value="Add Ons"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel20">
+                <Component class="javax.swing.JLabel" name="btnAddOns">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/addonslogo.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddOnsMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -981,7 +987,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel26" alignment="1" pref="85" max="32767" attributes="0"/>
+                              <Component id="btnDrinks" alignment="1" pref="85" max="32767" attributes="0"/>
                               <Component id="jLabel25" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -991,7 +997,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel26" max="32767" attributes="0"/>
+                          <Component id="btnDrinks" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel25" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1012,12 +1018,15 @@
                     <Property name="text" type="java.lang.String" value="Drinks"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel26">
+                <Component class="javax.swing.JLabel" name="btnDrinks">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/bevlogo.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDrinksMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1038,7 +1047,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel30" alignment="1" pref="85" max="32767" attributes="0"/>
+                              <Component id="btnChicken" alignment="1" pref="85" max="32767" attributes="0"/>
                               <Component id="jLabel29" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -1048,7 +1057,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel30" max="32767" attributes="0"/>
+                          <Component id="btnChicken" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel29" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1069,12 +1078,15 @@
                     <Property name="text" type="java.lang.String" value="Chicken"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel30">
+                <Component class="javax.swing.JLabel" name="btnChicken">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/wingslogo.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnChickenMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1095,7 +1107,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel37" alignment="1" pref="85" max="32767" attributes="0"/>
+                              <Component id="btnBowl" alignment="1" pref="85" max="32767" attributes="0"/>
                               <Component id="jLabel31" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -1105,7 +1117,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel37" max="32767" attributes="0"/>
+                          <Component id="btnBowl" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel31" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1126,12 +1138,15 @@
                     <Property name="text" type="java.lang.String" value="Rice Bowl"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel37">
+                <Component class="javax.swing.JLabel" name="btnBowl">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/bowllogo.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBowlMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1563,7 +1578,7 @@
                       <Font name="Century Gothic" size="24" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="3">
+                      <Table columnCount="4" rowCount="0">
                         <Column editable="false" title="Order #" type="java.lang.Integer"/>
                         <Column editable="false" title="Username" type="java.lang.String"/>
                         <Column editable="false" title="Quantity" type="java.lang.Integer"/>
@@ -1613,6 +1628,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menu_list1MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1629,11 +1647,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="btn_checkout1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_reject" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="btn_checkout2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_accept" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="btn_checkout3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_done" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="31" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -1649,9 +1667,9 @@
                           <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btn_checkout1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_checkout2" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_checkout3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_reject" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_accept" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_done" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
@@ -1761,7 +1779,7 @@
                               <Font name="Century Gothic" size="14" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="3">
+                              <Table columnCount="2" rowCount="0">
                                 <Column editable="false" title="Qty" type="java.lang.Integer"/>
                                 <Column editable="false" title="Product" type="java.lang.String"/>
                               </Table>
@@ -1806,7 +1824,7 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="roundPanel" name="btn_checkout1">
+                <Container class="roundPanel" name="btn_reject">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -1821,7 +1839,7 @@
                     <Property name="roundTopRight" type="int" value="30"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_checkout1MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_rejectMouseClicked"/>
                   </Events>
 
                   <Layout>
@@ -1855,7 +1873,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="roundPanel" name="btn_checkout2">
+                <Container class="roundPanel" name="btn_accept">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="cc" red="0" type="rgb"/>
@@ -1870,7 +1888,7 @@
                     <Property name="roundTopRight" type="int" value="30"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_checkout2MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_acceptMouseClicked"/>
                   </Events>
 
                   <Layout>
@@ -1904,7 +1922,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="roundPanel" name="btn_checkout3">
+                <Container class="roundPanel" name="btn_done">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -1919,7 +1937,7 @@
                     <Property name="roundTopRight" type="int" value="30"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_checkout3MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_doneMouseClicked"/>
                   </Events>
 
                   <Layout>
