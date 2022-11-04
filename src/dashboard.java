@@ -89,6 +89,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         txtTotalAmountTable2 = new javax.swing.JLabel();
         view_cart2 = new javax.swing.JButton();
+        view_cart4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -96,6 +97,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTotalAmountTable1 = new javax.swing.JLabel();
         view_cart1 = new javax.swing.JButton();
+        view_cart3 = new javax.swing.JButton();
         menu_tab = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -381,6 +383,23 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        view_cart4.setBackground(new java.awt.Color(255, 0, 0));
+        view_cart4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        view_cart4.setForeground(new java.awt.Color(255, 255, 255));
+        view_cart4.setText("Clear");
+        view_cart4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(215, 0, 0), 1, true));
+        view_cart4.setBorderPainted(false);
+        view_cart4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                view_cart4MouseClicked(evt);
+            }
+        });
+        view_cart4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view_cart4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -397,8 +416,10 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(txtTotalAmountTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(view_cart2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(view_cart4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(view_cart2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel9Layout.setVerticalGroup(
@@ -413,9 +434,11 @@ public class dashboard extends javax.swing.JFrame {
                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(view_cart2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(view_cart4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -447,6 +470,23 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        view_cart3.setBackground(new java.awt.Color(255, 0, 0));
+        view_cart3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        view_cart3.setForeground(new java.awt.Color(255, 255, 255));
+        view_cart3.setText("Clear");
+        view_cart3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(215, 0, 0), 1, true));
+        view_cart3.setBorderPainted(false);
+        view_cart3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                view_cart3MouseClicked(evt);
+            }
+        });
+        view_cart3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view_cart3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -463,8 +503,10 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(70, 70, 70))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(view_cart1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(view_cart3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(view_cart1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -479,9 +521,11 @@ public class dashboard extends javax.swing.JFrame {
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(view_cart1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(view_cart3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout dashboard_tabLayout = new javax.swing.GroupLayout(dashboard_tab);
@@ -1579,6 +1623,22 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         addRowToMenuList("additional");
     }//GEN-LAST:event_btnAddOnsMouseClicked
+
+    private void view_cart3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_cart3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view_cart3MouseClicked
+
+    private void view_cart3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_cart3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view_cart3ActionPerformed
+
+    private void view_cart4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_cart4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view_cart4MouseClicked
+
+    private void view_cart4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_cart4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view_cart4ActionPerformed
     
     
     
@@ -1707,5 +1767,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel txtTotalAmountTable2;
     private javax.swing.JButton view_cart1;
     private javax.swing.JButton view_cart2;
+    private javax.swing.JButton view_cart3;
+    private javax.swing.JButton view_cart4;
     // End of variables declaration//GEN-END:variables
 }
