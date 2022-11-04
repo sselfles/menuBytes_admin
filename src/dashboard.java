@@ -256,7 +256,7 @@ public class dashboard extends javax.swing.JFrame {
             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        sidePane.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 950, 360, 70));
+        sidePane.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 930, 360, 70));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(208, 0, 0), java.awt.Color.lightGray));
 
@@ -307,7 +307,7 @@ public class dashboard extends javax.swing.JFrame {
             notification_table.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        sidePane.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 320, 520));
+        sidePane.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 320, 520));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 1020));
 
