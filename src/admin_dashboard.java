@@ -17,6 +17,11 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     Color defaultColor, clickedColor;
     
+    user_modal userModal = new user_modal();
+    menu_modal menuModal = new menu_modal();
+    payment_modal paymentModal = new payment_modal();
+    int index;
+    
     public admin_dashboard() {
         initComponents();
         defaultColor = new Color(227,0,0);
@@ -84,19 +89,15 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        gcashNumber = new javax.swing.JTextField();
-        gcashAvailability = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         gcash_qr = new javax.swing.JLabel();
+        gcash_availability = new javax.swing.JLabel();
+        gcash_number = new javax.swing.JLabel();
         e_receipts_tab = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        user_list3 = new javax.swing.JTable();
-        btn_addMenu2 = new roundPanel();
-        jLabel24 = new javax.swing.JLabel();
-        btn_editMenu2 = new roundPanel();
-        jLabel25 = new javax.swing.JLabel();
-        btn_deleteMenu2 = new roundPanel();
+        e_receipt_list = new javax.swing.JTable();
+        btn_viewReceipt = new roundPanel();
         jLabel26 = new javax.swing.JLabel();
         log_reports_tab = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -110,7 +111,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("6.14FoodHub ADMIN ");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePane.setBackground(new java.awt.Color(198, 0, 0));
@@ -395,6 +397,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_addUser.setRoundBottomRight(30);
         btn_addUser.setRoundTopLeft(30);
         btn_addUser.setRoundTopRight(30);
+        btn_addUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_addUserMouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -418,6 +425,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_editUser.setRoundBottomRight(30);
         btn_editUser.setRoundTopLeft(30);
         btn_editUser.setRoundTopRight(30);
+        btn_editUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editUserMouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -441,6 +453,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_resetPassword.setRoundBottomRight(30);
         btn_resetPassword.setRoundTopLeft(30);
         btn_resetPassword.setRoundTopRight(30);
+        btn_resetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_resetPasswordMouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -521,8 +538,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         if (user_list.getColumnModel().getColumnCount() > 0) {
             user_list.getColumnModel().getColumn(0).setResizable(false);
+            user_list.getColumnModel().getColumn(0).setPreferredWidth(10);
             user_list.getColumnModel().getColumn(1).setResizable(false);
             user_list.getColumnModel().getColumn(2).setResizable(false);
+            user_list.getColumnModel().getColumn(2).setPreferredWidth(800);
         }
 
         jTabbedPane1.addTab("tab1", user_tab);
@@ -580,6 +599,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_addMenu.setRoundBottomRight(30);
         btn_addMenu.setRoundTopLeft(30);
         btn_addMenu.setRoundTopRight(30);
+        btn_addMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_addMenuMouseClicked(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -603,6 +627,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_editMenu.setRoundBottomRight(30);
         btn_editMenu.setRoundTopLeft(30);
         btn_editMenu.setRoundTopRight(30);
+        btn_editMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editMenuMouseClicked(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -680,9 +709,12 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         if (user_list1.getColumnModel().getColumnCount() > 0) {
             user_list1.getColumnModel().getColumn(0).setResizable(false);
+            user_list1.getColumnModel().getColumn(0).setPreferredWidth(10);
             user_list1.getColumnModel().getColumn(1).setResizable(false);
             user_list1.getColumnModel().getColumn(2).setResizable(false);
+            user_list1.getColumnModel().getColumn(2).setPreferredWidth(800);
             user_list1.getColumnModel().getColumn(3).setResizable(false);
+            user_list1.getColumnModel().getColumn(3).setHeaderValue("Status");
         }
 
         jTabbedPane1.addTab("tab1", menu_tab);
@@ -703,6 +735,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_editPayment.setRoundBottomRight(30);
         btn_editPayment.setRoundTopLeft(30);
         btn_editPayment.setRoundTopRight(30);
+        btn_editPayment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editPaymentMouseClicked(evt);
+            }
+        });
 
         jLabel30.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
@@ -729,10 +766,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel33.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         jLabel33.setText("Gcash Number : ");
 
-        gcashNumber.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
-
-        gcashAvailability.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
-
         gcash_qr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gcash_qr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/qr.jpg"))); // NOI18N
 
@@ -740,22 +773,22 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 516, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(gcash_qr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(gcash_qr, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 506, Short.MAX_VALUE)
+            .addGap(0, 563, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(gcash_qr)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(gcash_qr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
         );
+
+        gcash_availability.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        gcash_availability.setText("AVAILABLE");
+
+        gcash_number.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        gcash_number.setText("09294422127");
 
         javax.swing.GroupLayout payment_tabLayout = new javax.swing.GroupLayout(payment_tab);
         payment_tab.setLayout(payment_tabLayout);
@@ -769,11 +802,11 @@ public class admin_dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gcashNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gcashAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(gcash_availability, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gcash_number, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(248, 248, 248))
+                        .addGap(185, 185, 185))
                     .addGroup(payment_tabLayout.createSequentialGroup()
                         .addGroup(payment_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -793,14 +826,14 @@ public class admin_dashboard extends javax.swing.JFrame {
                         .addComponent(jLabel31)
                         .addGap(106, 106, 106)
                         .addComponent(jLabel33)
-                        .addGap(48, 48, 48)
-                        .addComponent(gcashNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
+                        .addGap(55, 55, 55)
+                        .addComponent(gcash_number)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel32)
-                        .addGap(49, 49, 49)
-                        .addComponent(gcashAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addComponent(gcash_availability))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97)
+                .addGap(43, 43, 43)
                 .addComponent(btn_editPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(125, Short.MAX_VALUE))
         );
@@ -817,20 +850,20 @@ public class admin_dashboard extends javax.swing.JFrame {
         jSeparator4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jSeparator4.setPreferredSize(new java.awt.Dimension(0, 5));
 
-        user_list3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        user_list3.setModel(new javax.swing.table.DefaultTableModel(
+        e_receipt_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        e_receipt_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"001", "testing product name",  new Float(1.0), "Available"},
+                { new Integer(123456), "table1",  new Float(799.0), "Gcash"},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Product ID", "Product Name", "Price", "Status"
+                "Order Receipt", "Username", "Total Amount", "Payment Method"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -844,82 +877,36 @@ public class admin_dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        user_list3.setGridColor(new java.awt.Color(230, 0, 0));
-        user_list3.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        user_list3.setRowHeight(80);
-        user_list3.setSelectionBackground(new java.awt.Color(255, 171, 171));
-        user_list3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        user_list3.setShowVerticalLines(false);
-        user_list3.setSurrendersFocusOnKeystroke(true);
-        user_list3.getTableHeader().setResizingAllowed(false);
-        user_list3.getTableHeader().setReorderingAllowed(false);
+        e_receipt_list.setGridColor(new java.awt.Color(230, 0, 0));
+        e_receipt_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        e_receipt_list.setRowHeight(80);
+        e_receipt_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
+        e_receipt_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        e_receipt_list.setShowVerticalLines(false);
+        e_receipt_list.setSurrendersFocusOnKeystroke(true);
+        e_receipt_list.getTableHeader().setResizingAllowed(false);
+        e_receipt_list.getTableHeader().setReorderingAllowed(false);
 
-        btn_addMenu2.setBackground(new java.awt.Color(255, 0, 0));
-        btn_addMenu2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_addMenu2.setRoundBottomLeft(30);
-        btn_addMenu2.setRoundBottomRight(30);
-        btn_addMenu2.setRoundTopLeft(30);
-        btn_addMenu2.setRoundTopRight(30);
-
-        jLabel24.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Add");
-
-        javax.swing.GroupLayout btn_addMenu2Layout = new javax.swing.GroupLayout(btn_addMenu2);
-        btn_addMenu2.setLayout(btn_addMenu2Layout);
-        btn_addMenu2Layout.setHorizontalGroup(
-            btn_addMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        btn_addMenu2Layout.setVerticalGroup(
-            btn_addMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-        );
-
-        btn_editMenu2.setBackground(new java.awt.Color(255, 0, 0));
-        btn_editMenu2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_editMenu2.setRoundBottomLeft(30);
-        btn_editMenu2.setRoundBottomRight(30);
-        btn_editMenu2.setRoundTopLeft(30);
-        btn_editMenu2.setRoundTopRight(30);
-
-        jLabel25.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Edit");
-
-        javax.swing.GroupLayout btn_editMenu2Layout = new javax.swing.GroupLayout(btn_editMenu2);
-        btn_editMenu2.setLayout(btn_editMenu2Layout);
-        btn_editMenu2Layout.setHorizontalGroup(
-            btn_editMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        btn_editMenu2Layout.setVerticalGroup(
-            btn_editMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-        );
-
-        btn_deleteMenu2.setBackground(new java.awt.Color(255, 0, 0));
-        btn_deleteMenu2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_deleteMenu2.setRoundBottomLeft(30);
-        btn_deleteMenu2.setRoundBottomRight(30);
-        btn_deleteMenu2.setRoundTopLeft(30);
-        btn_deleteMenu2.setRoundTopRight(30);
+        btn_viewReceipt.setBackground(new java.awt.Color(255, 0, 0));
+        btn_viewReceipt.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewReceipt.setRoundBottomLeft(30);
+        btn_viewReceipt.setRoundBottomRight(30);
+        btn_viewReceipt.setRoundTopLeft(30);
+        btn_viewReceipt.setRoundTopRight(30);
 
         jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("Delete");
+        jLabel26.setText("View");
 
-        javax.swing.GroupLayout btn_deleteMenu2Layout = new javax.swing.GroupLayout(btn_deleteMenu2);
-        btn_deleteMenu2.setLayout(btn_deleteMenu2Layout);
-        btn_deleteMenu2Layout.setHorizontalGroup(
-            btn_deleteMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btn_viewReceiptLayout = new javax.swing.GroupLayout(btn_viewReceipt);
+        btn_viewReceipt.setLayout(btn_viewReceiptLayout);
+        btn_viewReceiptLayout.setHorizontalGroup(
+            btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        btn_deleteMenu2Layout.setVerticalGroup(
-            btn_deleteMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_viewReceiptLayout.setVerticalGroup(
+            btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
@@ -930,16 +917,11 @@ public class admin_dashboard extends javax.swing.JFrame {
             .addGroup(e_receipts_tabLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(e_receipts_tabLayout.createSequentialGroup()
-                        .addComponent(btn_addMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_editMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_deleteMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_viewReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(user_list3, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(e_receipt_list, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         e_receipts_tabLayout.setVerticalGroup(
@@ -949,20 +931,20 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(user_list3, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(e_receipt_list, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_addMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_editMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_deleteMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btn_viewReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        if (user_list3.getColumnModel().getColumnCount() > 0) {
-            user_list3.getColumnModel().getColumn(0).setResizable(false);
-            user_list3.getColumnModel().getColumn(1).setResizable(false);
-            user_list3.getColumnModel().getColumn(2).setResizable(false);
-            user_list3.getColumnModel().getColumn(3).setResizable(false);
+        if (e_receipt_list.getColumnModel().getColumnCount() > 0) {
+            e_receipt_list.getColumnModel().getColumn(0).setResizable(false);
+            e_receipt_list.getColumnModel().getColumn(0).setPreferredWidth(10);
+            e_receipt_list.getColumnModel().getColumn(1).setResizable(false);
+            e_receipt_list.getColumnModel().getColumn(2).setResizable(false);
+            e_receipt_list.getColumnModel().getColumn(2).setPreferredWidth(800);
+            e_receipt_list.getColumnModel().getColumn(3).setResizable(false);
+            e_receipt_list.getColumnModel().getColumn(3).setHeaderValue("Status");
         }
 
         jTabbedPane1.addTab("tab1", e_receipts_tab);
@@ -970,7 +952,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_reports_tab.setOpaque(false);
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabel18.setText("MENU MANAGEMENT");
+        jLabel18.setText("LOG REPORTS");
 
         jSeparator3.setBackground(new java.awt.Color(255, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(255, 0, 0));
@@ -980,20 +962,20 @@ public class admin_dashboard extends javax.swing.JFrame {
         user_list2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         user_list2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"001", "testing product name",  new Float(1.0), "Available"},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"timstamp", "table1", "log in"},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Product ID", "Product Name", "Price", "Status"
+                "Time", "Username", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1120,9 +1102,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         if (user_list2.getColumnModel().getColumnCount() > 0) {
             user_list2.getColumnModel().getColumn(0).setResizable(false);
+            user_list2.getColumnModel().getColumn(0).setPreferredWidth(10);
             user_list2.getColumnModel().getColumn(1).setResizable(false);
             user_list2.getColumnModel().getColumn(2).setResizable(false);
-            user_list2.getColumnModel().getColumn(3).setResizable(false);
+            user_list2.getColumnModel().getColumn(2).setPreferredWidth(800);
         }
 
         jTabbedPane1.addTab("tab1", log_reports_tab);
@@ -1235,6 +1218,40 @@ public class admin_dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_log_reportsMouseReleased
 
+    private void btn_addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addUserMouseClicked
+        index = 0;
+        userModal.setVisible(true);
+        userModal.selectTab(index);
+    }//GEN-LAST:event_btn_addUserMouseClicked
+
+    private void btn_editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editUserMouseClicked
+        index = 1;
+        userModal.setVisible(true);
+        userModal.selectTab(index);
+    }//GEN-LAST:event_btn_editUserMouseClicked
+
+    private void btn_resetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetPasswordMouseClicked
+        index = 2;
+        userModal.setVisible(true);
+        userModal.selectTab(index);
+    }//GEN-LAST:event_btn_resetPasswordMouseClicked
+
+    private void btn_addMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMenuMouseClicked
+        index = 0;
+        menuModal.setVisible(true);
+        menuModal.selectTab(index);
+    }//GEN-LAST:event_btn_addMenuMouseClicked
+
+    private void btn_editMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMenuMouseClicked
+        index = 1;
+        menuModal.setVisible(true);
+        menuModal.selectTab(index);
+    }//GEN-LAST:event_btn_editMenuMouseClicked
+
+    private void btn_editPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editPaymentMouseClicked
+        paymentModal.setVisible(true);
+    }//GEN-LAST:event_btn_editPaymentMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1275,23 +1292,22 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private roundPanel btn_addMenu;
     private roundPanel btn_addMenu1;
-    private roundPanel btn_addMenu2;
     private roundPanel btn_addUser;
     private roundPanel btn_addUser3;
     private roundPanel btn_deleteMenu;
     private roundPanel btn_deleteMenu1;
-    private roundPanel btn_deleteMenu2;
     private roundPanel btn_deleteUser;
     private roundPanel btn_editMenu;
     private roundPanel btn_editMenu1;
-    private roundPanel btn_editMenu2;
     private roundPanel btn_editPayment;
     private roundPanel btn_editUser;
     private roundPanel btn_resetPassword;
+    private roundPanel btn_viewReceipt;
+    private javax.swing.JTable e_receipt_list;
     private javax.swing.JPanel e_receipts;
     private javax.swing.JPanel e_receipts_tab;
-    private javax.swing.JTextField gcashAvailability;
-    private javax.swing.JTextField gcashNumber;
+    private javax.swing.JLabel gcash_availability;
+    private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1309,8 +1325,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
@@ -1345,7 +1359,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JTable user_list;
     private javax.swing.JTable user_list1;
     private javax.swing.JTable user_list2;
-    private javax.swing.JTable user_list3;
     private javax.swing.JPanel user_tab;
     // End of variables declaration//GEN-END:variables
 }
