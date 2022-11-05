@@ -56,7 +56,7 @@ public class DatabaseConnection {
         return connection;
     }
     
-    public static  void disconnect(ResultSet rs, PreparedStatement stat, Connection cn) throws RemoteException{
+    public static  void disconnect(ResultSet rs, PreparedStatement stat, Connection cn){
         try{
         if(rs!=null) rs.close();
         }catch(SQLException sqlEx){
@@ -74,7 +74,7 @@ public class DatabaseConnection {
         }
     }
     
-     public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no) throws RemoteException {
+     public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no)  {
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -108,7 +108,7 @@ public class DatabaseConnection {
         
     }
      
-     public String returnTotalAmountByTable(String table_no) throws RemoteException{
+     public String returnTotalAmountByTable(String table_no) {
         Connection connection = null;
         String total_amount = null;
         try{
@@ -123,7 +123,7 @@ public class DatabaseConnection {
             while(resultSet.next()){
                    total_amount = resultSet.getString(1);
             }}
-            disconnect(resultSet, preparedStatement, connection);
+        disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +175,7 @@ public class DatabaseConnection {
         }
          return user_id;
      }
-    public ArrayList<Order> retrieveOrderListQueue() throws RemoteException{
+    public ArrayList<Order> retrieveOrderListQueue() {
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -201,7 +201,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-        public ArrayList<Order> retrieveOrderBreakdownUsingOrderID(String order_id) throws RemoteException{
+        public ArrayList<Order> retrieveOrderBreakdownUsingOrderID(String order_id) {
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -227,7 +227,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
         
-     public void updateOrderStatusByOrderID(String order_status, String user_id, String order_id) throws RemoteException{
+     public void updateOrderStatusByOrderID(String order_status, String user_id, String order_id) {
          Connection connection = null;
         try{
         connection = getConnection();
@@ -244,7 +244,7 @@ public class DatabaseConnection {
         }
      }
      
-     public ArrayList<Product> retrieveProductsAccordingToCategory(String product_category) throws RemoteException{
+     public ArrayList<Product> retrieveProductsAccordingToCategory(String product_category) {
         Connection connection = null;
         ArrayList<Product> orderArrayList = new ArrayList<>();
         try{
@@ -272,7 +272,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-     public ArrayList<Product> retrieveAllProducts() throws RemoteException{
+     public ArrayList<Product> retrieveAllProducts() {
         Connection connection = null;
         ArrayList<Product> orderArrayList = new ArrayList<>();
         try{
@@ -298,7 +298,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-     public void updateGCashPayment(String amount, String referenceno, String table_no) throws RemoteException{
+     public void updateGCashPayment(String amount, String referenceno, String table_no) {
         Connection connection = null;
         try{
         connection = getConnection();
@@ -314,7 +314,7 @@ public class DatabaseConnection {
         }
      }
      
-     public void updatePaidOrder(String table_no) throws RemoteException{
+     public void updatePaidOrder(String table_no) {
           Connection connection = null;
         try{
         connection = getConnection();
@@ -328,7 +328,7 @@ public class DatabaseConnection {
         }
      }
      
-     public ArrayList<Payment> notifyCashierOfPayments() throws RemoteException{
+     public ArrayList<Payment> notifyCashierOfPayments() {
         Connection connection = null;
         ArrayList<Payment> payments = new ArrayList<>();
         try{
