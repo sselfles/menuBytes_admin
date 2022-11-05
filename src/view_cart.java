@@ -492,6 +492,11 @@ public class view_cart extends javax.swing.JFrame {
         gcash_received.setText("Received");
         gcash_received.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         gcash_received.setOpaque(false);
+        gcash_received.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gcash_receivedMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout gcash_payment_infoLayout = new javax.swing.GroupLayout(gcash_payment_info);
         gcash_payment_info.setLayout(gcash_payment_infoLayout);
@@ -708,6 +713,14 @@ public class view_cart extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(1);
         setSubtotal("COMPLETED");
     }//GEN-LAST:event_btn_completed_ordersMouseClicked
+
+    private void gcash_receivedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gcash_receivedMouseClicked
+        // TODO add your handling code here:
+        String amount = this.amount.getText().toString();
+        String reference_no = this.ref_number.getText().toString();
+        DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
+        DatabaseConnection.getInstance().updatePaidOrder(table_no);
+    }//GEN-LAST:event_gcash_receivedMouseClicked
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

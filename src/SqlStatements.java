@@ -38,9 +38,9 @@ public class SqlStatements {
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = order_items.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.user_id = orders.user_id\n" +
-"WHERE order_status = (?) AND orders.created_by = (?) AND DATE(orders.created_at) = curdate() AND order_status.order_status != \"REJECTED\" \n" +
-"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\"); ";
+"payment ON payment.created_by = orders.created_by \n" +
+"WHERE order_status.order_status=(?) AND orders.created_by = (?) \n" +
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
     
     //REVISE:DONE
     private String returnTotalAmountByTable ="SELECT \n" +
@@ -49,8 +49,9 @@ public class SqlStatements {
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.user_id = orders.user_id\n" +
-"WHERE orders.created_by = (?) AND order_status.order_status != \"REJECTED\" \n" +
+"payment ON payment.created_by = orders.created_by \n" +
+"WHERE order_status != \"REJECTED\" \n" +
+"AND orders.created_by = (?) \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "AND DATE(orders.created_at) = curdate(); ";
     
@@ -66,12 +67,14 @@ public class SqlStatements {
 "AS orderitems ON orderitems.order_id = orders.order_id\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
+"INNER JOIN\n" +
+"user on user.user_id = user.user_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.user_id = orders.user_id\n" +
-"WHERE DATE(orders.created_at) = curdate()\n" +
-"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
-"AND (order_status.order_status = \"PENDING\" or order_status.order_status = \"ACCEPTED\")\n" +
-"; ";
+"payment ON payment.created_by = orders.created_by\n" +
+"WHERE order_status != \"REJECTED\" AND order_status != \"COMPLETED\"\n" +
+"AND EXISTS (SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
+"AND DATE(orders.created_at) = curdate() \n" +
+"GROUP BY orders.order_id;";
     
     private String retrieveOrderBreakdownUsingOrderID = "SELECT order_items.order_id, order_items.quantity, "
             + "IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name) AS name\n" +
@@ -81,10 +84,9 @@ public class SqlStatements {
 "INNER JOIN\n" +
 "orders ON order_items.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.user_id = orders.user_id\n" +
-"WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
-"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
-"; ";
+"payment ON payment.created_by = orders.created_by\n" +
+" WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
 
     private String updateOrderStatusByOrderID = "UPDATE order_status\n" +
 "SET order_status = (?),\n" +
@@ -109,6 +111,48 @@ public class SqlStatements {
 "IF((product.product_bundle IS NULL),product.product_price,product.product_bundle) AS price,product.product_availability\n" +
 "FROM product\n" +
 "ORDER BY product_id;";
+    
+    private String updateGCashPayment = "UPDATE payment\n" +
+"SET \n" +
+"created_by = concat(created_by, \"_\") ,\n" +
+"payment_status = \"COMPLETE\",\n" +
+"payment_amount = (?),\n" +
+"remarks = (?),\n" +
+"completed_at = current_timestamp()\n" +
+"WHERE \n" +
+"created_by = (?) and payment_status = \"PENDING\";";
+    
+    private String updatePaidOrder = "UPDATE orders\n" +
+"SET \n" +
+"created_by = concat(created_by, \"_\") ,\n" +
+"modified_at = current_timestamp()\n" +
+"WHERE \n" +
+"created_by = (?);";
+    
+    private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, SUM(orders.total), payment.payment_status\n" +
+"FROM\n" +
+"payment\n" +
+"INNER JOIN orders ON orders.created_by = payment.created_by\n" +
+"INNER JOIN order_status ON orders.order_id = order_status.order_id\n" +
+"WHERE payment.payment_status = \"PENDING\"\n" +
+"AND order_status.order_status != \"REJECTED\";";
+
+    public String getNotifyCashierOfPayments() {
+        return notifyCashierOfPayments;
+    }
+    
+    
+
+    public String getUpdatePaidOrder() {
+        return updatePaidOrder;
+    }
+    
+    
+
+    public String getUpdateGCashPayment() {
+        return updateGCashPayment;
+    }
+    
 
     public String getRetrieveAllProducts() {
         return retrieveAllProducts;

@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -51,12 +54,25 @@ public class dashboard extends javax.swing.JFrame {
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         this.user_id = user_id;
-        addTotalAmountToTable1();
+        
+        
+        Runnable refreshDatas = new Runnable() {
+        public void run() {
+            addTotalAmountToTable1();
         addTotalAmountToTable2();   
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
+        notifyCashierOfPayments();
+            System.out.println("refreshed");
+        }
+        };
+        
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
     }
 
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -265,27 +281,17 @@ public class dashboard extends javax.swing.JFrame {
         notification_table.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         notification_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Notifications"
+                "Table No.", "Method ", "Total", "P. Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1396,10 +1402,16 @@ public class dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
      public void addTotalAmountToTable1(){
-        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_1");
+        String total_amount = null;
+        total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_1");
+        
         if(total_amount != null){
             txtTotalAmountTable1.setText(total_amount);
         }
+        else{
+            txtTotalAmountTable1.setText("0.00");
+        }
+       
     }
     
      public void addTotalAmountToTable2(){
@@ -1408,6 +1420,25 @@ public class dashboard extends javax.swing.JFrame {
             txtTotalAmountTable2.setText(total_amount);
         }
     }
+    
+    public void notifyCashierOfPayments(){
+        ArrayList<Payment> payments = new ArrayList<Payment>();
+        payments = DatabaseConnection.getInstance().notifyCashierOfPayments();
+        
+        DefaultTableModel model = (DefaultTableModel)notification_table.getModel();
+        model.setRowCount(0);
+        if(!payments.isEmpty()){
+        Object rowData[] = new Object[4];
+        for(int position = 0; position < payments.size(); position++){
+            rowData[0] = payments.get(position).getTable_no();
+            rowData[1] = payments.get(position).getPayment_method();
+            rowData[2] = payments.get(position).getTotal_amount();
+            rowData[3] = payments.get(position).getStatus();
+            model.addRow(rowData);
+        }
+        }
+    }
+     
      
     public ArrayList orderListQueue(){
         ArrayList<Order> orderListQueue = new ArrayList<Order>();
@@ -1770,4 +1801,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton view_cart3;
     private javax.swing.JButton view_cart4;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -1,4 +1,5 @@
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,17 +48,33 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://aws-simplified.ccnp1cnd7apy.ap-northeast-1.rds.amazonaws.com:3306/menubytes",
-                    "admin", "P0Y9aixM7jUZr6Cg");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
+                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
         return connection;
     }
     
+    public static  void disconnect(ResultSet rs, PreparedStatement stat, Connection cn) throws RemoteException{
+        try{
+        if(rs!=null) rs.close();
+        }catch(SQLException sqlEx){
+            System.out.println("Error: disconnect1");
+        }
+        try{
+        if(stat!=null) stat.close();
+        }catch(SQLException sqlEx){
+            System.out.println("Error: disconnect1");
+        }
+        try{
+        if(cn!=null) cn.close();
+        }catch(SQLException sqlEx){
+            System.out.println("Error: disconnect1");
+        }
+    }
     
-    
-     public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no) {
+     public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no) throws RemoteException {
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -82,14 +99,16 @@ public class DatabaseConnection {
                               resultSet.getString(7),
                               resultSet.getString(8)));
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orderArrayList;
+        
     }
      
-     public String returnTotalAmountByTable(String table_no){
+     public String returnTotalAmountByTable(String table_no) throws RemoteException{
         Connection connection = null;
         String total_amount = null;
         try{
@@ -104,6 +123,7 @@ public class DatabaseConnection {
             while(resultSet.next()){
                    total_amount = resultSet.getString(1);
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,7 +175,7 @@ public class DatabaseConnection {
         }
          return user_id;
      }
-    public ArrayList<Order> retrieveOrderListQueue(){
+    public ArrayList<Order> retrieveOrderListQueue() throws RemoteException{
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -173,6 +193,7 @@ public class DatabaseConnection {
                               resultSet.getString(3), 
                               resultSet.getString(4)));
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +201,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-        public ArrayList<Order> retrieveOrderBreakdownUsingOrderID(String order_id){
+        public ArrayList<Order> retrieveOrderBreakdownUsingOrderID(String order_id) throws RemoteException{
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
@@ -198,6 +219,7 @@ public class DatabaseConnection {
                               resultSet.getString(2), 
                               resultSet.getString(3)));
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,7 +227,7 @@ public class DatabaseConnection {
         return orderArrayList;
      }
         
-     public void updateOrderStatusByOrderID(String order_status, String user_id, String order_id){
+     public void updateOrderStatusByOrderID(String order_status, String user_id, String order_id) throws RemoteException{
          Connection connection = null;
         try{
         connection = getConnection();
@@ -215,13 +237,14 @@ public class DatabaseConnection {
         preparedStatement.setInt(3, Integer.valueOf(user_id));
         preparedStatement.setInt(4, Integer.valueOf(order_id));
         preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
      
-     public ArrayList<Product> retrieveProductsAccordingToCategory(String product_category){
+     public ArrayList<Product> retrieveProductsAccordingToCategory(String product_category) throws RemoteException{
         Connection connection = null;
         ArrayList<Product> orderArrayList = new ArrayList<>();
         try{
@@ -241,6 +264,7 @@ public class DatabaseConnection {
                               resultSet.getString(3), 
                               resultSet.getString(4)));
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,8 +272,8 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-     public ArrayList<Product> retrieveAllProducts(){
-                 Connection connection = null;
+     public ArrayList<Product> retrieveAllProducts() throws RemoteException{
+        Connection connection = null;
         ArrayList<Product> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
@@ -266,11 +290,67 @@ public class DatabaseConnection {
                               resultSet.getString(3), 
                               resultSet.getString(4)));
             }}
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orderArrayList;
-         
      }
-}
+     
+     public void updateGCashPayment(String amount, String referenceno, String table_no) throws RemoteException{
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateGCashPayment()); 
+        preparedStatement.setDouble(1, Double.valueOf(amount));
+        preparedStatement.setString(2, referenceno);
+        preparedStatement.setString(3, table_no);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     public void updatePaidOrder(String table_no) throws RemoteException{
+          Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdatePaidOrder()); 
+        preparedStatement.setString(1, table_no);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     public ArrayList<Payment> notifyCashierOfPayments() throws RemoteException{
+        Connection connection = null;
+        ArrayList<Payment> payments = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getNotifyCashierOfPayments()); 
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              payments.add(new Payment(
+                              resultSet.getString(1), 
+                              resultSet.getString(2), 
+                              resultSet.getString(3),
+                              resultSet.getString(4)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
+     }
+ }
