@@ -2,6 +2,10 @@
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileFilter;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +22,8 @@ public class payment_modal extends javax.swing.JFrame {
     /**
      * Creates new form payment_modal
      */
+    JFileChooser chooser = new JFileChooser();
+    
     public payment_modal() {
         initComponents();
     }
@@ -45,7 +51,7 @@ public class payment_modal extends javax.swing.JFrame {
         txt_productName = new javax.swing.JTextField();
         roundPanel3 = new roundPanel();
         jLabel19 = new javax.swing.JLabel();
-        file_name1 = new javax.swing.JLabel();
+        file_name = new javax.swing.JLabel();
         btn_upload = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         toggle_availability = new javax.swing.JToggleButton();
@@ -105,13 +111,18 @@ public class payment_modal extends javax.swing.JFrame {
             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
-        file_name1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        file_name1.setText("-");
+        file_name.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        file_name.setText("-");
 
         btn_upload.setBackground(new java.awt.Color(255, 0, 0));
         btn_upload.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btn_upload.setForeground(new java.awt.Color(255, 255, 255));
-        btn_upload.setText("Upload");
+        btn_upload.setText("Upload Image");
+        btn_upload.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_uploadMouseClicked(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel20.setText("Availability :");
@@ -142,11 +153,11 @@ public class payment_modal extends javax.swing.JFrame {
                         .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(toggle_availability, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(edit_productLayout.createSequentialGroup()
-                                    .addComponent(file_name1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                                    .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txt_productName, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, edit_productLayout.createSequentialGroup()
+                                    .addComponent(file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btn_upload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txt_productName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))))
                     .addGroup(edit_productLayout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,7 +182,7 @@ public class payment_modal extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(file_name1)
+                    .addComponent(file_name)
                     .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
                 .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,6 +213,16 @@ public class payment_modal extends javax.swing.JFrame {
             toggle_availability.setText("UNAVAILABLE");
         }
     }//GEN-LAST:event_toggle_availabilityMouseClicked
+
+    private void btn_uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_uploadMouseClicked
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+        chooser.showOpenDialog(null);
+        File file = chooser.getSelectedFile();
+        String fileName = file.getName();
+        
+        file_name.setText(fileName);
+    }//GEN-LAST:event_btn_uploadMouseClicked
 
     /**
      * @param args the command line arguments
@@ -241,7 +262,7 @@ public class payment_modal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_upload;
     private javax.swing.JPanel edit_product;
-    private javax.swing.JLabel file_name1;
+    private javax.swing.JLabel file_name;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;

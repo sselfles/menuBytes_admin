@@ -142,7 +142,7 @@ public class login extends javax.swing.JFrame {
     
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-//        String username = txtUsername.getText();
+        String username = txtUsername.getText();
 //        String password = txtPassword.getText();
 //        
 //        if(username.equals("") || password.equals("")){
@@ -150,9 +150,20 @@ public class login extends javax.swing.JFrame {
 //        }else{
 //            validateCredentials(username, password);
 //        }
-        dashboard db = new dashboard("1");
-                db.setVisible(true);
-                close();
+
+        if(username.equals("cashier")){
+            System.out.print("cashier loggin in.");
+            dashboard db = new dashboard("1");
+            db.setVisible(true);
+            close();
+        }
+        if(username.equals("admin")){
+            System.out.print("admin loggin in.");
+            admin_dashboard db = new admin_dashboard();
+            db.setVisible(true);
+            close();
+        }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed

@@ -46,18 +46,23 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         account_management = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        e_receipts = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        logout = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        menu_management = new javax.swing.JPanel();
+        product_management = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         payment_settings = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        log_reports = new javax.swing.JPanel();
+        reports = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        sales_reports = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        transactions = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        log_reports = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        logout = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         user_tab = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -71,7 +76,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btn_deleteUser = new roundPanel();
         jLabel14 = new javax.swing.JLabel();
-        menu_tab = new javax.swing.JPanel();
+        product_tab = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         user_list1 = new javax.swing.JTable();
@@ -93,22 +98,55 @@ public class admin_dashboard extends javax.swing.JFrame {
         gcash_qr = new javax.swing.JLabel();
         gcash_availability = new javax.swing.JLabel();
         gcash_number = new javax.swing.JLabel();
-        e_receipts_tab = new javax.swing.JPanel();
+        sales_reports_tab = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        e_receipt_list = new javax.swing.JTable();
+        sales_report_list = new javax.swing.JTable();
         btn_viewReceipt = new roundPanel();
         jLabel26 = new javax.swing.JLabel();
-        log_reports_tab = new javax.swing.JPanel();
+        cmb_sales = new javax.swing.JComboBox<>();
+        jPanel6 = new javax.swing.JPanel();
+        sales_tabbedPane = new javax.swing.JTabbedPane();
+        daily_weekly_tab = new javax.swing.JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        monthly_tab = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        user_list2 = new javax.swing.JTable();
-        btn_addMenu1 = new roundPanel();
-        jLabel20 = new javax.swing.JLabel();
-        btn_editMenu1 = new roundPanel();
-        jLabel21 = new javax.swing.JLabel();
-        btn_deleteMenu1 = new roundPanel();
+        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
+        jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
+        transactions_tab = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        transaction_list = new javax.swing.JTable();
+        btn_viewReceipt2 = new roundPanel();
+        jLabel34 = new javax.swing.JLabel();
+        cmb_transactions = new javax.swing.JComboBox<>();
+        jPanel8 = new javax.swing.JPanel();
+        transactions_tabbedPane = new javax.swing.JTabbedPane();
+        daily_weekly_tab2 = new javax.swing.JPanel();
+        jDateChooser5 = new com.toedter.calendar.JDateChooser();
+        jDateChooser6 = new com.toedter.calendar.JDateChooser();
         jLabel22 = new javax.swing.JLabel();
+        monthly_tab2 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jMonthChooser5 = new com.toedter.calendar.JMonthChooser();
+        jMonthChooser6 = new com.toedter.calendar.JMonthChooser();
+        log_reports_tab = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        log_reports_list = new javax.swing.JTable();
+        cmb_log_reports = new javax.swing.JComboBox<>();
+        jPanel7 = new javax.swing.JPanel();
+        log_tabbedPAne = new javax.swing.JTabbedPane();
+        daily_weekly_tab1 = new javax.swing.JPanel();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jDateChooser4 = new com.toedter.calendar.JDateChooser();
+        jLabel20 = new javax.swing.JLabel();
+        monthly_tab1 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jMonthChooser3 = new com.toedter.calendar.JMonthChooser();
+        jMonthChooser4 = new com.toedter.calendar.JMonthChooser();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -154,99 +192,37 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         sidePane.add(account_management, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 360, 70));
 
-        e_receipts.setBackground(new java.awt.Color(227, 0, 0));
-        e_receipts.addMouseListener(new java.awt.event.MouseAdapter() {
+        product_management.setBackground(new java.awt.Color(227, 0, 0));
+        product_management.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                e_receiptsMouseClicked(evt);
+                product_managementMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                e_receiptsMousePressed(evt);
+                product_managementMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                e_receiptsMouseReleased(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("E-Receipts");
-
-        javax.swing.GroupLayout e_receiptsLayout = new javax.swing.GroupLayout(e_receipts);
-        e_receipts.setLayout(e_receiptsLayout);
-        e_receiptsLayout.setHorizontalGroup(
-            e_receiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, e_receiptsLayout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        e_receiptsLayout.setVerticalGroup(
-            e_receiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-
-        sidePane.add(e_receipts, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 360, 70));
-
-        logout.setBackground(new java.awt.Color(227, 0, 0));
-        logout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                logoutMousePressed(evt);
-            }
-        });
-
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_logo.png"))); // NOI18N
-        jLabel13.setText("        Logout");
-
-        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
-        logout.setLayout(logoutLayout);
-        logoutLayout.setHorizontalGroup(
-            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
-                .addGap(0, 44, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        logoutLayout.setVerticalGroup(
-            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        sidePane.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 930, 360, 70));
-
-        menu_management.setBackground(new java.awt.Color(227, 0, 0));
-        menu_management.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menu_managementMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                menu_managementMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                menu_managementMouseReleased(evt);
+                product_managementMouseReleased(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Menu Management");
+        jLabel4.setText("Product Management");
 
-        javax.swing.GroupLayout menu_managementLayout = new javax.swing.GroupLayout(menu_management);
-        menu_management.setLayout(menu_managementLayout);
-        menu_managementLayout.setHorizontalGroup(
-            menu_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menu_managementLayout.createSequentialGroup()
+        javax.swing.GroupLayout product_managementLayout = new javax.swing.GroupLayout(product_management);
+        product_management.setLayout(product_managementLayout);
+        product_managementLayout.setHorizontalGroup(
+            product_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, product_managementLayout.createSequentialGroup()
                 .addGap(0, 43, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        menu_managementLayout.setVerticalGroup(
-            menu_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        product_managementLayout.setVerticalGroup(
+            product_managementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(menu_management, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 360, 70));
+        sidePane.add(product_management, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 360, 70));
 
         payment_settings.setBackground(new java.awt.Color(227, 0, 0));
         payment_settings.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,6 +256,102 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         sidePane.add(payment_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 360, 70));
 
+        reports.setBackground(new java.awt.Color(227, 0, 0));
+        reports.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportsMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                reportsMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                reportsMouseReleased(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Reports");
+
+        javax.swing.GroupLayout reportsLayout = new javax.swing.GroupLayout(reports);
+        reports.setLayout(reportsLayout);
+        reportsLayout.setHorizontalGroup(
+            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportsLayout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        reportsLayout.setVerticalGroup(
+            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        sidePane.add(reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 360, 70));
+
+        sales_reports.setBackground(new java.awt.Color(227, 0, 0));
+        sales_reports.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sales_reportsMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                sales_reportsMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                sales_reportsMouseReleased(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Sales Reports");
+
+        javax.swing.GroupLayout sales_reportsLayout = new javax.swing.GroupLayout(sales_reports);
+        sales_reports.setLayout(sales_reportsLayout);
+        sales_reportsLayout.setHorizontalGroup(
+            sales_reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sales_reportsLayout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        sales_reportsLayout.setVerticalGroup(
+            sales_reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        sidePane.add(sales_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 360, 70));
+
+        transactions.setBackground(new java.awt.Color(227, 0, 0));
+        transactions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transactionsMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                transactionsMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                transactionsMouseReleased(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Transactions");
+
+        javax.swing.GroupLayout transactionsLayout = new javax.swing.GroupLayout(transactions);
+        transactions.setLayout(transactionsLayout);
+        transactionsLayout.setHorizontalGroup(
+            transactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, transactionsLayout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        transactionsLayout.setVerticalGroup(
+            transactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        sidePane.add(transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 360, 70));
+
         log_reports.setBackground(new java.awt.Color(227, 0, 0));
         log_reports.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -293,9 +365,9 @@ public class admin_dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Log Reports");
+        jLabel24.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Log Reports");
 
         javax.swing.GroupLayout log_reportsLayout = new javax.swing.GroupLayout(log_reports);
         log_reports.setLayout(log_reportsLayout);
@@ -303,14 +375,44 @@ public class admin_dashboard extends javax.swing.JFrame {
             log_reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, log_reportsLayout.createSequentialGroup()
                 .addGap(0, 43, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         log_reportsLayout.setVerticalGroup(
             log_reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 360, 70));
+        sidePane.add(log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 360, 70));
+
+        logout.setBackground(new java.awt.Color(227, 0, 0));
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                logoutMousePressed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_logo.png"))); // NOI18N
+        jLabel13.setText("        Logout");
+
+        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
+        logout.setLayout(logoutLayout);
+        logoutLayout.setHorizontalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
+                .addGap(0, 44, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        logoutLayout.setVerticalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        sidePane.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 930, 360, 70));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 1020));
 
@@ -331,15 +433,38 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1920, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1920, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1920, 10));
@@ -546,10 +671,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab1", user_tab);
 
-        menu_tab.setOpaque(false);
+        product_tab.setOpaque(false);
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabel15.setText("MENU MANAGEMENT");
+        jLabel15.setText("PRODUCT MANAGEMENT");
 
         jSeparator2.setBackground(new java.awt.Color(255, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(255, 0, 0));
@@ -672,35 +797,35 @@ public class admin_dashboard extends javax.swing.JFrame {
             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout menu_tabLayout = new javax.swing.GroupLayout(menu_tab);
-        menu_tab.setLayout(menu_tabLayout);
-        menu_tabLayout.setHorizontalGroup(
-            menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menu_tabLayout.createSequentialGroup()
+        javax.swing.GroupLayout product_tabLayout = new javax.swing.GroupLayout(product_tab);
+        product_tab.setLayout(product_tabLayout);
+        product_tabLayout.setHorizontalGroup(
+            product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(product_tabLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(menu_tabLayout.createSequentialGroup()
+                .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(product_tabLayout.createSequentialGroup()
                         .addComponent(btn_addMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
                         .addComponent(btn_editMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
                         .addComponent(btn_deleteMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(user_list1, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
-        menu_tabLayout.setVerticalGroup(
-            menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menu_tabLayout.createSequentialGroup()
+        product_tabLayout.setVerticalGroup(
+            product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(product_tabLayout.createSequentialGroup()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(user_list1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_addMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_editMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_deleteMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -717,7 +842,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             user_list1.getColumnModel().getColumn(3).setHeaderValue("Status");
         }
 
-        jTabbedPane1.addTab("tab1", menu_tab);
+        jTabbedPane1.addTab("tab1", product_tab);
 
         payment_tab.setOpaque(false);
 
@@ -840,30 +965,33 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab1", payment_tab);
 
-        e_receipts_tab.setOpaque(false);
+        sales_reports_tab.setOpaque(false);
+        sales_reports_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel23.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabel23.setText("E - RECEIPTS");
+        jLabel23.setText("SALES REPORTS");
+        sales_reports_tab.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
 
         jSeparator4.setBackground(new java.awt.Color(255, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(255, 0, 0));
         jSeparator4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jSeparator4.setPreferredSize(new java.awt.Dimension(0, 5));
+        sales_reports_tab.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
 
-        e_receipt_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        e_receipt_list.setModel(new javax.swing.table.DefaultTableModel(
+        sales_report_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(123456), "table1",  new Float(799.0), "Gcash"},
+                {"05/23/22",  new Integer(123), "table1",  new Float(709.2)},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Order Receipt", "Username", "Total Amount", "Payment Method"
+                "Date & Time", "Order ID", "Username", "Total Amount"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -877,15 +1005,24 @@ public class admin_dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        e_receipt_list.setGridColor(new java.awt.Color(230, 0, 0));
-        e_receipt_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        e_receipt_list.setRowHeight(80);
-        e_receipt_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
-        e_receipt_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        e_receipt_list.setShowVerticalLines(false);
-        e_receipt_list.setSurrendersFocusOnKeystroke(true);
-        e_receipt_list.getTableHeader().setResizingAllowed(false);
-        e_receipt_list.getTableHeader().setReorderingAllowed(false);
+        sales_report_list.setGridColor(new java.awt.Color(230, 0, 0));
+        sales_report_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        sales_report_list.setRowHeight(80);
+        sales_report_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
+        sales_report_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        sales_report_list.setShowVerticalLines(false);
+        sales_report_list.setSurrendersFocusOnKeystroke(true);
+        sales_report_list.getTableHeader().setResizingAllowed(false);
+        sales_report_list.getTableHeader().setReorderingAllowed(false);
+        sales_reports_tab.add(sales_report_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        if (sales_report_list.getColumnModel().getColumnCount() > 0) {
+            sales_report_list.getColumnModel().getColumn(0).setResizable(false);
+            sales_report_list.getColumnModel().getColumn(1).setResizable(false);
+            sales_report_list.getColumnModel().getColumn(1).setHeaderValue("Order ID");
+            sales_report_list.getColumnModel().getColumn(2).setResizable(false);
+            sales_report_list.getColumnModel().getColumn(3).setResizable(false);
+            sales_report_list.getColumnModel().getColumn(3).setPreferredWidth(600);
+        }
 
         btn_viewReceipt.setBackground(new java.awt.Color(255, 0, 0));
         btn_viewReceipt.setForeground(new java.awt.Color(255, 255, 255));
@@ -907,68 +1044,337 @@ public class admin_dashboard extends javax.swing.JFrame {
         );
         btn_viewReceiptLayout.setVerticalGroup(
             btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_viewReceiptLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout e_receipts_tabLayout = new javax.swing.GroupLayout(e_receipts_tab);
-        e_receipts_tab.setLayout(e_receipts_tabLayout);
-        e_receipts_tabLayout.setHorizontalGroup(
-            e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(e_receipts_tabLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_viewReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(e_receipt_list, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+        sales_reports_tab.add(btn_viewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 890, -1, -1));
+
+        cmb_sales.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        cmb_sales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
+        cmb_sales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_salesActionPerformed(evt);
+            }
+        });
+        sales_reports_tab.add(cmb_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
-        e_receipts_tabLayout.setVerticalGroup(
-            e_receipts_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(e_receipts_tabLayout.createSequentialGroup()
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(e_receipt_list, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        sales_reports_tab.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
+
+        daily_weekly_tab.setOpaque(false);
+
+        jDateChooser1.setDateFormatString("MM/dd/yy");
+        jDateChooser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jDateChooser2.setDateFormatString("MM/dd/yy");
+        jDateChooser2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("to");
+
+        javax.swing.GroupLayout daily_weekly_tabLayout = new javax.swing.GroupLayout(daily_weekly_tab);
+        daily_weekly_tab.setLayout(daily_weekly_tabLayout);
+        daily_weekly_tabLayout.setHorizontalGroup(
+            daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        daily_weekly_tabLayout.setVerticalGroup(
+            daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addGroup(daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        sales_tabbedPane.addTab("tab1", daily_weekly_tab);
+
+        monthly_tab.setOpaque(false);
+
+        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("to");
+
+        jMonthChooser1.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jMonthChooser2.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        javax.swing.GroupLayout monthly_tabLayout = new javax.swing.GroupLayout(monthly_tab);
+        monthly_tab.setLayout(monthly_tabLayout);
+        monthly_tabLayout.setHorizontalGroup(
+            monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_viewReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281))
+        );
+        monthly_tabLayout.setVerticalGroup(
+            monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(monthly_tabLayout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tabLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
-        if (e_receipt_list.getColumnModel().getColumnCount() > 0) {
-            e_receipt_list.getColumnModel().getColumn(0).setResizable(false);
-            e_receipt_list.getColumnModel().getColumn(0).setPreferredWidth(10);
-            e_receipt_list.getColumnModel().getColumn(1).setResizable(false);
-            e_receipt_list.getColumnModel().getColumn(2).setResizable(false);
-            e_receipt_list.getColumnModel().getColumn(2).setPreferredWidth(800);
-            e_receipt_list.getColumnModel().getColumn(3).setResizable(false);
-            e_receipt_list.getColumnModel().getColumn(3).setHeaderValue("Status");
+        sales_tabbedPane.addTab("tab1", monthly_tab);
+
+        sales_reports_tab.add(sales_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+
+        jTabbedPane1.addTab("tab1", sales_reports_tab);
+
+        transactions_tab.setOpaque(false);
+        transactions_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jLabel29.setText("TRANSACTIONS");
+        transactions_tab.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
+
+        jSeparator7.setBackground(new java.awt.Color(255, 0, 0));
+        jSeparator7.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSeparator7.setPreferredSize(new java.awt.Dimension(0, 5));
+        transactions_tab.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
+
+        transaction_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        transaction_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"05/23/22",  new Integer(123), "table1",  new Integer(13),  new Float(709.2)},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Date & Time", "Order ID", "Username", "Quantity", "Total Amount"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        transaction_list.setGridColor(new java.awt.Color(230, 0, 0));
+        transaction_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        transaction_list.setRowHeight(80);
+        transaction_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
+        transaction_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        transaction_list.setShowVerticalLines(false);
+        transaction_list.setSurrendersFocusOnKeystroke(true);
+        transaction_list.getTableHeader().setResizingAllowed(false);
+        transaction_list.getTableHeader().setReorderingAllowed(false);
+        transactions_tab.add(transaction_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        if (transaction_list.getColumnModel().getColumnCount() > 0) {
+            transaction_list.getColumnModel().getColumn(0).setResizable(false);
+            transaction_list.getColumnModel().getColumn(1).setResizable(false);
+            transaction_list.getColumnModel().getColumn(1).setHeaderValue("Order ID");
+            transaction_list.getColumnModel().getColumn(2).setResizable(false);
+            transaction_list.getColumnModel().getColumn(3).setResizable(false);
+            transaction_list.getColumnModel().getColumn(4).setResizable(false);
+            transaction_list.getColumnModel().getColumn(4).setPreferredWidth(600);
         }
 
-        jTabbedPane1.addTab("tab1", e_receipts_tab);
+        btn_viewReceipt2.setBackground(new java.awt.Color(255, 0, 0));
+        btn_viewReceipt2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewReceipt2.setRoundBottomLeft(30);
+        btn_viewReceipt2.setRoundBottomRight(30);
+        btn_viewReceipt2.setRoundTopLeft(30);
+        btn_viewReceipt2.setRoundTopRight(30);
+
+        jLabel34.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("View");
+
+        javax.swing.GroupLayout btn_viewReceipt2Layout = new javax.swing.GroupLayout(btn_viewReceipt2);
+        btn_viewReceipt2.setLayout(btn_viewReceipt2Layout);
+        btn_viewReceipt2Layout.setHorizontalGroup(
+            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        btn_viewReceipt2Layout.setVerticalGroup(
+            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_viewReceipt2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        transactions_tab.add(btn_viewReceipt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 890, -1, -1));
+
+        cmb_transactions.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        cmb_transactions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
+        transactions_tab.add(cmb_transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        transactions_tab.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
+
+        daily_weekly_tab2.setOpaque(false);
+
+        jDateChooser5.setDateFormatString("MM/dd/yy");
+        jDateChooser5.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jDateChooser6.setDateFormatString("MM/dd/yy");
+        jDateChooser6.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("to");
+
+        javax.swing.GroupLayout daily_weekly_tab2Layout = new javax.swing.GroupLayout(daily_weekly_tab2);
+        daily_weekly_tab2.setLayout(daily_weekly_tab2Layout);
+        daily_weekly_tab2Layout.setHorizontalGroup(
+            daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jDateChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        daily_weekly_tab2Layout.setVerticalGroup(
+            daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser6, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        transactions_tabbedPane.addTab("tab1", daily_weekly_tab2);
+
+        monthly_tab2.setOpaque(false);
+
+        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("to");
+
+        jMonthChooser5.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser5.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jMonthChooser6.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser6.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        javax.swing.GroupLayout monthly_tab2Layout = new javax.swing.GroupLayout(monthly_tab2);
+        monthly_tab2.setLayout(monthly_tab2Layout);
+        monthly_tab2Layout.setHorizontalGroup(
+            monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jMonthChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jMonthChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281))
+        );
+        monthly_tab2Layout.setVerticalGroup(
+            monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(monthly_tab2Layout.createSequentialGroup()
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMonthChooser5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+        );
+
+        transactions_tabbedPane.addTab("tab1", monthly_tab2);
+
+        transactions_tab.add(transactions_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+
+        jTabbedPane1.addTab("tab1", transactions_tab);
 
         log_reports_tab.setOpaque(false);
+        log_reports_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabel18.setText("LOG REPORTS");
+        jLabel25.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jLabel25.setText("LOG REPORTS");
+        log_reports_tab.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
 
-        jSeparator3.setBackground(new java.awt.Color(255, 0, 0));
-        jSeparator3.setForeground(new java.awt.Color(255, 0, 0));
-        jSeparator3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jSeparator3.setPreferredSize(new java.awt.Dimension(0, 5));
+        jSeparator6.setBackground(new java.awt.Color(255, 0, 0));
+        jSeparator6.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSeparator6.setPreferredSize(new java.awt.Dimension(0, 5));
+        log_reports_tab.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
 
-        user_list2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        user_list2.setModel(new javax.swing.table.DefaultTableModel(
+        log_reports_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        log_reports_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"timstamp", "table1", "log in"},
+                {"05/23/22", "table1", "Made a payment of 890.00"},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "Time", "Username", "Description"
+                "Date & Time", "Username", "Description"
             }
         ) {
             Class[] types = new Class [] {
@@ -986,127 +1392,124 @@ public class admin_dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        user_list2.setGridColor(new java.awt.Color(230, 0, 0));
-        user_list2.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        user_list2.setRowHeight(80);
-        user_list2.setSelectionBackground(new java.awt.Color(255, 171, 171));
-        user_list2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        user_list2.setShowVerticalLines(false);
-        user_list2.setSurrendersFocusOnKeystroke(true);
-        user_list2.getTableHeader().setResizingAllowed(false);
-        user_list2.getTableHeader().setReorderingAllowed(false);
+        log_reports_list.setGridColor(new java.awt.Color(230, 0, 0));
+        log_reports_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        log_reports_list.setRowHeight(80);
+        log_reports_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
+        log_reports_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        log_reports_list.setShowVerticalLines(false);
+        log_reports_list.setSurrendersFocusOnKeystroke(true);
+        log_reports_list.getTableHeader().setResizingAllowed(false);
+        log_reports_list.getTableHeader().setReorderingAllowed(false);
+        log_reports_tab.add(log_reports_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        if (log_reports_list.getColumnModel().getColumnCount() > 0) {
+            log_reports_list.getColumnModel().getColumn(0).setResizable(false);
+            log_reports_list.getColumnModel().getColumn(1).setResizable(false);
+            log_reports_list.getColumnModel().getColumn(2).setResizable(false);
+            log_reports_list.getColumnModel().getColumn(2).setPreferredWidth(600);
+        }
 
-        btn_addMenu1.setBackground(new java.awt.Color(255, 0, 0));
-        btn_addMenu1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_addMenu1.setRoundBottomLeft(30);
-        btn_addMenu1.setRoundBottomRight(30);
-        btn_addMenu1.setRoundTopLeft(30);
-        btn_addMenu1.setRoundTopRight(30);
+        cmb_log_reports.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        cmb_log_reports.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
+        log_reports_tab.add(cmb_log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        log_reports_tab.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
+
+        daily_weekly_tab1.setOpaque(false);
+
+        jDateChooser3.setDateFormatString("MM/dd/yy");
+        jDateChooser3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jDateChooser4.setDateFormatString("MM/dd/yy");
+        jDateChooser4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Add");
+        jLabel20.setText("to");
 
-        javax.swing.GroupLayout btn_addMenu1Layout = new javax.swing.GroupLayout(btn_addMenu1);
-        btn_addMenu1.setLayout(btn_addMenu1Layout);
-        btn_addMenu1Layout.setHorizontalGroup(
-            btn_addMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout daily_weekly_tab1Layout = new javax.swing.GroupLayout(daily_weekly_tab1);
+        daily_weekly_tab1.setLayout(daily_weekly_tab1Layout);
+        daily_weekly_tab1Layout.setHorizontalGroup(
+            daily_weekly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        btn_addMenu1Layout.setVerticalGroup(
-            btn_addMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+        daily_weekly_tab1Layout.setVerticalGroup(
+            daily_weekly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(daily_weekly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser4, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        btn_editMenu1.setBackground(new java.awt.Color(255, 0, 0));
-        btn_editMenu1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_editMenu1.setRoundBottomLeft(30);
-        btn_editMenu1.setRoundBottomRight(30);
-        btn_editMenu1.setRoundTopLeft(30);
-        btn_editMenu1.setRoundTopRight(30);
+        log_tabbedPAne.addTab("tab1", daily_weekly_tab1);
+
+        monthly_tab1.setOpaque(false);
 
         jLabel21.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Edit");
+        jLabel21.setText("to");
 
-        javax.swing.GroupLayout btn_editMenu1Layout = new javax.swing.GroupLayout(btn_editMenu1);
-        btn_editMenu1.setLayout(btn_editMenu1Layout);
-        btn_editMenu1Layout.setHorizontalGroup(
-            btn_editMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        btn_editMenu1Layout.setVerticalGroup(
-            btn_editMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-        );
+        jMonthChooser3.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        btn_deleteMenu1.setBackground(new java.awt.Color(255, 0, 0));
-        btn_deleteMenu1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_deleteMenu1.setRoundBottomLeft(30);
-        btn_deleteMenu1.setRoundBottomRight(30);
-        btn_deleteMenu1.setRoundTopLeft(30);
-        btn_deleteMenu1.setRoundTopRight(30);
+        jMonthChooser4.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Delete");
-
-        javax.swing.GroupLayout btn_deleteMenu1Layout = new javax.swing.GroupLayout(btn_deleteMenu1);
-        btn_deleteMenu1.setLayout(btn_deleteMenu1Layout);
-        btn_deleteMenu1Layout.setHorizontalGroup(
-            btn_deleteMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        btn_deleteMenu1Layout.setVerticalGroup(
-            btn_deleteMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout log_reports_tabLayout = new javax.swing.GroupLayout(log_reports_tab);
-        log_reports_tab.setLayout(log_reports_tabLayout);
-        log_reports_tabLayout.setHorizontalGroup(
-            log_reports_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(log_reports_tabLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(log_reports_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(log_reports_tabLayout.createSequentialGroup()
-                        .addComponent(btn_addMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_editMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_deleteMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(log_reports_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(user_list2, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
-        log_reports_tabLayout.setVerticalGroup(
-            log_reports_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(log_reports_tabLayout.createSequentialGroup()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(user_list2, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout monthly_tab1Layout = new javax.swing.GroupLayout(monthly_tab1);
+        monthly_tab1.setLayout(monthly_tab1Layout);
+        monthly_tab1Layout.setHorizontalGroup(
+            monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jMonthChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(log_reports_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_addMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_editMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_deleteMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jMonthChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281))
+        );
+        monthly_tab1Layout.setVerticalGroup(
+            monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(monthly_tab1Layout.createSequentialGroup()
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMonthChooser3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
-        if (user_list2.getColumnModel().getColumnCount() > 0) {
-            user_list2.getColumnModel().getColumn(0).setResizable(false);
-            user_list2.getColumnModel().getColumn(0).setPreferredWidth(10);
-            user_list2.getColumnModel().getColumn(1).setResizable(false);
-            user_list2.getColumnModel().getColumn(2).setResizable(false);
-            user_list2.getColumnModel().getColumn(2).setPreferredWidth(800);
-        }
+        log_tabbedPAne.addTab("tab1", monthly_tab1);
+
+        log_reports_tab.add(log_tabbedPAne, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
         jTabbedPane1.addTab("tab1", log_reports_tab);
 
@@ -1124,10 +1527,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void account_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMousePressed
         account_management.setBackground(clickedColor);
-        menu_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        e_receipts.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
+        reports.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_account_managementMousePressed
 
@@ -1135,22 +1538,22 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_account_managementMouseReleased
 
-    private void e_receiptsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e_receiptsMouseClicked
+    private void reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMouseClicked
         jTabbedPane1.setSelectedIndex(3);
-    }//GEN-LAST:event_e_receiptsMouseClicked
+    }//GEN-LAST:event_reportsMouseClicked
 
-    private void e_receiptsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e_receiptsMousePressed
+    private void reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMousePressed
         account_management.setBackground(defaultColor);
-        menu_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        e_receipts.setBackground(clickedColor);
-        log_reports.setBackground(defaultColor);
+        reports.setBackground(clickedColor);
+        sales_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
-    }//GEN-LAST:event_e_receiptsMousePressed
+    }//GEN-LAST:event_reportsMousePressed
 
-    private void e_receiptsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e_receiptsMouseReleased
+    private void reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMouseReleased
 
-    }//GEN-LAST:event_e_receiptsMouseReleased
+    }//GEN-LAST:event_reportsMouseReleased
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         login li = new login();
@@ -1160,29 +1563,29 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void logoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMousePressed
         account_management.setBackground(defaultColor);
-        menu_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        e_receipts.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
+        reports.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
         logout.setBackground(clickedColor);
     }//GEN-LAST:event_logoutMousePressed
 
-    private void menu_managementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_managementMouseClicked
+    private void product_managementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_managementMouseClicked
         jTabbedPane1.setSelectedIndex(1);
-    }//GEN-LAST:event_menu_managementMouseClicked
+    }//GEN-LAST:event_product_managementMouseClicked
 
-    private void menu_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_managementMousePressed
+    private void product_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_managementMousePressed
         account_management.setBackground(defaultColor);
-        menu_management.setBackground(clickedColor);
+        product_management.setBackground(clickedColor);
         payment_settings.setBackground(defaultColor);
-        e_receipts.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
+        reports.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
-    }//GEN-LAST:event_menu_managementMousePressed
+    }//GEN-LAST:event_product_managementMousePressed
 
-    private void menu_managementMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_managementMouseReleased
+    private void product_managementMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_managementMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_menu_managementMouseReleased
+    }//GEN-LAST:event_product_managementMouseReleased
 
     private void payment_settingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payment_settingsMouseClicked
         jTabbedPane1.setSelectedIndex(2);
@@ -1190,10 +1593,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void payment_settingsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payment_settingsMousePressed
         account_management.setBackground(defaultColor);
-        menu_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
         payment_settings.setBackground(clickedColor);
-        e_receipts.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
+        reports.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_payment_settingsMousePressed
 
@@ -1201,22 +1604,22 @@ public class admin_dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_payment_settingsMouseReleased
 
-    private void log_reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseClicked
-        jTabbedPane1.setSelectedIndex(4);
-    }//GEN-LAST:event_log_reportsMouseClicked
+    private void sales_reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_reportsMouseClicked
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_sales_reportsMouseClicked
 
-    private void log_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMousePressed
+    private void sales_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_reportsMousePressed
         account_management.setBackground(defaultColor);
-        menu_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        e_receipts.setBackground(defaultColor);
-        log_reports.setBackground(clickedColor);
+        reports.setBackground(defaultColor);
+        sales_reports.setBackground(clickedColor);
         logout.setBackground(defaultColor);
-    }//GEN-LAST:event_log_reportsMousePressed
+    }//GEN-LAST:event_sales_reportsMousePressed
 
-    private void log_reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseReleased
+    private void sales_reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_reportsMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_log_reportsMouseReleased
+    }//GEN-LAST:event_sales_reportsMouseReleased
 
     private void btn_addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addUserMouseClicked
         index = 0;
@@ -1251,6 +1654,38 @@ public class admin_dashboard extends javax.swing.JFrame {
     private void btn_editPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editPaymentMouseClicked
         paymentModal.setVisible(true);
     }//GEN-LAST:event_btn_editPaymentMouseClicked
+
+    private void transactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMouseClicked
+        jTabbedPane1.setSelectedIndex(4);
+    }//GEN-LAST:event_transactionsMouseClicked
+
+    private void transactionsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transactionsMousePressed
+
+    private void transactionsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transactionsMouseReleased
+
+    private void log_reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseClicked
+        jTabbedPane1.setSelectedIndex(5);
+    }//GEN-LAST:event_log_reportsMouseClicked
+
+    private void log_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_log_reportsMousePressed
+
+    private void log_reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_log_reportsMouseReleased
+
+    private void cmb_salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_salesActionPerformed
+        int selectedIndex = cmb_sales.getSelectedIndex();
+        System.out.println(selectedIndex);
+        if(selectedIndex == 0 || selectedIndex == 1) sales_tabbedPane.setSelectedIndex(0);
+        else if (selectedIndex == 2 ) sales_tabbedPane.setSelectedIndex(1);
+        
+    }//GEN-LAST:event_cmb_salesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1291,24 +1726,30 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel account_management;
     private javax.swing.JLabel background;
     private roundPanel btn_addMenu;
-    private roundPanel btn_addMenu1;
     private roundPanel btn_addUser;
-    private roundPanel btn_addUser3;
     private roundPanel btn_deleteMenu;
-    private roundPanel btn_deleteMenu1;
     private roundPanel btn_deleteUser;
     private roundPanel btn_editMenu;
-    private roundPanel btn_editMenu1;
     private roundPanel btn_editPayment;
     private roundPanel btn_editUser;
     private roundPanel btn_resetPassword;
     private roundPanel btn_viewReceipt;
-    private javax.swing.JTable e_receipt_list;
-    private javax.swing.JPanel e_receipts;
-    private javax.swing.JPanel e_receipts_tab;
+    private roundPanel btn_viewReceipt2;
+    private javax.swing.JComboBox<String> cmb_log_reports;
+    private javax.swing.JComboBox<String> cmb_sales;
+    private javax.swing.JComboBox<String> cmb_transactions;
+    private javax.swing.JPanel daily_weekly_tab;
+    private javax.swing.JPanel daily_weekly_tab1;
+    private javax.swing.JPanel daily_weekly_tab2;
     private javax.swing.JLabel gcash_availability;
     private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private com.toedter.calendar.JDateChooser jDateChooser5;
+    private com.toedter.calendar.JDateChooser jDateChooser6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1325,40 +1766,68 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private com.toedter.calendar.JMonthChooser jMonthChooser1;
+    private com.toedter.calendar.JMonthChooser jMonthChooser2;
+    private com.toedter.calendar.JMonthChooser jMonthChooser3;
+    private com.toedter.calendar.JMonthChooser jMonthChooser4;
+    private com.toedter.calendar.JMonthChooser jMonthChooser5;
+    private com.toedter.calendar.JMonthChooser jMonthChooser6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel log_reports;
+    private javax.swing.JTable log_reports_list;
     private javax.swing.JPanel log_reports_tab;
+    private javax.swing.JTabbedPane log_tabbedPAne;
     private javax.swing.JPanel logout;
-    private javax.swing.JPanel menu_management;
-    private javax.swing.JPanel menu_tab;
+    private javax.swing.JPanel monthly_tab;
+    private javax.swing.JPanel monthly_tab1;
+    private javax.swing.JPanel monthly_tab2;
     private javax.swing.JPanel payment_settings;
     private javax.swing.JPanel payment_tab;
-    private roundPanel roundPanel2;
+    private javax.swing.JPanel product_management;
+    private javax.swing.JPanel product_tab;
+    private javax.swing.JPanel reports;
+    private javax.swing.JTable sales_report_list;
+    private javax.swing.JPanel sales_reports;
+    private javax.swing.JPanel sales_reports_tab;
+    private javax.swing.JTabbedPane sales_tabbedPane;
     private javax.swing.JPanel sidePane;
+    private javax.swing.JTable transaction_list;
+    private javax.swing.JPanel transactions;
+    private javax.swing.JPanel transactions_tab;
+    private javax.swing.JTabbedPane transactions_tabbedPane;
     private javax.swing.JTable user_list;
     private javax.swing.JTable user_list1;
-    private javax.swing.JTable user_list2;
     private javax.swing.JPanel user_tab;
     // End of variables declaration//GEN-END:variables
 }

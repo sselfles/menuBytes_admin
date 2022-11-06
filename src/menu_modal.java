@@ -2,6 +2,9 @@
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +21,8 @@ public class menu_modal extends javax.swing.JFrame {
     /**
      * Creates new form user_modal
      */
+    JFileChooser chooser = new JFileChooser();
+    
     public menu_modal() {
         initComponents();
     }
@@ -53,7 +58,7 @@ public class menu_modal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cb_userType = new javax.swing.JComboBox<>();
         txt_username = new javax.swing.JTextField();
-        roundPanel1 = new roundPanel();
+        btn_addProduct = new roundPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -70,7 +75,7 @@ public class menu_modal extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtArea_productDescription = new javax.swing.JTextArea();
-        file_name1 = new javax.swing.JLabel();
+        edit_file_name = new javax.swing.JLabel();
         btn_upload = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         toggle_availability = new javax.swing.JToggleButton();
@@ -115,7 +120,12 @@ public class menu_modal extends javax.swing.JFrame {
         btn_upload1.setBackground(new java.awt.Color(255, 0, 0));
         btn_upload1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btn_upload1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_upload1.setText("Upload");
+        btn_upload1.setText("Upload Image");
+        btn_upload1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_upload1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,25 +148,25 @@ public class menu_modal extends javax.swing.JFrame {
 
         txt_username.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        roundPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel1.setRoundBottomLeft(30);
-        roundPanel1.setRoundBottomRight(30);
-        roundPanel1.setRoundTopLeft(30);
-        roundPanel1.setRoundTopRight(30);
+        btn_addProduct.setBackground(new java.awt.Color(255, 0, 0));
+        btn_addProduct.setRoundBottomLeft(30);
+        btn_addProduct.setRoundBottomRight(30);
+        btn_addProduct.setRoundTopLeft(30);
+        btn_addProduct.setRoundTopRight(30);
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ADD");
 
-        javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
-        roundPanel1.setLayout(roundPanel1Layout);
-        roundPanel1Layout.setHorizontalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btn_addProductLayout = new javax.swing.GroupLayout(btn_addProduct);
+        btn_addProduct.setLayout(btn_addProductLayout);
+        btn_addProductLayout.setHorizontalGroup(
+            btn_addProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
-        roundPanel1Layout.setVerticalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_addProductLayout.setVerticalGroup(
+            btn_addProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
@@ -187,15 +197,15 @@ public class menu_modal extends javax.swing.JFrame {
                             .addGroup(add_productLayout.createSequentialGroup()
                                 .addComponent(file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(188, 188, 188)
-                                .addComponent(btn_upload1))
+                                .addComponent(btn_upload1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txt_username)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)))
                     .addGroup(add_productLayout.createSequentialGroup()
-                        .addGap(324, 324, 324)
+                        .addGap(409, 409, 409)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(add_productLayout.createSequentialGroup()
-                        .addGap(394, 394, 394)
-                        .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(478, 478, 478)
+                        .addComponent(btn_addProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(142, Short.MAX_VALUE))
         );
         add_productLayout.setVerticalGroup(
@@ -220,9 +230,9 @@ public class menu_modal extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(file_name)
                     .addComponent(btn_upload1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(44, 44, 44)
+                .addComponent(btn_addProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         jTabbedPane1.addTab("tab1", add_product);
@@ -277,13 +287,18 @@ public class menu_modal extends javax.swing.JFrame {
         txtArea_productDescription.setRows(5);
         jScrollPane2.setViewportView(txtArea_productDescription);
 
-        file_name1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        file_name1.setText("-");
+        edit_file_name.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        edit_file_name.setText("-");
 
         btn_upload.setBackground(new java.awt.Color(255, 0, 0));
         btn_upload.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btn_upload.setForeground(new java.awt.Color(255, 255, 255));
-        btn_upload.setText("Upload");
+        btn_upload.setText("Upload Image");
+        btn_upload.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_uploadMouseClicked(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel20.setText("Availability :");
@@ -321,14 +336,13 @@ public class menu_modal extends javax.swing.JFrame {
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                                 .addComponent(toggle_availability, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(edit_productLayout.createSequentialGroup()
-                                    .addGap(101, 101, 101)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(edit_productLayout.createSequentialGroup()
-                                    .addComponent(file_name1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(125, 125, 125)
-                                    .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(edit_productLayout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(edit_productLayout.createSequentialGroup()
+                                .addComponent(edit_file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(125, 125, 125)
+                                .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(edit_productLayout.createSequentialGroup()
                         .addGap(510, 510, 510)
                         .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -356,7 +370,7 @@ public class menu_modal extends javax.swing.JFrame {
                 .addGap(78, 78, 78)
                 .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(file_name1)
+                    .addComponent(edit_file_name)
                     .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
                 .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,6 +414,26 @@ public class menu_modal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_toggle_availabilityMouseClicked
 
+    private void btn_upload1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_upload1MouseClicked
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+        chooser.showOpenDialog(null);
+        File file = chooser.getSelectedFile();
+        String fileName = file.getName();
+        
+        file_name.setText(fileName);
+    }//GEN-LAST:event_btn_upload1MouseClicked
+
+    private void btn_uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_uploadMouseClicked
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+        chooser.showOpenDialog(null);
+        File file = chooser.getSelectedFile();
+        String fileName = file.getName();
+        
+        edit_file_name.setText(fileName);
+    }//GEN-LAST:event_btn_uploadMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -437,13 +471,14 @@ public class menu_modal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add_product;
+    private roundPanel btn_addProduct;
     private javax.swing.JButton btn_upload;
     private javax.swing.JButton btn_upload1;
     private javax.swing.JComboBox<String> cb_userType;
     private javax.swing.JComboBox<String> cb_userType1;
+    private javax.swing.JLabel edit_file_name;
     private javax.swing.JPanel edit_product;
     private javax.swing.JLabel file_name;
-    private javax.swing.JLabel file_name1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -465,7 +500,6 @@ public class menu_modal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private roundPanel roundPanel1;
     private roundPanel roundPanel3;
     private javax.swing.JToggleButton toggle_availability;
     private javax.swing.JTextArea txtArea_productDescription;
