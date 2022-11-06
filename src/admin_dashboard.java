@@ -1,7 +1,20 @@
 
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.lowagie.text.Table;
+import com.lowagie.text.pdf.PdfTable;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -982,9 +995,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"05/23/22",  new Integer(123), "table1",  new Float(709.2)},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"05/23/22",  new Integer(32423), "table2",  new Float(12312.0)},
+                {"05/23/22",  new Integer(23432), "table3",  new Float(12321.0)},
+                {"05/23/22",  new Integer(234324), "table1",  new Float(123.0)}
             },
             new String [] {
                 "Date & Time", "Order ID", "Username", "Total Amount"
@@ -1018,7 +1031,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         if (sales_report_list.getColumnModel().getColumnCount() > 0) {
             sales_report_list.getColumnModel().getColumn(0).setResizable(false);
             sales_report_list.getColumnModel().getColumn(1).setResizable(false);
-            sales_report_list.getColumnModel().getColumn(1).setHeaderValue("Order ID");
             sales_report_list.getColumnModel().getColumn(2).setResizable(false);
             sales_report_list.getColumnModel().getColumn(3).setResizable(false);
             sales_report_list.getColumnModel().getColumn(3).setPreferredWidth(600);
@@ -1035,6 +1047,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("View");
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel26MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_viewReceiptLayout = new javax.swing.GroupLayout(btn_viewReceipt);
         btn_viewReceipt.setLayout(btn_viewReceiptLayout);
@@ -1214,7 +1231,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         if (transaction_list.getColumnModel().getColumnCount() > 0) {
             transaction_list.getColumnModel().getColumn(0).setResizable(false);
             transaction_list.getColumnModel().getColumn(1).setResizable(false);
-            transaction_list.getColumnModel().getColumn(1).setHeaderValue("Order ID");
             transaction_list.getColumnModel().getColumn(2).setResizable(false);
             transaction_list.getColumnModel().getColumn(3).setResizable(false);
             transaction_list.getColumnModel().getColumn(4).setResizable(false);
@@ -1681,11 +1697,55 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void cmb_salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_salesActionPerformed
         int selectedIndex = cmb_sales.getSelectedIndex();
-        System.out.println(selectedIndex);
+        
         if(selectedIndex == 0 || selectedIndex == 1) sales_tabbedPane.setSelectedIndex(0);
         else if (selectedIndex == 2 ) sales_tabbedPane.setSelectedIndex(1);
-        
     }//GEN-LAST:event_cmb_salesActionPerformed
+
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+        
+        Document doc = new Document();
+        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Sales Reports";
+              
+        
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\sampleReport.pdf"));
+            
+            doc.open();
+            
+            doc.add(new Paragraph("TESTING SALES REPORT\n"));
+            
+            int columnCount = 4;
+            PdfPTable receiptTable = new PdfPTable(columnCount);
+            
+            receiptTable.addCell("Date and Time");
+            receiptTable.addCell("Order ID");
+            receiptTable.addCell("Username");
+            receiptTable.addCell("Total Amount");
+            
+            for(int rowCount = 0; rowCount < sales_report_list.getRowCount(); rowCount++){
+                
+                String dateAndTime = sales_report_list.getValueAt(rowCount, 0).toString();
+                String orderId = sales_report_list.getValueAt(rowCount, 1).toString();
+                String username = sales_report_list.getValueAt(rowCount, 2).toString();
+                String totalAmount = sales_report_list.getValueAt(rowCount, 3).toString();
+                
+                receiptTable.addCell(dateAndTime);
+                receiptTable.addCell(orderId);
+                receiptTable.addCell(username);
+                receiptTable.addCell(totalAmount);
+            }
+            
+            doc.add(receiptTable);
+            doc.close();
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel26MouseClicked
 
     /**
      * @param args the command line arguments

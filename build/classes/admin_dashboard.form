@@ -1403,27 +1403,27 @@
                   <Table columnCount="4" rowCount="4">
                     <Column editable="false" title="Date &amp; Time" type="java.lang.String">
                       <Data value="05/23/22"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
+                      <Data value="05/23/22"/>
+                      <Data value="05/23/22"/>
+                      <Data value="05/23/22"/>
                     </Column>
                     <Column editable="false" title="Order ID" type="java.lang.Integer">
                       <Data value="123"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
+                      <Data value="32423"/>
+                      <Data value="23432"/>
+                      <Data value="234324"/>
                     </Column>
                     <Column editable="false" title="Username" type="java.lang.String">
                       <Data value="table1"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
+                      <Data value="table2"/>
+                      <Data value="table3"/>
+                      <Data value="table1"/>
                     </Column>
                     <Column editable="false" title="Total Amount" type="java.lang.Float">
                       <Data value="709.2"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
+                      <Data value="12312.0"/>
+                      <Data value="12321.0"/>
+                      <Data value="123.0"/>
                     </Column>
                   </Table>
                 </Property>
@@ -1435,7 +1435,7 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                      <Title value="Order ID"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
@@ -1522,6 +1522,9 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="View"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel26MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1841,7 +1844,7 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                      <Title value="Order ID"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
