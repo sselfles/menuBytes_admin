@@ -1,7 +1,14 @@
 
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import static com.itextpdf.text.BaseColor.BLACK;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -12,6 +19,10 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -1046,7 +1057,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("View");
+        jLabel26.setText("Download and View");
         jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel26MouseClicked(evt);
@@ -1057,16 +1068,17 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_viewReceipt.setLayout(btn_viewReceiptLayout);
         btn_viewReceiptLayout.setHorizontalGroup(
             btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(btn_viewReceiptLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btn_viewReceiptLayout.setVerticalGroup(
             btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_viewReceiptLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sales_reports_tab.add(btn_viewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 890, -1, -1));
+        sales_reports_tab.add(btn_viewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 870, -1, 70));
 
         cmb_sales.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         cmb_sales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
@@ -1703,17 +1715,26 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_cmb_salesActionPerformed
 
     private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
-        
+        String dateOfSalesReport = "09-23-22"+(".pdf");
         Document doc = new Document();
         String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Sales Reports";
               
         
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\sampleReport.pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
             
             doc.open();
+            //Logo
+            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+            Image img = Image.getInstance(path.toAbsolutePath().toString());
+            img.setSpacingAfter(TOP_ALIGNMENT);
+            doc.add(img);
             
-            doc.add(new Paragraph("TESTING SALES REPORT\n"));
+            //Header
+            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+            Chunk chunk = new Chunk("SALES REPORT", font);
+
+            doc.add(chunk);
             
             int columnCount = 4;
             PdfPTable receiptTable = new PdfPTable(columnCount);
@@ -1743,6 +1764,10 @@ public class admin_dashboard extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel26MouseClicked
