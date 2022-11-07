@@ -555,25 +555,65 @@ public class view_cart extends javax.swing.JFrame {
         jLabel13.setText("Amount Due : ");
 
         lbl_amount_due.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lbl_amount_due.setText("-");
+        lbl_amount_due.setText("0.00");
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel14.setText("Cash Received :");
 
         txt_cash_received.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        txt_cash_received.setText("-");
+        txt_cash_received.setText("0.00");
+        txt_cash_received.setToolTipText("");
         txt_cash_received.setOpaque(false);
+        txt_cash_received.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_cash_receivedFocusGained(evt);
+            }
+        });
+        txt_cash_received.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                txt_cash_receivedCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        txt_cash_received.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cash_receivedActionPerformed(evt);
+            }
+        });
+        txt_cash_received.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txt_cash_receivedPropertyChange(evt);
+            }
+        });
+        txt_cash_received.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cash_receivedKeyTyped(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel15.setText("Change :");
 
         lbl_change.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lbl_change.setText("-");
+        lbl_change.setText("0.00");
+        lbl_change.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                lbl_changeCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Received");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout cash_payment_infoLayout = new javax.swing.GroupLayout(cash_payment_info);
         cash_payment_info.setLayout(cash_payment_infoLayout);
@@ -701,6 +741,14 @@ public class view_cart extends javax.swing.JFrame {
 
     private void btn_cashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cashMouseClicked
         jTabbedPane2.setSelectedIndex(2);
+        ArrayList<Payment> payment = new ArrayList<>();
+        payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
+        if(!payment.isEmpty()){
+            lbl_amount_due.setText(payment.get(0).getAmount_due());
+            lbl_username.setText(payment.get(0).getTable_no());
+            
+        }
+        
     }//GEN-LAST:event_btn_cashMouseClicked
 
     private void btn_pending_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pending_ordersMouseClicked
@@ -721,6 +769,55 @@ public class view_cart extends javax.swing.JFrame {
         DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
         DatabaseConnection.getInstance().updatePaidOrder(table_no);
     }//GEN-LAST:event_gcash_receivedMouseClicked
+
+    double cash_received = 0;
+    double amount_due = 0;
+    double change = 0;
+    
+    private void txt_cash_receivedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_cash_receivedPropertyChange
+//Change the value of lbl_change when user is changing the amount received value
+//        cash_received = Double.valueOf(txt_cash_received.getText().toString());
+//        amount_due = Double.valueOf(lbl_amount_due.getText().toString());
+//        change = amount_due - cash_received;
+//        lbl_change.setText(String.valueOf(change));
+        
+    }//GEN-LAST:event_txt_cash_receivedPropertyChange
+
+    private void txt_cash_receivedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cash_receivedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cash_receivedActionPerformed
+
+    private void txt_cash_receivedFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusGained
+
+    }//GEN-LAST:event_txt_cash_receivedFocusGained
+
+    private void lbl_changeCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lbl_changeCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbl_changeCaretPositionChanged
+
+    private void txt_cash_receivedCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_cash_receivedCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cash_receivedCaretPositionChanged
+
+    private void txt_cash_receivedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cash_receivedKeyTyped
+
+    }//GEN-LAST:event_txt_cash_receivedKeyTyped
+    
+    //CASH Payment RECEIVED
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        System.out.println("CASH PAYMENT COMPLETED");
+        String received = txt_cash_received.getText().toString();
+        String change = lbl_change.getText().toString();
+        DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
+         DatabaseConnection.getInstance().updatePaidOrder(table_no);
+         
+        txt_cash_received.setText("0.00");
+        lbl_change.setText("0.00");
+        lbl_amount_due.setText("0.00");
+        lbl_username.setText("-");
+        
+    }//GEN-LAST:event_jButton1MouseClicked
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

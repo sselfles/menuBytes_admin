@@ -58,7 +58,7 @@ public class dashboard extends javax.swing.JFrame {
         
         Runnable refreshDatas = new Runnable() {
         public void run() {
-            addTotalAmountToTable1();
+        addTotalAmountToTable1();
         addTotalAmountToTable2();   
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
@@ -1598,7 +1598,7 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("clicked accept");
                 if(user_id!=null && order_id!=null){
-            DatabaseConnection.getInstance().updateOrderStatusByOrderID("ACCEPTED", user_id, order_id);
+            DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
             addRowToListOrderQueueTable();
         }
     }//GEN-LAST:event_btn_acceptMouseClicked
@@ -1692,6 +1692,8 @@ public class dashboard extends javax.swing.JFrame {
 
     private void view_cart5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_cart5MouseClicked
         // TODO add your handling code here:
+        viewCart2 = new view_cart("table_3");
+        viewCart2.setVisible(true);
     }//GEN-LAST:event_view_cart5MouseClicked
     
     

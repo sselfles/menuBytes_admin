@@ -13,6 +13,8 @@ public class Payment {
     private String payment_method;
     private String total_amount;
     private String status;
+    private String amount_due;
+    
 
     public Payment(String table_no,String payment_method, String total_amount, String status) {
         this.table_no = table_no;
@@ -20,6 +22,22 @@ public class Payment {
         this.total_amount = total_amount;
         this.status = status;
     }
+
+    public Payment(String amount_due,String table_no) {
+        this.table_no = table_no;
+        this.amount_due = amount_due;
+    }
+    
+
+    public String getAmount_due() {
+        return amount_due;
+    }
+
+    public void setAmount_due(String amount_due) {
+        this.amount_due = amount_due;
+    }
+    
+    
 
     public String getPayment_method() {
         return payment_method;

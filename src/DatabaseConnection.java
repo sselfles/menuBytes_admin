@@ -48,7 +48,7 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.100.129:3306/menubytes",
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.1.11:3306/menubytes",
                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -353,4 +353,77 @@ public class DatabaseConnection {
         }
         return payments;
      }
+     
+     public ArrayList<Payment> retrieveAmountDueTableName(String table_name){
+             Connection connection = null;
+            ArrayList<Payment> payments  = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveAmountDueTableName()); 
+        preparedStatement.setString(1, table_name);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              payments.add(new Payment(
+                              resultSet.getString(1), 
+                              resultSet.getString(2)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
+     }
+     
+     public void updateCashPayment(String amount, String change, String table_no){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateCashPayment()); 
+        preparedStatement.setDouble(1, Double.valueOf(amount));
+        preparedStatement.setDouble(2, Double.valueOf(change));
+        preparedStatement.setString(3, table_no);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+    public  ArrayList<Report> getSalesReportDaily(){
+        Connection connection = null;
+        ArrayList<Report> salesReports = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getGetSalesReportDaily()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              salesReports.add(new Report(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3), 
+                                      resultSet.getString(4)));
+                              
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3)+resultSet.getString(4));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return salesReports;
+    }
  }
