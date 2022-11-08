@@ -46,7 +46,8 @@ public class dashboard extends javax.swing.JFrame {
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         addTotalAmountToTable1();
-        addTotalAmountToTable2();            
+        addTotalAmountToTable2(); 
+        addTotalAmountToTable3();
     }
     public dashboard(String user_id) {
         initComponents();
@@ -58,8 +59,9 @@ public class dashboard extends javax.swing.JFrame {
         
         Runnable refreshDatas = new Runnable() {
         public void run() {
-            addTotalAmountToTable1();
-        addTotalAmountToTable2();   
+        addTotalAmountToTable1();
+        addTotalAmountToTable2();  
+        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
         notifyCashierOfPayments();
@@ -289,14 +291,14 @@ public class dashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Table No.", "Method ", "Total", "P. Status"
+                "Table No.", "Method ", "P. Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1453,6 +1455,17 @@ public class dashboard extends javax.swing.JFrame {
         String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_2");
         if(total_amount != null){
             txtTotalAmountTable2.setText(total_amount);
+        }else{
+        txtTotalAmountTable2.setText("0.00");
+        }
+    }
+     
+     public void addTotalAmountToTable3(){
+        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_3");
+        if(total_amount != null){
+            txtTotalAmountTable3.setText(total_amount);
+        }else{
+        txtTotalAmountTable3.setText("0.00");
         }
     }
     
@@ -1463,12 +1476,11 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)notification_table.getModel();
         model.setRowCount(0);
         if(!payments.isEmpty()){
-        Object rowData[] = new Object[4];
+        Object rowData[] = new Object[3];
         for(int position = 0; position < payments.size(); position++){
             rowData[0] = payments.get(position).getTable_no();
             rowData[1] = payments.get(position).getPayment_method();
-            rowData[2] = payments.get(position).getTotal_amount();
-            rowData[3] = payments.get(position).getStatus();
+            rowData[2] = payments.get(position).getStatus();
             model.addRow(rowData);
         }
         }
@@ -1598,7 +1610,7 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("clicked accept");
                 if(user_id!=null && order_id!=null){
-            DatabaseConnection.getInstance().updateOrderStatusByOrderID("ACCEPTED", user_id, order_id);
+            DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
             addRowToListOrderQueueTable();
         }
     }//GEN-LAST:event_btn_acceptMouseClicked
@@ -1692,6 +1704,8 @@ public class dashboard extends javax.swing.JFrame {
 
     private void view_cart5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_cart5MouseClicked
         // TODO add your handling code here:
+        viewCart2 = new view_cart("table_3");
+        viewCart2.setVisible(true);
     }//GEN-LAST:event_view_cart5MouseClicked
     
     

@@ -43,13 +43,13 @@ public class SqlStatements {
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
     
     //REVISE:DONE
-    private String returnTotalAmountByTable ="SELECT \n" +
+    private String returnTotalAmountByTable ="SELECT\n" +
 "SUM(orders.total) AS total_amount\n" +
 "FROM orders\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.created_by = orders.created_by \n" +
+"payment ON payment.created_by = orders.created_by\n" +
 "WHERE order_status != \"REJECTED\" \n" +
 "AND orders.created_by = (?) \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
@@ -85,7 +85,7 @@ public class SqlStatements {
 "orders ON order_items.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
 "payment ON payment.created_by = orders.created_by\n" +
-" WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
+"WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
 
     private String updateOrderStatusByOrderID = "UPDATE order_status\n" +
@@ -112,6 +112,14 @@ public class SqlStatements {
 "FROM product\n" +
 "ORDER BY product_id;";
     
+    private String retrieveAmountDueTableName = "SELECT amount_due, created_by\n" +
+"FROM payment WHERE\n" +
+"created_by = (?) and payment_status = \"PENDING\"";
+
+    public String getRetrieveAmountDueTableName() {
+        return retrieveAmountDueTableName;
+    }
+    
     private String updateGCashPayment = "UPDATE payment\n" +
 "SET \n" +
 "created_by = concat(created_by, \"_\") ,\n" +
@@ -122,6 +130,22 @@ public class SqlStatements {
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
     
+     private String updateCashPayment = "UPDATE payment\n" +
+"SET \n" +
+"created_by = concat(created_by, \"_\") ,\n" +
+"payment_status = \"COMPLETE\",\n" +
+"payment_amount = (?),\n" +
+"payment_change = (?),\n" +
+"completed_at = current_timestamp()\n" +
+"WHERE \n" +
+"created_by = (?) and payment_status = \"PENDING\";";
+
+    public String getUpdateCashPayment() {
+        return updateCashPayment;
+    }
+     
+     
+    
     private String updatePaidOrder = "UPDATE orders\n" +
 "SET \n" +
 "created_by = concat(created_by, \"_\") ,\n" +
@@ -129,13 +153,38 @@ public class SqlStatements {
 "WHERE \n" +
 "created_by = (?);";
     
-    private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, SUM(orders.total), payment.payment_status\n" +
+    private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, payment.payment_status\n" +
 "FROM\n" +
 "payment\n" +
 "INNER JOIN orders ON orders.created_by = payment.created_by\n" +
 "INNER JOIN order_status ON orders.order_id = order_status.order_id\n" +
 "WHERE payment.payment_status = \"PENDING\"\n" +
 "AND order_status.order_status != \"REJECTED\";";
+    
+    private String getSalesReportDaily = "SELECT DATE(orders.created_at), orders.order_id, orders.created_by, orders.total\n" +
+"FROM orders\n" +
+"INNER JOIN payment \n" +
+"ON orders.created_by = payment.created_by\n" +
+"WHERE payment.payment_status = \"COMPLETE\" GROUP BY order_id;";
+    
+    private String retrieveUsersList = "SELECT user_id, user_type, user_name, device_type FROM user;";
+    
+    private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
+"FROM product;";
+
+    public String getRetrieveUsersList() {
+        return retrieveUsersList;
+    }
+
+    public String getRetrieveProductsList() {
+        return retrieveProductsList;
+    }
+    
+    
+
+    public String getGetSalesReportDaily() {
+        return getSalesReportDaily;
+    }
 
     public String getNotifyCashierOfPayments() {
         return notifyCashierOfPayments;

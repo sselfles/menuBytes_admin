@@ -153,7 +153,7 @@ public class login extends javax.swing.JFrame {
 
         if(username.equals("cashier")){
             System.out.print("cashier loggin in.");
-            dashboard db = new dashboard("1");
+            dashboard db = new dashboard("2");
             db.setVisible(true);
             close();
         }
