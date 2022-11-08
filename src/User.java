@@ -22,15 +22,20 @@ public class User {
         this.user_password = user_password;
         this.device_type = device_type;
     }
-    
-    
-
-    public User(String user_type, String user_name, String user_password, String device_type) {
+     public User(String user_id, String user_type, String user_name, String device_type) {
+        this.user_id = user_id;
         this.user_type = user_type;
         this.user_name = user_name;
-        this.user_password = user_password;
         this.device_type = device_type;
     }
+    
+
+//    public User(String user_type, String user_name, String user_password, String device_type) {
+//        this.user_type = user_type;
+//        this.user_name = user_name;
+//        this.user_password = user_password;
+//        this.device_type = device_type;
+//    }
 
     public User(String user_type, String user_name, String device_type) {
         this.user_type = user_type;

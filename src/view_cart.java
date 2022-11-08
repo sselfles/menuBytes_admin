@@ -691,8 +691,8 @@ public class view_cart extends javax.swing.JFrame {
     
     public void addRowToPendingJtable(){
         DefaultTableModel model = (DefaultTableModel)tbl_pending_orders.getModel();
-        if(!ListOrders("PENDING").isEmpty()){
-        ArrayList<Order> orderArrayList = ListOrders("PENDING");
+        if(!ListOrders("PREPARING").isEmpty()){
+        ArrayList<Order> orderArrayList = ListOrders("PREPARING");
         Object rowData[] = new Object[3];
         for(int position = 0; position < orderArrayList.size(); position++){
             rowData[0] = orderArrayList.get(position).getQuantity();

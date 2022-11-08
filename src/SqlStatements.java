@@ -43,13 +43,13 @@ public class SqlStatements {
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
     
     //REVISE:DONE
-    private String returnTotalAmountByTable ="SELECT \n" +
+    private String returnTotalAmountByTable ="SELECT\n" +
 "SUM(orders.total) AS total_amount\n" +
 "FROM orders\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
-"payment ON payment.created_by = orders.created_by \n" +
+"payment ON payment.created_by = orders.created_by\n" +
 "WHERE order_status != \"REJECTED\" \n" +
 "AND orders.created_by = (?) \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
@@ -153,7 +153,7 @@ public class SqlStatements {
 "WHERE \n" +
 "created_by = (?);";
     
-    private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, SUM(orders.total), payment.payment_status\n" +
+    private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, payment.payment_status\n" +
 "FROM\n" +
 "payment\n" +
 "INNER JOIN orders ON orders.created_by = payment.created_by\n" +
@@ -166,6 +166,21 @@ public class SqlStatements {
 "INNER JOIN payment \n" +
 "ON orders.created_by = payment.created_by\n" +
 "WHERE payment.payment_status = \"COMPLETE\" GROUP BY order_id;";
+    
+    private String retrieveUsersList = "SELECT user_id, user_type, user_name, device_type FROM user;";
+    
+    private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
+"FROM product;";
+
+    public String getRetrieveUsersList() {
+        return retrieveUsersList;
+    }
+
+    public String getRetrieveProductsList() {
+        return retrieveProductsList;
+    }
+    
+    
 
     public String getGetSalesReportDaily() {
         return getSalesReportDaily;

@@ -48,6 +48,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         public void run() {
             System.out.println("refreshed");
             addRowToSales_report_list();
+            addRowToUsers_list();
         }
         };
         
@@ -1560,7 +1561,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     public void addRowToSales_report_list(){
         DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
         model.setRowCount(0);
-        System.out.println(String.valueOf(reportsArrayList().isEmpty()));
         if(!reportsArrayList().isEmpty()){
         ArrayList<Report> reportsArrayList = reportsArrayList();
         Object rowData[] = new Object[4];
@@ -1569,7 +1569,30 @@ public class admin_dashboard extends javax.swing.JFrame {
             rowData[1] = reportsArrayList.get(position).getOrder_id();
             rowData[2] = reportsArrayList.get(position).getTable_name();
             rowData[3] = reportsArrayList.get(position).getTotal_amount() ;
-            System.out.println("addRow called");
+            
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+        //Populate Function From Database
+    public ArrayList usersArrayList(){
+        ArrayList<User> usersArrayList = new ArrayList<>();
+        usersArrayList = DatabaseConnection.getInstance().retrieveUsersList();
+        return usersArrayList;
+    }
+    
+    //Populate JTable Function
+    public void addRowToUsers_list(){
+        DefaultTableModel model = (DefaultTableModel)user_list.getModel();
+        model.setRowCount(0);
+        if(!usersArrayList().isEmpty()){
+         ArrayList<User> usersArrayList = usersArrayList();
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < usersArrayList.size(); position++){
+            rowData[0] = usersArrayList.get(position).getUser_type();
+            rowData[1] = usersArrayList.get(position).getUser_name();
+            rowData[2] = usersArrayList.get(position).getDevice_type();
             model.addRow(rowData);
         }
         }

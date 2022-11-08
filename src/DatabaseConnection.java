@@ -48,7 +48,7 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.1.11:3306/menubytes",
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -343,8 +343,7 @@ public class DatabaseConnection {
                               payments.add(new Payment(
                               resultSet.getString(1), 
                               resultSet.getString(2), 
-                              resultSet.getString(3),
-                              resultSet.getString(4)));
+                              resultSet.getString(3)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -425,5 +424,35 @@ public class DatabaseConnection {
         }
         
         return salesReports;
+    }
+    
+    public  ArrayList<User> retrieveUsersList(){
+        Connection connection = null;
+        ArrayList<User> usersArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveUsersList()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              usersArrayList.add(new User(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3), 
+                                      resultSet.getString(4)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return usersArrayList;
     }
  }

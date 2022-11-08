@@ -16,10 +16,15 @@ public class Payment {
     private String amount_due;
     
 
-    public Payment(String table_no,String payment_method, String total_amount, String status) {
+    public Payment(String table_no,String payment_method, String status) {
         this.table_no = table_no;
         this.payment_method = payment_method;
         this.total_amount = total_amount;
+        this.status = status;
+    }
+    public Payment(String table_no,String payment_method, String total_amount, String status) {
+        this.table_no = table_no;
+        this.payment_method = payment_method;
         this.status = status;
     }
 
