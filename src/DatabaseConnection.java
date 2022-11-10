@@ -108,6 +108,40 @@ public class DatabaseConnection {
         
     }
      
+          public ArrayList<Order> returnPendingOrdersAccordingToStatusTableNo(String status,String table_no)  {
+        Connection connection = null;
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getReturnOrdersAccordingToStatusInQTableNo());
+        preparedStatement.setString(1, status);
+        preparedStatement.setString(2, table_no);
+            System.out.println(getDateTime());
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database returnOrdersAccordingToStatusTableNo(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      orderArrayList.add(new Order(
+                              resultSet.getString(1), 
+                              resultSet.getString(2), 
+                              resultSet.getString(3), 
+                              resultSet.getString(4), 
+                              resultSet.getString(5), 
+                              resultSet.getString(6), 
+                              resultSet.getString(7),
+                              resultSet.getString(8)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderArrayList;
+        
+    }
+     
      public String returnTotalAmountByTable(String table_no) {
         Connection connection = null;
         String total_amount = null;
@@ -314,6 +348,22 @@ public class DatabaseConnection {
         }
      }
      
+     public void rejectGCashPayment(String amount, String referenceno, String table_no) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRejectGCashPayment()); 
+        preparedStatement.setDouble(1, Double.valueOf(amount));
+        preparedStatement.setString(2, referenceno);
+        preparedStatement.setString(3, table_no);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
      public void updatePaidOrder(String table_no) {
           Connection connection = null;
         try{
@@ -376,6 +426,55 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return payments;
+     }
+        
+     //Retrive ref #
+        public ArrayList<Payment> retrieveReferenceNumber(String table_name){
+        Connection connection = null;
+        ArrayList<Payment> payments  = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveReferenceGcash()); 
+        preparedStatement.setString(1, table_name);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              payments.add(new Payment(
+                              resultSet.getString(1)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
+     }
+        
+        //Retrive amount_due
+        public String retrieveAmountDue(String table_name){
+        Connection connection = null;
+        String payment="";
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveAmountDueGcash()); 
+        preparedStatement.setString(1, table_name);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              payment = resultSet.getString(1);
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payment;
      }
      
      public void updateCashPayment(String amount, String change, String table_no){

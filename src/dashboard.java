@@ -56,21 +56,16 @@ public class dashboard extends javax.swing.JFrame {
         dashboard.setBackground(clickedColor);
         this.user_id = user_id;
         
+        populateTablesFromDatabase();
+                
+//        Runnable refreshDatas = new Runnable() {
+//        public void run() {
+//        populateTablesFromDatabase();
+//        }
+//        };
         
-        Runnable refreshDatas = new Runnable() {
-        public void run() {
-        addTotalAmountToTable1();
-        addTotalAmountToTable2();  
-        addTotalAmountToTable3();
-        addRowToListOrderQueueTable();
-        addDefaultRowToMenuList();
-        notifyCashierOfPayments();
-            System.out.println("refreshed");
-        }
-        };
-        
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
+//        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//        executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
     }
 
 
@@ -121,6 +116,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         txtTotalAmountTable3 = new javax.swing.JLabel();
         view_cart5 = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         menu_tab = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -565,6 +561,18 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        btnRefresh.setBackground(new java.awt.Color(255, 0, 0));
+        btnRefresh.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setText("Refresh");
+        btnRefresh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(215, 0, 0), 1, true));
+        btnRefresh.setBorderPainted(false);
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout dashboard_tabLayout = new javax.swing.GroupLayout(dashboard_tab);
         dashboard_tab.setLayout(dashboard_tabLayout);
         dashboard_tabLayout.setHorizontalGroup(
@@ -573,16 +581,18 @@ public class dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dashboard_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dashboard_tabLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(dashboard_tabLayout.createSequentialGroup()
                         .addGroup(dashboard_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(dashboard_tabLayout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                                .addGap(50, 50, 50)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dashboard_tabLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))))
             .addGroup(dashboard_tabLayout.createSequentialGroup()
                 .addGap(276, 276, 276)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -591,8 +601,12 @@ public class dashboard extends javax.swing.JFrame {
         dashboard_tabLayout.setVerticalGroup(
             dashboard_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboard_tabLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dashboard_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(dashboard_tabLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dashboard_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,7 +614,7 @@ public class dashboard extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", dashboard_tab);
@@ -1603,7 +1617,8 @@ public class dashboard extends javax.swing.JFrame {
             DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
             addRowToListOrderQueueTable();
         }
-        
+        DefaultTableModel model = (DefaultTableModel)order_breakdown.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_btn_rejectMouseClicked
 
     private void btn_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_acceptMouseClicked
@@ -1613,6 +1628,8 @@ public class dashboard extends javax.swing.JFrame {
             DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
             addRowToListOrderQueueTable();
         }
+                DefaultTableModel model = (DefaultTableModel)order_breakdown.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_btn_acceptMouseClicked
 
     private void btn_doneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doneMouseClicked
@@ -1622,6 +1639,8 @@ public class dashboard extends javax.swing.JFrame {
             DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
             addRowToListOrderQueueTable();
         }
+        DefaultTableModel model = (DefaultTableModel)order_breakdown.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_btn_doneMouseClicked
     
 //    private String order_id;
@@ -1707,7 +1726,24 @@ public class dashboard extends javax.swing.JFrame {
         viewCart2 = new view_cart("table_3");
         viewCart2.setVisible(true);
     }//GEN-LAST:event_view_cart5MouseClicked
+
+    private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
+        // TODO add your handling code here:
+        populateTablesFromDatabase();
+        DefaultTableModel model = (DefaultTableModel)order_breakdown.getModel();
+        model.setRowCount(0);
+        
+    }//GEN-LAST:event_btnRefreshMouseClicked
     
+    private void populateTablesFromDatabase(){
+        addTotalAmountToTable1();
+        addTotalAmountToTable2();  
+        addTotalAmountToTable3();
+        addRowToListOrderQueueTable();
+        addDefaultRowToMenuList();
+        notifyCashierOfPayments();
+        System.out.println("refreshed");
+    }
     
     
     public void close(){
@@ -1756,6 +1792,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel btnBowl;
     private javax.swing.JLabel btnChicken;
     private javax.swing.JLabel btnDrinks;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JLabel btnShawarma;
     private roundPanel btn_accept;
     private roundPanel btn_checkout;

@@ -14,7 +14,11 @@ public class Payment {
     private String total_amount;
     private String status;
     private String amount_due;
-    
+    private String remarks;
+
+    public Payment(String remarks) {
+        this.remarks = remarks;
+    }
 
     public Payment(String table_no,String payment_method, String status) {
         this.table_no = table_no;
@@ -75,6 +79,14 @@ public class Payment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+        public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
     
 }
