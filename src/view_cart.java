@@ -814,7 +814,14 @@ public class view_cart extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_cash_receivedPropertyChange
 
     private void txt_cash_receivedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cash_receivedActionPerformed
-        // TODO add your handling code here:
+        double totalAmount = Double.parseDouble(lbl_amount_due.getText().toString());
+        double customMoney = Double.parseDouble(txt_cash_received.getText().toString());
+        if (customMoney>= totalAmount) {
+            lbl_change.setText("change this"+txt_cash_received.getText().toString());
+        } else if (customMoney < totalAmount) {
+            jButton1.setEnabled(false);
+        }
+            
     }//GEN-LAST:event_txt_cash_receivedActionPerformed
 
     private void txt_cash_receivedFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusGained
