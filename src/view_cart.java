@@ -813,9 +813,7 @@ public class view_cart extends javax.swing.JFrame{
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void txt_cash_receivedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusLost
-        float cashReceived = Float.parseFloat(txt_cash_received.getText());
-
-                txt_cash_received.setText(String.format("%.2f", cashReceived));
+        
     }//GEN-LAST:event_txt_cash_receivedFocusLost
     
     public void close(){
