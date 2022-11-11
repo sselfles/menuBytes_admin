@@ -128,7 +128,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         sales_report_list = new javax.swing.JTable();
         btn_viewReceipt = new roundPanel();
-        jLabel26 = new javax.swing.JLabel();
+        sales_view = new javax.swing.JLabel();
         cmb_sales = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         sales_tabbedPane = new javax.swing.JTabbedPane();
@@ -1007,17 +1007,26 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_report_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"08/03/2019",  new Integer(45),  new Float(6542.0)},
+                {"08/04/2019",  new Integer(58),  new Float(9524.0)},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Date & Time", "Order ID", "Username", "Total Amount"
+                "Date ", "Quantity Sales", "Total Amount"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1042,11 +1051,9 @@ public class admin_dashboard extends javax.swing.JFrame {
             sales_report_list.getColumnModel().getColumn(0).setResizable(false);
             sales_report_list.getColumnModel().getColumn(1).setResizable(false);
             sales_report_list.getColumnModel().getColumn(2).setResizable(false);
-            sales_report_list.getColumnModel().getColumn(3).setResizable(false);
-            sales_report_list.getColumnModel().getColumn(3).setPreferredWidth(600);
         }
 
-        sales_reports_tab.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 1180, 690));
+        sales_reports_tab.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 1440, 610));
 
         btn_viewReceipt.setBackground(new java.awt.Color(255, 0, 0));
         btn_viewReceipt.setForeground(new java.awt.Color(255, 255, 255));
@@ -1055,13 +1062,13 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_viewReceipt.setRoundTopLeft(30);
         btn_viewReceipt.setRoundTopRight(30);
 
-        jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("Download and View");
-        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+        sales_view.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        sales_view.setForeground(new java.awt.Color(255, 255, 255));
+        sales_view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sales_view.setText("View");
+        sales_view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel26MouseClicked(evt);
+                sales_viewMouseClicked(evt);
             }
         });
 
@@ -1069,17 +1076,14 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_viewReceipt.setLayout(btn_viewReceiptLayout);
         btn_viewReceiptLayout.setHorizontalGroup(
             btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_viewReceiptLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(sales_view, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
         btn_viewReceiptLayout.setVerticalGroup(
             btn_viewReceiptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(sales_view, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sales_reports_tab.add(btn_viewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 870, -1, 70));
+        sales_reports_tab.add(btn_viewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 870, 250, 70));
 
         cmb_sales.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         cmb_sales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
@@ -1714,7 +1718,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         else if (selectedIndex == 2 ) sales_tabbedPane.setSelectedIndex(1);
     }//GEN-LAST:event_cmb_salesActionPerformed
 
-    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+    private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
         String dateOfSalesReport = "09-23-22"+(".pdf");
         Document doc = new Document();
         String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Sales Reports";
@@ -1770,7 +1774,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jLabel26MouseClicked
+    }//GEN-LAST:event_sales_viewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1853,7 +1857,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -1907,6 +1910,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;
     private javax.swing.JTabbedPane sales_tabbedPane;
+    private javax.swing.JLabel sales_view;
     private javax.swing.JPanel sidePane;
     private javax.swing.JTable transaction_list;
     private javax.swing.JPanel transactions;

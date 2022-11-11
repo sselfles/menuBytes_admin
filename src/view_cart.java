@@ -68,6 +68,9 @@ public class view_cart extends javax.swing.JFrame{
                 float totalAmount = Float.parseFloat(txtTotal_amount.getText());
 
                 float change = cashReceived - totalAmount;
+                String.format("%.2f", change);
+                String.format("%.2f", cashReceived);
+
                 lbl_change.setText(Float.toString(change));
 
             }
@@ -594,6 +597,11 @@ public class view_cart extends javax.swing.JFrame{
         txt_cash_received.setText("0.00");
         txt_cash_received.setToolTipText("");
         txt_cash_received.setOpaque(false);
+        txt_cash_received.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_cash_receivedFocusLost(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel15.setText("Change :");
@@ -806,6 +814,10 @@ public class view_cart extends javax.swing.JFrame{
         }
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void txt_cash_receivedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusLost
+        
+    }//GEN-LAST:event_txt_cash_receivedFocusLost
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

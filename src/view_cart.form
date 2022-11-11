@@ -973,6 +973,9 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                         <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_cash_receivedFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel15">
                       <Properties>
