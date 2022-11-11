@@ -1,8 +1,16 @@
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -15,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tmjp
  */
-public class view_cart extends javax.swing.JFrame {
+public class view_cart extends javax.swing.JFrame{
 
     /**
      * Creates new form view_cart
@@ -40,8 +48,30 @@ public class view_cart extends javax.swing.JFrame {
         setSubtotal("PENDING");
     }
     
+    
+    
     public view_cart() {
         initComponents();
+        txt_cash_received.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e) { warn(); }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { warn(); }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { warn(); }
+            
+            public void warn(){
+                float cashReceived = Float.parseFloat(txt_cash_received.getText());
+
+                float totalAmount = Float.parseFloat(txtTotal_amount.getText());
+
+                float change = cashReceived - totalAmount;
+                lbl_change.setText(Float.toString(change));
+
+            }
+        });
     }
 
     /**
@@ -564,33 +594,6 @@ public class view_cart extends javax.swing.JFrame {
         txt_cash_received.setText("0.00");
         txt_cash_received.setToolTipText("");
         txt_cash_received.setOpaque(false);
-        txt_cash_received.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_cash_receivedFocusGained(evt);
-            }
-        });
-        txt_cash_received.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                txt_cash_receivedCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
-        txt_cash_received.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cash_receivedActionPerformed(evt);
-            }
-        });
-        txt_cash_received.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txt_cash_receivedPropertyChange(evt);
-            }
-        });
-        txt_cash_received.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_cash_receivedKeyTyped(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel15.setText("Change :");
@@ -774,48 +777,33 @@ public class view_cart extends javax.swing.JFrame {
     double amount_due = 0;
     double change = 0;
     
-    private void txt_cash_receivedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_cash_receivedPropertyChange
-//Change the value of lbl_change when user is changing the amount received value
-//        cash_received = Double.valueOf(txt_cash_received.getText().toString());
-//        amount_due = Double.valueOf(lbl_amount_due.getText().toString());
-//        change = amount_due - cash_received;
-//        lbl_change.setText(String.valueOf(change));
-        
-    }//GEN-LAST:event_txt_cash_receivedPropertyChange
-
-    private void txt_cash_receivedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cash_receivedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cash_receivedActionPerformed
-
-    private void txt_cash_receivedFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusGained
-
-    }//GEN-LAST:event_txt_cash_receivedFocusGained
-
     private void lbl_changeCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lbl_changeCaretPositionChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_lbl_changeCaretPositionChanged
-
-    private void txt_cash_receivedCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_cash_receivedCaretPositionChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cash_receivedCaretPositionChanged
-
-    private void txt_cash_receivedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cash_receivedKeyTyped
-
-    }//GEN-LAST:event_txt_cash_receivedKeyTyped
     
     //CASH Payment RECEIVED
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        System.out.println("CASH PAYMENT COMPLETED");
+        
         String received = txt_cash_received.getText().toString();
         String change = lbl_change.getText().toString();
-        DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
-         DatabaseConnection.getInstance().updatePaidOrder(table_no);
-         
-        txt_cash_received.setText("0.00");
-        lbl_change.setText("0.00");
-        lbl_amount_due.setText("0.00");
-        lbl_username.setText("-");
+        
+        float cashReceived = Float.parseFloat(txt_cash_received.getText());
+        float totalAmount = Float.parseFloat(txtTotal_amount.getText());
+        
+        if(cashReceived <= totalAmount){
+            System.out.println("CASH PAYMENT COMPLETED");
+            DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
+            DatabaseConnection.getInstance().updatePaidOrder(table_no);
+
+            txt_cash_received.setText("0.00");
+            lbl_change.setText("0.00");
+            lbl_amount_due.setText("0.00");
+            lbl_username.setText("-");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Cash Received and Total Amount do not match!\n Kindly check the amount and enter them again.", "Transaction Error", JOptionPane.PLAIN_MESSAGE);
+        }
         
     }//GEN-LAST:event_jButton1MouseClicked
     
@@ -905,4 +893,6 @@ public class view_cart extends javax.swing.JFrame {
     private javax.swing.JLabel txtVat;
     private javax.swing.JTextField txt_cash_received;
     // End of variables declaration//GEN-END:variables
+
+    
 }

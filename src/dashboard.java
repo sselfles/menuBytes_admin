@@ -137,6 +137,10 @@ public class dashboard extends javax.swing.JFrame {
         order_total_amount = new javax.swing.JLabel();
         btn_checkout = new roundPanel();
         jLabel16 = new javax.swing.JLabel();
+        btn_add_ons_category = new roundPanel();
+        label_add_ons = new javax.swing.JLabel();
+        icon_add_ons = new javax.swing.JLabel();
+        add_ons_border_selected = new javax.swing.JPanel();
         order_queue_tab = new javax.swing.JPanel();
         jSeparator5 = new javax.swing.JSeparator();
         jPanel10 = new javax.swing.JPanel();
@@ -705,7 +709,7 @@ public class dashboard extends javax.swing.JFrame {
         btn_rice_bowl_category.setLayout(btn_rice_bowl_categoryLayout);
         btn_rice_bowl_categoryLayout.setHorizontalGroup(
             btn_rice_bowl_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(icon_bowl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(icon_bowl, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(btn_rice_bowl_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(btn_rice_bowl_categoryLayout.createSequentialGroup()
@@ -871,6 +875,63 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(80, 80, 80))
         );
 
+        btn_add_ons_category.setBackground(new java.awt.Color(255, 255, 255));
+        btn_add_ons_category.setRoundBottomLeft(10);
+        btn_add_ons_category.setRoundBottomRight(10);
+        btn_add_ons_category.setRoundTopLeft(10);
+        btn_add_ons_category.setRoundTopRight(10);
+
+        label_add_ons.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        label_add_ons.setForeground(new java.awt.Color(255, 0, 0));
+        label_add_ons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_add_ons.setText("Add Ons");
+
+        icon_add_ons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        icon_add_ons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addonslogo.png"))); // NOI18N
+        icon_add_ons.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                icon_add_onsMouseClicked(evt);
+            }
+        });
+
+        add_ons_border_selected.setBackground(new java.awt.Color(255, 255, 255));
+        add_ons_border_selected.setOpaque(false);
+        add_ons_border_selected.setPreferredSize(new java.awt.Dimension(117, 121));
+        add_ons_border_selected.setRequestFocusEnabled(false);
+
+        javax.swing.GroupLayout add_ons_border_selectedLayout = new javax.swing.GroupLayout(add_ons_border_selected);
+        add_ons_border_selected.setLayout(add_ons_border_selectedLayout);
+        add_ons_border_selectedLayout.setHorizontalGroup(
+            add_ons_border_selectedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 117, Short.MAX_VALUE)
+        );
+        add_ons_border_selectedLayout.setVerticalGroup(
+            add_ons_border_selectedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 133, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout btn_add_ons_categoryLayout = new javax.swing.GroupLayout(btn_add_ons_category);
+        btn_add_ons_category.setLayout(btn_add_ons_categoryLayout);
+        btn_add_ons_categoryLayout.setHorizontalGroup(
+            btn_add_ons_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_add_ons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(icon_add_ons, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+            .addGroup(btn_add_ons_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(add_ons_border_selected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btn_add_ons_categoryLayout.setVerticalGroup(
+            btn_add_ons_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_add_ons_categoryLayout.createSequentialGroup()
+                .addComponent(icon_add_ons, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label_add_ons, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(btn_add_ons_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_add_ons_categoryLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(add_ons_border_selected, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout menu_tabLayout = new javax.swing.GroupLayout(menu_tab);
         menu_tab.setLayout(menu_tabLayout);
         menu_tabLayout.setHorizontalGroup(
@@ -885,12 +946,14 @@ public class dashboard extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(menu_tabLayout.createSequentialGroup()
                                     .addComponent(btn_shawarma_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(53, 53, 53)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btn_rice_bowl_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btn_chicken_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(btn_drinks_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn_drinks_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btn_add_ons_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -905,10 +968,11 @@ public class dashboard extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(menu_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_drinks_category, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(btn_drinks_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_chicken_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_rice_bowl_category, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                    .addComponent(btn_shawarma_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_rice_bowl_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_shawarma_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_add_ons_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
@@ -1399,10 +1463,6 @@ public class dashboard extends javax.swing.JFrame {
         logout.setBackground(clickedColor);
     }//GEN-LAST:event_logoutMousePressed
 
-    private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
-//        vc.setVisible(true);
-    }//GEN-LAST:event_btn_checkoutMouseClicked
-
     private void btn_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rejectMouseClicked
         // TODO add your handling code here:
         System.out.println("clicked reject");
@@ -1484,21 +1544,23 @@ public class dashboard extends javax.swing.JFrame {
         }
         }
     }
-    private void icon_shawarmaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_shawarmaMouseClicked
-        shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
-        rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
-        chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
-        drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
-        addRowToMenuList("shawarma");
-    }//GEN-LAST:event_icon_shawarmaMouseClicked
+    private void table_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listMouseClicked
+        view_cart viewCart = new view_cart();
+        viewCart.setVisible(true);
+    }//GEN-LAST:event_table_listMouseClicked
+
+    private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
+        //        vc.setVisible(true);
+    }//GEN-LAST:event_btn_checkoutMouseClicked
 
     private void icon_bowlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_bowlMouseClicked
-        
+
         shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
         chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
-        
+        add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+
         addRowToMenuList("bowl");
     }//GEN-LAST:event_icon_bowlMouseClicked
 
@@ -1507,6 +1569,7 @@ public class dashboard extends javax.swing.JFrame {
         rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
         drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         addRowToMenuList("wings");
     }//GEN-LAST:event_icon_chickenMouseClicked
 
@@ -1515,22 +1578,36 @@ public class dashboard extends javax.swing.JFrame {
         rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
+        add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         addRowToMenuList("beverage");
     }//GEN-LAST:event_icon_DrinksMouseClicked
 
-    private void table_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listMouseClicked
-        view_cart viewCart = new view_cart();
-        viewCart.setVisible(true);
-    }//GEN-LAST:event_table_listMouseClicked
-
     private void btn_shawarma_categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_shawarma_categoryMouseClicked
-               
+
     }//GEN-LAST:event_btn_shawarma_categoryMouseClicked
+
+    private void icon_shawarmaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_shawarmaMouseClicked
+        shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
+        rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        addRowToMenuList("shawarma");
+    }//GEN-LAST:event_icon_shawarmaMouseClicked
 
     private void menu_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_listMouseClicked
         product_details productDetails = new product_details();
         productDetails.setVisible(true);
     }//GEN-LAST:event_menu_listMouseClicked
+
+    private void icon_add_onsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_add_onsMouseClicked
+        shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        rice_bowl_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        chicken_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        drinks_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
+        add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
+        addRowToMenuList("additional");
+    }//GEN-LAST:event_icon_add_onsMouseClicked
     
     
     
@@ -1575,12 +1652,16 @@ public class dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel add_ons_border_selected;
     private javax.swing.JLabel background;
     private roundPanel btn_accept;
+    private roundPanel btn_add_ons_category;
     private roundPanel btn_checkout;
     private roundPanel btn_chicken_category;
     private roundPanel btn_done;
     private roundPanel btn_drinks_category;
+    private roundPanel btn_drinks_category1;
+    private roundPanel btn_drinks_category2;
     private roundPanel btn_reject;
     private roundPanel btn_rice_bowl_category;
     private roundPanel btn_shawarma_category;
@@ -1588,8 +1669,13 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel dashboard;
     private javax.swing.JPanel dashboard_tab;
     private javax.swing.JPanel drinks_border_selected;
+    private javax.swing.JPanel drinks_border_selected1;
+    private javax.swing.JPanel drinks_border_selected2;
     private javax.swing.JLabel edit_order;
     private javax.swing.JLabel icon_Drinks;
+    private javax.swing.JLabel icon_Drinks1;
+    private javax.swing.JLabel icon_Drinks2;
+    private javax.swing.JLabel icon_add_ons;
     private javax.swing.JLabel icon_bowl;
     private javax.swing.JLabel icon_chicken;
     private javax.swing.JLabel icon_shawarma;
@@ -1630,8 +1716,11 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel label_add_ons;
     private javax.swing.JLabel label_chicken;
     private javax.swing.JLabel label_drinks;
+    private javax.swing.JLabel label_drinks1;
+    private javax.swing.JLabel label_drinks2;
     private javax.swing.JLabel lbl_shawarma;
     private javax.swing.JTable list_orders;
     private javax.swing.JPanel logout;

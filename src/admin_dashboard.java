@@ -125,6 +125,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports_tab = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
         sales_report_list = new javax.swing.JTable();
         btn_viewReceipt = new roundPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -863,7 +864,6 @@ public class admin_dashboard extends javax.swing.JFrame {
             user_list1.getColumnModel().getColumn(2).setResizable(false);
             user_list1.getColumnModel().getColumn(2).setPreferredWidth(800);
             user_list1.getColumnModel().getColumn(3).setResizable(false);
-            user_list1.getColumnModel().getColumn(3).setHeaderValue("Status");
         }
 
         jTabbedPane1.addTab("tab1", product_tab);
@@ -1002,20 +1002,19 @@ public class admin_dashboard extends javax.swing.JFrame {
         jSeparator4.setPreferredSize(new java.awt.Dimension(0, 5));
         sales_reports_tab.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
 
+        jScrollPane1.setBorder(null);
+
         sales_report_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"05/23/22",  new Integer(123), "table1",  new Float(709.2)},
-                {"05/23/22",  new Integer(32423), "table2",  new Float(12312.0)},
-                {"05/23/22",  new Integer(23432), "table3",  new Float(12321.0)},
-                {"05/23/22",  new Integer(234324), "table1",  new Float(123.0)}
+
             },
             new String [] {
                 "Date & Time", "Order ID", "Username", "Total Amount"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -1038,7 +1037,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_report_list.setSurrendersFocusOnKeystroke(true);
         sales_report_list.getTableHeader().setResizingAllowed(false);
         sales_report_list.getTableHeader().setReorderingAllowed(false);
-        sales_reports_tab.add(sales_report_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        jScrollPane1.setViewportView(sales_report_list);
         if (sales_report_list.getColumnModel().getColumnCount() > 0) {
             sales_report_list.getColumnModel().getColumn(0).setResizable(false);
             sales_report_list.getColumnModel().getColumn(1).setResizable(false);
@@ -1046,6 +1045,8 @@ public class admin_dashboard extends javax.swing.JFrame {
             sales_report_list.getColumnModel().getColumn(3).setResizable(false);
             sales_report_list.getColumnModel().getColumn(3).setPreferredWidth(600);
         }
+
+        sales_reports_tab.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 1180, 690));
 
         btn_viewReceipt.setBackground(new java.awt.Color(255, 0, 0));
         btn_viewReceipt.setForeground(new java.awt.Color(255, 255, 255));
@@ -1135,9 +1136,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addGroup(daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
@@ -1882,6 +1882,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
