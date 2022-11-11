@@ -68,10 +68,7 @@ public class view_cart extends javax.swing.JFrame{
                 float totalAmount = Float.parseFloat(txtTotal_amount.getText());
 
                 float change = cashReceived - totalAmount;
-                String.format("%.2f", change);
-                String.format("%.2f", cashReceived);
-
-                lbl_change.setText(Float.toString(change));
+                lbl_change.setText(String.format("%.2f", change));
 
             }
         });
@@ -816,7 +813,9 @@ public class view_cart extends javax.swing.JFrame{
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void txt_cash_receivedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusLost
-        
+        float cashReceived = Float.parseFloat(txt_cash_received.getText());
+
+                txt_cash_received.setText(String.format("%.2f", cashReceived));
     }//GEN-LAST:event_txt_cash_receivedFocusLost
     
     public void close(){
