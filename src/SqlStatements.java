@@ -171,6 +171,12 @@ public class SqlStatements {
     
     private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
 "FROM product;";
+    
+    private String retrivePendingPayments = "SELECT created_by,\n" +
+"payment_method AS \"Payment Method\", payment_amount as \"Total Amount\", payment_status as \"Status\"\n" +
+"FROM payment";
+    
+    private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
 
     public String getRetrieveUsersList() {
         return retrieveUsersList;
@@ -241,5 +247,13 @@ public class SqlStatements {
     
     public String getReturnOrdersAccordingToStatusTableNo(){
         return this.returnOrdersAccordingToStatusTableNo;
+    }
+    
+    public String getRetrivePendingPayments(){
+        return this.retrivePendingPayments;
+    }
+    
+    public String getRetrievieKitchenLogs(){
+        return this.retrievieKitchenLogs;
     }
 }

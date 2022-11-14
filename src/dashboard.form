@@ -359,7 +359,7 @@
                                   <Component id="jSeparator1" alignment="0" min="-2" pref="447" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="429" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="185" max="-2" attributes="0"/>
+                              <Component id="btn_refresh" min="-2" pref="185" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -377,7 +377,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="49" max="-2" attributes="0"/>
+                              <Component id="btn_refresh" min="-2" pref="49" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -445,10 +445,10 @@
                           <Data value="Cash"/>
                           <Data value="GCash"/>
                         </Column>
-                        <Column editable="false" title="Total Amount" type="java.lang.Float">
-                          <Data value="789.0"/>
-                          <Data value="230.0"/>
-                          <Data value="290.0"/>
+                        <Column editable="false" title="Total Amount" type="java.lang.String">
+                          <Data value="123"/>
+                          <Data value="12314"/>
+                          <Data value="1232"/>
                         </Column>
                         <Column editable="false" title="Status" type="java.lang.String">
                           <Data value="Pending"/>
@@ -506,7 +506,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btn_refresh">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -519,6 +519,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_refreshMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1804,11 +1807,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel42" alignment="0" pref="74" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -1853,11 +1852,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel45" alignment="0" pref="74" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -1902,11 +1897,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel46" alignment="0" pref="74" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>

@@ -10,6 +10,7 @@
  */
 public class Payment {
     private String table_no;
+    private String table_name;
     private String payment_method;
     private String total_amount;
     private String status;
@@ -77,4 +78,11 @@ public class Payment {
         this.status = status;
     }
     
+    public String getTable_name() {
+        return table_name;
+    }
+
+    public void setTable_name(String table_name) {
+        this.table_name = table_name;
+    }
 }

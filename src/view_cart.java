@@ -83,10 +83,6 @@ public class view_cart extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        btn_pending_orders = new javax.swing.JButton();
-        btn_completed_orders = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -95,13 +91,6 @@ public class view_cart extends javax.swing.JFrame{
         txtVat = new javax.swing.JLabel();
         txtTotal_amount = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        pending_orders_tab = new javax.swing.JPanel();
-        list_pending_orders = new javax.swing.JScrollPane();
-        tbl_pending_orders = new javax.swing.JTable();
-        completed_orders_tav = new javax.swing.JPanel();
-        list_completed_orders = new javax.swing.JScrollPane();
-        tbl_completed_orders = new javax.swing.JTable();
         backgground = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -128,6 +117,17 @@ public class view_cart extends javax.swing.JFrame{
         lbl_change = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btn_pending_orders = new javax.swing.JButton();
+        btn_completed_orders = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pending_orders_tab = new javax.swing.JPanel();
+        list_pending_orders = new javax.swing.JScrollPane();
+        tbl_pending_orders = new javax.swing.JTable();
+        completed_orders_tav = new javax.swing.JPanel();
+        list_completed_orders = new javax.swing.JScrollPane();
+        tbl_completed_orders = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cart");
@@ -135,72 +135,6 @@ public class view_cart extends javax.swing.JFrame{
         setName("Cart"); // NOI18N
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        btn_pending_orders.setBackground(new java.awt.Color(238, 0, 0));
-        btn_pending_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_pending_orders.setForeground(new java.awt.Color(255, 255, 255));
-        btn_pending_orders.setText("Pending Orders");
-        btn_pending_orders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 0, 0), 1, true));
-        btn_pending_orders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pending_ordersMouseClicked(evt);
-            }
-        });
-
-        btn_completed_orders.setBackground(new java.awt.Color(238, 0, 0));
-        btn_completed_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_completed_orders.setForeground(new java.awt.Color(255, 255, 255));
-        btn_completed_orders.setText("Completed Orders");
-        btn_completed_orders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 0, 0), 1, true));
-        btn_completed_orders.setMaximumSize(new java.awt.Dimension(107, 23));
-        btn_completed_orders.setMinimumSize(new java.awt.Dimension(107, 23));
-        btn_completed_orders.setPreferredSize(new java.awt.Dimension(107, 23));
-        btn_completed_orders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_completed_ordersMouseClicked(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back_logo.png"))); // NOI18N
-        jLabel6.setText("Back");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(btn_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_pending_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(btn_completed_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
-        );
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 480, 120));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setOpaque(false);
@@ -276,148 +210,6 @@ public class view_cart extends javax.swing.JFrame{
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 650, 480, 170));
-
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-
-        pending_orders_tab.setBackground(new java.awt.Color(255, 255, 255));
-        pending_orders_tab.setOpaque(false);
-
-        list_pending_orders.setBackground(new java.awt.Color(255, 255, 255));
-        list_pending_orders.setBorder(null);
-        list_pending_orders.setOpaque(false);
-
-        tbl_pending_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tbl_pending_orders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Qty", "Product", "Price"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_pending_orders.setGridColor(new java.awt.Color(255, 255, 255));
-        tbl_pending_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        tbl_pending_orders.setRowHeight(40);
-        tbl_pending_orders.setRowSelectionAllowed(false);
-        tbl_pending_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tbl_pending_orders.setShowVerticalLines(false);
-        tbl_pending_orders.setSurrendersFocusOnKeystroke(true);
-        tbl_pending_orders.getTableHeader().setResizingAllowed(false);
-        tbl_pending_orders.getTableHeader().setReorderingAllowed(false);
-        list_pending_orders.setViewportView(tbl_pending_orders);
-        if (tbl_pending_orders.getColumnModel().getColumnCount() > 0) {
-            tbl_pending_orders.getColumnModel().getColumn(0).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tbl_pending_orders.getColumnModel().getColumn(1).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tbl_pending_orders.getColumnModel().getColumn(2).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
-        }
-
-        javax.swing.GroupLayout pending_orders_tabLayout = new javax.swing.GroupLayout(pending_orders_tab);
-        pending_orders_tab.setLayout(pending_orders_tabLayout);
-        pending_orders_tabLayout.setHorizontalGroup(
-            pending_orders_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pending_orders_tabLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(list_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
-        );
-        pending_orders_tabLayout.setVerticalGroup(
-            pending_orders_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pending_orders_tabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(list_pending_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
-        );
-
-        jTabbedPane1.addTab("tab1", pending_orders_tab);
-
-        completed_orders_tav.setBackground(new java.awt.Color(255, 255, 255));
-        completed_orders_tav.setOpaque(false);
-
-        list_completed_orders.setBackground(new java.awt.Color(255, 255, 255));
-        list_completed_orders.setBorder(null);
-        list_completed_orders.setOpaque(false);
-
-        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tbl_completed_orders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Qty", "Product", "Price"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_completed_orders.setGridColor(new java.awt.Color(255, 255, 255));
-        tbl_completed_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        tbl_completed_orders.setRowHeight(40);
-        tbl_completed_orders.setRowSelectionAllowed(false);
-        tbl_completed_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tbl_completed_orders.setShowVerticalLines(false);
-        tbl_completed_orders.setSurrendersFocusOnKeystroke(true);
-        tbl_completed_orders.getTableHeader().setResizingAllowed(false);
-        tbl_completed_orders.getTableHeader().setReorderingAllowed(false);
-        list_completed_orders.setViewportView(tbl_completed_orders);
-        if (tbl_completed_orders.getColumnModel().getColumnCount() > 0) {
-            tbl_completed_orders.getColumnModel().getColumn(0).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tbl_completed_orders.getColumnModel().getColumn(1).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tbl_completed_orders.getColumnModel().getColumn(2).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
-        }
-
-        javax.swing.GroupLayout completed_orders_tavLayout = new javax.swing.GroupLayout(completed_orders_tav);
-        completed_orders_tav.setLayout(completed_orders_tavLayout);
-        completed_orders_tavLayout.setHorizontalGroup(
-            completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, completed_orders_tavLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
-        );
-        completed_orders_tavLayout.setVerticalGroup(
-            completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(completed_orders_tavLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
-        );
-
-        jTabbedPane1.addTab("tab1", completed_orders_tav);
-
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 96, 480, 580));
 
         backgground.setBackground(new java.awt.Color(255, 255, 255));
         backgground.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 5, true));
@@ -683,6 +475,214 @@ public class view_cart extends javax.swing.JFrame{
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 690, 690));
 
         backgground.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 17, 690, 800));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        btn_pending_orders.setBackground(new java.awt.Color(238, 0, 0));
+        btn_pending_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btn_pending_orders.setForeground(new java.awt.Color(255, 255, 255));
+        btn_pending_orders.setText("Pending Orders");
+        btn_pending_orders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 0, 0), 1, true));
+        btn_pending_orders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pending_ordersMouseClicked(evt);
+            }
+        });
+
+        btn_completed_orders.setBackground(new java.awt.Color(238, 0, 0));
+        btn_completed_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btn_completed_orders.setForeground(new java.awt.Color(255, 255, 255));
+        btn_completed_orders.setText("Completed Orders");
+        btn_completed_orders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 0, 0), 1, true));
+        btn_completed_orders.setMaximumSize(new java.awt.Dimension(107, 23));
+        btn_completed_orders.setMinimumSize(new java.awt.Dimension(107, 23));
+        btn_completed_orders.setPreferredSize(new java.awt.Dimension(107, 23));
+        btn_completed_orders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_completed_ordersMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back_logo.png"))); // NOI18N
+        jLabel6.setText("Back");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(btn_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_pending_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(btn_completed_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
+        );
+
+        backgground.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 120));
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pending_orders_tab.setBackground(new java.awt.Color(255, 255, 255));
+        pending_orders_tab.setOpaque(false);
+
+        list_pending_orders.setBackground(new java.awt.Color(255, 255, 255));
+        list_pending_orders.setBorder(null);
+        list_pending_orders.setOpaque(false);
+
+        tbl_pending_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tbl_pending_orders.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Qty", "Product", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_pending_orders.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_pending_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        tbl_pending_orders.setRowHeight(40);
+        tbl_pending_orders.setRowSelectionAllowed(false);
+        tbl_pending_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tbl_pending_orders.setShowVerticalLines(false);
+        tbl_pending_orders.setSurrendersFocusOnKeystroke(true);
+        tbl_pending_orders.getTableHeader().setResizingAllowed(false);
+        tbl_pending_orders.getTableHeader().setReorderingAllowed(false);
+        list_pending_orders.setViewportView(tbl_pending_orders);
+        if (tbl_pending_orders.getColumnModel().getColumnCount() > 0) {
+            tbl_pending_orders.getColumnModel().getColumn(0).setResizable(false);
+            tbl_pending_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tbl_pending_orders.getColumnModel().getColumn(1).setResizable(false);
+            tbl_pending_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbl_pending_orders.getColumnModel().getColumn(2).setResizable(false);
+            tbl_pending_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
+
+        javax.swing.GroupLayout pending_orders_tabLayout = new javax.swing.GroupLayout(pending_orders_tab);
+        pending_orders_tab.setLayout(pending_orders_tabLayout);
+        pending_orders_tabLayout.setHorizontalGroup(
+            pending_orders_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pending_orders_tabLayout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(list_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
+        pending_orders_tabLayout.setVerticalGroup(
+            pending_orders_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pending_orders_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(list_pending_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
+        );
+
+        jTabbedPane1.addTab("tab1", pending_orders_tab);
+
+        completed_orders_tav.setBackground(new java.awt.Color(255, 255, 255));
+        completed_orders_tav.setOpaque(false);
+
+        list_completed_orders.setBackground(new java.awt.Color(255, 255, 255));
+        list_completed_orders.setBorder(null);
+        list_completed_orders.setOpaque(false);
+
+        tbl_completed_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tbl_completed_orders.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Qty", "Product", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_completed_orders.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_completed_orders.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        tbl_completed_orders.setRowHeight(40);
+        tbl_completed_orders.setRowSelectionAllowed(false);
+        tbl_completed_orders.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tbl_completed_orders.setShowVerticalLines(false);
+        tbl_completed_orders.setSurrendersFocusOnKeystroke(true);
+        tbl_completed_orders.getTableHeader().setResizingAllowed(false);
+        tbl_completed_orders.getTableHeader().setReorderingAllowed(false);
+        list_completed_orders.setViewportView(tbl_completed_orders);
+        if (tbl_completed_orders.getColumnModel().getColumnCount() > 0) {
+            tbl_completed_orders.getColumnModel().getColumn(0).setResizable(false);
+            tbl_completed_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tbl_completed_orders.getColumnModel().getColumn(1).setResizable(false);
+            tbl_completed_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbl_completed_orders.getColumnModel().getColumn(2).setResizable(false);
+            tbl_completed_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
+
+        javax.swing.GroupLayout completed_orders_tavLayout = new javax.swing.GroupLayout(completed_orders_tav);
+        completed_orders_tav.setLayout(completed_orders_tavLayout);
+        completed_orders_tavLayout.setHorizontalGroup(
+            completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, completed_orders_tavLayout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
+        completed_orders_tavLayout.setVerticalGroup(
+            completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(completed_orders_tavLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
+        );
+
+        jTabbedPane1.addTab("tab1", completed_orders_tav);
+
+        backgground.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         getContentPane().add(backgground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 840));
 

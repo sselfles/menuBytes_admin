@@ -44,6 +44,7 @@ public class DatabaseConnection {
            datetime= dtf.format(now);
            return datetime;
      }
+     
 
     public Connection getConnection() {
         Connection connection = null;
@@ -105,8 +106,36 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orderArrayList;
-        
     }
+     
+     public ArrayList<Payment> retrivePendingPayments(){
+         Connection connection = null;
+        ArrayList<Payment> paymentArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrivePendingPayments());
+            System.out.println(getDateTime());
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getRetrivePendingPayments(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      paymentArrayList.add(new Payment(
+                              resultSet.getString(1), 
+                              resultSet.getString(2), 
+                              resultSet.getString(3), 
+                              resultSet.getString(4)
+
+                      ));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return paymentArrayList;
+     }
      
      public String returnTotalAmountByTable(String table_no) {
         Connection connection = null;
@@ -455,4 +484,34 @@ public class DatabaseConnection {
         
         return usersArrayList;
     }
+    
+    public ArrayList<User> retrieveKitchenLogs(){
+        Connection connection = null;
+        ArrayList<User> userLogArrayList = new ArrayList<User>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveUsersList()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              userLogArrayList.add(new User(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return userLogArrayList;
+    }
+    
+    
  }

@@ -141,22 +141,23 @@ public class admin_dashboard extends javax.swing.JFrame {
         jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
         jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
         transactions_tab = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
+        jLabel26 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
         transaction_list = new javax.swing.JTable();
-        btn_viewReceipt2 = new roundPanel();
-        jLabel34 = new javax.swing.JLabel();
-        cmb_transactions = new javax.swing.JComboBox<>();
-        jPanel8 = new javax.swing.JPanel();
-        transactions_tabbedPane = new javax.swing.JTabbedPane();
-        daily_weekly_tab2 = new javax.swing.JPanel();
-        jDateChooser5 = new com.toedter.calendar.JDateChooser();
-        jDateChooser6 = new com.toedter.calendar.JDateChooser();
-        jLabel22 = new javax.swing.JLabel();
-        monthly_tab2 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jMonthChooser5 = new com.toedter.calendar.JMonthChooser();
-        jMonthChooser6 = new com.toedter.calendar.JMonthChooser();
+        btn_viewReceipt1 = new roundPanel();
+        sales_view1 = new javax.swing.JLabel();
+        cmb_sales1 = new javax.swing.JComboBox<>();
+        jPanel9 = new javax.swing.JPanel();
+        sales_tabbedPane1 = new javax.swing.JTabbedPane();
+        daily_weekly_tab3 = new javax.swing.JPanel();
+        jDateChooser7 = new com.toedter.calendar.JDateChooser();
+        jDateChooser8 = new com.toedter.calendar.JDateChooser();
+        jLabel28 = new javax.swing.JLabel();
+        monthly_tab3 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jMonthChooser7 = new com.toedter.calendar.JMonthChooser();
+        jMonthChooser8 = new com.toedter.calendar.JMonthChooser();
         log_reports_tab = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -709,7 +710,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         user_list1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         user_list1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"001", "testing product name",  new Float(1.0), "Available"},
+                {"001", "testing product name", "110.00", "Available"},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -719,7 +720,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -859,10 +860,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         if (user_list1.getColumnModel().getColumnCount() > 0) {
             user_list1.getColumnModel().getColumn(0).setResizable(false);
-            user_list1.getColumnModel().getColumn(0).setPreferredWidth(10);
             user_list1.getColumnModel().getColumn(1).setResizable(false);
+            user_list1.getColumnModel().getColumn(1).setPreferredWidth(500);
             user_list1.getColumnModel().getColumn(2).setResizable(false);
-            user_list1.getColumnModel().getColumn(2).setPreferredWidth(800);
+            user_list1.getColumnModel().getColumn(2).setPreferredWidth(30);
             user_list1.getColumnModel().getColumn(3).setResizable(false);
         }
 
@@ -1007,8 +1008,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_report_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"08/03/2019",  new Integer(45),  new Float(6542.0)},
-                {"08/04/2019",  new Integer(58),  new Float(9524.0)},
+                {"08/03/2019", "3", "460"},
+                {"08/04/2019", "1", "110"},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -1023,7 +1024,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -1049,6 +1050,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(sales_report_list);
         if (sales_report_list.getColumnModel().getColumnCount() > 0) {
             sales_report_list.getColumnModel().getColumn(0).setResizable(false);
+            sales_report_list.getColumnModel().getColumn(0).setPreferredWidth(400);
             sales_report_list.getColumnModel().getColumn(1).setResizable(false);
             sales_report_list.getColumnModel().getColumn(2).setResizable(false);
         }
@@ -1197,33 +1199,41 @@ public class admin_dashboard extends javax.swing.JFrame {
         transactions_tab.setOpaque(false);
         transactions_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabel29.setText("TRANSACTIONS");
-        transactions_tab.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
+        jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jLabel26.setText("TRANSACTIONS");
+        transactions_tab.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
 
-        jSeparator7.setBackground(new java.awt.Color(255, 0, 0));
-        jSeparator7.setForeground(new java.awt.Color(255, 0, 0));
-        jSeparator7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jSeparator7.setPreferredSize(new java.awt.Dimension(0, 5));
-        transactions_tab.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
+        jSeparator8.setBackground(new java.awt.Color(255, 0, 0));
+        jSeparator8.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSeparator8.setPreferredSize(new java.awt.Dimension(0, 5));
+        transactions_tab.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
+
+        jScrollPane2.setBorder(null);
 
         transaction_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         transaction_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"05/23/22",  new Integer(123), "table1",  new Integer(13),  new Float(709.2)},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {"08/03/2019", "001", "Table 1", "110"},
+                {"08/04/2019", "5", "Table 1", "460"},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Date & Time", "Order ID", "Username", "Quantity", "Total Amount"
+                "Date ", "Order Number", "Username", "Total Amount"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1243,144 +1253,154 @@ public class admin_dashboard extends javax.swing.JFrame {
         transaction_list.setSurrendersFocusOnKeystroke(true);
         transaction_list.getTableHeader().setResizingAllowed(false);
         transaction_list.getTableHeader().setReorderingAllowed(false);
-        transactions_tab.add(transaction_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        jScrollPane2.setViewportView(transaction_list);
         if (transaction_list.getColumnModel().getColumnCount() > 0) {
             transaction_list.getColumnModel().getColumn(0).setResizable(false);
+            transaction_list.getColumnModel().getColumn(0).setPreferredWidth(400);
             transaction_list.getColumnModel().getColumn(1).setResizable(false);
             transaction_list.getColumnModel().getColumn(2).setResizable(false);
             transaction_list.getColumnModel().getColumn(3).setResizable(false);
-            transaction_list.getColumnModel().getColumn(4).setResizable(false);
-            transaction_list.getColumnModel().getColumn(4).setPreferredWidth(600);
+            transaction_list.getColumnModel().getColumn(3).setPreferredWidth(5);
         }
 
-        btn_viewReceipt2.setBackground(new java.awt.Color(255, 0, 0));
-        btn_viewReceipt2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_viewReceipt2.setRoundBottomLeft(30);
-        btn_viewReceipt2.setRoundBottomRight(30);
-        btn_viewReceipt2.setRoundTopLeft(30);
-        btn_viewReceipt2.setRoundTopRight(30);
+        transactions_tab.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 1440, 610));
 
-        jLabel34.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel34.setText("View");
+        btn_viewReceipt1.setBackground(new java.awt.Color(255, 0, 0));
+        btn_viewReceipt1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewReceipt1.setRoundBottomLeft(30);
+        btn_viewReceipt1.setRoundBottomRight(30);
+        btn_viewReceipt1.setRoundTopLeft(30);
+        btn_viewReceipt1.setRoundTopRight(30);
 
-        javax.swing.GroupLayout btn_viewReceipt2Layout = new javax.swing.GroupLayout(btn_viewReceipt2);
-        btn_viewReceipt2.setLayout(btn_viewReceipt2Layout);
-        btn_viewReceipt2Layout.setHorizontalGroup(
-            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+        sales_view1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        sales_view1.setForeground(new java.awt.Color(255, 255, 255));
+        sales_view1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sales_view1.setText("View");
+        sales_view1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sales_view1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btn_viewReceipt1Layout = new javax.swing.GroupLayout(btn_viewReceipt1);
+        btn_viewReceipt1.setLayout(btn_viewReceipt1Layout);
+        btn_viewReceipt1Layout.setHorizontalGroup(
+            btn_viewReceipt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sales_view1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
-        btn_viewReceipt2Layout.setVerticalGroup(
-            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_viewReceipt2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+        btn_viewReceipt1Layout.setVerticalGroup(
+            btn_viewReceipt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sales_view1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        transactions_tab.add(btn_viewReceipt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 890, -1, -1));
+        transactions_tab.add(btn_viewReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 870, 250, 70));
 
-        cmb_transactions.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        cmb_transactions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
-        transactions_tab.add(cmb_transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
+        cmb_sales1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        cmb_sales1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
+        cmb_sales1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_sales1ActionPerformed(evt);
+            }
+        });
+        transactions_tab.add(cmb_sales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 770, Short.MAX_VALUE)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        transactions_tab.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
+        transactions_tab.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
 
-        daily_weekly_tab2.setOpaque(false);
+        daily_weekly_tab3.setOpaque(false);
 
-        jDateChooser5.setDateFormatString("MM/dd/yy");
-        jDateChooser5.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jDateChooser7.setDateFormatString("MM/dd/yy");
+        jDateChooser7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser6.setDateFormatString("MM/dd/yy");
-        jDateChooser6.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jDateChooser8.setDateFormatString("MM/dd/yy");
+        jDateChooser8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("to");
+        jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("to");
 
-        javax.swing.GroupLayout daily_weekly_tab2Layout = new javax.swing.GroupLayout(daily_weekly_tab2);
-        daily_weekly_tab2.setLayout(daily_weekly_tab2Layout);
-        daily_weekly_tab2Layout.setHorizontalGroup(
-            daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(daily_weekly_tab2Layout.createSequentialGroup()
+        javax.swing.GroupLayout daily_weekly_tab3Layout = new javax.swing.GroupLayout(daily_weekly_tab3);
+        daily_weekly_tab3.setLayout(daily_weekly_tab3Layout);
+        daily_weekly_tab3Layout.setHorizontalGroup(
+            daily_weekly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser7, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jDateChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser8, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        daily_weekly_tab2Layout.setVerticalGroup(
-            daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(daily_weekly_tab2Layout.createSequentialGroup()
+        daily_weekly_tab3Layout.setVerticalGroup(
+            daily_weekly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(daily_weekly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(daily_weekly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser6, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(daily_weekly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser8, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jDateChooser7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        transactions_tabbedPane.addTab("tab1", daily_weekly_tab2);
+        sales_tabbedPane1.addTab("tab1", daily_weekly_tab3);
 
-        monthly_tab2.setOpaque(false);
+        monthly_tab3.setOpaque(false);
 
-        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("to");
+        jLabel36.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("to");
 
-        jMonthChooser5.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser5.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jMonthChooser7.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jMonthChooser6.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser6.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jMonthChooser8.setBackground(new java.awt.Color(255, 255, 255));
+        jMonthChooser8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        javax.swing.GroupLayout monthly_tab2Layout = new javax.swing.GroupLayout(monthly_tab2);
-        monthly_tab2.setLayout(monthly_tab2Layout);
-        monthly_tab2Layout.setHorizontalGroup(
-            monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab2Layout.createSequentialGroup()
+        javax.swing.GroupLayout monthly_tab3Layout = new javax.swing.GroupLayout(monthly_tab3);
+        monthly_tab3.setLayout(monthly_tab3Layout);
+        monthly_tab3Layout.setHorizontalGroup(
+            monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jMonthChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jMonthChooser7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jMonthChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jMonthChooser8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(281, 281, 281))
         );
-        monthly_tab2Layout.setVerticalGroup(
-            monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab2Layout.createSequentialGroup()
+        monthly_tab3Layout.setVerticalGroup(
+            monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(monthly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(monthly_tab2Layout.createSequentialGroup()
-                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(monthly_tab3Layout.createSequentialGroup()
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(monthly_tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMonthChooser5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonthChooser6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMonthChooser7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
-        transactions_tabbedPane.addTab("tab1", monthly_tab2);
+        sales_tabbedPane1.addTab("tab1", monthly_tab3);
 
-        transactions_tab.add(transactions_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+        transactions_tab.add(sales_tabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
         jTabbedPane1.addTab("tab1", transactions_tab);
 
@@ -1401,7 +1421,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_reports_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"05/23/22", "table1", "Made a payment of 890.00"},
-                {null, null, null},
+                {"11/12/22", "kitchen", "Logged in on 11/12/22 12:22:33"},
                 {null, null, null},
                 {null, null, null}
             },
@@ -1776,6 +1796,14 @@ public class admin_dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sales_viewMouseClicked
 
+    private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sales_view1MouseClicked
+
+    private void cmb_sales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_sales1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_sales1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1823,13 +1851,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     private roundPanel btn_editUser;
     private roundPanel btn_resetPassword;
     private roundPanel btn_viewReceipt;
-    private roundPanel btn_viewReceipt2;
+    private roundPanel btn_viewReceipt1;
     private javax.swing.JComboBox<String> cmb_log_reports;
     private javax.swing.JComboBox<String> cmb_sales;
-    private javax.swing.JComboBox<String> cmb_transactions;
+    private javax.swing.JComboBox<String> cmb_sales1;
     private javax.swing.JPanel daily_weekly_tab;
     private javax.swing.JPanel daily_weekly_tab1;
-    private javax.swing.JPanel daily_weekly_tab2;
+    private javax.swing.JPanel daily_weekly_tab3;
     private javax.swing.JLabel gcash_availability;
     private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
@@ -1837,8 +1865,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
-    private com.toedter.calendar.JDateChooser jDateChooser5;
-    private com.toedter.calendar.JDateChooser jDateChooser6;
+    private com.toedter.calendar.JDateChooser jDateChooser7;
+    private com.toedter.calendar.JDateChooser jDateChooser8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1853,19 +1881,18 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1876,22 +1903,23 @@ public class admin_dashboard extends javax.swing.JFrame {
     private com.toedter.calendar.JMonthChooser jMonthChooser2;
     private com.toedter.calendar.JMonthChooser jMonthChooser3;
     private com.toedter.calendar.JMonthChooser jMonthChooser4;
-    private com.toedter.calendar.JMonthChooser jMonthChooser5;
-    private com.toedter.calendar.JMonthChooser jMonthChooser6;
+    private com.toedter.calendar.JMonthChooser jMonthChooser7;
+    private com.toedter.calendar.JMonthChooser jMonthChooser8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel log_reports;
     private javax.swing.JTable log_reports_list;
@@ -1900,7 +1928,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logout;
     private javax.swing.JPanel monthly_tab;
     private javax.swing.JPanel monthly_tab1;
-    private javax.swing.JPanel monthly_tab2;
+    private javax.swing.JPanel monthly_tab3;
     private javax.swing.JPanel payment_settings;
     private javax.swing.JPanel payment_tab;
     private javax.swing.JPanel product_management;
@@ -1910,12 +1938,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;
     private javax.swing.JTabbedPane sales_tabbedPane;
+    private javax.swing.JTabbedPane sales_tabbedPane1;
     private javax.swing.JLabel sales_view;
+    private javax.swing.JLabel sales_view1;
     private javax.swing.JPanel sidePane;
     private javax.swing.JTable transaction_list;
     private javax.swing.JPanel transactions;
     private javax.swing.JPanel transactions_tab;
-    private javax.swing.JTabbedPane transactions_tabbedPane;
     private javax.swing.JTable user_list;
     private javax.swing.JTable user_list1;
     private javax.swing.JPanel user_tab;

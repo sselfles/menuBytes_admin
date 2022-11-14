@@ -33,17 +33,6 @@ public class product_details extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        product_name = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        solo = new javax.swing.JRadioButton();
-        buy1Take1 = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         product_quantity = new javax.swing.JLabel();
         roundPanel1 = new roundPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -52,9 +41,32 @@ public class product_details extends javax.swing.JFrame {
         product_total_amount = new javax.swing.JLabel();
         inc_quantity = new roundPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        shawarma = new javax.swing.JPanel();
+        shawarma_product_name = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        solo = new javax.swing.JRadioButton();
+        buy1Take1 = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        addOn_allMeat = new javax.swing.JCheckBox();
+        solo_price = new javax.swing.JLabel();
+        buy1Take1_price = new javax.swing.JLabel();
+        addOn_allMeat_price = new javax.swing.JLabel();
+        chicken = new javax.swing.JPanel();
+        chicken_product_name = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        solo1 = new javax.swing.JRadioButton();
+        buy1Take2 = new javax.swing.JRadioButton();
+        solo3 = new javax.swing.JRadioButton();
+        solo4 = new javax.swing.JRadioButton();
+        buy1Take4 = new javax.swing.JRadioButton();
+        solo5 = new javax.swing.JRadioButton();
+        others = new javax.swing.JPanel();
+        others_product_name = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -78,73 +90,10 @@ public class product_details extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 107, 51));
 
-        product_name.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        product_name.setText("Pork Samgyupsal Rice Bowl");
-        jPanel1.add(product_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 73, 547, 99));
-
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel3.setText("Choose Type");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 184, 165, 41));
-
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Pick one ( 1 )");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 184, 165, 41));
-
-        solo.setBackground(new java.awt.Color(255, 255, 255));
-        solo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        solo.setText("     Solo");
-        solo.setOpaque(false);
-        jPanel1.add(solo, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 243, -1, -1));
-
-        buy1Take1.setBackground(new java.awt.Color(255, 255, 255));
-        buy1Take1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        buy1Take1.setText("     Buy 1 Take 1");
-        buy1Take1.setOpaque(false);
-        buy1Take1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buy1Take1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buy1Take1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 292, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel5.setText("Choose Add Ons");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 380, 165, 41));
-
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Optional");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 380, 165, 41));
-
-        jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jCheckBox4.setText("     Shawarma All Meat");
-        jCheckBox4.setActionCommand("");
-        jCheckBox4.setOpaque(false);
-        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 439, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel8.setText("55.00");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 243, 104, 31));
-
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel9.setText("89.00");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 292, 104, 31));
-
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel13.setText("10.00");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 439, 104, 31));
-
         product_quantity.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        product_quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         product_quantity.setText("1");
-        jPanel1.add(product_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 568, -1, -1));
+        jPanel1.add(product_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 655, 60, 60));
 
         roundPanel1.setBackground(new java.awt.Color(255, 0, 0));
         roundPanel1.setRoundBottomLeft(50);
@@ -197,13 +146,13 @@ public class product_details extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jPanel1.add(dec_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 551, -1, -1));
+        jPanel1.add(dec_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, -1, -1));
 
         product_total_amount.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
         product_total_amount.setForeground(new java.awt.Color(255, 0, 0));
         product_total_amount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         product_total_amount.setText("-");
-        jPanel1.add(product_total_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 551, 202, 75));
+        jPanel1.add(product_total_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 202, 75));
 
         inc_quantity.setBackground(new java.awt.Color(255, 0, 0));
         inc_quantity.setRoundBottomLeft(50);
@@ -237,32 +186,281 @@ public class product_details extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jPanel1.add(inc_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 551, -1, -1));
+        jPanel1.add(inc_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 650, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 670, 40));
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        shawarma.setBackground(new java.awt.Color(255, 255, 255));
+        shawarma.setOpaque(false);
+
+        shawarma_product_name.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        shawarma_product_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        shawarma_product_name.setText("Pork Samgyupsal Rice Bowl");
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel3.setText("Choose Type");
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText("Pick one ( 1 )");
+
+        solo.setBackground(new java.awt.Color(255, 255, 255));
+        solo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo.setText("     Solo");
+        solo.setOpaque(false);
+
+        buy1Take1.setBackground(new java.awt.Color(255, 255, 255));
+        buy1Take1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        buy1Take1.setText("     Buy 1 Take 1");
+        buy1Take1.setOpaque(false);
+        buy1Take1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buy1Take1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel5.setText("Choose Add Ons");
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel7.setText("Optional");
+
+        addOn_allMeat.setBackground(new java.awt.Color(255, 255, 255));
+        addOn_allMeat.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        addOn_allMeat.setText("     Shawarma All Meat");
+        addOn_allMeat.setActionCommand("");
+        addOn_allMeat.setOpaque(false);
+
+        solo_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        solo_price.setForeground(new java.awt.Color(153, 153, 153));
+        solo_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        solo_price.setText("55.00");
+
+        buy1Take1_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        buy1Take1_price.setForeground(new java.awt.Color(153, 153, 153));
+        buy1Take1_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        buy1Take1_price.setText("89.00");
+
+        addOn_allMeat_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        addOn_allMeat_price.setForeground(new java.awt.Color(153, 153, 153));
+        addOn_allMeat_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        addOn_allMeat_price.setText("10.00");
+
+        javax.swing.GroupLayout shawarmaLayout = new javax.swing.GroupLayout(shawarma);
+        shawarma.setLayout(shawarmaLayout);
+        shawarmaLayout.setHorizontalGroup(
+            shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shawarmaLayout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(shawarma_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+            .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(shawarmaLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(7, 7, 7)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(solo)
+                            .addGap(354, 354, 354)
+                            .addComponent(solo_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(buy1Take1)
+                            .addGap(282, 282, 282)
+                            .addComponent(buy1Take1_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(7, 7, 7)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(addOn_allMeat)
+                            .addGap(218, 218, 218)
+                            .addComponent(addOn_allMeat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        shawarmaLayout.setVerticalGroup(
+            shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shawarmaLayout.createSequentialGroup()
+                .addComponent(shawarma_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 441, Short.MAX_VALUE))
+            .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(shawarmaLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(solo)
+                        .addComponent(solo_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buy1Take1)
+                        .addComponent(buy1Take1_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(57, 57, 57)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(addOn_allMeat)
+                        .addComponent(addOn_allMeat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("tab1", shawarma);
+
+        chicken.setBackground(new java.awt.Color(255, 255, 255));
+        chicken.setOpaque(false);
+
+        chicken_product_name.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        chicken_product_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        chicken_product_name.setText("Pork Samgyupsal Rice Bowl");
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel8.setText("Choose Flavors");
+
+        solo1.setBackground(new java.awt.Color(255, 255, 255));
+        solo1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo1.setText("      Garlic Parmesan");
+        solo1.setOpaque(false);
+
+        buy1Take2.setBackground(new java.awt.Color(255, 255, 255));
+        buy1Take2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        buy1Take2.setText("      Buffalo");
+        buy1Take2.setOpaque(false);
+        buy1Take2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buy1Take2ActionPerformed(evt);
+            }
+        });
+
+        solo3.setBackground(new java.awt.Color(255, 255, 255));
+        solo3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo3.setText("      Soy Garlic");
+        solo3.setOpaque(false);
+
+        solo4.setBackground(new java.awt.Color(255, 255, 255));
+        solo4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo4.setText("      Salted Egg");
+        solo4.setOpaque(false);
+
+        buy1Take4.setBackground(new java.awt.Color(255, 255, 255));
+        buy1Take4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        buy1Take4.setText("      Bulgogi");
+        buy1Take4.setOpaque(false);
+        buy1Take4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buy1Take4ActionPerformed(evt);
+            }
+        });
+
+        solo5.setBackground(new java.awt.Color(255, 255, 255));
+        solo5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo5.setText("      Sesame Honey Glazed");
+        solo5.setOpaque(false);
+
+        javax.swing.GroupLayout chickenLayout = new javax.swing.GroupLayout(chicken);
+        chicken.setLayout(chickenLayout);
+        chickenLayout.setHorizontalGroup(
+            chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chickenLayout.createSequentialGroup()
+                .addGroup(chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(chickenLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(chickenLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(chickenLayout.createSequentialGroup()
+                                .addGroup(chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(solo3)
+                                    .addComponent(solo1)
+                                    .addComponent(buy1Take2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(solo5)
+                                    .addComponent(solo4)
+                                    .addComponent(buy1Take4)))))
+                    .addGroup(chickenLayout.createSequentialGroup()
+                        .addContainerGap(63, Short.MAX_VALUE)
+                        .addComponent(chicken_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(55, 55, 55))
+        );
+        chickenLayout.setVerticalGroup(
+            chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chickenLayout.createSequentialGroup()
+                .addComponent(chicken_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(chickenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(chickenLayout.createSequentialGroup()
+                        .addComponent(solo1)
+                        .addGap(18, 18, 18)
+                        .addComponent(buy1Take2)
+                        .addGap(27, 27, 27)
+                        .addComponent(solo3))
+                    .addGroup(chickenLayout.createSequentialGroup()
+                        .addComponent(solo4)
+                        .addGap(18, 18, 18)
+                        .addComponent(buy1Take4)
+                        .addGap(27, 27, 27)
+                        .addComponent(solo5)))
+                .addGap(0, 217, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab1", chicken);
+
+        others.setBackground(new java.awt.Color(255, 255, 255));
+        others.setOpaque(false);
+
+        others_product_name.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        others_product_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        others_product_name.setText("Pork Samgyupsal Rice Bowl");
+
+        javax.swing.GroupLayout othersLayout = new javax.swing.GroupLayout(others);
+        others.setLayout(othersLayout);
+        othersLayout.setHorizontalGroup(
+            othersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, othersLayout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(others_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        othersLayout.setVerticalGroup(
+            othersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(othersLayout.createSequentialGroup()
+                .addComponent(others_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 441, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab1", others);
+
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 670, 570));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_background.png"))); // NOI18N
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 690, 870));
-
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 655, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab1", jPanel2);
-
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 660, 480));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 870));
 
@@ -283,6 +481,14 @@ public class product_details extends javax.swing.JFrame {
     private void buy1Take1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buy1Take1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buy1Take1ActionPerformed
+
+    private void buy1Take2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buy1Take2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buy1Take2ActionPerformed
+
+    private void buy1Take4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buy1Take4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buy1Take4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,12 +532,17 @@ public class product_details extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox addOn_allMeat;
+    private javax.swing.JLabel addOn_allMeat_price;
     private javax.swing.JRadioButton buy1Take1;
+    private javax.swing.JLabel buy1Take1_price;
+    private javax.swing.JRadioButton buy1Take2;
+    private javax.swing.JRadioButton buy1Take4;
+    private javax.swing.JPanel chicken;
+    private javax.swing.JLabel chicken_product_name;
     private roundPanel dec_quantity;
     private roundPanel inc_quantity;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
@@ -342,14 +553,21 @@ public class product_details extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel product_name;
+    private javax.swing.JPanel others;
+    private javax.swing.JLabel others_product_name;
     private javax.swing.JLabel product_quantity;
     private javax.swing.JLabel product_total_amount;
     private roundPanel roundPanel1;
+    private javax.swing.JPanel shawarma;
+    private javax.swing.JLabel shawarma_product_name;
     private javax.swing.JRadioButton solo;
+    private javax.swing.JRadioButton solo1;
+    private javax.swing.JRadioButton solo3;
+    private javax.swing.JRadioButton solo4;
+    private javax.swing.JRadioButton solo5;
+    private javax.swing.JLabel solo_price;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -41,15 +42,16 @@ public class dashboard extends javax.swing.JFrame {
     private String user_id;
     private String order_id;
     
+    Boolean abler = true;
+    
     public dashboard() {
         initComponents();
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
-        addTotalAmountToTable1();
-        addTotalAmountToTable2(); 
-        addTotalAmountToTable3();
+        addRowToTableList();
     }
+    
     public dashboard(String user_id) {
         initComponents();
         defaultColor = new Color(227,0,0);
@@ -60,16 +62,17 @@ public class dashboard extends javax.swing.JFrame {
         
         Runnable refreshDatas = new Runnable() {
         public void run() {
-        addTotalAmountToTable1();
-        addTotalAmountToTable2();  
-        addTotalAmountToTable3();
+//        addTotalAmountToTable1();
+//        addTotalAmountToTable2();  
+//        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
-        addDefaultRowToMenuList();
+//        addDefaultRowToMenuList();
         notifyCashierOfPayments();
+        retrieveKitchenLogs();
             System.out.println("refreshed");
         }
         };
-        
+//        
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
     }
@@ -103,7 +106,7 @@ public class dashboard extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane6 = new javax.swing.JScrollPane();
         table_list = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btn_refresh = new javax.swing.JButton();
         menu_tab = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -361,16 +364,16 @@ public class dashboard extends javax.swing.JFrame {
         table_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         table_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Table 1", "GCash",  new Float(789.0), "Pending"},
-                {"Table 2", "Cash",  new Float(230.0), "-"},
-                {"Table 1", "GCash",  new Float(290.0), "-"}
+                {"Table 1", "GCash", "123", "Pending"},
+                {"Table 2", "Cash", "12314", "-"},
+                {"Table 1", "GCash", "1232", "-"}
             },
             new String [] {
                 "Table No.", "Payment Method", "Total Amount", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -408,10 +411,15 @@ public class dashboard extends javax.swing.JFrame {
             table_list.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Refresh");
+        btn_refresh.setBackground(new java.awt.Color(255, 0, 0));
+        btn_refresh.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btn_refresh.setForeground(new java.awt.Color(255, 255, 255));
+        btn_refresh.setText("Refresh");
+        btn_refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_refreshMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout dashboard_tabLayout = new javax.swing.GroupLayout(dashboard_tab);
         dashboard_tab.setLayout(dashboard_tabLayout);
@@ -426,7 +434,7 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         dashboard_tabLayout.setVerticalGroup(
@@ -439,7 +447,7 @@ public class dashboard extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(dashboard_tabLayout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -1171,10 +1179,7 @@ public class dashboard extends javax.swing.JFrame {
         );
         btn_rejectLayout.setVerticalGroup(
             btn_rejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_rejectLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel42)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         );
 
         btn_accept.setBackground(new java.awt.Color(0, 204, 0));
@@ -1203,10 +1208,7 @@ public class dashboard extends javax.swing.JFrame {
         );
         btn_acceptLayout.setVerticalGroup(
             btn_acceptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_acceptLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel45)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         );
 
         btn_done.setBackground(new java.awt.Color(255, 0, 0));
@@ -1235,10 +1237,7 @@ public class dashboard extends javax.swing.JFrame {
         );
         btn_doneLayout.setVerticalGroup(
             btn_doneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_doneLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel46)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1318,36 +1317,35 @@ public class dashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-     public void addTotalAmountToTable1(){
-        String total_amount = null;
-        total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_1");
-        
-        if(total_amount != null){
-//            txtTotalAmountTable1.setText(total_amount);
+    public void retrieveKitchenLogs(){
+        if(! menuDefaultList().isEmpty()){
+            ArrayList<User> userLogList = kitchenLogList();
+            Object rowData[] = new Object[3];
+            for(int position = 0; position < userLogList.size(); position++){
+                rowData[0] = userLogList.get(position).getLog_in();
+                rowData[1] = userLogList.get(position).getLog_out();
+            }
+
+            Date login = (Date) rowData[0];
+            Date logout = (Date) rowData[1];
+            
+            if(login.compareTo(logout) < 0 ){
+                //if login occured before logout able buttons
+                abler = true;
+            }
+            
+            if(logout.compareTo(login) < 0 ){
+                //if logout occured before login able buttons
+                abler = false;
+            }
         }
-        else{
-//            txtTotalAmountTable1.setText("0.00");
-        }
-       
     }
     
-     public void addTotalAmountToTable2(){
-        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_2");
-        if(total_amount != null){
-//            txtTotalAmountTable2.setText(total_amount);
-        }else{
-//        txtTotalAmountTable2.setText("0.00");
-        }
-    }
-     
-     public void addTotalAmountToTable3(){
-        String total_amount = DatabaseConnection.getInstance().returnTotalAmountByTable("table_3");
-        if(total_amount != null){
-//            txtTotalAmountTable3.setText(total_amount);
-        }else{
-//        txtTotalAmountTable3.setText("0.00");
-        }
+    public ArrayList kitchenLogList(){
+        ArrayList<User> userLogList = new ArrayList<User>();
+        userLogList = DatabaseConnection.getInstance().retrieveKitchenLogs();
+        System.out.println(userLogList);
+        return userLogList;
     }
     
     public void notifyCashierOfPayments(){
@@ -1420,7 +1418,28 @@ public class dashboard extends javax.swing.JFrame {
         }
         return false;
     }
-
+    
+    public void addRowToTableList(){
+        DefaultTableModel model = (DefaultTableModel)table_list.getModel();
+        model.setRowCount(0);
+        if(!tableListQueue().isEmpty()){
+        ArrayList<Payment> paymentArrayList = tableListQueue();
+        Object rowData[] = new Object[4];
+        for(int position = 0; position < paymentArrayList.size(); position++){
+            rowData[0] = paymentArrayList.get(position).getTable_no();
+            rowData[1] = paymentArrayList.get(position).getPayment_method();
+            rowData[2] = paymentArrayList.get(position).getTotal_amount();
+            rowData[3] = paymentArrayList.get(position).getStatus();
+            model.addRow(rowData);
+        }
+        }
+    }
+    
+    public ArrayList tableListQueue(){
+        ArrayList<Payment> paymentListQueue = new ArrayList<Payment>();
+        paymentListQueue = DatabaseConnection.getInstance().retrivePendingPayments();
+        return paymentListQueue;
+    }
     
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
@@ -1465,29 +1484,41 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rejectMouseClicked
         // TODO add your handling code here:
-        System.out.println("clicked reject");
-        if(user_id!=null && order_id!=null){
+        retrieveKitchenLogs();
+        
+        if (abler){
+            System.out.println("clicked reject");
+            if(user_id!=null && order_id!=null){
             DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
             addRowToListOrderQueueTable();
+        }
         }
         
     }//GEN-LAST:event_btn_rejectMouseClicked
 
     private void btn_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_acceptMouseClicked
         // TODO add your handling code here:
-        System.out.println("clicked accept");
-                if(user_id!=null && order_id!=null){
-            DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
-            addRowToListOrderQueueTable();
+        retrieveKitchenLogs();
+        
+        if (abler){
+            System.out.println("clicked accept");
+            if(user_id!=null && order_id!=null){
+                DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
+                addRowToListOrderQueueTable();
+            }
         }
     }//GEN-LAST:event_btn_acceptMouseClicked
 
     private void btn_doneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doneMouseClicked
         // TODO add your handling code here:
-        System.out.println("clicked complete");
-        if(user_id!=null && order_id!=null){
-            DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
-            addRowToListOrderQueueTable();
+        retrieveKitchenLogs();
+        
+        if(abler){
+            System.out.println("clicked complete");
+            if(user_id!=null && order_id!=null){
+                DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
+                addRowToListOrderQueueTable();
+            }
         }
     }//GEN-LAST:event_btn_doneMouseClicked
     
@@ -1512,9 +1543,10 @@ public class dashboard extends javax.swing.JFrame {
     public void addRowToMenuList(String productCategory){
         DefaultTableModel model = (DefaultTableModel)menu_list.getModel();
         model.setRowCount(0);
+        Object rowData[] = new Object[3];
         if(! menuList(productCategory).isEmpty()){
         ArrayList<Product> menuArrayList = menuList(productCategory);
-        Object rowData[] = new Object[3];
+        
         for(int position = 0; position < menuArrayList.size(); position++){
             rowData[0] = menuArrayList.get(position).getProduct_name();
             rowData[1] = menuArrayList.get(position).getProduct_price();
@@ -1545,7 +1577,12 @@ public class dashboard extends javax.swing.JFrame {
         }
     }
     private void table_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listMouseClicked
-        view_cart viewCart = new view_cart();
+        DefaultTableModel model = (DefaultTableModel) table_list.getModel();
+        int selectedRowIndex = table_list.getSelectedRow();
+        String table_no = model.getValueAt(selectedRowIndex, 0).toString();
+        
+        
+        view_cart viewCart = new view_cart(table_no);
         viewCart.setVisible(true);
     }//GEN-LAST:event_table_listMouseClicked
 
@@ -1608,6 +1645,10 @@ public class dashboard extends javax.swing.JFrame {
         add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
         addRowToMenuList("additional");
     }//GEN-LAST:event_icon_add_onsMouseClicked
+
+    private void btn_refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_refreshMouseClicked
+        addRowToTableList();
+    }//GEN-LAST:event_btn_refreshMouseClicked
     
     
     
@@ -1660,8 +1701,7 @@ public class dashboard extends javax.swing.JFrame {
     private roundPanel btn_chicken_category;
     private roundPanel btn_done;
     private roundPanel btn_drinks_category;
-    private roundPanel btn_drinks_category1;
-    private roundPanel btn_drinks_category2;
+    private javax.swing.JButton btn_refresh;
     private roundPanel btn_reject;
     private roundPanel btn_rice_bowl_category;
     private roundPanel btn_shawarma_category;
@@ -1669,17 +1709,12 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel dashboard;
     private javax.swing.JPanel dashboard_tab;
     private javax.swing.JPanel drinks_border_selected;
-    private javax.swing.JPanel drinks_border_selected1;
-    private javax.swing.JPanel drinks_border_selected2;
     private javax.swing.JLabel edit_order;
     private javax.swing.JLabel icon_Drinks;
-    private javax.swing.JLabel icon_Drinks1;
-    private javax.swing.JLabel icon_Drinks2;
     private javax.swing.JLabel icon_add_ons;
     private javax.swing.JLabel icon_bowl;
     private javax.swing.JLabel icon_chicken;
     private javax.swing.JLabel icon_shawarma;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -1719,8 +1754,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel label_add_ons;
     private javax.swing.JLabel label_chicken;
     private javax.swing.JLabel label_drinks;
-    private javax.swing.JLabel label_drinks1;
-    private javax.swing.JLabel label_drinks2;
     private javax.swing.JLabel lbl_shawarma;
     private javax.swing.JTable list_orders;
     private javax.swing.JPanel logout;
@@ -1739,9 +1772,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JTable table_list;
     // End of variables declaration//GEN-END:variables
 
-    private ImageIcon createImageIcon(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
 }

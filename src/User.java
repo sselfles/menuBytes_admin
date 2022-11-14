@@ -14,6 +14,8 @@ public class User {
     private String user_name;
     private String user_password;
     private String device_type;
+    private String log_in;
+    private String log_out;
 
     public User(String user_id, String user_type, String user_name, String user_password, String device_type) {
         this.user_id = user_id;
@@ -41,6 +43,11 @@ public class User {
         this.user_type = user_type;
         this.user_name = user_name;
         this.device_type = device_type;
+    }
+    
+    public User(String log_in, String log_out){
+        this.log_in = log_in;
+        this.log_out = log_out;
     }
 
     public String getUser_id() {
@@ -83,6 +90,21 @@ public class User {
         this.device_type = device_type;
     }
     
+    public String getLog_out(){
+        return log_out;
+    }
+    
+    public void setLog_out(String log_out){
+        this.log_out = log_out;
+    }
+    
+    public String getLog_in(){
+        return log_in;
+    }
+    
+    public void setLog_in(String log_in){
+        this.log_in = log_in;
+    }
     
     
 }
