@@ -49,7 +49,7 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.100.129:3306/menubytes",
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());

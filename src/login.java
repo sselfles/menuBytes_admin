@@ -1,6 +1,9 @@
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 /*
@@ -117,7 +120,14 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("asd");
+            }
+        };
+        txtPassword.addActionListener(action);
     }//GEN-LAST:event_txtPasswordActionPerformed
     private void validateCredentials(String username, String password){
         String check_username = DatabaseConnection.getInstance().checkUsernameExistence(username);

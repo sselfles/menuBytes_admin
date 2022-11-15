@@ -3,6 +3,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -52,26 +54,6 @@ public class view_cart extends javax.swing.JFrame{
     
     public view_cart() {
         initComponents();
-        txt_cash_received.getDocument().addDocumentListener(new DocumentListener(){
-            @Override
-            public void insertUpdate(DocumentEvent e) { warn(); }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) { warn(); }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) { warn(); }
-            
-            public void warn(){
-                float cashReceived = Float.parseFloat(txt_cash_received.getText());
-
-                float totalAmount = Float.parseFloat(txtTotal_amount.getText());
-
-                float change = cashReceived - totalAmount;
-                lbl_change.setText(String.format("%.2f", change));
-
-            }
-        });
     }
 
     /**
@@ -389,6 +371,11 @@ public class view_cart extends javax.swing.JFrame{
         txt_cash_received.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_cash_receivedFocusLost(evt);
+            }
+        });
+        txt_cash_received.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cash_receivedActionPerformed(evt);
             }
         });
 
@@ -757,6 +744,8 @@ public class view_cart extends javax.swing.JFrame{
             
         }
         
+        
+        
     }//GEN-LAST:event_btn_cashMouseClicked
 
     private void btn_pending_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pending_ordersMouseClicked
@@ -815,6 +804,24 @@ public class view_cart extends javax.swing.JFrame{
     private void txt_cash_receivedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusLost
         
     }//GEN-LAST:event_txt_cash_receivedFocusLost
+
+    private void txt_cash_receivedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cash_receivedActionPerformed
+        Action action = new AbstractAction()
+        {   
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                float cashReceived = Float.parseFloat(txt_cash_received.getText());
+
+                float totalAmount = Float.parseFloat(txtTotal_amount.getText());
+
+                float change = cashReceived - totalAmount;
+                lbl_change.setText(String.format("%.2f", change));
+                
+            }
+        };
+        txt_cash_received.addActionListener(action);
+    }//GEN-LAST:event_txt_cash_receivedActionPerformed
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
