@@ -55,7 +55,7 @@ public class SqlStatements {
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
 "AND DATE(orders.created_at) = curdate(); ";
     
-    private String checkUsernameExistence = "SELECT user_id FROM user WHERE user_name = (?);";
+    private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin');";
     
     private String checkUsernamePassword = "SELECT user_id FROM user WHERE user_name = (?) AND password = (?);";
     
@@ -161,11 +161,41 @@ public class SqlStatements {
 "WHERE payment.payment_status = \"PENDING\"\n" +
 "AND order_status.order_status != \"REJECTED\";";
     
-    private String getSalesReportDaily = "SELECT DATE(orders.created_at), orders.order_id, orders.created_by, orders.total\n" +
+    private String getSalesReportDaily = "SELECT \n" +
+"DATE(orders.created_at),\n" +
+"SUM(order_items.quantity),\n" +
+"SUM(orders.total)\n" +
 "FROM orders\n" +
-"INNER JOIN payment \n" +
-"ON orders.created_by = payment.created_by\n" +
-"WHERE payment.payment_status = \"COMPLETE\" GROUP BY order_id;";
+"INNER JOIN\n" +
+"order_items ON orders.order_id = order_items.order_id\n" +
+"GROUP BY DATE(orders.created_at)\n" +
+";";
+    
+    private String getTransactions = "SELECT\n" +
+"DATE(created_at),\n" +
+"order_id,\n" +
+"created_by,\n" +
+"total\n" +
+"FROM orders;";
+    
+    private String getLogReports = "SELECT\n" +
+"DATE(payment.created_at),\n" +
+"REPLACE(payment.created_by,\"_\",\" \"),\n" +
+"CONCAT(\"Made a payment of \", payment.payment_amount)\n" +
+"FROM payment\n" +
+"WHERE payment_status = \"COMPLETED\"\n" +
+"UNION ALL\n" +
+"SELECT\n" +
+"DATE(user.log_in),\n" +
+"REPLACE(user.user_name,\"_\",\" \"),\n" +
+"CONCAT(\"Logged in \", user.log_in)\n" +
+"FROM user\n" +
+"UNION ALL\n" +
+"SELECT\n" +
+"DATE(user.log_out),\n" +
+"REPLACE(user.user_name,\"_\",\" \"),\n" +
+"CONCAT(\"Logged out \", user.log_out)\n" +
+"FROM user;";
     
     private String retrieveUsersList = "SELECT user_id, user_type, user_name, device_type FROM user;";
     
@@ -173,11 +203,15 @@ public class SqlStatements {
 "FROM product;";
     
     private String retrivePendingPayments = "SELECT created_by,\n" +
-"payment_method AS \"Payment Method\", payment_amount as \"Total Amount\", payment_status as \"Status\"\n" +
-"FROM payment";
+"payment_method, payment_amount, payment_status\n" +
+"FROM payment WHERE DATE(payment.created_at) = CURDATE() AND payment_status = \"PENDING\";";
     
     private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
-
+    
+    private String getProductByCategory = "SELECT product_name, product_price, product_category FROM product where product_name = (?);";
+    
+    
+    
     public String getRetrieveUsersList() {
         return retrieveUsersList;
     }
@@ -255,5 +289,17 @@ public class SqlStatements {
     
     public String getRetrievieKitchenLogs(){
         return this.retrievieKitchenLogs;
+    }
+    
+    public String getTransactions(){
+        return this.getTransactions;
+    }
+    
+    public String getLogReports(){
+        return this.getLogReports;
+    }
+    
+    public String getSelectedProductInfo() {
+        return this.getProductByCategory;
     }
 }

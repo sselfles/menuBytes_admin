@@ -76,6 +76,8 @@ public class dashboard extends javax.swing.JFrame {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
     }
+    
+    
 
 
     
@@ -757,7 +759,7 @@ public class dashboard extends javax.swing.JFrame {
         jComboBox1.setBackground(new java.awt.Color(255, 12, 19));
         jComboBox1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Table 1", "Table 2", "Take-out", " " }));
-        jPanel7.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 390, 40));
+        jPanel7.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 390, 40));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setBorder(null);
@@ -774,7 +776,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -801,8 +803,9 @@ public class dashboard extends javax.swing.JFrame {
         if (list_orders.getColumnModel().getColumnCount() > 0) {
             list_orders.getColumnModel().getColumn(0).setResizable(false);
             list_orders.getColumnModel().getColumn(1).setResizable(false);
-            list_orders.getColumnModel().getColumn(1).setPreferredWidth(30);
+            list_orders.getColumnModel().getColumn(1).setPreferredWidth(200);
             list_orders.getColumnModel().getColumn(2).setResizable(false);
+            list_orders.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -860,10 +863,10 @@ public class dashboard extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(order_total_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btn_checkout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_checkout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1306,10 +1309,35 @@ public class dashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    public dashboard(String product_quantity, String bundle_name, String product_total_amount, Boolean has_addOns, String flavors) {
+        initComponents();
+        
+        System.out.println(product_quantity + bundle_name + product_total_amount);
+        
+        ArrayList<OrderItems> product = new ArrayList<OrderItems>();
+        product.add(new OrderItems(
+                                product_quantity, 
+                                bundle_name,
+                                product_total_amount));
+        
+        DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
+        model.setRowCount(0);
+
+        Object rowData[] = new Object[3];
+        for(int position = 0; position < product.size(); position++){
+            rowData[0] = product.get(position).getQuantity();
+            rowData[1] = product.get(position).getProduct_name();
+            rowData[2] = product.get(position).getTotal_price();
+            model.addRow(rowData);
+        }
+        
+    }
+    
     public void retrieveKitchenLogs(){
         if(! menuDefaultList().isEmpty()){
             ArrayList<User> userLogList = kitchenLogList();
-            Object rowData[] = new Object[3];
+            Object rowData[] = new Object[2];
             for(int position = 0; position < userLogList.size(); position++){
                 rowData[0] = userLogList.get(position).getLog_in();
                 rowData[1] = userLogList.get(position).getLog_out();
@@ -1565,6 +1593,19 @@ public class dashboard extends javax.swing.JFrame {
         }
         }
     }
+    
+    public Object getProductId() {
+        Object productId = null;
+        if(! menuDefaultList().isEmpty()){
+        ArrayList<Product> menuArrayList = menuDefaultList();
+        
+        productId = menuArrayList.get(0).getProduct_id();
+        
+        }
+        
+        return productId;
+    }
+    
     private void table_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listMouseClicked
         DefaultTableModel model = (DefaultTableModel) table_list.getModel();
         int selectedRowIndex = table_list.getSelectedRow();
@@ -1622,7 +1663,11 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_icon_shawarmaMouseClicked
 
     private void menu_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_listMouseClicked
-        product_details productDetails = new product_details();
+        DefaultTableModel model = (DefaultTableModel) menu_list.getModel();
+        int selectedRowIndex = menu_list.getSelectedRow();
+        String product_name = model.getValueAt(selectedRowIndex, 0).toString();
+        
+        product_details productDetails = new product_details(product_name);
         productDetails.setVisible(true);
     }//GEN-LAST:event_menu_listMouseClicked
 

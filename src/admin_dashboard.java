@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,6 +53,93 @@ public class admin_dashboard extends javax.swing.JFrame {
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
     }
+    
+    public void addRowToSalesReport() {
+        if (cmb_sales.getSelectedIndex() == 0) {
+            DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            if(!salesReport().isEmpty()){
+                ArrayList<Report> reportArrayList = salesReport();
+                Object rowData[] = new Object[4];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+        }
+        
+        if (cmb_sales.getSelectedIndex() == 1) {
+        
+        }
+        
+        if (cmb_sales.getSelectedIndex() == 2) {
+        
+        }
+    }
+    
+    public ArrayList salesReport(){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getSalesReportDaily();
+        return salesReport;
+    }
+    
+    public void addRowToTransaction() {
+        if (cmb_transactions.getSelectedIndex() == 0) {
+            DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
+            model.setRowCount(0);
+            if(!salesReport().isEmpty()){
+                ArrayList<Report> reportArrayList = salesReport();
+                Object rowData[] = new Object[4];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getOrder_id();
+                    rowData[1] = reportArrayList.get(position).getTable_name();
+                    rowData[3] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+        }
+        
+        if (cmb_transactions.getSelectedIndex() == 1) {
+        
+        }
+        
+        if (cmb_transactions.getSelectedIndex() == 2) {
+        
+        }
+    }
+    
+    public ArrayList transactionsReport(){
+        ArrayList<Report> transactionsReport = new ArrayList<Report>();
+        transactionsReport = DatabaseConnection.getInstance().getTransactions();
+        return transactionsReport;
+    }
+    
+    public void addRowToLogReports() {
+        DefaultTableModel model = (DefaultTableModel)log_reports_list.getModel();
+            model.setRowCount(0);
+            if(!salesReport().isEmpty()){
+                ArrayList<LogReport> logsArrayList = salesReport();
+                Object rowData[] = new Object[4];
+                
+                for(int position = 0; position < logsArrayList.size(); position++){
+                    rowData[0] = logsArrayList.get(position).getDate();
+                    rowData[1] = logsArrayList.get(position).getTable_name();
+                    rowData[1] = logsArrayList.get(position).getDescription();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList logReport(){
+        ArrayList<LogReport> logReport = new ArrayList<LogReport>();
+        logReport = DatabaseConnection.getInstance().getLogReports();
+        return logReport;
+    }
 
     
     public void close(){
@@ -74,8 +163,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         payment_settings = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        reports = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         sales_reports = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         transactions = new javax.swing.JPanel();
@@ -147,7 +234,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         transaction_list = new javax.swing.JTable();
         btn_viewReceipt1 = new roundPanel();
         sales_view1 = new javax.swing.JLabel();
-        cmb_sales1 = new javax.swing.JComboBox<>();
+        cmb_transactions = new javax.swing.JComboBox<>();
         jPanel9 = new javax.swing.JPanel();
         sales_tabbedPane1 = new javax.swing.JTabbedPane();
         daily_weekly_tab3 = new javax.swing.JPanel();
@@ -162,17 +249,12 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         log_reports_list = new javax.swing.JTable();
-        cmb_log_reports = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         log_tabbedPAne = new javax.swing.JTabbedPane();
         daily_weekly_tab1 = new javax.swing.JPanel();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jDateChooser4 = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
-        monthly_tab1 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jMonthChooser3 = new com.toedter.calendar.JMonthChooser();
-        jMonthChooser4 = new com.toedter.calendar.JMonthChooser();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -282,38 +364,6 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         sidePane.add(payment_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 360, 70));
 
-        reports.setBackground(new java.awt.Color(227, 0, 0));
-        reports.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                reportsMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                reportsMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                reportsMouseReleased(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Reports");
-
-        javax.swing.GroupLayout reportsLayout = new javax.swing.GroupLayout(reports);
-        reports.setLayout(reportsLayout);
-        reportsLayout.setHorizontalGroup(
-            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportsLayout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        reportsLayout.setVerticalGroup(
-            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-
-        sidePane.add(reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 360, 70));
-
         sales_reports.setBackground(new java.awt.Color(227, 0, 0));
         sales_reports.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -344,7 +394,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(sales_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 360, 70));
+        sidePane.add(sales_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 360, 70));
 
         transactions.setBackground(new java.awt.Color(227, 0, 0));
         transactions.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -376,7 +426,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 360, 70));
+        sidePane.add(transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 360, 70));
 
         log_reports.setBackground(new java.awt.Color(227, 0, 0));
         log_reports.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -408,7 +458,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 360, 70));
+        sidePane.add(log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 360, 70));
 
         logout.setBackground(new java.awt.Color(227, 0, 0));
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1113,10 +1163,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab.setOpaque(false);
 
-        jDateChooser1.setDateFormatString("MM/dd/yy");
+        jDateChooser1.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser2.setDateFormatString("MM/dd/yy");
+        jDateChooser2.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -1295,14 +1345,14 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         transactions_tab.add(btn_viewReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 870, 250, 70));
 
-        cmb_sales1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        cmb_sales1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
-        cmb_sales1.addActionListener(new java.awt.event.ActionListener() {
+        cmb_transactions.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        cmb_transactions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
+        cmb_transactions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_sales1ActionPerformed(evt);
+                cmb_transactionsActionPerformed(evt);
             }
         });
-        transactions_tab.add(cmb_sales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
+        transactions_tab.add(cmb_transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1321,10 +1371,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab3.setOpaque(false);
 
-        jDateChooser7.setDateFormatString("MM/dd/yy");
+        jDateChooser7.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser8.setDateFormatString("MM/dd/yy");
+        jDateChooser8.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -1456,14 +1506,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_reports_tab.add(log_reports_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
         if (log_reports_list.getColumnModel().getColumnCount() > 0) {
             log_reports_list.getColumnModel().getColumn(0).setResizable(false);
+            log_reports_list.getColumnModel().getColumn(0).setPreferredWidth(400);
             log_reports_list.getColumnModel().getColumn(1).setResizable(false);
             log_reports_list.getColumnModel().getColumn(2).setResizable(false);
             log_reports_list.getColumnModel().getColumn(2).setPreferredWidth(600);
         }
-
-        cmb_log_reports.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        cmb_log_reports.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
-        log_reports_tab.add(cmb_log_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1482,10 +1529,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab1.setOpaque(false);
 
-        jDateChooser3.setDateFormatString("MM/dd/yy");
+        jDateChooser3.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser4.setDateFormatString("MM/dd/yy");
+        jDateChooser4.setDateFormatString("yy/MM/dd hh:mm:ss");
         jDateChooser4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -1518,49 +1565,6 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         log_tabbedPAne.addTab("tab1", daily_weekly_tab1);
 
-        monthly_tab1.setOpaque(false);
-
-        jLabel21.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("to");
-
-        jMonthChooser3.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-
-        jMonthChooser4.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-
-        javax.swing.GroupLayout monthly_tab1Layout = new javax.swing.GroupLayout(monthly_tab1);
-        monthly_tab1.setLayout(monthly_tab1Layout);
-        monthly_tab1Layout.setHorizontalGroup(
-            monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jMonthChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jMonthChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
-        );
-        monthly_tab1Layout.setVerticalGroup(
-            monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(monthly_tab1Layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(monthly_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMonthChooser3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonthChooser4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-        );
-
-        log_tabbedPAne.addTab("tab1", monthly_tab1);
-
         log_reports_tab.add(log_tabbedPAne, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
         jTabbedPane1.addTab("tab1", log_reports_tab);
@@ -1581,31 +1585,15 @@ public class admin_dashboard extends javax.swing.JFrame {
         account_management.setBackground(clickedColor);
         product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        reports.setBackground(defaultColor);
         sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_account_managementMousePressed
 
     private void account_managementMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMouseReleased
 
     }//GEN-LAST:event_account_managementMouseReleased
-
-    private void reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMouseClicked
-        jTabbedPane1.setSelectedIndex(3);
-    }//GEN-LAST:event_reportsMouseClicked
-
-    private void reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMousePressed
-        account_management.setBackground(defaultColor);
-        product_management.setBackground(defaultColor);
-        payment_settings.setBackground(defaultColor);
-        reports.setBackground(clickedColor);
-        sales_reports.setBackground(defaultColor);
-        logout.setBackground(defaultColor);
-    }//GEN-LAST:event_reportsMousePressed
-
-    private void reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMouseReleased
-
-    }//GEN-LAST:event_reportsMouseReleased
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         login li = new login();
@@ -1617,8 +1605,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         account_management.setBackground(defaultColor);
         product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        reports.setBackground(defaultColor);
         sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
         logout.setBackground(clickedColor);
     }//GEN-LAST:event_logoutMousePressed
 
@@ -1630,8 +1619,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         account_management.setBackground(defaultColor);
         product_management.setBackground(clickedColor);
         payment_settings.setBackground(defaultColor);
-        reports.setBackground(defaultColor);
         sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_product_managementMousePressed
 
@@ -1647,8 +1637,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         account_management.setBackground(defaultColor);
         product_management.setBackground(defaultColor);
         payment_settings.setBackground(clickedColor);
-        reports.setBackground(defaultColor);
         sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_payment_settingsMousePressed
 
@@ -1658,14 +1649,17 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void sales_reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_reportsMouseClicked
         jTabbedPane1.setSelectedIndex(3);
+        
+        addRowToSalesReport();
     }//GEN-LAST:event_sales_reportsMouseClicked
 
     private void sales_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_reportsMousePressed
         account_management.setBackground(defaultColor);
         product_management.setBackground(defaultColor);
         payment_settings.setBackground(defaultColor);
-        reports.setBackground(defaultColor);
         sales_reports.setBackground(clickedColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_sales_reportsMousePressed
 
@@ -1709,10 +1703,17 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void transactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMouseClicked
         jTabbedPane1.setSelectedIndex(4);
+        addRowToTransaction();
     }//GEN-LAST:event_transactionsMouseClicked
 
     private void transactionsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMousePressed
-        // TODO add your handling code here:
+        account_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
+        payment_settings.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
+        transactions.setBackground(clickedColor);
+        log_reports.setBackground(defaultColor);
+        logout.setBackground(defaultColor);
     }//GEN-LAST:event_transactionsMousePressed
 
     private void transactionsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMouseReleased
@@ -1724,7 +1725,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_log_reportsMouseClicked
 
     private void log_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMousePressed
-        // TODO add your handling code here:
+        account_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
+        payment_settings.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(clickedColor);
+        logout.setBackground(defaultColor);
     }//GEN-LAST:event_log_reportsMousePressed
 
     private void log_reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseReleased
@@ -1800,9 +1807,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_sales_view1MouseClicked
 
-    private void cmb_sales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_sales1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmb_sales1ActionPerformed
+    private void cmb_transactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_transactionsActionPerformed
+        addRowToTransaction();
+    }//GEN-LAST:event_cmb_transactionsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1852,9 +1859,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     private roundPanel btn_resetPassword;
     private roundPanel btn_viewReceipt;
     private roundPanel btn_viewReceipt1;
-    private javax.swing.JComboBox<String> cmb_log_reports;
     private javax.swing.JComboBox<String> cmb_sales;
-    private javax.swing.JComboBox<String> cmb_sales1;
+    private javax.swing.JComboBox<String> cmb_transactions;
     private javax.swing.JPanel daily_weekly_tab;
     private javax.swing.JPanel daily_weekly_tab1;
     private javax.swing.JPanel daily_weekly_tab3;
@@ -1878,9 +1884,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1901,8 +1905,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private com.toedter.calendar.JMonthChooser jMonthChooser2;
-    private com.toedter.calendar.JMonthChooser jMonthChooser3;
-    private com.toedter.calendar.JMonthChooser jMonthChooser4;
     private com.toedter.calendar.JMonthChooser jMonthChooser7;
     private com.toedter.calendar.JMonthChooser jMonthChooser8;
     private javax.swing.JPanel jPanel1;
@@ -1927,13 +1929,11 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JTabbedPane log_tabbedPAne;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel monthly_tab;
-    private javax.swing.JPanel monthly_tab1;
     private javax.swing.JPanel monthly_tab3;
     private javax.swing.JPanel payment_settings;
     private javax.swing.JPanel payment_tab;
     private javax.swing.JPanel product_management;
     private javax.swing.JPanel product_tab;
-    private javax.swing.JPanel reports;
     private javax.swing.JTable sales_report_list;
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;

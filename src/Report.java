@@ -14,11 +14,20 @@ public class Report {
     private String order_id;
     private String table_name;
     private String total_amount;
+    private String total_quantity;
+    private String description;
+    
 
     public Report(String date, String order_id, String table_name, String total_amount) {
         this.date = date;
         this.order_id = order_id;
         this.table_name = table_name;
+        this.total_amount = total_amount;
+    }
+    
+    public Report(String date, String total_quantity, String total_amount){
+        this.date = date;
+        this.total_quantity = total_quantity;
         this.total_amount = total_amount;
     }
 
@@ -54,6 +63,19 @@ public class Report {
         this.total_amount = total_amount;
     }
     
+    public String getTotal_quantity() {
+        return total_quantity;
+    }
+
+    public void setTotal_quantity(String total_quantity) {
+        this.total_quantity = total_quantity;
+    }
     
-    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

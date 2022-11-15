@@ -1,5 +1,6 @@
 
 import java.rmi.RemoteException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -49,7 +50,7 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -118,7 +119,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database getRetrivePendingPayments(): No Data Retrieved!");}
+            System.out.println("Database retrivePendingPayments(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                       paymentArrayList.add(new Payment(
@@ -167,6 +168,7 @@ public class DatabaseConnection {
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getCheckUsernameExistence());
         preparedStatement.setString(1, username);
+        preparedStatement.setString(2, username);
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
@@ -284,7 +286,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database retrieveProductsAccordingToCategory(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               orderArrayList.add(new Product(
@@ -310,7 +312,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database retrieveAllProducts(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               orderArrayList.add(new Product(
@@ -366,7 +368,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database notifyCashierOfPayments(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               payments.add(new Payment(
@@ -392,7 +394,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database retrieveAmountDueTableName(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               payments.add(new Payment(
@@ -434,16 +436,15 @@ public class DatabaseConnection {
         resultSet = preparedStatement.executeQuery();
         
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database getSalesReportDaily(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               salesReports.add(new Report(
                                       resultSet.getString(1), 
                                       resultSet.getString(2), 
-                                      resultSet.getString(3), 
-                                      resultSet.getString(4)));
+                                      resultSet.getString(3)));
                               
-            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3)+resultSet.getString(4));
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -453,6 +454,69 @@ public class DatabaseConnection {
         }
         
         return salesReports;
+    }
+    
+    public  ArrayList<Report> getTransactions(){
+        Connection connection = null;
+        ArrayList<Report> transactionsReports = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactions()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getTransactions(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              transactionsReports.add(new Report(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3),
+                                      resultSet.getString(4)));
+                              
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3) + resultSet.getString(4));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return transactionsReports;
+    }
+    
+    public  ArrayList<LogReport> getLogReports(){
+        Connection connection = null;
+        ArrayList<LogReport> logReports = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactions()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getLogReports(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              logReports.add(new LogReport(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3)));
+                              
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return logReports;
     }
     
     public  ArrayList<User> retrieveUsersList(){
@@ -466,7 +530,7 @@ public class DatabaseConnection {
         resultSet = preparedStatement.executeQuery();
         
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database retrieveUsersList(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               usersArrayList.add(new User(
@@ -496,7 +560,7 @@ public class DatabaseConnection {
         resultSet = preparedStatement.executeQuery();
         
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database retrieveOrderListQueue(): No Data Retrieved!");}
+            System.out.println("Database retrieveKitchenLogs(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               userLogArrayList.add(new User(
@@ -513,5 +577,37 @@ public class DatabaseConnection {
         return userLogArrayList;
     }
     
-    
+    public ArrayList<Product> getSelectedProductInfo(String product_name) {
+        Connection connection = null;
+        ArrayList<Product> productArrayList = new ArrayList<Product>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getSelectedProductInfo()); 
+            preparedStatement.setString(1, product_name);
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database getSelectedProductInfo(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                  productArrayList.add(new Product(
+                                          resultSet.getString(1), 
+                                          resultSet.getString(2),
+                                          resultSet.getString(3)));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return productArrayList;
+    }
  }

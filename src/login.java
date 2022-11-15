@@ -36,8 +36,8 @@ public class login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
         foodHubLogo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
@@ -48,16 +48,10 @@ public class login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(198, 0, 0));
 
         txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtUsername.setMargin(new java.awt.Insets(2, 10, 2, 10));
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
-            }
-        });
-
-        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
             }
         });
 
@@ -76,6 +70,10 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPassword.setText("Password");
+        txtPassword.setMargin(new java.awt.Insets(2, 10, 2, 10));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -83,25 +81,25 @@ public class login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(255, 255, 255)
-                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(118, 118, 118)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 990));
@@ -118,33 +116,32 @@ public class login extends javax.swing.JFrame {
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        Action action = new AbstractAction()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("asd");
-            }
-        };
-        txtPassword.addActionListener(action);
-    }//GEN-LAST:event_txtPasswordActionPerformed
     private void validateCredentials(String username, String password){
         String check_username = DatabaseConnection.getInstance().checkUsernameExistence(username);
         String check_match_password = DatabaseConnection.getInstance().checkUsernamePassword(username, password);
         
         if(check_username!=null){
             if(check_match_password!=null){
-                dashboard db = new dashboard(check_match_password);
-                db.setVisible(true);
+                if(username.equals("cashier")){
+                    System.out.print("cashier loggin in.");
+                    dashboard db = new dashboard("2");
+                    db.setVisible(true);
+                    close();
+                }
+                if(username.equals("admin")){
+                    System.out.print("admin loggin in.");
+                    admin_dashboard db = new admin_dashboard();
+                    db.setVisible(true);
+                    close();
+                }
                 JOptionPane.showMessageDialog(null, "Login Successful!", "Login Successful", JOptionPane.PLAIN_MESSAGE);
                 close();
             }
             else{
-                JOptionPane.showMessageDialog(null, "Incorrect Password! \nPlease re-type your password again.", "Incorrect Password", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Incorrect Password! \nPlease re-type your password.", "Incorrect Password", JOptionPane.PLAIN_MESSAGE);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Username does not exist!", "Incorrect Username", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please check the username.", "Incorrect Username", JOptionPane.PLAIN_MESSAGE);
         }
         
     }
@@ -153,26 +150,26 @@ public class login extends javax.swing.JFrame {
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtUsername.getText();
-//        String password = txtPassword.getText();
-//        
-//        if(username.equals("") || password.equals("")){
-//             JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
-//        }else{
-//            validateCredentials(username, password);
-//        }
+        String password = String.valueOf(txtPassword.getPassword());
+        
+        if(username.equals("") || password.equals("")){
+             JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
+        } else{
+            validateCredentials(username, password);
+        }
 
-        if(username.equals("cashier")){
-            System.out.print("cashier loggin in.");
-            dashboard db = new dashboard("2");
-            db.setVisible(true);
-            close();
-        }
-        if(username.equals("admin")){
-            System.out.print("admin loggin in.");
-            admin_dashboard db = new admin_dashboard();
-            db.setVisible(true);
-            close();
-        }
+//        if(username.equals("cashier")){
+//            System.out.print("cashier loggin in.");
+//            dashboard db = new dashboard("2");
+//            db.setVisible(true);
+//            close();
+//        }
+//        if(username.equals("admin")){
+//            System.out.print("admin loggin in.");
+//            admin_dashboard db = new admin_dashboard();
+//            db.setVisible(true);
+//            close();
+//        }
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -224,7 +221,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel foodHubLogo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

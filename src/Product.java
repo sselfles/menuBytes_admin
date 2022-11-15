@@ -40,6 +40,12 @@ public class Product {
         this.product_category = product_category;
         this.product_description = product_description;
     }
+    
+    public Product(String product_name, String product_price, String product_category) {
+        this.product_name = product_name;
+        this.product_price = product_price;
+        this.product_category = product_category;
+    }
 
     
     
@@ -102,6 +108,4 @@ public class Product {
     public void setProduct_availability(String product_availability) {
         this.product_availability = product_availability;
     }
-    
-    
 }

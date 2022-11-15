@@ -22,6 +22,9 @@ public class Order {
     private String order_status;
     private String created_by;
     private String product_availability;
+    
+    private Boolean has_addOns;
+    private String flavors;
 
     public Order(String order_id, String product_name, String quantity, String product_price, String grand_total, String table_no, String date, String order_status) {
         this.order_id = order_id;
@@ -47,7 +50,7 @@ public class Order {
         this.product_name = product_name;
     }
     
-    
+       
     
     public String getProduct_id() {
         return product_id;
@@ -144,6 +147,5 @@ public class Order {
     public void setTotal_quantity(String total_quantity) {
         this.total_quantity = total_quantity;
     }
-    
     
 }
