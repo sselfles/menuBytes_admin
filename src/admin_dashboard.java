@@ -2127,7 +2127,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 DatabaseConnection.getInstance().deleteProduct(this.productName);
-                JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Product Deletion Successful", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Successfully deleted " + productName, "Product Deletion Successful", JOptionPane.PLAIN_MESSAGE);
             }
         
     }//GEN-LAST:event_btn_deleteMenuMouseClicked
