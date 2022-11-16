@@ -1,6 +1,6 @@
 
 
-import com.itextpdf.text.BadElementException;
+
 import com.itextpdf.text.BaseColor;
 import static com.itextpdf.text.BaseColor.BLACK;
 import com.itextpdf.text.Chunk;
@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -248,6 +250,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_reports_tab = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
+        jScrollPane3 = new javax.swing.JScrollPane();
         log_reports_list = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         log_tabbedPAne = new javax.swing.JTabbedPane();
@@ -255,6 +258,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jDateChooser4 = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
+        btn_viewReceipt2 = new roundPanel();
+        log_view = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -1473,6 +1478,21 @@ public class admin_dashboard extends javax.swing.JFrame {
                 {"05/23/22", "table1", "Made a payment of 890.00"},
                 {"11/12/22", "kitchen", "Logged in on 11/12/22 12:22:33"},
                 {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -1503,7 +1523,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_reports_list.setSurrendersFocusOnKeystroke(true);
         log_reports_list.getTableHeader().setResizingAllowed(false);
         log_reports_list.getTableHeader().setReorderingAllowed(false);
-        log_reports_tab.add(log_reports_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 245, 1420, 610));
+        jScrollPane3.setViewportView(log_reports_list);
         if (log_reports_list.getColumnModel().getColumnCount() > 0) {
             log_reports_list.getColumnModel().getColumn(0).setResizable(false);
             log_reports_list.getColumnModel().getColumn(0).setPreferredWidth(400);
@@ -1511,6 +1531,8 @@ public class admin_dashboard extends javax.swing.JFrame {
             log_reports_list.getColumnModel().getColumn(2).setResizable(false);
             log_reports_list.getColumnModel().getColumn(2).setPreferredWidth(600);
         }
+
+        log_reports_tab.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 1430, 590));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1566,6 +1588,36 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_tabbedPAne.addTab("tab1", daily_weekly_tab1);
 
         log_reports_tab.add(log_tabbedPAne, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+
+        btn_viewReceipt2.setBackground(new java.awt.Color(255, 0, 0));
+        btn_viewReceipt2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewReceipt2.setRoundBottomLeft(30);
+        btn_viewReceipt2.setRoundBottomRight(30);
+        btn_viewReceipt2.setRoundTopLeft(30);
+        btn_viewReceipt2.setRoundTopRight(30);
+
+        log_view.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        log_view.setForeground(new java.awt.Color(255, 255, 255));
+        log_view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        log_view.setText("View");
+        log_view.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                log_viewMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btn_viewReceipt2Layout = new javax.swing.GroupLayout(btn_viewReceipt2);
+        btn_viewReceipt2.setLayout(btn_viewReceipt2Layout);
+        btn_viewReceipt2Layout.setHorizontalGroup(
+            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(log_view, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        btn_viewReceipt2Layout.setVerticalGroup(
+            btn_viewReceipt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(log_view, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        log_reports_tab.add(btn_viewReceipt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 870, 250, 70));
 
         jTabbedPane1.addTab("tab1", log_reports_tab);
 
@@ -1746,9 +1798,14 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_cmb_salesActionPerformed
 
     private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
-        String dateOfSalesReport = "09-23-22"+(".pdf");
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        String datetime= dtf.format(now);
+        
+        String dateOfSalesReport = "Sales Report (" + datetime + ")"+(".pdf");
         Document doc = new Document();
-        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Sales Reports";
+        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
               
         
         try {
@@ -1756,36 +1813,33 @@ public class admin_dashboard extends javax.swing.JFrame {
             
             doc.open();
             //Logo
-            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-            Image img = Image.getInstance(path.toAbsolutePath().toString());
-            img.setSpacingAfter(TOP_ALIGNMENT);
-            doc.add(img);
+//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+//            Image img = Image.getInstance(path.toAbsolutePath().toString());
+//            img.setSpacingAfter(TOP_ALIGNMENT);
+//            doc.add(img);
             
             //Header
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-            Chunk chunk = new Chunk("SALES REPORT", font);
-
-            doc.add(chunk);
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//            Chunk chunk = new Chunk("SALES REPORT", font);
+//
+//            doc.add(chunk);
             
-            int columnCount = 4;
+            int columnCount = 3;
             PdfPTable receiptTable = new PdfPTable(columnCount);
             
-            receiptTable.addCell("Date and Time");
-            receiptTable.addCell("Order ID");
-            receiptTable.addCell("Username");
-            receiptTable.addCell("Total Amount");
-            
+            receiptTable.addCell("Date");
+            receiptTable.addCell("Quality Sales");
+            receiptTable.addCell("Total Sales");
+            System.out.println(sales_report_list.getRowCount());
             for(int rowCount = 0; rowCount < sales_report_list.getRowCount(); rowCount++){
                 
-                String dateAndTime = sales_report_list.getValueAt(rowCount, 0).toString();
-                String orderId = sales_report_list.getValueAt(rowCount, 1).toString();
-                String username = sales_report_list.getValueAt(rowCount, 2).toString();
-                String totalAmount = sales_report_list.getValueAt(rowCount, 3).toString();
+                String date = sales_report_list.getValueAt(rowCount, 0).toString();
+                String quality = sales_report_list.getValueAt(rowCount, 1).toString();
+                String total = sales_report_list.getValueAt(rowCount, 2).toString();
                 
-                receiptTable.addCell(dateAndTime);
-                receiptTable.addCell(orderId);
-                receiptTable.addCell(username);
-                receiptTable.addCell(totalAmount);
+                receiptTable.addCell(date);
+                receiptTable.addCell(quality);
+                receiptTable.addCell(total);
             }
             
             doc.add(receiptTable);
@@ -1796,20 +1850,146 @@ public class admin_dashboard extends javax.swing.JFrame {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } 
+//        catch (URISyntaxException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+        catch (IOException ex) {
             Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_sales_viewMouseClicked
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
-        // TODO add your handling code here:
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        String datetime= dtf.format(now);
+        
+        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
+        Document doc = new Document();
+        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
+              
+        
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
+            
+            doc.open();
+            //Logo
+//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+//            Image img = Image.getInstance(path.toAbsolutePath().toString());
+//            img.setSpacingAfter(TOP_ALIGNMENT);
+//            doc.add(img);
+            
+            //Header
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//            Chunk chunk = new Chunk("SALES REPORT", font);
+//
+//            doc.add(chunk);
+            
+            int columnCount = 4;
+            PdfPTable receiptTable = new PdfPTable(columnCount);
+            
+            receiptTable.addCell("Date");
+            receiptTable.addCell("Order Number");
+            receiptTable.addCell("Username");
+            receiptTable.addCell("Total Amount");
+            
+            System.out.println(transaction_list.getRowCount());
+            for(int rowCount = 0; rowCount < transaction_list.getRowCount(); rowCount++){
+                
+                String date = transaction_list.getValueAt(rowCount, 0).toString();
+                String orderNum = transaction_list.getValueAt(rowCount, 1).toString();
+                String username = transaction_list.getValueAt(rowCount, 2).toString();
+                String total = transaction_list.getValueAt(rowCount, 3).toString();
+                
+                receiptTable.addCell(date);
+                receiptTable.addCell(orderNum);
+                receiptTable.addCell(username);
+                receiptTable.addCell(total);
+            }
+            
+            doc.add(receiptTable);
+            doc.close();
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+//        catch (URISyntaxException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+        catch (IOException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_sales_view1MouseClicked
 
     private void cmb_transactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_transactionsActionPerformed
         addRowToTransaction();
     }//GEN-LAST:event_cmb_transactionsActionPerformed
+
+    private void log_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_viewMouseClicked
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        String datetime= dtf.format(now);
+        
+        String dateOfSalesReport = "Logs Report (" + datetime + ")"+(".pdf");
+        Document doc = new Document();
+        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
+              
+        
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
+            
+            doc.open();
+            //Logo
+//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+//            Image img = Image.getInstance(path.toAbsolutePath().toString());
+//            img.setSpacingAfter(TOP_ALIGNMENT);
+//            doc.add(img);
+            
+            //Header
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//            Chunk chunk = new Chunk("SALES REPORT", font);
+//
+//            doc.add(chunk);
+            
+            int columnCount = 3;
+            PdfPTable receiptTable = new PdfPTable(columnCount);
+            
+            receiptTable.addCell("Date");
+            receiptTable.addCell("Username");
+            receiptTable.addCell("Description");
+            System.out.println(log_reports_list.getRowCount());
+            for(int rowCount = 0; rowCount < log_reports_list.getRowCount(); rowCount++){
+                
+                String date = log_reports_list.getValueAt(rowCount, 0).toString();
+                String username = log_reports_list.getValueAt(rowCount, 1).toString();
+                String description = log_reports_list.getValueAt(rowCount, 2).toString();
+                
+                receiptTable.addCell(date);
+                receiptTable.addCell(username);
+                receiptTable.addCell(description);
+            }
+            
+            doc.add(receiptTable);
+            doc.close();
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+//        catch (URISyntaxException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+        catch (IOException ex) {
+            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_log_viewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1859,6 +2039,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private roundPanel btn_resetPassword;
     private roundPanel btn_viewReceipt;
     private roundPanel btn_viewReceipt1;
+    private roundPanel btn_viewReceipt2;
     private javax.swing.JComboBox<String> cmb_sales;
     private javax.swing.JComboBox<String> cmb_transactions;
     private javax.swing.JPanel daily_weekly_tab;
@@ -1916,6 +2097,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
@@ -1927,6 +2109,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JTable log_reports_list;
     private javax.swing.JPanel log_reports_tab;
     private javax.swing.JTabbedPane log_tabbedPAne;
+    private javax.swing.JLabel log_view;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel monthly_tab;
     private javax.swing.JPanel monthly_tab3;
