@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -762,6 +763,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_deleteUser.setRoundBottomRight(30);
         btn_deleteUser.setRoundTopLeft(30);
         btn_deleteUser.setRoundTopRight(30);
+        btn_deleteUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_deleteUserMouseClicked(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -1793,7 +1799,16 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_editUserMouseClicked
 
     private void btn_resetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetPasswordMouseClicked
-        user_modal userModal = new user_modal(2);
+        DefaultTableModel model = (DefaultTableModel) user_list.getModel();
+	int selectedRowIndex = user_list.getSelectedRow();
+        
+        this.userType = model.getValueAt(selectedRowIndex, 0).toString();
+        this.username = model.getValueAt(selectedRowIndex, 1).toString();
+        this.deviceType = model.getValueAt(selectedRowIndex, 2).toString();
+        
+        System.out.println(userType + username + deviceType + "reset");
+        
+        user_modal userModal = new user_modal(2, username);
         userModal.setVisible(true);
     }//GEN-LAST:event_btn_resetPasswordMouseClicked
 
@@ -2064,6 +2079,17 @@ public class admin_dashboard extends javax.swing.JFrame {
         System.out.println(userType + username + deviceType);
         
     }//GEN-LAST:event_user_listMouseClicked
+
+    private void btn_deleteUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteUserMouseClicked
+        int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this account?", "Hold on...",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                DatabaseConnection.getInstance().deleteUser(username);
+                JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Creation Successful", JOptionPane.PLAIN_MESSAGE);
+            }
+        
+    }//GEN-LAST:event_btn_deleteUserMouseClicked
 
     /**
      * @param args the command line arguments

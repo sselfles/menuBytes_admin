@@ -208,6 +208,14 @@ public class SqlStatements {
 "SET user_name = (?), user_type = (?), modified_at = CURDATE(), modified_by = \"admin\", device_type = (?)\n" +
 "WHERE user_name = (?);";
     
+    private String updatePassword = "UPDATE user \n" +
+"SET password = (?), modified_at = CURDATE(), modified_by = \"admin\"\n" +
+"WHERE user_name = (?);";
+    
+    private String deleteUser = "UPDATE user \n" +
+"SET deleted_at = CURDATE(), deleted_by = 'admin', modified_at = CURDATE(), modified_by = \"admin\"\n" +
+"WHERE user_name = (?);";
+    
     private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
 "FROM product;";
     
@@ -233,8 +241,16 @@ public class SqlStatements {
         return accountCreation;
     }
     
+    public String updatePassword() {
+        return updatePassword;
+    }
+    
     public String updateUserInfo() {
         return updateUserInfo;
+    }
+    
+    public String deleteUser() {
+        return deleteUser;
     }
 
     public String getRetrieveProductsList() {

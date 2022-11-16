@@ -66,7 +66,7 @@ public class dashboard extends javax.swing.JFrame {
 //        addTotalAmountToTable2();  
 //        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
-//        addDefaultRowToMenuList();
+        addDefaultRowToMenuList();
         notifyCashierOfPayments();
         retrieveKitchenLogs();
             System.out.println("refreshed");

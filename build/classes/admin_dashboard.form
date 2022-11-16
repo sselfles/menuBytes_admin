@@ -781,6 +781,9 @@
                 <Property name="roundTopLeft" type="int" value="30"/>
                 <Property name="roundTopRight" type="int" value="30"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_deleteUserMouseClicked"/>
+              </Events>
 
               <Layout>
                 <DimensionLayout dim="0">

@@ -611,6 +611,35 @@ public class DatabaseConnection {
         }
     }
     
+    public void updatePassword( String password, String user_name ) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePassword()); 
+        preparedStatement.setString(1, password);
+        preparedStatement.setString(2, user_name);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteUser( String user_name ) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().deleteUser()); 
+        preparedStatement.setString(1, user_name);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public  ArrayList<Product> retrieveProductList(){
         Connection connection = null;
         ArrayList<Product> productsArrayList = new ArrayList<>();

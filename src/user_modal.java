@@ -20,6 +20,7 @@ public class user_modal extends javax.swing.JFrame {
     /**
      * Creates new form user_modal
      */
+    String usernamePassword;
     String oldUsername;
     String updateUserType;
     String updateUsername;
@@ -45,6 +46,13 @@ public class user_modal extends javax.swing.JFrame {
         edit_cb_userType.setSelectedItem(userType);
         edit_txt_username.setText(username);
         edit_cb_deviceType.setSelectedItem(deviceType);
+    }
+    
+    public user_modal(int index, String username) {
+        initComponents();
+        this.usernamePassword = username;
+        
+        jTabbedPane1.setSelectedIndex(index);
     }
     
     
@@ -82,6 +90,31 @@ public class user_modal extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, "A duplicate username detected.\nKindly choose another username.", "Account Duplicate Detected", JOptionPane.PLAIN_MESSAGE);
             }
+    }
+    
+    public void updatePassword(String username) {
+        System.out.println("update " +username);
+        
+        String password = String.valueOf(reset_new_password.getPassword());
+        String newPassword = String.valueOf(new_password.getPassword());
+        
+                
+                if (password.isEmpty() || newPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "All fields must be filled!", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (!password.equals(newPassword)) {
+                    JOptionPane.showMessageDialog(null, "The password entered on both fields do not match.\nPlease enter them again.", "Passwords do not match", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if(password !=null && newPassword !=null){
+                    DatabaseConnection.getInstance().updatePassword(newPassword, username);
+                    JOptionPane.showMessageDialog(null, "Successfully reset password for " + username, "Account Reset Password Successful", JOptionPane.PLAIN_MESSAGE);
+                    
+                    admin_dashboard ad = new admin_dashboard();
+                    ad.addRowToUserList();
+                    
+                    close();
+                }
+               
     }
     
     public ArrayList usernameDuplicateCheckerQuery(String username){
@@ -162,13 +195,13 @@ public class user_modal extends javax.swing.JFrame {
         btn_edit = new roundPanel();
         jLabel13 = new javax.swing.JLabel();
         reset_password = new javax.swing.JPanel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        reset_new_password = new javax.swing.JPasswordField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        roundPanel3 = new roundPanel();
+        submit_password_rest = new roundPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jPasswordField3 = new javax.swing.JPasswordField();
+        new_password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -437,8 +470,8 @@ public class user_modal extends javax.swing.JFrame {
 
         reset_password.setOpaque(false);
 
-        jPasswordField2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jPasswordField2.setText("Password");
+        reset_new_password.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        reset_new_password.setText("Password");
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel14.setText("Password :");
@@ -447,33 +480,38 @@ public class user_modal extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Reset Password");
 
-        roundPanel3.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel3.setRoundBottomLeft(30);
-        roundPanel3.setRoundBottomRight(30);
-        roundPanel3.setRoundTopLeft(30);
-        roundPanel3.setRoundTopRight(30);
+        submit_password_rest.setBackground(new java.awt.Color(255, 0, 0));
+        submit_password_rest.setRoundBottomLeft(30);
+        submit_password_rest.setRoundBottomRight(30);
+        submit_password_rest.setRoundTopLeft(30);
+        submit_password_rest.setRoundTopRight(30);
+        submit_password_rest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submit_password_restMouseClicked(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("SUBMIT");
 
-        javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
-        roundPanel3.setLayout(roundPanel3Layout);
-        roundPanel3Layout.setHorizontalGroup(
-            roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout submit_password_restLayout = new javax.swing.GroupLayout(submit_password_rest);
+        submit_password_rest.setLayout(submit_password_restLayout);
+        submit_password_restLayout.setHorizontalGroup(
+            submit_password_restLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
-        roundPanel3Layout.setVerticalGroup(
-            roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        submit_password_restLayout.setVerticalGroup(
+            submit_password_restLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
         jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel17.setText("New Password :");
 
-        jPasswordField3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jPasswordField3.setText("Password");
+        new_password.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        new_password.setText("Password");
 
         javax.swing.GroupLayout reset_passwordLayout = new javax.swing.GroupLayout(reset_password);
         reset_password.setLayout(reset_passwordLayout);
@@ -485,7 +523,7 @@ public class user_modal extends javax.swing.JFrame {
                         .addGroup(reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, reset_passwordLayout.createSequentialGroup()
                                 .addGap(187, 187, 187)
-                                .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(submit_password_rest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, reset_passwordLayout.createSequentialGroup()
                                 .addGap(113, 113, 113)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -496,11 +534,11 @@ public class user_modal extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, reset_passwordLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(reset_new_password, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(reset_passwordLayout.createSequentialGroup()
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                                .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(new_password, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(57, 57, 57))
         );
         reset_passwordLayout.setVerticalGroup(
@@ -511,13 +549,13 @@ public class user_modal extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(reset_new_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(new_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(286, 286, 286)
-                .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submit_password_rest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
@@ -563,6 +601,10 @@ public class user_modal extends javax.swing.JFrame {
         
         usernameExistChecker(this.updateUserType, this.updateUsername, this.updateDeviceType);
     }//GEN-LAST:event_btn_editMouseClicked
+
+    private void submit_password_restMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submit_password_restMouseClicked
+        updatePassword(this.usernamePassword);
+    }//GEN-LAST:event_submit_password_restMouseClicked
 
     /**
      * @param args the command line arguments
@@ -628,11 +670,11 @@ public class user_modal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPasswordField new_password;
+    private javax.swing.JPasswordField reset_new_password;
     private javax.swing.JPanel reset_password;
-    private roundPanel roundPanel3;
+    private roundPanel submit_password_rest;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
