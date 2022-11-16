@@ -197,7 +197,16 @@ public class SqlStatements {
 "CONCAT(\"Logged out \", user.log_out)\n" +
 "FROM user;";
     
-    private String retrieveUsersList = "SELECT user_id, user_type, user_name, device_type FROM user;";
+    private String retrieveUsersList = "SELECT user_type, user_name, device_type FROM menubytes.user WHERE deleted_at IS NULL;";
+    
+    private String usernameDuplicateChecker = "SELECT user_name from user WHERE user_name = (?);";
+    
+    private String accountCreation = "INSERT INTO user (user_name, password, user_type, created_at, modified_by, device_type)\n" +
+"VALUES ( (?), (?), (?), CURDATE(), 'admin', (?));";
+    
+    private String updateUserInfo = "UPDATE user \n" +
+"SET user_name = (?), user_type = (?), modified_at = CURDATE(), modified_by = \"admin\", device_type = (?)\n" +
+"WHERE user_name = (?);";
     
     private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
 "FROM product;";
@@ -214,6 +223,18 @@ public class SqlStatements {
     
     public String getRetrieveUsersList() {
         return retrieveUsersList;
+    }
+    
+    public String usernameDuplicateChecker() {
+        return usernameDuplicateChecker;
+    }
+    
+    public String accountCreation() {
+        return accountCreation;
+    }
+    
+    public String updateUserInfo() {
+        return updateUserInfo;
     }
 
     public String getRetrieveProductsList() {

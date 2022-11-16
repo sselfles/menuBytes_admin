@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -536,8 +537,7 @@ public class DatabaseConnection {
                               usersArrayList.add(new User(
                                       resultSet.getString(1), 
                                       resultSet.getString(2), 
-                                      resultSet.getString(3), 
-                                      resultSet.getString(4)));
+                                      resultSet.getString(3)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -547,6 +547,98 @@ public class DatabaseConnection {
         }
         
         return usersArrayList;
+    }
+    
+    public  ArrayList<User> usernameDuplicateChecker( String user_name){
+        Connection connection = null;
+        ArrayList<User> usersArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().usernameDuplicateChecker()); 
+        preparedStatement.setString(1, user_name);
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveUsersList(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              usersArrayList.add(new User(
+                                      resultSet.getString(1)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return usersArrayList;
+    }
+    
+    public  void accountCreation( String user_name, String password, String user_type, String device_type ){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().accountCreation()); 
+        preparedStatement.setString(1, user_name);
+        preparedStatement.setString(2, password);
+        preparedStatement.setString(3, user_type);
+        preparedStatement.setString(4, device_type);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateUserInfo( String user_name, String user_type, String device_type, String oldUsername ) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateUserInfo()); 
+        preparedStatement.setString(1, user_name);
+        preparedStatement.setString(2, user_type);
+        preparedStatement.setString(3, device_type);
+        preparedStatement.setString(4, oldUsername);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public  ArrayList<Product> retrieveProductList(){
+        Connection connection = null;
+        ArrayList<Product> productsArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveProductsList()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveUsersList(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              productsArrayList.add(new Product(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3),
+                                      resultSet.getString(4)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return productsArrayList;
     }
     
     public ArrayList<User> retrieveKitchenLogs(){

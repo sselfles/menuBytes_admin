@@ -42,10 +42,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Gelay
  */
 public class admin_dashboard extends javax.swing.JFrame {
-
+    
+    String user_name;
+    
     Color defaultColor, clickedColor;
     
-    user_modal userModal = new user_modal();
+    String userType;
+    String username;
+    String deviceType;
+    
     menu_modal menuModal = new menu_modal();
     payment_modal paymentModal = new payment_modal();
     int index;
@@ -54,6 +59,62 @@ public class admin_dashboard extends javax.swing.JFrame {
         initComponents();
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
+        addRowToUserList();
+    }
+    
+    public admin_dashboard(String user_name) {
+        this.user_name = user_name;
+        initComponents();
+        defaultColor = new Color(227,0,0);
+        clickedColor = new Color(255,0,0);
+        addRowToUserList();
+    }
+    
+    public void addRowToUserList() {
+            System.out.println("user list");
+            DefaultTableModel model = (DefaultTableModel)user_list.getModel();
+            model.setRowCount(0);
+            if(!userList().isEmpty()){
+                ArrayList<User> userArrayList = userList();
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < userArrayList.size(); position++){
+                    rowData[0] = userArrayList.get(position).getUser_type();
+                    rowData[1] = userArrayList.get(position).getUser_name();
+                    rowData[2] = userArrayList.get(position).getDevice_type();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList userList(){
+        ArrayList<User> userList = new ArrayList<User>();
+        userList = DatabaseConnection.getInstance().retrieveUsersList();
+        return userList;
+    }
+    
+    public void addRowToProductList() {
+        
+            DefaultTableModel model = (DefaultTableModel)product_list.getModel();
+            model.setRowCount(0);
+            if(!productList().isEmpty()){
+                ArrayList<Product> productList = productList();
+                Object rowData[] = new Object[4];
+                
+                for(int position = 0; position < productList.size(); position++){
+                    rowData[0] = productList.get(position).getProduct_id();
+                    rowData[1] = productList.get(position).getProduct_name();
+                    rowData[2] = productList.get(position).getProduct_price();
+                    rowData[3] = productList.get(position).getProduct_availability();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList productList(){
+        ArrayList<Product> productList = new ArrayList<Product>();
+        productList = DatabaseConnection.getInstance().retrieveProductList();
+        return productList;
     }
     
     public void addRowToSalesReport() {
@@ -180,6 +241,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         user_tab = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane5 = new javax.swing.JScrollPane();
         user_list = new javax.swing.JTable();
         btn_addUser = new roundPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -192,7 +254,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         product_tab = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        user_list1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        product_list = new javax.swing.JTable();
         btn_addMenu = new roundPanel();
         jLabel16 = new javax.swing.JLabel();
         btn_editMenu = new roundPanel();
@@ -596,6 +659,18 @@ public class admin_dashboard extends javax.swing.JFrame {
         user_list.setSurrendersFocusOnKeystroke(true);
         user_list.getTableHeader().setResizingAllowed(false);
         user_list.getTableHeader().setReorderingAllowed(false);
+        user_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user_listMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(user_list);
+        if (user_list.getColumnModel().getColumnCount() > 0) {
+            user_list.getColumnModel().getColumn(0).setResizable(false);
+            user_list.getColumnModel().getColumn(0).setPreferredWidth(10);
+            user_list.getColumnModel().getColumn(1).setResizable(false);
+            user_list.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         btn_addUser.setBackground(new java.awt.Color(255, 0, 0));
         btn_addUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -710,7 +785,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(user_tabLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(user_tabLayout.createSequentialGroup()
                         .addComponent(btn_addUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
@@ -719,10 +794,12 @@ public class admin_dashboard extends javax.swing.JFrame {
                         .addComponent(btn_resetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(74, 74, 74)
                         .addComponent(btn_deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(user_list, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(user_tabLayout.createSequentialGroup()
+                        .addGroup(user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(598, 598, 598))
+                    .addComponent(jScrollPane5))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         user_tabLayout.setVerticalGroup(
@@ -731,9 +808,9 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(user_list, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(user_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_addUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_editUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -741,14 +818,6 @@ public class admin_dashboard extends javax.swing.JFrame {
                     .addComponent(btn_deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
-
-        if (user_list.getColumnModel().getColumnCount() > 0) {
-            user_list.getColumnModel().getColumn(0).setResizable(false);
-            user_list.getColumnModel().getColumn(0).setPreferredWidth(10);
-            user_list.getColumnModel().getColumn(1).setResizable(false);
-            user_list.getColumnModel().getColumn(2).setResizable(false);
-            user_list.getColumnModel().getColumn(2).setPreferredWidth(800);
-        }
 
         jTabbedPane1.addTab("tab1", user_tab);
 
@@ -762,8 +831,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jSeparator2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jSeparator2.setPreferredSize(new java.awt.Dimension(0, 5));
 
-        user_list1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        user_list1.setModel(new javax.swing.table.DefaultTableModel(
+        product_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        product_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"001", "testing product name", "110.00", "Available"},
                 {null, null, null, null},
@@ -789,15 +858,24 @@ public class admin_dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        user_list1.setGridColor(new java.awt.Color(230, 0, 0));
-        user_list1.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        user_list1.setRowHeight(80);
-        user_list1.setSelectionBackground(new java.awt.Color(255, 171, 171));
-        user_list1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        user_list1.setShowVerticalLines(false);
-        user_list1.setSurrendersFocusOnKeystroke(true);
-        user_list1.getTableHeader().setResizingAllowed(false);
-        user_list1.getTableHeader().setReorderingAllowed(false);
+        product_list.setGridColor(new java.awt.Color(230, 0, 0));
+        product_list.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        product_list.setRowHeight(80);
+        product_list.setSelectionBackground(new java.awt.Color(255, 171, 171));
+        product_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        product_list.setShowVerticalLines(false);
+        product_list.setSurrendersFocusOnKeystroke(true);
+        product_list.getTableHeader().setResizingAllowed(false);
+        product_list.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(product_list);
+        if (product_list.getColumnModel().getColumnCount() > 0) {
+            product_list.getColumnModel().getColumn(0).setResizable(false);
+            product_list.getColumnModel().getColumn(1).setResizable(false);
+            product_list.getColumnModel().getColumn(1).setPreferredWidth(500);
+            product_list.getColumnModel().getColumn(2).setResizable(false);
+            product_list.getColumnModel().getColumn(2).setPreferredWidth(30);
+            product_list.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         btn_addMenu.setBackground(new java.awt.Color(255, 0, 0));
         btn_addMenu.setForeground(new java.awt.Color(255, 255, 255));
@@ -884,18 +962,18 @@ public class admin_dashboard extends javax.swing.JFrame {
             product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(product_tabLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(product_tabLayout.createSequentialGroup()
-                        .addComponent(btn_addMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_editMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_deleteMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(user_list1, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(product_tabLayout.createSequentialGroup()
+                            .addComponent(btn_addMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(78, 78, 78)
+                            .addComponent(btn_editMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(78, 78, 78)
+                            .addComponent(btn_deleteMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1433, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         product_tabLayout.setVerticalGroup(
             product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -903,24 +981,15 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(user_list1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(product_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_addMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_editMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_deleteMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
-
-        if (user_list1.getColumnModel().getColumnCount() > 0) {
-            user_list1.getColumnModel().getColumn(0).setResizable(false);
-            user_list1.getColumnModel().getColumn(1).setResizable(false);
-            user_list1.getColumnModel().getColumn(1).setPreferredWidth(500);
-            user_list1.getColumnModel().getColumn(2).setResizable(false);
-            user_list1.getColumnModel().getColumn(2).setPreferredWidth(30);
-            user_list1.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         jTabbedPane1.addTab("tab1", product_tab);
 
@@ -1622,6 +1691,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void account_managementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMouseClicked
         jTabbedPane1.setSelectedIndex(0);
+        addRowToUserList();
     }//GEN-LAST:event_account_managementMouseClicked
 
     private void account_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMousePressed
@@ -1656,6 +1726,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void product_managementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_managementMouseClicked
         jTabbedPane1.setSelectedIndex(1);
+        addRowToProductList();
     }//GEN-LAST:event_product_managementMouseClicked
 
     private void product_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_managementMousePressed
@@ -1711,21 +1782,19 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_sales_reportsMouseReleased
 
     private void btn_addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addUserMouseClicked
-        index = 0;
+   
+        user_modal userModal = new user_modal(0);
         userModal.setVisible(true);
-        userModal.selectTab(index);
     }//GEN-LAST:event_btn_addUserMouseClicked
 
     private void btn_editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editUserMouseClicked
-        index = 1;
-        userModal.setVisible(true);
-        userModal.selectTab(index);
+        user_modal um = new user_modal(1, userType, username, deviceType);
+        um.setVisible(true);
     }//GEN-LAST:event_btn_editUserMouseClicked
 
     private void btn_resetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetPasswordMouseClicked
-        index = 2;
+        user_modal userModal = new user_modal(2);
         userModal.setVisible(true);
-        userModal.selectTab(index);
     }//GEN-LAST:event_btn_resetPasswordMouseClicked
 
     private void btn_addMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMenuMouseClicked
@@ -1984,6 +2053,18 @@ public class admin_dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_log_viewMouseClicked
 
+    private void user_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_listMouseClicked
+        DefaultTableModel model = (DefaultTableModel) user_list.getModel();
+	int selectedRowIndex = user_list.getSelectedRow();
+        
+        this.userType = model.getValueAt(selectedRowIndex, 0).toString();
+        this.username = model.getValueAt(selectedRowIndex, 1).toString();
+        this.deviceType = model.getValueAt(selectedRowIndex, 2).toString();
+        
+        System.out.println(userType + username + deviceType);
+        
+    }//GEN-LAST:event_user_listMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2091,6 +2172,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
@@ -2108,6 +2191,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel monthly_tab3;
     private javax.swing.JPanel payment_settings;
     private javax.swing.JPanel payment_tab;
+    private javax.swing.JTable product_list;
     private javax.swing.JPanel product_management;
     private javax.swing.JPanel product_tab;
     private javax.swing.JTable sales_report_list;
@@ -2122,7 +2206,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel transactions;
     private javax.swing.JPanel transactions_tab;
     private javax.swing.JTable user_list;
-    private javax.swing.JTable user_list1;
     private javax.swing.JPanel user_tab;
     // End of variables declaration//GEN-END:variables
 }

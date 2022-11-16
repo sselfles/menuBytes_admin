@@ -1,6 +1,9 @@
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,13 +20,105 @@ public class user_modal extends javax.swing.JFrame {
     /**
      * Creates new form user_modal
      */
+    String oldUsername;
+    String updateUserType;
+    String updateUsername;
+    String updateDeviceType;
+    
+    admin_dashboard ad = new admin_dashboard();
+    
     public user_modal() {
         initComponents();
     }
     
-    public void selectTab(int index){
+    public user_modal(int index) {
+        initComponents();
+        jTabbedPane1.setSelectedIndex(index);
+    }
+    
+    public user_modal (int index, String userType, String username, String deviceType) {
+        initComponents();
+        
+        this.oldUsername = username;
         
         jTabbedPane1.setSelectedIndex(index);
+        edit_cb_userType.setSelectedItem(userType);
+        edit_txt_username.setText(username);
+        edit_cb_deviceType.setSelectedItem(deviceType);
+    }
+    
+    
+    
+    public void usernameDuplicateChecker(String username) {
+        String password = String.valueOf(txt_password.getPassword());
+        String userType = cb_userType.getSelectedItem().toString();
+        String deviceType = cb_deviceType.getSelectedItem().toString();
+        
+            if(usernameDuplicateCheckerQuery(username).isEmpty()){
+                
+                if (username.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a username.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a password.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (userType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a user type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (deviceType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a device type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if(username!=null && password !=null && userType!= null && deviceType != null){
+                    DatabaseConnection.getInstance().accountCreation(username, password, userType, deviceType);
+                    JOptionPane.showMessageDialog(null, username + " is successfully created.", "Account Creation Successful", JOptionPane.PLAIN_MESSAGE);
+                    
+                    admin_dashboard ad = new admin_dashboard();
+                    ad.addRowToUserList();
+                    
+                    close();
+                }
+                
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "A duplicate username detected.\nKindly choose another username.", "Account Duplicate Detected", JOptionPane.PLAIN_MESSAGE);
+            }
+    }
+    
+    public ArrayList usernameDuplicateCheckerQuery(String username){
+        ArrayList<User> userList = new ArrayList<User>();
+        userList = DatabaseConnection.getInstance().usernameDuplicateChecker(username);
+        
+        return userList;
+    }
+    
+    public void usernameExistChecker(String userType, String username, String deviceType) {
+        
+        
+            if(!usernameDuplicateCheckerQuery(oldUsername).isEmpty()){
+                
+                if (updateUserType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a username.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (updateUsername.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a user type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if (updateDeviceType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a device type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    
+                }else if(updateUserType!=null && updateUsername!= null && updateDeviceType != null){
+                    DatabaseConnection.getInstance().updateUserInfo(updateUsername, updateUserType, updateDeviceType, oldUsername);
+                    JOptionPane.showMessageDialog(null, updateUsername + " is successfully updated.", "Account Creation Successful", JOptionPane.PLAIN_MESSAGE);
+                   
+                    admin_dashboard ad = new admin_dashboard();
+                    ad.addRowToUserList();
+                    
+                    close();
+                }
+                
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Please check the username and enter the username you wish to edit.", "Account Not Found", JOptionPane.PLAIN_MESSAGE);
+            }
     }
 
     
@@ -53,9 +148,9 @@ public class user_modal extends javax.swing.JFrame {
         cb_userType = new javax.swing.JComboBox<>();
         cb_deviceType = new javax.swing.JComboBox<>();
         txt_username = new javax.swing.JTextField();
-        roundPanel1 = new roundPanel();
+        btn_add = new roundPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_password = new javax.swing.JPasswordField();
         edit_user = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -64,7 +159,7 @@ public class user_modal extends javax.swing.JFrame {
         edit_txt_username = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         edit_cb_deviceType = new javax.swing.JComboBox<>();
-        roundPanel2 = new roundPanel();
+        btn_edit = new roundPanel();
         jLabel13 = new javax.swing.JLabel();
         reset_password = new javax.swing.JPanel();
         jPasswordField2 = new javax.swing.JPasswordField();
@@ -129,38 +224,42 @@ public class user_modal extends javax.swing.JFrame {
         jLabel7.setText("Type of Device :");
 
         cb_userType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select type of user", "Admin", "Cashier", "Kitchen", "Customer" }));
+        cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "cashier", "customer" }));
 
         cb_deviceType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        cb_deviceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select type of device", "PC/Laptop", "Tablet", "Mobile" }));
+        cb_deviceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMPUTER", "TABLET", "MOBILE" }));
         cb_deviceType.setToolTipText("");
 
         txt_username.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        roundPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel1.setRoundBottomLeft(30);
-        roundPanel1.setRoundBottomRight(30);
-        roundPanel1.setRoundTopLeft(30);
-        roundPanel1.setRoundTopRight(30);
+        btn_add.setBackground(new java.awt.Color(255, 0, 0));
+        btn_add.setRoundBottomLeft(30);
+        btn_add.setRoundBottomRight(30);
+        btn_add.setRoundTopLeft(30);
+        btn_add.setRoundTopRight(30);
+        btn_add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_addMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ADD");
 
-        javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
-        roundPanel1.setLayout(roundPanel1Layout);
-        roundPanel1Layout.setHorizontalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btn_addLayout = new javax.swing.GroupLayout(btn_add);
+        btn_add.setLayout(btn_addLayout);
+        btn_addLayout.setHorizontalGroup(
+            btn_addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
-        roundPanel1Layout.setVerticalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_addLayout.setVerticalGroup(
+            btn_addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
-        jPasswordField1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jPasswordField1.setText("Password");
+        txt_password.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout add_userLayout = new javax.swing.GroupLayout(add_user);
         add_user.setLayout(add_userLayout);
@@ -180,10 +279,10 @@ public class user_modal extends javax.swing.JFrame {
                             .addComponent(cb_userType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cb_deviceType, 0, 325, Short.MAX_VALUE)
                             .addComponent(txt_username)
-                            .addComponent(jPasswordField1)))
+                            .addComponent(txt_password)))
                     .addGroup(add_userLayout.createSequentialGroup()
                         .addGap(177, 177, 177)
-                        .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(add_userLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -209,13 +308,13 @@ public class user_modal extends javax.swing.JFrame {
                         .addGap(67, 67, 67)))
                 .addGroup(add_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72)
                 .addGroup(add_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cb_deviceType))
                 .addGap(69, 69, 69)
-                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
         );
 
@@ -231,7 +330,7 @@ public class user_modal extends javax.swing.JFrame {
         jLabel10.setText("Edit User");
 
         edit_cb_userType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        edit_cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select type of user", "Admin", "Cashier", "Kitchen", "Customer" }));
+        edit_cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "cashier", "customer" }));
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel11.setText("Username :");
@@ -242,28 +341,33 @@ public class user_modal extends javax.swing.JFrame {
         jLabel12.setText("Type of Device :");
 
         edit_cb_deviceType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        edit_cb_deviceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select type of device", "PC/Laptop", "Tablet", "Mobile" }));
+        edit_cb_deviceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMPUTER", "TABLET", "MOBILE" }));
         edit_cb_deviceType.setToolTipText("");
 
-        roundPanel2.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel2.setRoundBottomLeft(30);
-        roundPanel2.setRoundBottomRight(30);
-        roundPanel2.setRoundTopLeft(30);
-        roundPanel2.setRoundTopRight(30);
+        btn_edit.setBackground(new java.awt.Color(255, 0, 0));
+        btn_edit.setRoundBottomLeft(30);
+        btn_edit.setRoundBottomRight(30);
+        btn_edit.setRoundTopLeft(30);
+        btn_edit.setRoundTopRight(30);
+        btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editMouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("EDIT");
 
-        javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
-        roundPanel2.setLayout(roundPanel2Layout);
-        roundPanel2Layout.setHorizontalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btn_editLayout = new javax.swing.GroupLayout(btn_edit);
+        btn_edit.setLayout(btn_editLayout);
+        btn_editLayout.setHorizontalGroup(
+            btn_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
-        roundPanel2Layout.setVerticalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_editLayout.setVerticalGroup(
+            btn_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
@@ -296,7 +400,7 @@ public class user_modal extends javax.swing.JFrame {
                                 .addComponent(edit_txt_username)))
                         .addGroup(edit_userLayout.createSequentialGroup()
                             .addGap(137, 137, 137)
-                            .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(50, Short.MAX_VALUE)))
         );
         edit_userLayout.setVerticalGroup(
@@ -325,7 +429,7 @@ public class user_modal extends javax.swing.JFrame {
                             .addComponent(edit_txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(67, 67, 67)))
                     .addGap(221, 221, 221)
-                    .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(38, 38, 38)))
         );
 
@@ -446,6 +550,20 @@ public class user_modal extends javax.swing.JFrame {
         dashboard db = new dashboard();
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void btn_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMouseClicked
+        
+        usernameDuplicateChecker(txt_username.getText());
+    }//GEN-LAST:event_btn_addMouseClicked
+
+    private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
+        
+        this.updateUserType = edit_cb_userType.getSelectedItem().toString();
+        this.updateUsername = edit_txt_username.getText();
+        this.updateDeviceType = edit_cb_deviceType.getSelectedItem().toString();
+        
+        usernameExistChecker(this.updateUserType, this.updateUsername, this.updateDeviceType);
+    }//GEN-LAST:event_btn_editMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -483,6 +601,8 @@ public class user_modal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add_user;
+    private roundPanel btn_add;
+    private roundPanel btn_edit;
     private javax.swing.JComboBox<String> cb_deviceType;
     private javax.swing.JComboBox<String> cb_userType;
     private javax.swing.JComboBox<String> edit_cb_deviceType;
@@ -508,14 +628,12 @@ public class user_modal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel reset_password;
-    private roundPanel roundPanel1;
-    private roundPanel roundPanel2;
     private roundPanel roundPanel3;
+    private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
