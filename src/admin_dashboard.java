@@ -62,7 +62,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             model.setRowCount(0);
             if(!salesReport().isEmpty()){
                 ArrayList<Report> reportArrayList = salesReport();
-                Object rowData[] = new Object[4];
+                Object rowData[] = new Object[3];
                 
                 for(int position = 0; position < reportArrayList.size(); position++){
                     rowData[0] = reportArrayList.get(position).getDate();
@@ -99,7 +99,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 for(int position = 0; position < reportArrayList.size(); position++){
                     rowData[0] = reportArrayList.get(position).getDate();
                     rowData[1] = reportArrayList.get(position).getOrder_id();
-                    rowData[1] = reportArrayList.get(position).getTable_name();
+                    rowData[2] = reportArrayList.get(position).getTable_name();
                     rowData[3] = reportArrayList.get(position).getTotal_amount();
                     model.addRow(rowData);
                 }
@@ -126,12 +126,12 @@ public class admin_dashboard extends javax.swing.JFrame {
             model.setRowCount(0);
             if(!logReport().isEmpty()){
                 ArrayList<LogReport> logsArrayList = logReport();
-                Object rowData[] = new Object[4];
+                Object rowData[] = new Object[3];
                 
                 for(int position = 0; position < logsArrayList.size(); position++){
                     rowData[0] = logsArrayList.get(position).getDate();
                     rowData[1] = logsArrayList.get(position).getTable_name();
-                    rowData[1] = logsArrayList.get(position).getDescription();
+                    rowData[2] = logsArrayList.get(position).getDescription();
                     model.addRow(rowData);
                 }
             }
