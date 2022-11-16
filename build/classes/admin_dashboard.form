@@ -973,6 +973,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="product_listMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1077,6 +1080,9 @@
                 <Property name="roundTopLeft" type="int" value="30"/>
                 <Property name="roundTopRight" type="int" value="30"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_deleteMenuMouseClicked"/>
+              </Events>
 
               <Layout>
                 <DimensionLayout dim="0">

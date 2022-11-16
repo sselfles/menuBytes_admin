@@ -670,6 +670,135 @@ public class DatabaseConnection {
         return productsArrayList;
     }
     
+    public  ArrayList<Product> productDuplicateChecker( String user_name ){
+        Connection connection = null;
+        ArrayList<Product> productArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().productDuplicateChecker()); 
+        preparedStatement.setString(1, user_name);
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database productDuplicateChecker(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              productArrayList.add(new Product(
+                                      resultSet.getString(1)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return productArrayList;
+    }
+    
+    public  void addProduct( String productName, String productPrice, String bundledPrice, String productDescription, String productCateory ){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().addProduct()); 
+        preparedStatement.setString(1, productName);
+        preparedStatement.setDouble(2, Double.valueOf(productPrice));
+        preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
+        preparedStatement.setString(4, productDescription);
+        preparedStatement.setString(5, productCateory);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public  void addProductSolo( String productName, String productPrice, String productDescription, String productCateory ){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().addProductSolo()); 
+        preparedStatement.setString(1, productName);
+        preparedStatement.setDouble(2, Double.valueOf(productPrice));
+        preparedStatement.setString(3, productDescription);
+        preparedStatement.setString(4, productCateory);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public  void updateProduct( String productName, String productPrice, String bundledPrice, String productDescription, String productCateory, String availability, String oldName ){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateProduct()); 
+        preparedStatement.setString(1, productName);
+        preparedStatement.setDouble(2, Double.valueOf(productPrice));
+        preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
+        preparedStatement.setString(4, productDescription);
+        preparedStatement.setString(5, productCateory);
+        preparedStatement.setString(6, availability);
+        preparedStatement.setString(7, oldName);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public  ArrayList<ProductInfo> getProductInfo(String oldName){
+        Connection connection = null;
+        ArrayList<ProductInfo> productArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getProductInfo()); 
+        preparedStatement.setString(1, oldName);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database retrieveUsersList(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              productArrayList.add(new ProductInfo(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3),
+                                        resultSet.getString(4),
+                                        resultSet.getString(5),
+                                        resultSet.getString(6)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return productArrayList;
+    }
+    
+    public void deleteProduct( String product_name ) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().deleteProduct()); 
+        preparedStatement.setString(1, product_name);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public ArrayList<User> retrieveKitchenLogs(){
         Connection connection = null;
         ArrayList<User> userLogArrayList = new ArrayList<User>();

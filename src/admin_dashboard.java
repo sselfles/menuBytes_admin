@@ -52,6 +52,11 @@ public class admin_dashboard extends javax.swing.JFrame {
     String username;
     String deviceType;
     
+    String productId;
+    String productName;
+    String price;
+    String availability;
+    
     menu_modal menuModal = new menu_modal();
     payment_modal paymentModal = new payment_modal();
     int index;
@@ -873,6 +878,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         product_list.setSurrendersFocusOnKeystroke(true);
         product_list.getTableHeader().setResizingAllowed(false);
         product_list.getTableHeader().setReorderingAllowed(false);
+        product_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                product_listMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(product_list);
         if (product_list.getColumnModel().getColumnCount() > 0) {
             product_list.getColumnModel().getColumn(0).setResizable(false);
@@ -945,6 +955,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_deleteMenu.setRoundBottomRight(30);
         btn_deleteMenu.setRoundTopLeft(30);
         btn_deleteMenu.setRoundTopRight(30);
+        btn_deleteMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_deleteMenuMouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -1819,9 +1834,10 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addMenuMouseClicked
 
     private void btn_editMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMenuMouseClicked
-        index = 1;
-        menuModal.setVisible(true);
-        menuModal.selectTab(index);
+        System.out.println("oldName" + this.productName);
+        
+        menu_modal menu = new menu_modal(1, this.productName, this.availability);
+        menu.setVisible(true);
     }//GEN-LAST:event_btn_editMenuMouseClicked
 
     private void btn_editPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editPaymentMouseClicked
@@ -2086,10 +2102,35 @@ public class admin_dashboard extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 DatabaseConnection.getInstance().deleteUser(username);
-                JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Creation Successful", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Deletion Successful", JOptionPane.PLAIN_MESSAGE);
             }
         
     }//GEN-LAST:event_btn_deleteUserMouseClicked
+
+    private void product_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_listMouseClicked
+        DefaultTableModel model = (DefaultTableModel) product_list.getModel();
+	int selectedRowIndex = product_list.getSelectedRow();
+        
+        
+//        this.productId = model.getValueAt(selectedRowIndex, 0).toString();
+        this.productName = model.getValueAt(selectedRowIndex, 1).toString();
+//        this.price = model.getValueAt(selectedRowIndex, 2).toString();
+        this.availability = model.getValueAt(selectedRowIndex, 3).toString();
+        
+        System.out.println(selectedRowIndex + productName);
+       
+    }//GEN-LAST:event_product_listMouseClicked
+
+    private void btn_deleteMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteMenuMouseClicked
+        int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this product?", "Hold on...",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                DatabaseConnection.getInstance().deleteProduct(this.productName);
+                JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Product Deletion Successful", JOptionPane.PLAIN_MESSAGE);
+            }
+        
+    }//GEN-LAST:event_btn_deleteMenuMouseClicked
 
     /**
      * @param args the command line arguments

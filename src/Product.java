@@ -47,7 +47,9 @@ public class Product {
         this.product_category = product_category;
     }
 
-    
+    public Product(String product_name) {
+        this.product_name = product_name;
+    }
     
     
 
