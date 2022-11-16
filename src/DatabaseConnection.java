@@ -493,7 +493,7 @@ public class DatabaseConnection {
         ArrayList<LogReport> logReports = new ArrayList<>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactions()); 
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getLogReports()); 
         
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();

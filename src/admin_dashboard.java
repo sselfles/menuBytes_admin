@@ -92,8 +92,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         if (cmb_transactions.getSelectedIndex() == 0) {
             DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
             model.setRowCount(0);
-            if(!salesReport().isEmpty()){
-                ArrayList<Report> reportArrayList = salesReport();
+            if(!transactionsReport().isEmpty()){
+                ArrayList<Report> reportArrayList = transactionsReport();
                 Object rowData[] = new Object[4];
                 
                 for(int position = 0; position < reportArrayList.size(); position++){
@@ -124,8 +124,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     public void addRowToLogReports() {
         DefaultTableModel model = (DefaultTableModel)log_reports_list.getModel();
             model.setRowCount(0);
-            if(!salesReport().isEmpty()){
-                ArrayList<LogReport> logsArrayList = salesReport();
+            if(!logReport().isEmpty()){
+                ArrayList<LogReport> logsArrayList = logReport();
                 Object rowData[] = new Object[4];
                 
                 for(int position = 0; position < logsArrayList.size(); position++){
@@ -1064,15 +1064,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_report_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"08/03/2019", "3", "460"},
-                {"08/04/2019", "1", "110"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {"08/04/2019", "1", "110"}
             },
             new String [] {
                 "Date ", "Quantity Sales", "Total Amount"
@@ -1105,7 +1097,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(sales_report_list);
         if (sales_report_list.getColumnModel().getColumnCount() > 0) {
             sales_report_list.getColumnModel().getColumn(0).setResizable(false);
-            sales_report_list.getColumnModel().getColumn(0).setPreferredWidth(400);
             sales_report_list.getColumnModel().getColumn(1).setResizable(false);
             sales_report_list.getColumnModel().getColumn(2).setResizable(false);
         }
@@ -1774,6 +1765,8 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void log_reportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseClicked
         jTabbedPane1.setSelectedIndex(5);
+        addRowToLogReports();
+
     }//GEN-LAST:event_log_reportsMouseClicked
 
     private void log_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMousePressed
