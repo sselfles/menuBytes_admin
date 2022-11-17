@@ -53,8 +53,8 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
-                    "admin", "admin");
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+                                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
@@ -441,18 +441,51 @@ connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubyte
         }
      }
      
-    public  ArrayList<Report> getSalesReportDaily(){
+    public  ArrayList<Report> getSalesReportDefault(){
         Connection connection = null;
         ArrayList<Report> salesReports = new ArrayList<>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getGetSalesReportDaily()); 
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getSalesReportDefault()); 
         
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         
         if (!resultSet.isBeforeFirst()){
             System.out.println("Database getSalesReportDaily(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              salesReports.add(new Report(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3)));
+                              
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return salesReports;
+    }
+    
+    public  ArrayList<Report> getSalesReportDaily(String from_date, String to_date){
+        Connection connection = null;
+        ArrayList<Report> salesReports = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getSalesReportDaily()); 
+        preparedStatement.setString(1, from_date);
+        preparedStatement.setString(2, to_date);
+
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getSalesReportDefault(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               salesReports.add(new Report(
@@ -503,6 +536,35 @@ connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubyte
         
         return transactionsReports;
     }
+    
+    public ArrayList<Order> getTransactionBreakdown(String order_id) {
+        Connection connection = null;
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactionBreakdown());
+        preparedStatement.setInt(1, Integer.valueOf(order_id));
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      orderArrayList.add(new Order(
+                                resultSet.getString(1), 
+                                resultSet.getString(2), 
+                                resultSet.getString(3),
+                                resultSet.getString(4),
+                                resultSet.getBoolean(5),
+                                resultSet.getString(6)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderArrayList;
+     }
     
     public  ArrayList<LogReport> getLogReports(){
         Connection connection = null;

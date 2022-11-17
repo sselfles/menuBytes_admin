@@ -124,8 +124,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     public void addRowToSalesReport() {
-        if (cmb_sales.getSelectedIndex() == 0) {
-            DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+        
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
             model.setRowCount(0);
             if(!salesReport().isEmpty()){
                 ArrayList<Report> reportArrayList = salesReport();
@@ -138,6 +138,9 @@ public class admin_dashboard extends javax.swing.JFrame {
                     model.addRow(rowData);
                 }
             }
+        
+        if (cmb_sales.getSelectedIndex() == 0) {
+            
         }
         
         if (cmb_sales.getSelectedIndex() == 1) {
@@ -151,7 +154,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     
     public ArrayList salesReport(){
         ArrayList<Report> salesReport = new ArrayList<Report>();
-        salesReport = DatabaseConnection.getInstance().getSalesReportDaily();
+        salesReport = DatabaseConnection.getInstance().getSalesReportDefault();
         return salesReport;
     }
     

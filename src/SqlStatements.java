@@ -104,9 +104,6 @@ public class SqlStatements {
 "FROM payment WHERE\n" +
 "created_by = (?) and payment_status = \"PENDING\"";
 
-    public String getRetrieveAmountDueTableName() {
-        return retrieveAmountDueTableName;
-    }
     
     private String updateGCashPayment = "UPDATE payment\n" +
 "SET \n" +
@@ -137,12 +134,6 @@ public class SqlStatements {
 "completed_at = current_timestamp()\n" +
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
-
-    public String getUpdateCashPayment() {
-        return updateCashPayment;
-    }
-     
-     
     
     private String updatePaidOrder = "UPDATE orders\n" +
 "SET \n" +
@@ -159,7 +150,7 @@ public class SqlStatements {
 "WHERE payment.payment_status = \"PENDING\"\n" +
 "AND order_status.order_status != \"REJECTED\";";
     
-    private String getSalesReportDaily = "SELECT \n" +
+    private String getSalesReportDefault = "SELECT \n" +
 "DATE(orders.created_at),\n" +
 "SUM(order_items.quantity),\n" +
 "SUM(orders.total)\n" +
@@ -169,12 +160,36 @@ public class SqlStatements {
 "GROUP BY DATE(orders.created_at)\n" +
 ";";
     
+    private String getSalesReportDaily = "SELECT \n" +
+"DATE(orders.created_at),\n" +
+"SUM(order_items.quantity),\n" +
+"SUM(orders.total)\n" +
+"FROM orders\n" +
+"INNER JOIN\n" +
+"order_items ON orders.order_id = order_items.order_id\n" +
+"WHERE created_at between (?) and (?)\n" +
+"GROUP BY DATE(orders.created_at)\n" +
+";";
+    
     private String getTransactions = "SELECT\n" +
 "DATE(created_at),\n" +
 "order_id,\n" +
 "created_by,\n" +
 "total\n" +
 "FROM orders;";
+    
+    private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity, \n" +
+"(IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name)) AS Name,\n" +
+"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle)*order_items.quantity AS Price,\n" +
+"order_items.has_addons, order_items.flavors\n" +
+"FROM order_items\n" +
+"INNER JOIN\n" +
+"product ON order_items.product_id = product.product_id\n" +
+"INNER JOIN\n" +
+"orders ON order_items.order_id = orders.order_id\n" +
+"LEFT JOIN\n" +
+"payment ON payment.created_by = orders.created_by\n" +
+"WHERE order_items.order_id = (?);";
     
     private String getLogReports = "SELECT\n" +
 "DATE(payment.created_at),\n" +
@@ -295,9 +310,12 @@ public class SqlStatements {
     }
     
     
+    public String getUpdateCashPayment() {
+        return updateCashPayment;
+    }
 
-    public String getGetSalesReportDaily() {
-        return getSalesReportDaily;
+    public String getSalesReportDefault() {
+        return getSalesReportDefault;
     }
 
     public String getNotifyCashierOfPayments() {
@@ -343,7 +361,9 @@ public class SqlStatements {
         return retrieveOrderBreakdownUsingOrderID;
     }
     
-    
+    public String getRetrieveAmountDueTableName() {
+        return retrieveAmountDueTableName;
+    }
 
     public String getCheckUsernameExistence() {
         return checkUsernameExistence;
@@ -379,5 +399,13 @@ public class SqlStatements {
     
     public String getSelectedProductInfo() {
         return this.getProductByCategory;
+    }
+    
+    public String getSalesReportDaily() {
+        return this.getSalesReportDaily;
+    }
+    
+    public String getTransactionBreakdown() {
+        return this.getTransactionBreakdown;
     }
 }
