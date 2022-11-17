@@ -241,9 +241,7 @@ public class SqlStatements {
     private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
     
     private String getProductByCategory = "SELECT product_name, product_price, product_category FROM product where product_name = (?);";
-    
-    
-    
+      
     public String getRetrieveUsersList() {
         return retrieveUsersList;
     }

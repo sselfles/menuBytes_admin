@@ -365,9 +365,7 @@ public class dashboard extends javax.swing.JFrame {
         table_list.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         table_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Table 1", "GCash", "123", "Pending"},
-                {"Table 2", "Cash", "12314", "-"},
-                {"Table 1", "GCash", "1232", "-"}
+
             },
             new String [] {
                 "Table No.", "Payment Method", "Total Amount", "Status"
@@ -767,9 +765,7 @@ public class dashboard extends javax.swing.JFrame {
         list_orders.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         list_orders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Qty", "Product", "Price"
@@ -1321,7 +1317,7 @@ public class dashboard extends javax.swing.JFrame {
 //                                product_name,
 //                                product_total_amount));
         
-        DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
+        
 //        model.setRowCount(0);
 
 //        Object rowData[] = new Object[3];
@@ -1331,6 +1327,8 @@ public class dashboard extends javax.swing.JFrame {
 //            rowData[2] = product.get(position).getTotal_price();
 //            model.addRow(rowData);
 //        }
+//TODO: ADD TO CART
+        DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
         model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
         model.fireTableDataChanged();
 //        System.out.println(model.getValueAt(1, 0).toString());
@@ -1688,6 +1686,22 @@ public class dashboard extends javax.swing.JFrame {
         addRowToTableList();
     }//GEN-LAST:event_btn_refreshMouseClicked
     
+    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price){
+        /*
+        Pwede ka pa magintroduce ng parameters and variables dito para like for example,
+        flavors, hasaddons, and bundle 
+        para maipasa mo sa checkout
+        sleep muna q mwa lab yu <<<333
+        */
+        
+        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        Object rowData[] = new Object[3];
+        rowData[0] = dataRow_Qty;
+        rowData[1] = dataRow_Product;
+        rowData[2] = dataRow_Price;
+        model.addRow(rowData);
+        
+    }
     
     
     public void close(){
@@ -1729,7 +1743,9 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
     }
-
+    
+   
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add_ons_border_selected;
     private javax.swing.JLabel background;
@@ -1792,7 +1808,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel label_chicken;
     private javax.swing.JLabel label_drinks;
     private javax.swing.JLabel lbl_shawarma;
-    private javax.swing.JTable list_orders;
+    private static javax.swing.JTable list_orders;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel menu;
     private javax.swing.JTable menu_list;
