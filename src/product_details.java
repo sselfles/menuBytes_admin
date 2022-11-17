@@ -675,6 +675,7 @@ public class product_details extends javax.swing.JFrame {
         System.out.println("count :"+this.count);
     }//GEN-LAST:event_sesameMouseClicked
 
+    
     private void add_cartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_cartMouseClicked
         if (garlic.isSelected()) { this.flavors += garlic.getText().trim() + ", "; }
         if (buffalo.isSelected()) { this.flavors += buffalo.getText().trim() + ", "; }
@@ -682,9 +683,13 @@ public class product_details extends javax.swing.JFrame {
         if (salted.isSelected()) { this.flavors += salted.getText().trim() + ", "; }
         if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
         if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
+                
+        /*
+         Helo mags this is the Majik 
+        *badum tss*
+        */
+        dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString());
         
-        dashboard db = new dashboard(product_quantity.getText(), this.product_name, product_total_amount.getText(), this.has_addOns);
-        close();
     }//GEN-LAST:event_add_cartMouseClicked
 
     private void all_meatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_all_meatMouseClicked
