@@ -1310,28 +1310,28 @@ public class dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public dashboard(String product_quantity, String bundle_name, String product_total_amount, Boolean has_addOns, String flavors) {
+    public dashboard(String product_quantity, String product_name, String product_total_amount, Boolean has_addOns, String flavors) {
         initComponents();
         
-        System.out.println(product_quantity + bundle_name + product_total_amount);
+        System.out.println(product_quantity + product_name + product_total_amount);
         
-        ArrayList<OrderItems> product = new ArrayList<OrderItems>();
-        product.add(new OrderItems(
-                                product_quantity, 
-                                bundle_name,
-                                product_total_amount));
+//        ArrayList<OrderItems> product = new ArrayList<OrderItems>();
+//        product.add(new OrderItems(
+//                                product_quantity, 
+//                                product_name,
+//                                product_total_amount));
         
         DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
-        model.setRowCount(0);
+//        model.setRowCount(0);
 
-        Object rowData[] = new Object[3];
-        for(int position = 0; position < product.size(); position++){
-            rowData[0] = product.get(position).getQuantity();
-            rowData[1] = product.get(position).getProduct_name();
-            rowData[2] = product.get(position).getTotal_price();
-            model.addRow(rowData);
-        }
-        
+//        Object rowData[] = new Object[3];
+//        for(int position = 0; position < product.size(); position++){
+//            rowData[0] = product.get(position).getQuantity();
+//            rowData[1] = product.get(position).getProduct_name();
+//            rowData[2] = product.get(position).getTotal_price();
+//            model.addRow(rowData);
+//        }
+        model.insertRow(0, new Object[] { product_quantity, product_name, product_total_amount });
     }
     
     public void retrieveKitchenLogs(){

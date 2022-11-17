@@ -43,6 +43,8 @@ public class product_details extends javax.swing.JFrame {
             group.add(bundled);
     }
     
+    
+    //dashboard to product details
     public product_details(String product_name, String product_price) {
         
             this.product_name = product_name; 
@@ -65,6 +67,8 @@ public class product_details extends javax.swing.JFrame {
             if (this.product_name.equals("Samgyupsal Rice Bowl")) {
                 all_meat.hide();
                 all_meat_price.hide();
+                jLabel9.hide();
+                jLabel10.hide();
             }
         }
         
@@ -113,7 +117,7 @@ public class product_details extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         product_quantity = new javax.swing.JLabel();
-        roundPanel1 = new roundPanel();
+        add_cart = new roundPanel();
         jLabel15 = new javax.swing.JLabel();
         dec_quantity = new roundPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -173,14 +177,14 @@ public class product_details extends javax.swing.JFrame {
         product_quantity.setText("1");
         jPanel1.add(product_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 655, 60, 60));
 
-        roundPanel1.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel1.setRoundBottomLeft(50);
-        roundPanel1.setRoundBottomRight(50);
-        roundPanel1.setRoundTopLeft(50);
-        roundPanel1.setRoundTopRight(50);
-        roundPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        add_cart.setBackground(new java.awt.Color(255, 0, 0));
+        add_cart.setRoundBottomLeft(50);
+        add_cart.setRoundBottomRight(50);
+        add_cart.setRoundTopLeft(50);
+        add_cart.setRoundTopRight(50);
+        add_cart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                roundPanel1MouseClicked(evt);
+                add_cartMouseClicked(evt);
             }
         });
 
@@ -189,18 +193,18 @@ public class product_details extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Add to Cart");
 
-        javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
-        roundPanel1.setLayout(roundPanel1Layout);
-        roundPanel1Layout.setHorizontalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout add_cartLayout = new javax.swing.GroupLayout(add_cart);
+        add_cart.setLayout(add_cartLayout);
+        add_cartLayout.setHorizontalGroup(
+            add_cartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
         );
-        roundPanel1Layout.setVerticalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        add_cartLayout.setVerticalGroup(
+            add_cartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
         );
 
-        jPanel1.add(roundPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 751, -1, -1));
+        jPanel1.add(add_cart, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 751, -1, -1));
 
         dec_quantity.setBackground(new java.awt.Color(255, 0, 0));
         dec_quantity.setRoundBottomLeft(50);
@@ -671,12 +675,17 @@ public class product_details extends javax.swing.JFrame {
         System.out.println("count :"+this.count);
     }//GEN-LAST:event_sesameMouseClicked
 
-    private void roundPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundPanel1MouseClicked
+    private void add_cartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_cartMouseClicked
         if (garlic.isSelected()) { this.flavors += garlic.getText().trim() + ", "; }
+        if (buffalo.isSelected()) { this.flavors += buffalo.getText().trim() + ", "; }
+        if (soy.isSelected()) { this.flavors += soy.getText().trim() + ", "; }
+        if (salted.isSelected()) { this.flavors += salted.getText().trim() + ", "; }
+        if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
+        if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
         
-//        dashboard db = new dashboard(product_quantity.getText(), this.bundle_name, product_total_amount.getText(), this.has_addOns, this.flavors);
+        dashboard db = new dashboard(product_quantity.getText(), this.product_name, product_total_amount.getText(), this.has_addOns, this.flavors);
         close();
-    }//GEN-LAST:event_roundPanel1MouseClicked
+    }//GEN-LAST:event_add_cartMouseClicked
 
     private void all_meatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_all_meatMouseClicked
         float total = Float.valueOf(product_total_amount.getText());
@@ -688,6 +697,7 @@ public class product_details extends javax.swing.JFrame {
             total -= addOn;
         }
         product_total_amount.setText(String.format("%.2f", total));
+        this.has_addOns = true;
     }//GEN-LAST:event_all_meatMouseClicked
 
     private void soloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soloActionPerformed
@@ -762,6 +772,7 @@ public class product_details extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private roundPanel add_cart;
     private javax.swing.JCheckBox all_meat;
     private javax.swing.JLabel all_meat_price;
     private javax.swing.JCheckBox buffalo;
@@ -790,7 +801,6 @@ public class product_details extends javax.swing.JFrame {
     private javax.swing.JLabel others_product_name;
     private javax.swing.JLabel product_quantity;
     private javax.swing.JLabel product_total_amount;
-    private roundPanel roundPanel1;
     private javax.swing.JCheckBox salted;
     private javax.swing.JCheckBox sesame;
     private javax.swing.JPanel shawarma;
