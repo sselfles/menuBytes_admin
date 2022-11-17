@@ -55,8 +55,6 @@ public class user_modal extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(index);
     }
     
-    
-    
     public void usernameDuplicateChecker(String username) {
         String password = String.valueOf(txt_password.getPassword());
         String userType = cb_userType.getSelectedItem().toString();

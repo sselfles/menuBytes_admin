@@ -69,7 +69,7 @@ public class transaction_modal extends javax.swing.JFrame {
             model.addRow(rowData);
         }
         
-        total_amount.setText(String.valueOf(total));
+        total_amount.setText(String.format("%.2f", total));
         }
     }
     

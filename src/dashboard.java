@@ -44,12 +44,17 @@ public class dashboard extends javax.swing.JFrame {
     
     Boolean abler = true;
     
+    static JLabel total;
+    
+    
     public dashboard() {
         initComponents();
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         addRowToTableList();
+        
+        
     }
     
     public dashboard(String user_id) {
@@ -135,13 +140,13 @@ public class dashboard extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         edit_order = new javax.swing.JLabel();
         remove_order = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        order_user = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         list_orders = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         order_total_amount = new javax.swing.JLabel();
         btn_checkout = new roundPanel();
-        jLabel16 = new javax.swing.JLabel();
+        place_order = new javax.swing.JLabel();
         btn_add_ons_category = new roundPanel();
         label_add_ons = new javax.swing.JLabel();
         icon_add_ons = new javax.swing.JLabel();
@@ -754,10 +759,9 @@ public class dashboard extends javax.swing.JFrame {
         remove_order.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove_logo.png"))); // NOI18N
         jPanel7.add(remove_order, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 41, 52));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 12, 19));
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Table 1", "Table 2", "Take-out", " " }));
-        jPanel7.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 390, 40));
+        order_user.setBackground(new java.awt.Color(255, 12, 19));
+        order_user.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jPanel7.add(order_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 390, 40));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setBorder(null);
@@ -810,6 +814,7 @@ public class dashboard extends javax.swing.JFrame {
 
         order_total_amount.setBackground(new java.awt.Color(255, 255, 255));
         order_total_amount.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        order_total_amount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         order_total_amount.setText("-");
 
         btn_checkout.setBackground(new java.awt.Color(255, 0, 0));
@@ -825,10 +830,10 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Checkout");
+        place_order.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        place_order.setForeground(new java.awt.Color(255, 255, 255));
+        place_order.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        place_order.setText("Place Order");
 
         javax.swing.GroupLayout btn_checkoutLayout = new javax.swing.GroupLayout(btn_checkout);
         btn_checkout.setLayout(btn_checkoutLayout);
@@ -836,14 +841,14 @@ public class dashboard extends javax.swing.JFrame {
             btn_checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_checkoutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(place_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         btn_checkoutLayout.setVerticalGroup(
             btn_checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_checkoutLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel16)
+                .addComponent(place_order)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -1311,27 +1316,11 @@ public class dashboard extends javax.swing.JFrame {
         
         System.out.println(product_quantity + product_name + product_total_amount); // working
         
-//        ArrayList<OrderItems> product = new ArrayList<OrderItems>();
-//        product.add(new OrderItems(
-//                                product_quantity, 
-//                                product_name,
-//                                product_total_amount));
-        
-        
-//        model.setRowCount(0);
-
-//        Object rowData[] = new Object[3];
-//        for(int position = 0; position < product.size(); position++){
-//            rowData[0] = product.get(position).getQuantity();
-//            rowData[1] = product.get(position).getProduct_name();
-//            rowData[2] = product.get(position).getTotal_price();
-//            model.addRow(rowData);
-//        }
 //TODO: ADD TO CART
         DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
         model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
         model.fireTableDataChanged();
-//        System.out.println(model.getValueAt(1, 0).toString());
+        
     }
     
     public void retrieveKitchenLogs(){
@@ -1458,9 +1447,37 @@ public class dashboard extends javax.swing.JFrame {
         return paymentListQueue;
     }
     
+    public ArrayList usernameQuery(){
+        ArrayList<User> usernameList = new ArrayList<User>();
+        usernameList = DatabaseConnection.getInstance().getUsername();
+        return usernameList;
+    }
+    
+    public void addItemtoComboBox(){
+        
+        if(!usernameQuery().isEmpty()){
+        ArrayList<User> usernameList = usernameQuery();
+        Object rowData[] = new Object[4];
+        for(int position = 0; position < usernameList.size(); position++){
+            order_user.addItem(usernameList.get(position).getUser_name().toString());
+        }
+        }
+    }
+       
+    public void insertOrder() {
+        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        
+        
+        for(int position = 0; position < model.getRowCount(); position++){
+            
+        }
+    }
+    
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
         addDefaultRowToMenuList();
+        addItemtoComboBox();
+        
     }//GEN-LAST:event_menuMouseClicked
 
     private void menuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMousePressed
@@ -1617,7 +1634,9 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_table_listMouseClicked
 
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
-        //        vc.setVisible(true);
+        String username = order_user.getSelectedItem().toString();
+        
+        
     }//GEN-LAST:event_btn_checkoutMouseClicked
 
     private void icon_bowlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_bowlMouseClicked
@@ -1686,14 +1705,13 @@ public class dashboard extends javax.swing.JFrame {
         addRowToTableList();
     }//GEN-LAST:event_btn_refreshMouseClicked
     
-    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price){
+    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price, Boolean has_addOns, String flavors){
         /*
         Pwede ka pa magintroduce ng parameters and variables dito para like for example,
         flavors, hasaddons, and bundle 
         para maipasa mo sa checkout
         sleep muna q mwa lab yu <<<333
         */
-        
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         Object rowData[] = new Object[3];
         rowData[0] = dataRow_Qty;
@@ -1701,6 +1719,31 @@ public class dashboard extends javax.swing.JFrame {
         rowData[2] = dataRow_Price;
         model.addRow(rowData);
         
+        
+        
+        if (has_addOns){
+            Object rowDataDetail[] = new Object[3];
+            rowDataDetail[0] = "-";
+            rowDataDetail[1] = "Shawarma All Meat";
+            rowDataDetail[2] = "-";
+            model.addRow(rowDataDetail);
+        } else if (flavors != null) {
+            Object rowDataDetail[] = new Object[3];
+            rowDataDetail[0] = "-";
+            rowDataDetail[1] = flavors;
+            rowDataDetail[2] = "-";
+            model.addRow(rowDataDetail);
+        }
+        
+        
+    }
+    
+    public static void computeTotal(String price) {  
+        
+        Double totalAmt=0.00;
+        
+            totalAmt += Double.valueOf(price); 
+            total.setText(String.format("%.2f", totalAmt));
     }
     
     
@@ -1769,13 +1812,11 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel icon_bowl;
     private javax.swing.JLabel icon_chicken;
     private javax.swing.JLabel icon_shawarma;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
@@ -1818,6 +1859,8 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JTable order_breakdown;
     private javax.swing.JPanel order_queue_tab;
     private javax.swing.JLabel order_total_amount;
+    private javax.swing.JComboBox<String> order_user;
+    private javax.swing.JLabel place_order;
     private javax.swing.JLabel remove_order;
     private javax.swing.JPanel rice_bowl_border_selected;
     private javax.swing.JPanel shawarma_border_selected;

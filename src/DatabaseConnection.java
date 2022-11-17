@@ -937,4 +937,66 @@ public class DatabaseConnection {
         
         return productArrayList;
     }
+    
+    public ArrayList<User> getUsername() {
+        Connection connection = null;
+        ArrayList<User> userArrayList = new ArrayList<User>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUsername()); 
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database getUsername(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                  userArrayList.add(new User(
+                                          resultSet.getString(1)));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return userArrayList;
+    }
+    
+    public int insertOrder(String user_id, String total){
+	Connection connection = null;
+        int order_id = 0;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrder(), Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1,Integer.valueOf(user_id));
+            preparedStatement.setDouble(2,Double.valueOf(total));
+            preparedStatement.setInt(3,Integer.valueOf(user_id));
+            preparedStatement.executeUpdate();
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.getGeneratedKeys();
+                    if (!resultSet.isBeforeFirst()) {
+                        System.out.println("insertOrder : NO ID_DATA FOUND");
+                    } else {
+                        System.out.println("insertOrder : ID_DATA FOUND");}
+                    if(resultSet.next()){
+                        order_id = resultSet.getInt(1);
+                    }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return order_id;
+    }
  }

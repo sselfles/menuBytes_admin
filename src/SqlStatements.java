@@ -53,7 +53,7 @@ public class SqlStatements {
 "WHERE order_status != \"REJECTED\" \n" +
 "AND orders.created_by = (?) \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
-"AND DATE(orders.created_at) = curdate(); ";
+"AND DATE(orders.created_at) = current_timestamp(); ";
     
     private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin');";
     
@@ -73,7 +73,7 @@ public class SqlStatements {
 "payment ON payment.created_by = orders.created_by\n" +
 "WHERE order_status != \"REJECTED\" AND order_status != \"COMPLETED\"\n" +
 "AND EXISTS (SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
-"AND DATE(orders.created_at) = curdate() \n" +
+"AND DATE(orders.created_at) = current_timestamp() \n" +
 "GROUP BY orders.order_id;";
     
     private String retrieveOrderBreakdownUsingOrderID = "SELECT order_items.order_id, order_items.quantity, "
@@ -85,7 +85,7 @@ public class SqlStatements {
 "orders ON order_items.order_id = orders.order_id\n" +
 "LEFT JOIN\n" +
 "payment ON payment.created_by = orders.created_by\n" +
-"WHERE order_items.order_id = (?) AND DATE(orders.created_at) = curdate()\n" +
+"WHERE order_items.order_id = (?) AND DATE(orders.created_at) = current_timestamp()\n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
 
     private String updateOrderStatusByOrderID = "UPDATE order_status\n" +
@@ -224,18 +224,18 @@ public class SqlStatements {
     private String usernameDuplicateChecker = "SELECT user_name from user WHERE user_name = (?);";
     
     private String accountCreation = "INSERT INTO user (user_name, password, user_type, created_at, modified_by, device_type)\n" +
-"VALUES ( (?), (?), (?), CURDATE(), 'admin', (?));";
+"VALUES ( (?), (?), (?), current_timestamp(), 'admin', (?));";
     
     private String updateUserInfo = "UPDATE user \n" +
-"SET user_name = (?), user_type = (?), modified_at = CURDATE(), modified_by = \"admin\", device_type = (?)\n" +
+"SET user_name = (?), user_type = (?), modified_at = current_timestamp(), modified_by = \"admin\", device_type = (?)\n" +
 "WHERE user_name = (?);";
     
     private String updatePassword = "UPDATE user \n" +
-"SET password = (?), modified_at = CURDATE(), modified_by = \"admin\"\n" +
+"SET password = (?), modified_at = current_timestamp(), modified_by = \"admin\"\n" +
 "WHERE user_name = (?);";
     
     private String deleteUser = "UPDATE user \n" +
-"SET deleted_at = CURDATE(), deleted_by = 'admin', modified_at = CURDATE(), modified_by = \"admin\"\n" +
+"SET deleted_at = current_timestamp(), deleted_by = 'admin', modified_at = current_timestamp(), modified_by = \"admin\"\n" +
 "WHERE user_name = (?);";
     
     private String retrieveProductsList = "SELECT product_id, product_name, product_price, product_availability\n" +
@@ -265,6 +265,18 @@ public class SqlStatements {
     private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
     
     private String getProductByCategory = "SELECT product_name, product_price, product_category FROM product where product_name = (?);";
+    
+    private String getUsername = "SELECT \n" +
+"IF(user_name = 'cashier', 'take-out', user_name) \n" +
+"FROM user WHERE user_name != 'admin' AND deleted_at IS NULL;";
+    
+    private String insertOrder = "INSERT INTO orders(user_id, total, created_at, created_by) \n" +
+"VALUES(\n" +
+"((SELECT user_id from user where user_id = (?))),\n" +
+"(?),\n" +
+"(current_timestamp()),\n" +
+"((SELECT user_name from user where user_id = (?)))\n" +
+");";
       
     public String getRetrieveUsersList() {
         return retrieveUsersList;
@@ -411,6 +423,14 @@ public class SqlStatements {
     
     public String getTransactionBreakdown() {
         return this.getTransactionBreakdown;
+    }
+    
+    public String getUsername() {
+        return this.getUsername;
+    }
+    
+    public String insertOrder(){
+        return this.insertOrder;
     }
     
 }

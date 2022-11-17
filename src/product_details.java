@@ -4,6 +4,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,6 +35,8 @@ public class product_details extends javax.swing.JFrame {
     
     int count = 0;
     int limit = 0;
+    
+    
     
     public product_details() {
         initComponents();
@@ -170,7 +173,7 @@ public class product_details extends javax.swing.JFrame {
                 jLabel6MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 140, 60));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 150, 80));
 
         product_quantity.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         product_quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -683,13 +686,16 @@ public class product_details extends javax.swing.JFrame {
         if (salted.isSelected()) { this.flavors += salted.getText().trim() + ", "; }
         if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
         if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
-                
+        
+        
         /*
          Helo mags this is the Majik 
         *badum tss*
         */
-        dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString());
         
+        dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
+        dashboard.computeTotal(product_total_amount.getText().toString());
+        close();
     }//GEN-LAST:event_add_cartMouseClicked
 
     private void all_meatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_all_meatMouseClicked
