@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
@@ -47,8 +48,18 @@ public class login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(198, 0, 0));
 
-        txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        txtUsername.setForeground(java.awt.Color.lightGray);
+        txtUsername.setText("Username");
         txtUsername.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsernameFocusLost(evt);
+            }
+        });
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
@@ -70,9 +81,19 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        txtPassword.setForeground(java.awt.Color.lightGray);
         txtPassword.setText("Password");
+        txtPassword.setEchoChar('\u0000');
         txtPassword.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,6 +197,36 @@ public class login extends javax.swing.JFrame {
     private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
         
     }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void txtUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusLost
+        if (txtUsername.getText().equals("")) {
+            txtUsername.setForeground(Color.LIGHT_GRAY);
+            txtUsername.setText("Username");
+        }
+    }//GEN-LAST:event_txtUsernameFocusLost
+
+    private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
+        if (txtUsername.getText().equals("Username")) {
+            txtUsername.setForeground(Color.black);
+            txtUsername.setText("");
+        }
+    }//GEN-LAST:event_txtUsernameFocusGained
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        if (txtPassword.getText().equals("")) {
+            txtPassword.setForeground(Color.LIGHT_GRAY);
+            txtPassword.setEchoChar('\u0000');
+            txtPassword.setText("Password");
+        }
+    }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        if (txtPassword.getText().equals("Password")) {
+            txtPassword.setForeground(Color.black);
+            txtPassword.setEchoChar('●');
+            txtPassword.setText("");
+        }
+    }//GEN-LAST:event_txtPasswordFocusGained
 
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

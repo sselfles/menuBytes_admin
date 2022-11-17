@@ -1313,7 +1313,7 @@ public class dashboard extends javax.swing.JFrame {
     public dashboard(String product_quantity, String product_name, String product_total_amount, Boolean has_addOns) {
         initComponents();
         
-        System.out.println(product_quantity + product_name + product_total_amount);
+        System.out.println(product_quantity + product_name + product_total_amount); // working
         
 //        ArrayList<OrderItems> product = new ArrayList<OrderItems>();
 //        product.add(new OrderItems(
@@ -1332,7 +1332,8 @@ public class dashboard extends javax.swing.JFrame {
 //            model.addRow(rowData);
 //        }
         model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
-        System.out.println(model.getValueAt(1, 0).toString());
+        model.fireTableDataChanged();
+//        System.out.println(model.getValueAt(1, 0).toString());
     }
     
     public void retrieveKitchenLogs(){
