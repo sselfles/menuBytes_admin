@@ -69,7 +69,7 @@ public class dashboard extends javax.swing.JFrame {
         addDefaultRowToMenuList();
         notifyCashierOfPayments();
         retrieveKitchenLogs();
-            System.out.println("refreshed");
+            System.out.println("refreshed.");
         }
         };
 //        
