@@ -1310,7 +1310,7 @@ public class dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public dashboard(String product_quantity, String product_name, String product_total_amount, Boolean has_addOns, String flavors) {
+    public dashboard(String product_quantity, String product_name, String product_total_amount, Boolean has_addOns) {
         initComponents();
         
         System.out.println(product_quantity + product_name + product_total_amount);
@@ -1331,7 +1331,8 @@ public class dashboard extends javax.swing.JFrame {
 //            rowData[2] = product.get(position).getTotal_price();
 //            model.addRow(rowData);
 //        }
-        model.insertRow(0, new Object[] { product_quantity, product_name, product_total_amount });
+        model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
+        System.out.println(model.getValueAt(1, 0).toString());
     }
     
     public void retrieveKitchenLogs(){

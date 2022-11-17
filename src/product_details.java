@@ -683,7 +683,7 @@ public class product_details extends javax.swing.JFrame {
         if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
         if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
         
-        dashboard db = new dashboard(product_quantity.getText(), this.product_name, product_total_amount.getText(), this.has_addOns, this.flavors);
+        dashboard db = new dashboard(product_quantity.getText(), this.product_name, product_total_amount.getText(), this.has_addOns);
         close();
     }//GEN-LAST:event_add_cartMouseClicked
 
