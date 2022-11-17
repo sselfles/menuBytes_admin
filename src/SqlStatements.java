@@ -176,6 +176,19 @@ public class SqlStatements {
 "total\n" +
 "FROM orders;";
     
+    private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity, \n" +
+"(IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name)) AS Name,\n" +
+"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle)*order_items.quantity AS Price,\n" +
+"order_items.has_addons, order_items.flavors\n" +
+"FROM order_items\n" +
+"INNER JOIN\n" +
+"product ON order_items.product_id = product.product_id\n" +
+"INNER JOIN\n" +
+"orders ON order_items.order_id = orders.order_id\n" +
+"LEFT JOIN\n" +
+"payment ON payment.created_by = orders.created_by\n" +
+"WHERE order_items.order_id = (?);";
+    
     private String getLogReports = "SELECT\n" +
 "DATE(payment.created_at),\n" +
 "REPLACE(payment.created_by,\"_\",\" \"),\n" +
@@ -381,5 +394,9 @@ public class SqlStatements {
     
     public String getSelectedProductInfo() {
         return this.getProductByCategory;
+    }
+    
+    public String getTransactionBreakdown() {
+        return this.getTransactionBreakdown;
     }
 }

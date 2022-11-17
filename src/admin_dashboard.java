@@ -1920,6 +1920,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             int columnCount = 3;
             PdfPTable receiptTable = new PdfPTable(columnCount);
             
+            receiptTable.setHorizontalAlignment(0);
             receiptTable.addCell("Date");
             receiptTable.addCell("Quality Sales");
             receiptTable.addCell("Total Sales");
@@ -1953,69 +1954,15 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_sales_viewMouseClicked
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) transaction_list.getModel();
+        int selectedRowIndex = transaction_list.getSelectedRow();
+        String order_id = model.getValueAt(selectedRowIndex, 1).toString();
+        String user = model.getValueAt(selectedRowIndex, 2).toString();
         
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-        LocalDateTime now = LocalDateTime.now();  
-        String datetime= dtf.format(now);
         
-        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
-        Document doc = new Document();
-        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
-              
+        transaction_modal transactionModal = new transaction_modal(order_id, user);
+        transactionModal.setVisible(true);
         
-        try {
-            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
-            
-            doc.open();
-            //Logo
-//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-//            Image img = Image.getInstance(path.toAbsolutePath().toString());
-//            img.setSpacingAfter(TOP_ALIGNMENT);
-//            doc.add(img);
-            
-            //Header
-//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-//            Chunk chunk = new Chunk("SALES REPORT", font);
-//
-//            doc.add(chunk);
-            
-            int columnCount = 4;
-            PdfPTable receiptTable = new PdfPTable(columnCount);
-            
-            receiptTable.addCell("Date");
-            receiptTable.addCell("Order Number");
-            receiptTable.addCell("Username");
-            receiptTable.addCell("Total Amount");
-            
-            System.out.println(transaction_list.getRowCount());
-            for(int rowCount = 0; rowCount < transaction_list.getRowCount(); rowCount++){
-                
-                String date = transaction_list.getValueAt(rowCount, 0).toString();
-                String orderNum = transaction_list.getValueAt(rowCount, 1).toString();
-                String username = transaction_list.getValueAt(rowCount, 2).toString();
-                String total = transaction_list.getValueAt(rowCount, 3).toString();
-                
-                receiptTable.addCell(date);
-                receiptTable.addCell(orderNum);
-                receiptTable.addCell(username);
-                receiptTable.addCell(total);
-            }
-            
-            doc.add(receiptTable);
-            doc.close();
-            
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-//        catch (URISyntaxException ex) {
-//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
-        catch (IOException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_sales_view1MouseClicked
 
     private void cmb_transactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_transactionsActionPerformed

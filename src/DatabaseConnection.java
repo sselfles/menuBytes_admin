@@ -502,6 +502,35 @@ public class DatabaseConnection {
         return transactionsReports;
     }
     
+    public ArrayList<Order> getTransactionBreakdown(String order_id) {
+        Connection connection = null;
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactionBreakdown());
+        preparedStatement.setInt(1, Integer.valueOf(order_id));
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      orderArrayList.add(new Order(
+                                resultSet.getString(1), 
+                                resultSet.getString(2), 
+                                resultSet.getString(3),
+                                resultSet.getString(4),
+                                resultSet.getBoolean(5),
+                                resultSet.getString(6)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderArrayList;
+     }
+    
     public  ArrayList<LogReport> getLogReports(){
         Connection connection = null;
         ArrayList<LogReport> logReports = new ArrayList<>();
