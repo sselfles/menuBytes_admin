@@ -25,6 +25,7 @@ public class Payment {
     }
     public Payment(String table_no,String payment_method, String total_amount, String status) {
         this.table_no = table_no;
+        this.total_amount = total_amount;
         this.payment_method = payment_method;
         this.status = status;
     }
