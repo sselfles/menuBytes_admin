@@ -646,7 +646,7 @@
                       <Table columnCount="3" rowCount="3">
                         <Column editable="false" title="Product Name" type="java.lang.String"/>
                         <Column editable="false" title="Price" type="java.lang.String"/>
-                        <Column editable="false" title="Availability" type="java.lang.String"/>
+                        <Column editable="false" title="Bundled Price" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

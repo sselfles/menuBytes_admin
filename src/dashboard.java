@@ -479,7 +479,7 @@ public class dashboard extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Product Name", "Price", "Availability"
+                "Product Name", "Price", "Bundled Price"
             }
         ) {
             Class[] types = new Class [] {
@@ -1552,7 +1552,7 @@ public class dashboard extends javax.swing.JFrame {
             addRowToListOrderBreakdownTable(order_id);
     }//GEN-LAST:event_menu_list1MouseClicked
     public ArrayList menuList(String productCategory){
-        ArrayList<Product> orderMenuList = new ArrayList<Product>();
+        ArrayList<ProductInfo> orderMenuList = new ArrayList<ProductInfo>();
         orderMenuList = DatabaseConnection.getInstance().retrieveProductsAccordingToCategory(productCategory);
         return orderMenuList;
     }
@@ -1562,19 +1562,19 @@ public class dashboard extends javax.swing.JFrame {
         model.setRowCount(0);
         Object rowData[] = new Object[3];
         if(! menuList(productCategory).isEmpty()){
-        ArrayList<Product> menuArrayList = menuList(productCategory);
+        ArrayList<ProductInfo> menuArrayList = menuList(productCategory);
         
         for(int position = 0; position < menuArrayList.size(); position++){
             rowData[0] = menuArrayList.get(position).getProduct_name();
             rowData[1] = menuArrayList.get(position).getProduct_price();
-            rowData[2] = menuArrayList.get(position).getProduct_availability();
+            rowData[2] = menuArrayList.get(position).getBundle();
             model.addRow(rowData);
         }
         }
     }
     
     public ArrayList menuDefaultList(){
-        ArrayList<Product> orderMenuList = new ArrayList<Product>();
+        ArrayList<ProductInfo> orderMenuList = new ArrayList<ProductInfo>();
         orderMenuList = DatabaseConnection.getInstance().retrieveAllProducts();
         return orderMenuList;
     }
@@ -1583,12 +1583,12 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)menu_list.getModel();
         model.setRowCount(0);
         if(! menuDefaultList().isEmpty()){
-        ArrayList<Product> menuArrayList = menuDefaultList();
+        ArrayList<ProductInfo> menuArrayList = menuDefaultList();
         Object rowData[] = new Object[3];
         for(int position = 0; position < menuArrayList.size(); position++){
             rowData[0] = menuArrayList.get(position).getProduct_name();
             rowData[1] = menuArrayList.get(position).getProduct_price();
-            rowData[2] = menuArrayList.get(position).getProduct_availability();
+            rowData[2] = menuArrayList.get(position).getBundle();
             model.addRow(rowData);
         }
         }

@@ -26,6 +26,14 @@ public class ProductInfo {
         this.product_category = product_category;
         this.product_image = product_availability;
     }
+    
+    public ProductInfo(String product_name, String product_price, String bundle){
+        this.product_name = product_name;
+        this.product_price = product_price;
+        this.bundle = bundle;
+    }
+    
+    
 
     public String getProduct_category() {
         return product_category;

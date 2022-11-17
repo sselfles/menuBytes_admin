@@ -94,23 +94,11 @@ public class SqlStatements {
 "updated_by = (SELECT user_name FROM user WHERE user_id = (?))\n" +
 "WHERE order_id = (?);";
 
-    private String retrieveProductsAccordingToCategory = "SELECT product.product_id, product.product_name, product.product_price, product.product_availability\n" +
-"FROM product WHERE product_category = (?)\n" +
-"UNION\n" +
-"SELECT product_id, \n" +
-"IF((product.product_bundle IS NULL),product.product_name,CONCAT(\"(B1G1) \",product.product_name)) AS name,\n" +
-"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle) AS price,product.product_availability\n" +
-"FROM product WHERE product_category = (?)\n" +
-"ORDER BY product_id;";
+    private String retrieveProductsAccordingToCategory = "SELECT product.product_name, product.product_price, product.product_bundle\n" +
+"FROM product WHERE product_category = (?) AND product_availability = \"available\";";
     
-    private String retrieveAllProducts = "SELECT product.product_id, product.product_name, product.product_price, product.product_availability\n" +
-"FROM product\n" +
-"UNION\n" +
-"SELECT product_id, \n" +
-"IF((product.product_bundle IS NULL),product.product_name,CONCAT(\"(B1G1) \",product.product_name)) AS name,\n" +
-"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle) AS price,product.product_availability\n" +
-"FROM product\n" +
-"ORDER BY product_id;";
+    private String retrieveAllProducts = "SELECT product_name, product_price, product_bundle\n" +
+"FROM product WHERE product_availability = \"available\";";
     
     private String retrieveAmountDueTableName = "SELECT amount_due, created_by\n" +
 "FROM payment WHERE\n" +

@@ -276,25 +276,23 @@ public class DatabaseConnection {
         }
      }
      
-     public ArrayList<Product> retrieveProductsAccordingToCategory(String product_category) {
+     public ArrayList<ProductInfo> retrieveProductsAccordingToCategory(String product_category) {
         Connection connection = null;
-        ArrayList<Product> orderArrayList = new ArrayList<>();
+        ArrayList<ProductInfo> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveProductsAccordingToCategory());
-        preparedStatement.setString(1, product_category);
-        preparedStatement.setString(2, product_category);      
+        preparedStatement.setString(1, product_category);  
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
             System.out.println("Database retrieveProductsAccordingToCategory(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
-                              orderArrayList.add(new Product(
+                              orderArrayList.add(new ProductInfo(
                               resultSet.getString(1), 
                               resultSet.getString(2), 
-                              resultSet.getString(3), 
-                              resultSet.getString(4)));
+                              resultSet.getString(3)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -304,9 +302,9 @@ public class DatabaseConnection {
         return orderArrayList;
      }
      
-     public ArrayList<Product> retrieveAllProducts() {
+     public ArrayList<ProductInfo> retrieveAllProducts() {
         Connection connection = null;
-        ArrayList<Product> orderArrayList = new ArrayList<>();
+        ArrayList<ProductInfo> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveAllProducts()); 
@@ -316,11 +314,10 @@ public class DatabaseConnection {
             System.out.println("Database retrieveAllProducts(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
-                              orderArrayList.add(new Product(
+                              orderArrayList.add(new ProductInfo(
                               resultSet.getString(1), 
                               resultSet.getString(2), 
-                              resultSet.getString(3), 
-                              resultSet.getString(4)));
+                              resultSet.getString(3)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
