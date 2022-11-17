@@ -1345,8 +1345,8 @@ public class dashboard extends javax.swing.JFrame {
                 rowData[1] = userLogList.get(position).getLog_out();
             }
 
-            Date login = (Date) rowData[0];
-            Date logout = (Date) rowData[1];
+            String login = (String) rowData[0];
+            String logout = (String) rowData[1];
             
             if(login.compareTo(logout) < 0 ){
                 //if login occured before logout able buttons
