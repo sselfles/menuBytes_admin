@@ -346,6 +346,22 @@ public class DatabaseConnection {
         }
      }
      
+     public void rejectGCashPayment(String amount, String referenceno, String table_no) {
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().rejectGCashPayment()); 
+        preparedStatement.setDouble(1, Double.valueOf(amount));
+        preparedStatement.setString(2, referenceno);
+        preparedStatement.setString(3, table_no);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
      public void updatePaidOrder(String table_no) {
           Connection connection = null;
         try{

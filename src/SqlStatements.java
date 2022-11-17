@@ -130,6 +130,16 @@ public class SqlStatements {
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
     
+    private String rejectGCashPayment = "UPDATE payment\n" +
+"SET \n" +
+"created_by = concat(created_by, \"_\") ,\n" +
+"payment_status = \"REJECTED\",\n" +
+"payment_amount = (?),\n" +
+"remarks = (?),\n" +
+"completed_at = current_timestamp()\n" +
+"WHERE \n" +
+"created_by = (?) and payment_status = \"PENDING\";";
+    
      private String updateCashPayment = "UPDATE payment\n" +
 "SET \n" +
 "created_by = concat(created_by, \"_\") ,\n" +
@@ -318,6 +328,10 @@ public class SqlStatements {
 
     public String getUpdateGCashPayment() {
         return updateGCashPayment;
+    }
+    
+    public String rejectGCashPayment(){
+        return rejectGCashPayment;
     }
     
 

@@ -88,6 +88,7 @@ public class view_cart extends javax.swing.JFrame{
         amount = new javax.swing.JTextField();
         ref_number = new javax.swing.JTextField();
         gcash_received = new javax.swing.JButton();
+        gcash_reject = new javax.swing.JButton();
         cash_payment_info = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         lbl_username = new javax.swing.JLabel();
@@ -274,23 +275,29 @@ public class view_cart extends javax.swing.JFrame{
 
         gcash_payment_info.setBackground(new java.awt.Color(255, 255, 255));
         gcash_payment_info.setOpaque(false);
+        gcash_payment_info.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/qr.jpg"))); // NOI18N
+        gcash_payment_info.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 631, -1));
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel9.setText("Amount :");
+        gcash_payment_info.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 530, 113, 48));
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel10.setText("Ref. No : ");
+        gcash_payment_info.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 596, 113, 48));
 
         amount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         amount.setOpaque(false);
+        gcash_payment_info.add(amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 530, 286, 48));
 
         ref_number.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         ref_number.setOpaque(false);
+        gcash_payment_info.add(ref_number, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 596, 286, 48));
 
-        gcash_received.setBackground(new java.awt.Color(255, 0, 0));
+        gcash_received.setBackground(new java.awt.Color(0, 255, 102));
         gcash_received.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         gcash_received.setForeground(new java.awt.Color(255, 255, 255));
         gcash_received.setText("Received");
@@ -301,48 +308,20 @@ public class view_cart extends javax.swing.JFrame{
                 gcash_receivedMouseClicked(evt);
             }
         });
+        gcash_payment_info.add(gcash_received, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 520, 167, 60));
 
-        javax.swing.GroupLayout gcash_payment_infoLayout = new javax.swing.GroupLayout(gcash_payment_info);
-        gcash_payment_info.setLayout(gcash_payment_infoLayout);
-        gcash_payment_infoLayout.setHorizontalGroup(
-            gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                        .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ref_number, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(gcash_received, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        gcash_payment_infoLayout.setVerticalGroup(
-            gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(28, 28, 28)
-                .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(gcash_payment_infoLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(amount)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                            .addComponent(ref_number)))
-                    .addComponent(gcash_received, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77))
-        );
+        gcash_reject.setBackground(new java.awt.Color(255, 0, 0));
+        gcash_reject.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        gcash_reject.setForeground(new java.awt.Color(255, 255, 255));
+        gcash_reject.setText("Reject");
+        gcash_reject.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        gcash_reject.setOpaque(false);
+        gcash_reject.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gcash_rejectMouseClicked(evt);
+            }
+        });
+        gcash_payment_info.add(gcash_reject, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 600, 167, 60));
 
         jTabbedPane2.addTab("tab2", gcash_payment_info);
 
@@ -818,10 +797,20 @@ public class view_cart extends javax.swing.JFrame{
                 float change = cashReceived - totalAmount;
                 lbl_change.setText(String.format("%.2f", change));
                 
+                if(cashReceived < totalAmount) {
+                    JOptionPane.showMessageDialog(null, "Cash Received and Total Amount do not match!\n Kindly check the amount and enter them again.", "Transaction Error", JOptionPane.PLAIN_MESSAGE);
+                }
+                
             }
         };
         txt_cash_received.addActionListener(action);
     }//GEN-LAST:event_txt_cash_receivedActionPerformed
+
+    private void gcash_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gcash_rejectMouseClicked
+        String amount = this.amount.getText().toString();
+        String reference_no = this.ref_number.getText().toString();
+        DatabaseConnection.getInstance().rejectGCashPayment(amount, reference_no, table_no);
+    }//GEN-LAST:event_gcash_rejectMouseClicked
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
@@ -874,6 +863,7 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JPanel default_payment_info;
     private javax.swing.JPanel gcash_payment_info;
     private javax.swing.JButton gcash_received;
+    private javax.swing.JButton gcash_reject;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
