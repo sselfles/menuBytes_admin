@@ -2,6 +2,7 @@
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
@@ -25,33 +26,46 @@ public class product_details extends javax.swing.JFrame {
     String product_name;
     String product_price;
     String product_category;
-    String bundle_name;
+    String bundle;
     Boolean has_addOns = false;
     String flavors = "";
+    Boolean soloAbler = true;
+    Boolean bundleAbler = true;
     
     int count = 0;
     int limit = 0;
     
     public product_details() {
         initComponents();
+        
+        ButtonGroup group = new ButtonGroup();
+            group.add(solo);
+            group.add(bundled);
     }
     
-    public product_details(String product_name) {
-        this.bundle_name = product_name;
+    public product_details(String product_name, String product_price) {
         
-        if ( product_name.contains("(B1G1)") ){
-            this.product_name = product_name.substring(7, product_name.length());
-            addOn_allMeat_price.setText("20.00");
-        } else { 
             this.product_name = product_name; 
-        }
+        
         
         initComponents();
         getProductInfo();
         
-        if(this.product_category.equals("shawarma")) {
+        if(this.product_category.equals("shawarma") || this.product_name.equals("Samgyupsal Rice Bowl")) {
             jTabbedPane1.setSelectedIndex(0);
             shawarma_product_name.setText(product_name);
+            
+            ButtonGroup group = new ButtonGroup();
+            group.add(solo);
+            group.add(bundled);
+            
+            solo_price.setText(this.product_price);
+            bundled_price.setText(this.bundle);
+            
+            if (this.product_name.equals("Samgyupsal Rice Bowl")) {
+                all_meat.hide();
+                all_meat_price.hide();
+            }
         }
         
         else if(this.product_category.equals("wings")) {
@@ -73,16 +87,17 @@ public class product_details extends javax.swing.JFrame {
     
     public void getProductInfo(){
         if(!getProductInfoQuery().isEmpty()){
-            ArrayList<Product> productInfo = getProductInfoQuery();
+            ArrayList<ProductInfo> productInfo = getProductInfoQuery();
             this.product_price = productInfo.get(0).getProduct_price();
             this.product_category = productInfo.get(0).getProduct_category();
+            this.bundle = productInfo.get(0).getBundle();
             System.out.println(product_category + product_price + product_name);
         }
     }
     
     public ArrayList getProductInfoQuery(){
-        ArrayList<Product> orderMenuList = new ArrayList<Product>();
-        orderMenuList = DatabaseConnection.getInstance().getSelectedProductInfo(this.product_name);
+        ArrayList<ProductInfo> orderMenuList = new ArrayList<ProductInfo>();
+        orderMenuList = DatabaseConnection.getInstance().getProductInfo(this.product_name);
         return orderMenuList;
     }
 
@@ -95,7 +110,6 @@ public class product_details extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         product_quantity = new javax.swing.JLabel();
@@ -112,8 +126,14 @@ public class product_details extends javax.swing.JFrame {
         shawarma_product_name = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        addOn_allMeat = new javax.swing.JCheckBox();
-        addOn_allMeat_price = new javax.swing.JLabel();
+        solo_price = new javax.swing.JLabel();
+        all_meat = new javax.swing.JCheckBox();
+        all_meat_price = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        bundled_price = new javax.swing.JLabel();
+        solo = new javax.swing.JRadioButton();
+        bundled = new javax.swing.JRadioButton();
         chicken = new javax.swing.JPanel();
         chicken_product_name = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -126,8 +146,6 @@ public class product_details extends javax.swing.JFrame {
         others = new javax.swing.JPanel();
         others_product_name = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-
-        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -274,27 +292,63 @@ public class product_details extends javax.swing.JFrame {
         shawarma_product_name.setText("Pork Samgyupsal Rice Bowl");
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel5.setText("Choose Add Ons");
+        jLabel5.setText("Choose Type");
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Optional");
+        jLabel7.setText("Please pick one (1)");
 
-        addOn_allMeat.setBackground(new java.awt.Color(255, 255, 255));
-        addOn_allMeat.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        addOn_allMeat.setText("     Shawarma All Meat");
-        addOn_allMeat.setActionCommand("");
-        addOn_allMeat.setOpaque(false);
-        addOn_allMeat.addMouseListener(new java.awt.event.MouseAdapter() {
+        solo_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        solo_price.setForeground(new java.awt.Color(153, 153, 153));
+        solo_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        solo_price.setText("10.00");
+
+        all_meat.setBackground(new java.awt.Color(255, 255, 255));
+        all_meat.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        all_meat.setText("     Shawarma All Meat");
+        all_meat.setActionCommand("");
+        all_meat.setOpaque(false);
+        all_meat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addOn_allMeatMouseClicked(evt);
+                all_meatMouseClicked(evt);
             }
         });
 
-        addOn_allMeat_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        addOn_allMeat_price.setForeground(new java.awt.Color(153, 153, 153));
-        addOn_allMeat_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        addOn_allMeat_price.setText("10.00");
+        all_meat_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        all_meat_price.setForeground(new java.awt.Color(153, 153, 153));
+        all_meat_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        all_meat_price.setText("20.00");
+
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel9.setText("Choose Add Ons");
+
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setText("Optional");
+
+        bundled_price.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        bundled_price.setForeground(new java.awt.Color(153, 153, 153));
+        bundled_price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        bundled_price.setText("10.00");
+
+        solo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        solo.setSelected(true);
+        solo.setText("     Solo");
+        solo.setOpaque(false);
+        solo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soloActionPerformed(evt);
+            }
+        });
+
+        bundled.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        bundled.setText("     Buy 1 Take 1");
+        bundled.setOpaque(false);
+        bundled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bundledActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout shawarmaLayout = new javax.swing.GroupLayout(shawarma);
         shawarma.setLayout(shawarmaLayout);
@@ -305,13 +359,26 @@ public class product_details extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(shawarmaLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(shawarmaLayout.createSequentialGroup()
-                        .addComponent(addOn_allMeat)
+                        .addComponent(all_meat)
                         .addGap(218, 218, 218)
-                        .addComponent(addOn_allMeat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(all_meat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(shawarmaLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(solo)
+                            .addGap(354, 354, 354)
+                            .addComponent(solo_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(shawarmaLayout.createSequentialGroup()
+                            .addComponent(bundled)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bundled_price, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         shawarmaLayout.setVerticalGroup(
@@ -322,11 +389,23 @@ public class product_details extends javax.swing.JFrame {
                 .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
+                .addGap(29, 29, 29)
+                .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(solo)
+                    .addComponent(solo_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bundled_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bundled))
+                .addGap(42, 42, 42)
                 .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addOn_allMeat)
-                    .addComponent(addOn_allMeat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(270, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(shawarmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(all_meat)
+                    .addComponent(all_meat_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77))
         );
 
         jTabbedPane1.addTab("tab1", shawarma);
@@ -505,19 +584,6 @@ public class product_details extends javax.swing.JFrame {
         product_total_amount.setText(String.format("%.2f", productTotal));
     }//GEN-LAST:event_dec_quantityMouseClicked
 
-    private void addOn_allMeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addOn_allMeatMouseClicked
-        if(addOn_allMeat.isSelected()) {
-            int addOnPrice = Integer.parseInt(addOn_allMeat_price.getText());
-            int productQuantity = Integer.parseInt(product_quantity.getText());
-            Float productPrice = Float.parseFloat(this.product_price);
-            Float productTotal = (productPrice*productQuantity) + addOnPrice;
-            
-            product_total_amount.setText(String.format("%.2f", productTotal));
-            
-            this.has_addOns = true;
-        } else { this.has_addOns = false; }
-    }//GEN-LAST:event_addOn_allMeatMouseClicked
-
     private void garlicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_garlicMouseClicked
         if (garlic.isSelected()) {
             this.count ++;
@@ -608,9 +674,51 @@ public class product_details extends javax.swing.JFrame {
     private void roundPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundPanel1MouseClicked
         if (garlic.isSelected()) { this.flavors += garlic.getText().trim() + ", "; }
         
-        dashboard db = new dashboard(product_quantity.getText(), this.bundle_name, product_total_amount.getText(), this.has_addOns, this.flavors);
+//        dashboard db = new dashboard(product_quantity.getText(), this.bundle_name, product_total_amount.getText(), this.has_addOns, this.flavors);
         close();
     }//GEN-LAST:event_roundPanel1MouseClicked
+
+    private void all_meatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_all_meatMouseClicked
+        float total = Float.valueOf(product_total_amount.getText());
+        float addOn = Float.valueOf(all_meat_price.getText());
+        
+        if (all_meat.isSelected()) {
+            total += addOn;
+        } else {
+            total -= addOn;
+        }
+        product_total_amount.setText(String.format("%.2f", total));
+    }//GEN-LAST:event_all_meatMouseClicked
+
+    private void soloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soloActionPerformed
+        float total = Float.valueOf(product_total_amount.getText());
+        float soloPrice = Float.valueOf(solo_price.getText());
+        float bundlePrice = Float.valueOf(bundled_price.getText());
+        
+        if (soloAbler) {
+            if(solo.isSelected()) {
+                total = total - bundlePrice + soloPrice;
+                this.soloAbler = false;
+                this.bundleAbler = true;
+            }
+        }
+        product_total_amount.setText(String.format("%.2f", total));
+    }//GEN-LAST:event_soloActionPerformed
+
+    private void bundledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bundledActionPerformed
+        float total = Float.valueOf(product_total_amount.getText());
+        float soloPrice = Float.valueOf(solo_price.getText());
+        float bundlePrice = Float.valueOf(bundled_price.getText());
+        
+        if (bundleAbler) {
+            if(bundled.isSelected()) {
+                total = total - soloPrice + bundlePrice;
+                this.bundleAbler = false;
+                this.soloAbler = true;
+            }
+        }
+        product_total_amount.setText(String.format("%.2f", total));
+    }//GEN-LAST:event_bundledActionPerformed
 
     /**
      * @param args the command line arguments
@@ -654,16 +762,18 @@ public class product_details extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox addOn_allMeat;
-    private javax.swing.JLabel addOn_allMeat_price;
+    private javax.swing.JCheckBox all_meat;
+    private javax.swing.JLabel all_meat_price;
     private javax.swing.JCheckBox buffalo;
     private javax.swing.JCheckBox bulgogi;
+    private javax.swing.JRadioButton bundled;
+    private javax.swing.JLabel bundled_price;
     private javax.swing.JPanel chicken;
     private javax.swing.JLabel chicken_product_name;
     private roundPanel dec_quantity;
     private javax.swing.JCheckBox garlic;
     private roundPanel inc_quantity;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
@@ -672,6 +782,7 @@ public class product_details extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -684,6 +795,8 @@ public class product_details extends javax.swing.JFrame {
     private javax.swing.JCheckBox sesame;
     private javax.swing.JPanel shawarma;
     private javax.swing.JLabel shawarma_product_name;
+    private javax.swing.JRadioButton solo;
+    private javax.swing.JLabel solo_price;
     private javax.swing.JCheckBox soy;
     // End of variables declaration//GEN-END:variables
 }

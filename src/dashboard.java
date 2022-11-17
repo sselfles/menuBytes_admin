@@ -1666,8 +1666,10 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) menu_list.getModel();
         int selectedRowIndex = menu_list.getSelectedRow();
         String product_name = model.getValueAt(selectedRowIndex, 0).toString();
+        String product_price = model.getValueAt(selectedRowIndex, 1).toString();
         
-        product_details productDetails = new product_details(product_name);
+        
+        product_details productDetails = new product_details(product_name, product_price);
         productDetails.setVisible(true);
     }//GEN-LAST:event_menu_listMouseClicked
 

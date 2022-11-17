@@ -846,7 +846,7 @@ public class DatabaseConnection {
           
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getSelectedProductInfo()); 
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getProductInfo()); 
             preparedStatement.setString(1, product_name);
             
             ResultSet resultSet;
