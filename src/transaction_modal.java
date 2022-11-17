@@ -33,11 +33,15 @@ public class transaction_modal extends javax.swing.JFrame {
     /**
      * Creates new form transaction_modal
      */
+    
+    String order_id;
+    
     public transaction_modal() {
         initComponents();
     }
     
     public transaction_modal(String order_id, String user) {
+        this.order_id = order_id;
         initComponents();
         order_num.setText(order_id);
         username.setText(user);
@@ -234,7 +238,8 @@ public class transaction_modal extends javax.swing.JFrame {
         LocalDateTime now = LocalDateTime.now();  
         String datetime= dtf.format(now);
         
-        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
+//        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
+        String dateOfSalesReport = "Order Number " + this.order_id + " Transaction Detail" +(".pdf");
         Document doc = new Document();
         String saveFolderPath = chooser.getSelectedFile().toString();
               
