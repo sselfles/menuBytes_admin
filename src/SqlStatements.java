@@ -104,6 +104,9 @@ public class SqlStatements {
 "FROM payment WHERE\n" +
 "created_by = (?) and payment_status = \"PENDING\"";
 
+    public String getRetrieveAmountDueTableName() {
+        return retrieveAmountDueTableName;
+    }
     
     private String updateGCashPayment = "UPDATE payment\n" +
 "SET \n" +
@@ -134,6 +137,12 @@ public class SqlStatements {
 "completed_at = current_timestamp()\n" +
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
+
+    public String getUpdateCashPayment() {
+        return updateCashPayment;
+    }
+     
+     
     
     private String updatePaidOrder = "UPDATE orders\n" +
 "SET \n" +
@@ -310,9 +319,6 @@ public class SqlStatements {
     }
     
     
-    public String getUpdateCashPayment() {
-        return updateCashPayment;
-    }
 
     public String getSalesReportDefault() {
         return getSalesReportDefault;
@@ -361,9 +367,7 @@ public class SqlStatements {
         return retrieveOrderBreakdownUsingOrderID;
     }
     
-    public String getRetrieveAmountDueTableName() {
-        return retrieveAmountDueTableName;
-    }
+    
 
     public String getCheckUsernameExistence() {
         return checkUsernameExistence;
@@ -389,6 +393,10 @@ public class SqlStatements {
         return this.retrievieKitchenLogs;
     }
     
+    public String getSalesReportDaily() {
+        return this.getSalesReportDaily;
+    }
+    
     public String getTransactions(){
         return this.getTransactions;
     }
@@ -401,11 +409,8 @@ public class SqlStatements {
         return this.getProductByCategory;
     }
     
-    public String getSalesReportDaily() {
-        return this.getSalesReportDaily;
-    }
-    
     public String getTransactionBreakdown() {
         return this.getTransactionBreakdown;
     }
+    
 }

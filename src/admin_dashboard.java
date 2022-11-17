@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -56,6 +57,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     String productName;
     String price;
     String availability;
+    
+    JFileChooser chooser = new JFileChooser();
     
     menu_modal menuModal = new menu_modal();
     payment_modal paymentModal = new payment_modal();
@@ -124,7 +127,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     public void addRowToSalesReport() {
-        
         DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
             model.setRowCount(0);
             if(!salesReport().isEmpty()){
@@ -139,17 +141,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 }
             }
         
-        if (cmb_sales.getSelectedIndex() == 0) {
-            
-        }
         
-        if (cmb_sales.getSelectedIndex() == 1) {
-        
-        }
-        
-        if (cmb_sales.getSelectedIndex() == 2) {
-        
-        }
     }
     
     public ArrayList salesReport(){
@@ -158,9 +150,17 @@ public class admin_dashboard extends javax.swing.JFrame {
         return salesReport;
     }
     
+    public ArrayList salesReportDaily(){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+//        salesReport = DatabaseConnection.getInstance().getSalesReportDaily(sales_from.get);
+        return salesReport;
+    }
+    
+    
+    
     public void addRowToTransaction() {
-        if (cmb_transactions.getSelectedIndex() == 0) {
-            DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
+        
+        DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
             model.setRowCount(0);
             if(!transactionsReport().isEmpty()){
                 ArrayList<Report> reportArrayList = transactionsReport();
@@ -174,15 +174,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                     model.addRow(rowData);
                 }
             }
-        }
         
-        if (cmb_transactions.getSelectedIndex() == 1) {
         
-        }
-        
-        if (cmb_transactions.getSelectedIndex() == 2) {
-        
-        }
     }
     
     public ArrayList transactionsReport(){
@@ -294,13 +287,14 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         sales_tabbedPane = new javax.swing.JTabbedPane();
         daily_weekly_tab = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        sales_from = new com.toedter.calendar.JDateChooser();
+        sales_to = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         monthly_tab = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
         jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
+        filter = new javax.swing.JButton();
         transactions_tab = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
@@ -1252,11 +1246,11 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab.setOpaque(false);
 
-        jDateChooser1.setDateFormatString("yy/MM/dd hh:mm:ss");
-        jDateChooser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_from.setDateFormatString("yy/MM/dd hh:mm:ss");
+        sales_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser2.setDateFormatString("yy/MM/dd hh:mm:ss");
-        jDateChooser2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_to.setDateFormatString("yy/MM/dd hh:mm:ss");
+        sales_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1268,11 +1262,11 @@ public class admin_dashboard extends javax.swing.JFrame {
             daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(daily_weekly_tabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sales_from, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sales_to, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         daily_weekly_tabLayout.setVerticalGroup(
@@ -1281,8 +1275,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(daily_weekly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sales_to, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(sales_from, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
@@ -1332,6 +1326,17 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_tabbedPane.addTab("tab1", monthly_tab);
 
         sales_reports_tab.add(sales_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+
+        filter.setBackground(new java.awt.Color(255, 0, 0));
+        filter.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        filter.setForeground(new java.awt.Color(255, 255, 255));
+        filter.setText("Filter");
+        filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterActionPerformed(evt);
+            }
+        });
+        sales_reports_tab.add(filter, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 150, 200, 60));
 
         jTabbedPane1.addTab("tab1", sales_reports_tab);
 
@@ -1895,13 +1900,24 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
         
+        chooser.setDialogTitle("Save");
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.showOpenDialog(null);
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            System.out.println("getCurrentDirectory(): " 
+               +  chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " 
+               +  chooser.getSelectedFile());
+        }
+        
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
         LocalDateTime now = LocalDateTime.now();  
         String datetime= dtf.format(now);
         
         String dateOfSalesReport = "Sales Report (" + datetime + ")"+(".pdf");
         Document doc = new Document();
-        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
+        String saveFolderPath = chooser.getSelectedFile().toString();
               
         
         try {
@@ -1923,6 +1939,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             int columnCount = 3;
             PdfPTable receiptTable = new PdfPTable(columnCount);
             
+            receiptTable.setHorizontalAlignment(0);
             receiptTable.addCell("Date");
             receiptTable.addCell("Quality Sales");
             receiptTable.addCell("Total Sales");
@@ -1956,69 +1973,15 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_sales_viewMouseClicked
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) transaction_list.getModel();
+        int selectedRowIndex = transaction_list.getSelectedRow();
+        String order_id = model.getValueAt(selectedRowIndex, 1).toString();
+        String user = model.getValueAt(selectedRowIndex, 2).toString();
         
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-        LocalDateTime now = LocalDateTime.now();  
-        String datetime= dtf.format(now);
         
-        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
-        Document doc = new Document();
-        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
-              
+        transaction_modal transactionModal = new transaction_modal(order_id, user);
+        transactionModal.setVisible(true);
         
-        try {
-            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
-            
-            doc.open();
-            //Logo
-//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-//            Image img = Image.getInstance(path.toAbsolutePath().toString());
-//            img.setSpacingAfter(TOP_ALIGNMENT);
-//            doc.add(img);
-            
-            //Header
-//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-//            Chunk chunk = new Chunk("SALES REPORT", font);
-//
-//            doc.add(chunk);
-            
-            int columnCount = 4;
-            PdfPTable receiptTable = new PdfPTable(columnCount);
-            
-            receiptTable.addCell("Date");
-            receiptTable.addCell("Order Number");
-            receiptTable.addCell("Username");
-            receiptTable.addCell("Total Amount");
-            
-            System.out.println(transaction_list.getRowCount());
-            for(int rowCount = 0; rowCount < transaction_list.getRowCount(); rowCount++){
-                
-                String date = transaction_list.getValueAt(rowCount, 0).toString();
-                String orderNum = transaction_list.getValueAt(rowCount, 1).toString();
-                String username = transaction_list.getValueAt(rowCount, 2).toString();
-                String total = transaction_list.getValueAt(rowCount, 3).toString();
-                
-                receiptTable.addCell(date);
-                receiptTable.addCell(orderNum);
-                receiptTable.addCell(username);
-                receiptTable.addCell(total);
-            }
-            
-            doc.add(receiptTable);
-            doc.close();
-            
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-//        catch (URISyntaxException ex) {
-//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
-        catch (IOException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_sales_view1MouseClicked
 
     private void cmb_transactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_transactionsActionPerformed
@@ -2027,13 +1990,24 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void log_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_viewMouseClicked
         
+        chooser.setDialogTitle("Save");
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.showOpenDialog(null);
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            System.out.println("getCurrentDirectory(): " 
+               +  chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " 
+               +  chooser.getSelectedFile());
+        }
+        
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
         LocalDateTime now = LocalDateTime.now();  
         String datetime= dtf.format(now);
         
         String dateOfSalesReport = "Logs Report (" + datetime + ")"+(".pdf");
         Document doc = new Document();
-        String saveFolderPath = "C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Reports";
+        String saveFolderPath = chooser.getSelectedFile().toString();
               
         
         try {
@@ -2135,6 +2109,24 @@ public class admin_dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_deleteMenuMouseClicked
 
+    private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
+        String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
+        
+        System.out.println(from_date);
+        
+        if (cmb_transactions.getSelectedIndex() == 0) {
+            
+        }
+        
+        if (cmb_transactions.getSelectedIndex() == 1) {
+        
+        }
+        
+        if (cmb_transactions.getSelectedIndex() == 2) {
+        
+        }
+    }//GEN-LAST:event_filterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2189,11 +2181,10 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel daily_weekly_tab;
     private javax.swing.JPanel daily_weekly_tab1;
     private javax.swing.JPanel daily_weekly_tab3;
+    private javax.swing.JButton filter;
     private javax.swing.JLabel gcash_availability;
     private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
     private com.toedter.calendar.JDateChooser jDateChooser7;
@@ -2264,11 +2255,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JTable product_list;
     private javax.swing.JPanel product_management;
     private javax.swing.JPanel product_tab;
+    private com.toedter.calendar.JDateChooser sales_from;
     private javax.swing.JTable sales_report_list;
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;
     private javax.swing.JTabbedPane sales_tabbedPane;
     private javax.swing.JTabbedPane sales_tabbedPane1;
+    private com.toedter.calendar.JDateChooser sales_to;
     private javax.swing.JLabel sales_view;
     private javax.swing.JLabel sales_view1;
     private javax.swing.JPanel sidePane;

@@ -49,6 +49,14 @@ public class Order {
         this.quantity = quantity;
         this.product_name = product_name;
     }
+    public Order(String order_id, String quantity, String product_name, String total_price, Boolean has_addOns, String flavors){
+        this.order_id = order_id;
+        this.quantity = quantity;
+        this.product_name = product_name;
+        this.total_price = total_price;
+        this.has_addOns = has_addOns;
+        this.flavors = flavors;
+    }
     
     public Order(String order_id, String quantity, String product_name, String total_price, Boolean has_addOns, String flavors){
         this.order_id = order_id;
