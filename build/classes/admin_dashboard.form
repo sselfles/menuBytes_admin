@@ -1576,11 +1576,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jDateChooser1" min="-2" pref="274" max="-2" attributes="0"/>
+                              <Component id="sales_from" min="-2" pref="274" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" pref="57" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="jDateChooser2" min="-2" pref="274" max="-2" attributes="0"/>
+                              <Component id="sales_to" min="-2" pref="274" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -1591,8 +1591,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel7" pref="53" max="32767" attributes="0"/>
-                                  <Component id="jDateChooser2" pref="53" max="32767" attributes="0"/>
-                                  <Component id="jDateChooser1" max="32767" attributes="0"/>
+                                  <Component id="sales_to" pref="53" max="32767" attributes="0"/>
+                                  <Component id="sales_from" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                           </Group>
@@ -1600,7 +1600,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                    <Component class="com.toedter.calendar.JDateChooser" name="sales_from">
                       <Properties>
                         <Property name="dateFormatString" type="java.lang.String" value="yy/MM/dd hh:mm:ss"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1608,7 +1608,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+                    <Component class="com.toedter.calendar.JDateChooser" name="sales_to">
                       <Properties>
                         <Property name="dateFormatString" type="java.lang.String" value="yy/MM/dd hh:mm:ss"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1709,6 +1709,28 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="filter">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Century Gothic" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Filter"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterActionPerformed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="1310" y="150" width="200" height="60"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="transactions_tab">
