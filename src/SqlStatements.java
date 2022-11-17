@@ -191,6 +191,16 @@ public class SqlStatements {
 "WHERE created_at between (?) and (?)\n" +
 "GROUP BY DATE(orders.created_at);";
     
+    private String getSalesReportMonthly = "SELECT\n" +
+"month(created_at),\n" +
+"SUM(order_items.quantity),\n" +
+"SUM(orders.total)\n" +
+"FROM orders\n" +
+"INNER JOIN\n" +
+"order_items ON orders.order_id = order_items.order_id\n" +
+"WHERE month(orders.created_at) between (?) and (?)\n" +
+"GROUP BY DATE(orders.created_at);";
+    
     private String getTransactions = "SELECT\n" +
 "DATE(created_at),\n" +
 "order_id,\n" +
@@ -422,6 +432,10 @@ public class SqlStatements {
     
     public String getSalesReportWeekly() {
         return this.getSalesReportWeekly;
+    }
+    
+    public String getSalesReportMonthly() {
+        return this.getSalesReportMonthly;
     }
     
     public String getTransactions(){

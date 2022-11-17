@@ -192,6 +192,31 @@ public class admin_dashboard extends javax.swing.JFrame {
             }
     }
     
+    public ArrayList salesReportMonthly(String from, String to){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getSalesReportMonthly(from, to);
+        return salesReport;
+    }
+    
+    public void monthlySalesReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            
+            System.out.println("monthly");
+            if(!salesReportMonthly(from, to).isEmpty()){
+                
+                ArrayList<Report> reportArrayList = salesReportMonthly(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
     
     
     public void addRowToTransaction() {
@@ -328,8 +353,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         monthly_tab = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
-        jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
+        sales_month_from = new com.toedter.calendar.JMonthChooser();
+        sales_month_to = new com.toedter.calendar.JMonthChooser();
         filter = new javax.swing.JButton();
         transactions_tab = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -1324,11 +1349,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("to");
 
-        jMonthChooser1.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_month_from.setBackground(new java.awt.Color(255, 255, 255));
+        sales_month_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jMonthChooser2.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_month_to.setBackground(new java.awt.Color(255, 255, 255));
+        sales_month_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout monthly_tabLayout = new javax.swing.GroupLayout(monthly_tab);
         monthly_tab.setLayout(monthly_tabLayout);
@@ -1336,11 +1361,11 @@ public class admin_dashboard extends javax.swing.JFrame {
             monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(monthly_tabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sales_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sales_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(281, 281, 281))
         );
         monthly_tabLayout.setVerticalGroup(
@@ -1354,8 +1379,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tabLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonthChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sales_month_from, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sales_month_to, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
@@ -2149,24 +2174,28 @@ public class admin_dashboard extends javax.swing.JFrame {
         String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
         String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
         
-        String from = from_date.substring(0, 9);
-        String to = to_date.substring(0, 9);
-        System.out.println ("from date:" +from_date);
-        System.out.println ("from :" +from);
+        String from = String.valueOf(sales_month_from.getMonth()+1);
+            String to = String.valueOf(sales_month_to.getMonth()+1);
+            
+            System.out.println(cmb_transactions.getSelectedIndex());
         
-        if (from_date!=null && to_date !=null) {
             //daily
-            if (cmb_transactions.getSelectedIndex() == 0) {
+            if (cmb_sales.getSelectedIndex() == 0) {
                 dailySalesReport(from_date, to_date); 
             }
 
-            if (cmb_transactions.getSelectedIndex() == 1) {
+            if (cmb_sales.getSelectedIndex() == 1) {
+                
+//                String from = from_date.substring(0, 9);
+//                String to = to_date.substring(0, 9);
+        
                 weeklySalesReport(from, to);
             }
-        }
         
-        if (cmb_transactions.getSelectedIndex() == 2) {
         
+        if (cmb_sales.getSelectedIndex() == 2) {
+            System.out.println("monthly");
+            monthlySalesReport(from, to);
         }
     }//GEN-LAST:event_filterActionPerformed
 
@@ -2262,8 +2291,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private com.toedter.calendar.JMonthChooser jMonthChooser1;
-    private com.toedter.calendar.JMonthChooser jMonthChooser2;
     private com.toedter.calendar.JMonthChooser jMonthChooser7;
     private com.toedter.calendar.JMonthChooser jMonthChooser8;
     private javax.swing.JPanel jPanel1;
@@ -2299,6 +2326,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel product_management;
     private javax.swing.JPanel product_tab;
     private com.toedter.calendar.JDateChooser sales_from;
+    private com.toedter.calendar.JMonthChooser sales_month_from;
+    private com.toedter.calendar.JMonthChooser sales_month_to;
     private javax.swing.JTable sales_report_list;
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;
