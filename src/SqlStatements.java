@@ -180,6 +180,17 @@ public class SqlStatements {
 "GROUP BY DATE(orders.created_at)\n" +
 ";";
     
+    private String getSalesReportWeekly = "SELECT\n" +
+"CONCAT(DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(1-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e'), ' TO ',    \n" +
+" DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(7-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e')) AS DateRange,\n" +
+"SUM(order_items.quantity),\n" +
+"SUM(orders.total)\n" +
+"FROM orders\n" +
+"INNER JOIN\n" +
+"order_items ON orders.order_id = order_items.order_id\n" +
+"WHERE created_at between (?) and (?)\n" +
+"GROUP BY DATE(orders.created_at);";
+    
     private String getTransactions = "SELECT\n" +
 "DATE(created_at),\n" +
 "order_id,\n" +
@@ -407,6 +418,10 @@ public class SqlStatements {
     
     public String getSalesReportDaily() {
         return this.getSalesReportDaily;
+    }
+    
+    public String getSalesReportWeekly() {
+        return this.getSalesReportWeekly;
     }
     
     public String getTransactions(){

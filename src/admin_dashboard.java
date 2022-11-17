@@ -140,8 +140,6 @@ public class admin_dashboard extends javax.swing.JFrame {
                     model.addRow(rowData);
                 }
             }
-        
-        
     }
     
     public ArrayList salesReport(){
@@ -150,10 +148,48 @@ public class admin_dashboard extends javax.swing.JFrame {
         return salesReport;
     }
     
-    public ArrayList salesReportDaily(){
+    public ArrayList salesReportDaily(String from, String to){
         ArrayList<Report> salesReport = new ArrayList<Report>();
-//        salesReport = DatabaseConnection.getInstance().getSalesReportDaily(sales_from.get);
+        salesReport = DatabaseConnection.getInstance().getSalesReportDaily(from, to);
         return salesReport;
+    }
+    
+    public void dailySalesReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            if(!salesReportDaily(from, to).isEmpty()){
+                ArrayList<Report> reportArrayList = salesReportDaily(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList salesReportWeekly(String from, String to){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getSalesReportWeekly(from, to);
+        return salesReport;
+    }
+    
+    public void weeklySalesReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            if(!salesReportWeekly(from, to).isEmpty()){
+                ArrayList<Report> reportArrayList = salesReportWeekly(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
     }
     
     
@@ -1246,10 +1282,10 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab.setOpaque(false);
 
-        sales_from.setDateFormatString("yy/MM/dd hh:mm:ss");
+        sales_from.setDateFormatString("yyyyMM/dd hh:mm:ss");
         sales_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        sales_to.setDateFormatString("yy/MM/dd hh:mm:ss");
+        sales_to.setDateFormatString("yyyy/MM/dd hh:mm:ss");
         sales_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -2111,15 +2147,22 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
         String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
+        String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
         
-        System.out.println(from_date);
+        String from = from_date.substring(0, 9);
+        String to = to_date.substring(0, 9);
+        System.out.println ("from date:" +from_date);
+        System.out.println ("from :" +from);
         
-        if (cmb_transactions.getSelectedIndex() == 0) {
-            
-        }
-        
-        if (cmb_transactions.getSelectedIndex() == 1) {
-        
+        if (from_date!=null && to_date !=null) {
+            //daily
+            if (cmb_transactions.getSelectedIndex() == 0) {
+                dailySalesReport(from_date, to_date); 
+            }
+
+            if (cmb_transactions.getSelectedIndex() == 1) {
+                weeklySalesReport(from, to);
+            }
         }
         
         if (cmb_transactions.getSelectedIndex() == 2) {
