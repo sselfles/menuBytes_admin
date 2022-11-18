@@ -294,14 +294,14 @@ public class dashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Table No.", "Method ", "P. Status"
+                "Table No.", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -323,6 +323,8 @@ public class dashboard extends javax.swing.JFrame {
         jScrollPane2.setViewportView(notification_table);
         if (notification_table.getColumnModel().getColumnCount() > 0) {
             notification_table.getColumnModel().getColumn(0).setResizable(false);
+            notification_table.getColumnModel().getColumn(0).setPreferredWidth(20);
+            notification_table.getColumnModel().getColumn(1).setResizable(false);
         }
 
         sidePane.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 320, 490));
