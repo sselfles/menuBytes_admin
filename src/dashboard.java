@@ -1737,6 +1737,8 @@ public class dashboard extends javax.swing.JFrame {
         addRowToTableList();
     }//GEN-LAST:event_btn_refreshMouseClicked
     
+    static Double price = 0.00;
+    
     public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price, Boolean has_addOns, String flavors){
         /*
         Pwede ka pa magintroduce ng parameters and variables dito para like for example,
@@ -1744,10 +1746,8 @@ public class dashboard extends javax.swing.JFrame {
         para maipasa mo sa checkout
         sleep muna q mwa lab yu <<<333
         */
-        Double totalAmt = 0.00;
-        totalAmt += Double.valueOf(dataRow_Price); 
         
-        order_total_amount.setText(String.format("%.2f", totalAmt));
+        price += Double.valueOf(dataRow_Price);
         
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         Object rowData[] = new Object[3];
@@ -1757,6 +1757,7 @@ public class dashboard extends javax.swing.JFrame {
         model.addRow(rowData);
         
         
+        order_total_amount.setText(String.format("%.2f", price));
         
         if (has_addOns){
             Object rowDataDetail[] = new Object[3];
