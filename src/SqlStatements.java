@@ -162,9 +162,18 @@ public class SqlStatements {
         return retrieveAmountDueTableName;
     }
     
+//    private String updateGCashPayment = "UPDATE payment\n" +
+//"SET \n" +
+//"created_by = concat(created_by, \"_\") ,\n" +
+//"payment_status = \"COMPLETE\",\n" +
+//"payment_amount = (?),\n" +
+//"remarks = (?),\n" +
+//"completed_at = current_timestamp()\n" +
+//"WHERE \n" +
+//"created_by = (?) and payment_status = \"PENDING\";";
+    
     private String updateGCashPayment = "UPDATE payment\n" +
 "SET \n" +
-"created_by = concat(created_by, \"_\") ,\n" +
 "payment_status = \"COMPLETE\",\n" +
 "payment_amount = (?),\n" +
 "remarks = (?),\n" +
@@ -187,9 +196,18 @@ public class SqlStatements {
     }
     
     
-     private String updateCashPayment = "UPDATE payment\n" +
+//     private String updateCashPayment = "UPDATE payment\n" +
+//"SET \n" +
+//"created_by = concat(created_by, \"_\") ,\n" +
+//"payment_status = \"COMPLETE\",\n" +
+//"payment_amount = (?),\n" +
+//"payment_change = (?),\n" +
+//"completed_at = current_timestamp()\n" +
+//"WHERE \n" +
+//"created_by = (?) and payment_status = \"PENDING\";";
+     
+          private String updateCashPayment = "UPDATE payment\n" +
 "SET \n" +
-"created_by = concat(created_by, \"_\") ,\n" +
 "payment_status = \"COMPLETE\",\n" +
 "payment_amount = (?),\n" +
 "payment_change = (?),\n" +
@@ -201,11 +219,15 @@ public class SqlStatements {
         return updateCashPayment;
     }
      
-     
+//    private String updatePaidOrder = "UPDATE orders\n" +
+//"SET \n" +
+//"created_by = concat(created_by, \"_\") ,\n" +
+//"modified_at = current_timestamp()\n" +
+//"WHERE \n" +
+//"created_by = (?);";
     
-    private String updatePaidOrder = "UPDATE orders\n" +
+        private String updatePaidOrder = "UPDATE orders\n" +
 "SET \n" +
-"created_by = concat(created_by, \"_\") ,\n" +
 "modified_at = current_timestamp()\n" +
 "WHERE \n" +
 "created_by = (?);";
