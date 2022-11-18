@@ -380,14 +380,14 @@ public class dashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Table No.", "Payment Method", "Total Amount", "Status"
+                "Table No.", "Total Amount", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -417,9 +417,8 @@ public class dashboard extends javax.swing.JFrame {
             table_list.getColumnModel().getColumn(0).setResizable(false);
             table_list.getColumnModel().getColumn(0).setPreferredWidth(30);
             table_list.getColumnModel().getColumn(1).setResizable(false);
+            table_list.getColumnModel().getColumn(1).setPreferredWidth(30);
             table_list.getColumnModel().getColumn(2).setResizable(false);
-            table_list.getColumnModel().getColumn(2).setPreferredWidth(30);
-            table_list.getColumnModel().getColumn(3).setResizable(false);
         }
 
         btn_refresh.setBackground(new java.awt.Color(255, 0, 0));

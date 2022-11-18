@@ -327,9 +327,10 @@ public class SqlStatements {
     
     private String deleteProduct ="DELETE FROM product WHERE (product_name = (?));";
     
-    private String retrivePendingPayments = "SELECT created_by,\n" +
-"payment_method, amount_due, payment_status\n" +
-"FROM payment WHERE payment_status = \"PENDING\";";
+    private String retrivePendingPayments = "SELECT user.user_name, payment.amount_due, payment.payment_status\n" +
+"from payment\n" +
+"JOIN user \n" +
+"WHERE user.deleted_at is null AND payment.payment_status = 'PENDING' AND user.user_type = 'customer';";
     
     private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
     
