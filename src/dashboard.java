@@ -1631,6 +1631,11 @@ public class dashboard extends javax.swing.JFrame {
         int rowCount = Integer.valueOf(model.getRowCount());
         if(rowCount >= 0){
             String username = order_user.getSelectedItem().toString();
+            
+            if(username.equals("take-out")){
+                username = "cashier";
+            }
+            
             String total = order_total_amount.getText();
             
             
