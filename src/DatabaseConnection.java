@@ -388,8 +388,7 @@ public class DatabaseConnection {
             while(resultSet.next()){
                               payments.add(new Payment(
                               resultSet.getString(1), 
-                              resultSet.getString(2), 
-                              resultSet.getString(3)));
+                              resultSet.getString(2)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
