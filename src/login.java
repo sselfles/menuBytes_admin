@@ -94,6 +94,11 @@ public class login extends javax.swing.JFrame {
                 txtPasswordFocusLost(evt);
             }
         });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,7 +140,23 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String username = txtUsername.getText();
+                String password = String.valueOf(txtPassword.getPassword());
+
+                if(username.equals("") || password.equals("")){
+                     JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
+                } else{
+                    validateCredentials(username, password);
+                }
+            }
+        };
+        
+        txtUsername.addActionListener(action);
     }//GEN-LAST:event_txtUsernameActionPerformed
     private void validateCredentials(String username, String password){
         String check_username = DatabaseConnection.getInstance().checkUsernameExistence(username);
@@ -227,6 +248,25 @@ public class login extends javax.swing.JFrame {
             txtPassword.setText("");
         }
     }//GEN-LAST:event_txtPasswordFocusGained
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String username = txtUsername.getText();
+                String password = String.valueOf(txtPassword.getPassword());
+
+                if(username.equals("") || password.equals("")){
+                     JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
+                } else{
+                    validateCredentials(username, password);
+                }
+            }
+        };
+        txtPassword.addActionListener(action);
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

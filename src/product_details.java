@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -687,15 +688,25 @@ public class product_details extends javax.swing.JFrame {
         if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
         if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
         
-        
+        if (this.product_name.charAt(0) == '4' || this.product_name.charAt(0) == '6' || this.product_name.charAt(0) == '1') { 
+            if (this.count < this.limit) {
+                JOptionPane.showMessageDialog(null, "Please select " + this.limit + " flavor!", "Missing Flavor!", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
+                
+                close();
+            }
+        } else {
+            dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
+            
+            close();
+        }
         /*
          Helo mags this is the Majik 
         *badum tss*
         */
         
-        dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
-        dashboard.computeTotal(product_total_amount.getText().toString());
-        close();
+        
     }//GEN-LAST:event_add_cartMouseClicked
 
     private void all_meatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_all_meatMouseClicked

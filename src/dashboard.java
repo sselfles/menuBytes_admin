@@ -1712,6 +1712,11 @@ public class dashboard extends javax.swing.JFrame {
         para maipasa mo sa checkout
         sleep muna q mwa lab yu <<<333
         */
+        Double totalAmt = 0.00;
+        totalAmt += Double.valueOf(dataRow_Price); 
+        
+        order_total_amount.setText(String.format("%.2f", totalAmt));
+        
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         Object rowData[] = new Object[3];
         rowData[0] = dataRow_Qty;
@@ -1727,7 +1732,7 @@ public class dashboard extends javax.swing.JFrame {
             rowDataDetail[1] = "Shawarma All Meat";
             rowDataDetail[2] = "-";
             model.addRow(rowDataDetail);
-        } else if (flavors != null) {
+        } else if (!flavors.isEmpty()) {
             Object rowDataDetail[] = new Object[3];
             rowDataDetail[0] = "-";
             rowDataDetail[1] = flavors;
@@ -1737,15 +1742,6 @@ public class dashboard extends javax.swing.JFrame {
         
         
     }
-    
-    public static void computeTotal(String price) {  
-        
-        Double totalAmt=0.00;
-        
-            totalAmt += Double.valueOf(price); 
-            total.setText(String.format("%.2f", totalAmt));
-    }
-    
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
@@ -1858,7 +1854,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JTable notification_table;
     private javax.swing.JTable order_breakdown;
     private javax.swing.JPanel order_queue_tab;
-    private javax.swing.JLabel order_total_amount;
+    private static javax.swing.JLabel order_total_amount;
     private javax.swing.JComboBox<String> order_user;
     private javax.swing.JLabel place_order;
     private javax.swing.JLabel remove_order;
