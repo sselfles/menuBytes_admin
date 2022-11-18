@@ -346,6 +346,16 @@ public class SqlStatements {
 "(current_timestamp()),\n" +
 "((SELECT user_name from user where user_id = (?)))\n" +
 ");";
+    
+    private String insertOrderStatus = "INSERT INTO order_status(order_id, order_status, created_at, created_by)\n" +
+"VALUES(\n" +
+"(?),\n" +
+"(?),\n" +
+"((SELECT created_at FROM orders where order_id = (?))),\n" +
+"((SELECT user_name from user where user_id = 'cashier')));";
+    
+    private String insertOrderItems = "INSERT INTO order_items(order_id,product_id,quantity,product_bundle,has_addons, flavors)\n" +
+"VALUES((?),(?),(?),(?),(?),(?));";
       
     public String getRetrieveUsersList() {
         return retrieveUsersList;
@@ -526,4 +536,11 @@ public class SqlStatements {
         return this.insertOrder;
     }
     
+    public String insertOrderStatus(){
+        return this.insertOrderStatus;
+    }
+    
+    public String insertOrderItems() {
+        return this.insertOrderItems;
+    }
 }

@@ -1052,7 +1052,8 @@ public class DatabaseConnection {
                                       resultSet.getString(3),
                                         resultSet.getString(4),
                                         resultSet.getString(5),
-                                        resultSet.getString(6)));
+                                        resultSet.getString(6),
+                                        resultSet.getString(7)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -1193,12 +1194,57 @@ public class DatabaseConnection {
                         order_id = resultSet.getInt(1);
                     }
             disconnect(resultSet, preparedStatement, connection);
-                  
+            
+            insertOrderStatus(order_id);
         }
 
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return order_id;
+    }
+    
+    public void insertOrderStatus(int order_id){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrderStatus());
+            preparedStatement.setInt(1, Integer.valueOf(order_id));
+            preparedStatement.setString(2, "IN QUEUE");
+            preparedStatement.setInt(3, Integer.valueOf(order_id));
+            preparedStatement.executeUpdate();
+            
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertOrderItems(int order_id, String product_id, String quantity, String product_bundle, String has_addons, String flavors){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrderItems());
+            preparedStatement.setInt(1, Integer.valueOf(order_id));
+            preparedStatement.setInt(2,Integer.valueOf(product_id));
+            preparedStatement.setString(3, quantity);
+            preparedStatement.setBoolean(4,Boolean.valueOf(product_bundle));
+            preparedStatement.setBoolean(5, Boolean.valueOf(has_addons));
+            preparedStatement.setString(6, flavors);
+            
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  }

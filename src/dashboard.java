@@ -44,8 +44,6 @@ public class dashboard extends javax.swing.JFrame {
     
     Boolean abler = true;
     
-    static JLabel total;
-    
     
     public dashboard() {
         initComponents();
@@ -839,17 +837,11 @@ public class dashboard extends javax.swing.JFrame {
         btn_checkout.setLayout(btn_checkoutLayout);
         btn_checkoutLayout.setHorizontalGroup(
             btn_checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_checkoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(place_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+            .addComponent(place_order, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         btn_checkoutLayout.setVerticalGroup(
             btn_checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_checkoutLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(place_order)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(place_order, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1634,11 +1626,51 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_table_listMouseClicked
 
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
-        String username = order_user.getSelectedItem().toString();
         
-        
+        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        int rowCount = Integer.valueOf(model.getRowCount());
+        if(rowCount >= 0){
+            String username = order_user.getSelectedItem().toString();
+            String total = order_total_amount.getText();
+            
+            
+            
+            DatabaseConnection.getInstance().insertOrder(username, total);
+            
+            for(int position = 0; position < rowCount; position++){
+                String quantityColumn = model.getValueAt(position, 0).toString();
+                String product_id = null, quantity = null, product_bundle="false", has_addons="false", flavors = null, product_name; 
+                if(quantityColumn.equals("-")){
+                    if(quantityColumn.equals("Shawarma All Meat")){
+                        has_addons = model.getValueAt(position, 1).toString();
+                    }
+                    else {
+                        flavors = model.getValueAt(position, 1).toString();
+                    }
+                } else {
+                    quantity = model.getValueAt(position, 0).toString();
+                    product_name = model.getValueAt(position, 2).toString();
+                    
+                    if(!getProductInfoQuery(product_name).isEmpty()){
+                        ArrayList<ProductInfo> productInfo = getProductInfoQuery(product_name);
+
+                        product_id = productInfo.get(0).getProduct_name().toString();
+
+                    }
+                }
+                int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
+                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
+            }
+        }
+                
     }//GEN-LAST:event_btn_checkoutMouseClicked
 
+    public ArrayList getProductInfoQuery(String product_name){
+        ArrayList<ProductInfo> productInfo = new ArrayList<ProductInfo>();
+        productInfo = DatabaseConnection.getInstance().getProductInfo(product_name);
+        return productInfo;
+    }
+    
     private void icon_bowlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_bowlMouseClicked
 
         shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));

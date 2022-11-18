@@ -18,7 +18,8 @@ public class ProductInfo {
     private String product_image;
     private String bundle;
 
-    public ProductInfo(String product_name, String product_price, String bundle, String product_description, String product_category, String product_availability) {
+    public ProductInfo(String product_id, String product_name, String product_price, String bundle, String product_description, String product_category, String product_availability) {
+        this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;
         this.bundle = bundle;
