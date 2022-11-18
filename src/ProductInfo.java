@@ -28,6 +28,16 @@ public class ProductInfo {
         this.product_image = product_availability;
     }
     
+    public ProductInfo(String product_name, String product_price, String bundle, String product_description, String product_category, String product_availability) {
+        
+        this.product_name = product_name;
+        this.product_price = product_price;
+        this.bundle = bundle;
+        this.product_description = product_description;
+        this.product_category = product_category;
+        this.product_image = product_availability;
+    }
+    
     public ProductInfo(String product_name, String product_price, String bundle){
         this.product_name = product_name;
         this.product_price = product_price;

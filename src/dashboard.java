@@ -1631,7 +1631,7 @@ public class dashboard extends javax.swing.JFrame {
         int rowCount = Integer.valueOf(model.getRowCount());
         if(rowCount >= 0){
             String username = order_user.getSelectedItem().toString();
-            
+            System.out.println("username : " +username);
             if(username.equals("take-out")){
                 username = "cashier";
             }
@@ -1666,6 +1666,10 @@ public class dashboard extends javax.swing.JFrame {
                 int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
                 DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
             }
+            
+            model.setRowCount(0);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
                 
     }//GEN-LAST:event_btn_checkoutMouseClicked

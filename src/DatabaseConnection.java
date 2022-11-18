@@ -1179,9 +1179,9 @@ public class DatabaseConnection {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrder(), Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1,Integer.valueOf(user_id));
+            preparedStatement.setString(1, user_id);
             preparedStatement.setDouble(2,Double.valueOf(total));
-            preparedStatement.setInt(3,Integer.valueOf(user_id));
+            preparedStatement.setString(3, user_id);
             preparedStatement.executeUpdate();
             
             ResultSet resultSet;
@@ -1232,7 +1232,7 @@ public class DatabaseConnection {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrderItems());
             preparedStatement.setInt(1, Integer.valueOf(order_id));
-            preparedStatement.setInt(2,Integer.valueOf(product_id));
+            preparedStatement.setString(2,product_id);
             preparedStatement.setString(3, quantity);
             preparedStatement.setBoolean(4,Boolean.valueOf(product_bundle));
             preparedStatement.setBoolean(5, Boolean.valueOf(has_addons));
