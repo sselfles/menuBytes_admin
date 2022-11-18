@@ -1436,9 +1436,8 @@ public class dashboard extends javax.swing.JFrame {
         Object rowData[] = new Object[4];
         for(int position = 0; position < paymentArrayList.size(); position++){
             rowData[0] = paymentArrayList.get(position).getTable_no();
-            rowData[1] = paymentArrayList.get(position).getPayment_method();
-            rowData[2] = paymentArrayList.get(position).getTotal_amount();
-            rowData[3] = paymentArrayList.get(position).getStatus();
+            rowData[1] = paymentArrayList.get(position).getTotal_amount();
+            rowData[2] = paymentArrayList.get(position).getStatus();
             model.addRow(rowData);
         }
         }
