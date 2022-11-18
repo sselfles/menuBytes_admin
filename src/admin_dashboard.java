@@ -235,14 +235,87 @@ public class admin_dashboard extends javax.swing.JFrame {
                     model.addRow(rowData);
                 }
             }
-        
-        
     }
     
     public ArrayList transactionsReport(){
         ArrayList<Report> transactionsReport = new ArrayList<Report>();
         transactionsReport = DatabaseConnection.getInstance().getTransactions();
         return transactionsReport;
+    }
+    
+    public ArrayList transactionReportDaily(String from, String to){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getTransactionsDaily(from, to);
+        return salesReport;
+    }
+    
+    public void dailyTransactionReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            
+            System.out.println("monthly");
+            if(!transactionReportDaily(from, to).isEmpty()){
+                
+                ArrayList<Report> reportArrayList = transactionReportDaily(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList transactionReporWeekly(String from, String to){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getTransactionsWeekly(from, to);
+        return salesReport;
+    }
+    
+    public void weeklyTransactionReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            
+            System.out.println("monthly");
+            if(!transactionReporWeekly(from, to).isEmpty()){
+                
+                ArrayList<Report> reportArrayList = transactionReporWeekly(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
+    }
+    
+    public ArrayList transactionReporMonthly(String from, String to){
+        ArrayList<Report> salesReport = new ArrayList<Report>();
+        salesReport = DatabaseConnection.getInstance().getTransactionsMonthly(from, to);
+        return salesReport;
+    }
+    
+    public void monthlyTransactionReport(String from, String to) {
+        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+            model.setRowCount(0);
+            
+            System.out.println("monthly");
+            if(!transactionReporMonthly(from, to).isEmpty()){
+                
+                ArrayList<Report> reportArrayList = transactionReporMonthly(from, to);
+                Object rowData[] = new Object[3];
+                
+                for(int position = 0; position < reportArrayList.size(); position++){
+                    rowData[0] = reportArrayList.get(position).getDate();
+                    rowData[1] = reportArrayList.get(position).getTotal_quantity();
+                    rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    model.addRow(rowData);
+                }
+            }
     }
     
     public void addRowToLogReports() {
@@ -355,7 +428,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         sales_month_from = new com.toedter.calendar.JMonthChooser();
         sales_month_to = new com.toedter.calendar.JMonthChooser();
-        filter = new javax.swing.JButton();
+        filter_sales = new javax.swing.JButton();
         transactions_tab = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
@@ -367,13 +440,14 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         sales_tabbedPane1 = new javax.swing.JTabbedPane();
         daily_weekly_tab3 = new javax.swing.JPanel();
-        jDateChooser7 = new com.toedter.calendar.JDateChooser();
-        jDateChooser8 = new com.toedter.calendar.JDateChooser();
+        transactions_from = new com.toedter.calendar.JDateChooser();
+        transactions_to = new com.toedter.calendar.JDateChooser();
         jLabel28 = new javax.swing.JLabel();
         monthly_tab3 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        jMonthChooser7 = new com.toedter.calendar.JMonthChooser();
-        jMonthChooser8 = new com.toedter.calendar.JMonthChooser();
+        transaction_month_from = new com.toedter.calendar.JMonthChooser();
+        transaction_month_to = new com.toedter.calendar.JMonthChooser();
+        filter_transaction = new javax.swing.JButton();
         log_reports_tab = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -1360,44 +1434,39 @@ public class admin_dashboard extends javax.swing.JFrame {
         monthly_tabLayout.setHorizontalGroup(
             monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(monthly_tabLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(58, 58, 58)
                 .addComponent(sales_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(55, 55, 55)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(sales_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
+                .addGap(58, 58, 58))
         );
         monthly_tabLayout.setVerticalGroup(
             monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(monthly_tabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(monthly_tabLayout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tabLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sales_month_from, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sales_month_to, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                .addGroup(monthly_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sales_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sales_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         sales_tabbedPane.addTab("tab1", monthly_tab);
 
         sales_reports_tab.add(sales_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
-        filter.setBackground(new java.awt.Color(255, 0, 0));
-        filter.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        filter.setForeground(new java.awt.Color(255, 255, 255));
-        filter.setText("Filter");
-        filter.addActionListener(new java.awt.event.ActionListener() {
+        filter_sales.setBackground(new java.awt.Color(255, 0, 0));
+        filter_sales.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        filter_sales.setForeground(new java.awt.Color(255, 255, 255));
+        filter_sales.setText("Filter");
+        filter_sales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterActionPerformed(evt);
+                filter_salesActionPerformed(evt);
             }
         });
-        sales_reports_tab.add(filter, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 150, 200, 60));
+        sales_reports_tab.add(filter_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 140, 200, 60));
 
         jTabbedPane1.addTab("tab1", sales_reports_tab);
 
@@ -1526,11 +1595,11 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab3.setOpaque(false);
 
-        jDateChooser7.setDateFormatString("yy/MM/dd hh:mm:ss");
-        jDateChooser7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        transactions_from.setDateFormatString("yy/MM/dd hh:mm:ss");
+        transactions_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jDateChooser8.setDateFormatString("yy/MM/dd hh:mm:ss");
-        jDateChooser8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        transactions_to.setDateFormatString("yy/MM/dd hh:mm:ss");
+        transactions_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1542,11 +1611,11 @@ public class admin_dashboard extends javax.swing.JFrame {
             daily_weekly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(daily_weekly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDateChooser7, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactions_from, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jDateChooser8, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactions_to, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         daily_weekly_tab3Layout.setVerticalGroup(
@@ -1555,8 +1624,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(daily_weekly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser8, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jDateChooser7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(transactions_to, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(transactions_from, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
@@ -1568,44 +1637,50 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("to");
 
-        jMonthChooser7.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        transaction_month_from.setBackground(new java.awt.Color(255, 255, 255));
+        transaction_month_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        jMonthChooser8.setBackground(new java.awt.Color(255, 255, 255));
-        jMonthChooser8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        transaction_month_to.setBackground(new java.awt.Color(255, 255, 255));
+        transaction_month_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout monthly_tab3Layout = new javax.swing.GroupLayout(monthly_tab3);
         monthly_tab3.setLayout(monthly_tab3Layout);
         monthly_tab3Layout.setHorizontalGroup(
             monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(monthly_tab3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jMonthChooser7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
+                .addComponent(transaction_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jMonthChooser8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
+                .addGap(70, 70, 70)
+                .addComponent(transaction_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         monthly_tab3Layout.setVerticalGroup(
             monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(monthly_tab3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(monthly_tab3Layout.createSequentialGroup()
-                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monthly_tab3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMonthChooser7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonthChooser8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                .addGroup(monthly_tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(transaction_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transaction_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         sales_tabbedPane1.addTab("tab1", monthly_tab3);
 
         transactions_tab.add(sales_tabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+
+        filter_transaction.setBackground(new java.awt.Color(255, 0, 0));
+        filter_transaction.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        filter_transaction.setForeground(new java.awt.Color(255, 255, 255));
+        filter_transaction.setText("Filter");
+        filter_transaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filter_transactionActionPerformed(evt);
+            }
+        });
+        transactions_tab.add(filter_transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 140, 200, 60));
 
         jTabbedPane1.addTab("tab1", transactions_tab);
 
@@ -2170,34 +2245,75 @@ public class admin_dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_deleteMenuMouseClicked
 
-    private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
+    private void filter_salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_salesActionPerformed
         String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
         String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
         
-        String from = String.valueOf(sales_month_from.getMonth()+1);
-            String to = String.valueOf(sales_month_to.getMonth()+1);
+       
             
             System.out.println(cmb_transactions.getSelectedIndex());
         
-            //daily
-            if (cmb_sales.getSelectedIndex() == 0) {
-                dailySalesReport(from_date, to_date); 
-            }
+            if(sales_from != null && sales_to != null){
+                    //daily
+                if (cmb_sales.getSelectedIndex() == 0) {
+                    dailySalesReport(from_date, to_date); 
+                }
+                //weekly
+                if (cmb_sales.getSelectedIndex() == 1) {
 
-            if (cmb_sales.getSelectedIndex() == 1) {
-                
-//                String from = from_date.substring(0, 9);
-//                String to = to_date.substring(0, 9);
-        
-                weeklySalesReport(from, to);
+                    String from = from_date.substring(0, 9);
+                    String to = to_date.substring(0, 9);
+
+                    weeklySalesReport(from, to);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "Please pick a date for both from and to!", "Missing Date", JOptionPane.PLAIN_MESSAGE);
             }
         
-        
+        //monthly
         if (cmb_sales.getSelectedIndex() == 2) {
-            System.out.println("monthly");
+            
+            String from = String.valueOf(sales_month_from.getMonth()+1);
+            String to = String.valueOf(sales_month_to.getMonth()+1);
+            
             monthlySalesReport(from, to);
         }
-    }//GEN-LAST:event_filterActionPerformed
+    }//GEN-LAST:event_filter_salesActionPerformed
+
+    private void filter_transactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_transactionActionPerformed
+        String from_date = ((JTextField)transactions_from.getDateEditor().getUiComponent()).getText();
+        String to_date = ((JTextField)transactions_to.getDateEditor().getUiComponent()).getText();
+        
+       
+            
+            System.out.println(cmb_transactions.getSelectedIndex());
+        
+            if(transactions_from != null && transactions_to != null){
+                //daily
+                if (cmb_transactions.getSelectedIndex() == 0) {
+                    dailyTransactionReport(from_date, to_date); 
+                }
+                //weekly
+                if (cmb_transactions.getSelectedIndex() == 1) {
+
+                    String from = from_date.substring(0, 9);
+                    String to = to_date.substring(0, 9);
+
+                    weeklyTransactionReport(from, to);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please pick a date for both from and to!", "Missing Date", JOptionPane.PLAIN_MESSAGE);
+            }
+        
+        //monthly
+        if (cmb_transactions.getSelectedIndex() == 2) {
+            
+            String from = String.valueOf(transaction_month_from.getMonth()+1);
+            String to = String.valueOf(transaction_month_to.getMonth()+1);
+            
+            monthlyTransactionReport(from, to);
+        }
+    }//GEN-LAST:event_filter_transactionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2253,14 +2369,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel daily_weekly_tab;
     private javax.swing.JPanel daily_weekly_tab1;
     private javax.swing.JPanel daily_weekly_tab3;
-    private javax.swing.JButton filter;
+    private javax.swing.JButton filter_sales;
+    private javax.swing.JButton filter_transaction;
     private javax.swing.JLabel gcash_availability;
     private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
-    private com.toedter.calendar.JDateChooser jDateChooser7;
-    private com.toedter.calendar.JDateChooser jDateChooser8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2291,8 +2406,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private com.toedter.calendar.JMonthChooser jMonthChooser7;
-    private com.toedter.calendar.JMonthChooser jMonthChooser8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2338,8 +2451,12 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel sales_view1;
     private javax.swing.JPanel sidePane;
     private javax.swing.JTable transaction_list;
+    private com.toedter.calendar.JMonthChooser transaction_month_from;
+    private com.toedter.calendar.JMonthChooser transaction_month_to;
     private javax.swing.JPanel transactions;
+    private com.toedter.calendar.JDateChooser transactions_from;
     private javax.swing.JPanel transactions_tab;
+    private com.toedter.calendar.JDateChooser transactions_to;
     private javax.swing.JTable user_list;
     private javax.swing.JPanel user_tab;
     // End of variables declaration//GEN-END:variables

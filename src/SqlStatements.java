@@ -221,6 +221,33 @@ public class SqlStatements {
 "payment ON payment.created_by = orders.created_by\n" +
 "WHERE order_items.order_id = (?);";
     
+    private String getTransactionsDaily = "SELECT\n" +
+"DATE(created_at),\n" +
+"order_id,\n" +
+"created_by,\n" +
+"total\n" +
+"FROM orders\n" +
+"WHERE created_at between (?) and (?);";
+    
+    private String getTransactionsWeekly = "SELECT\n" +
+"CONCAT(DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(1-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e'), ' TO ',\n" +
+"DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(7-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e')) AS DateRange,\n" +
+"order_id,\n" +
+"created_by,\n" +
+"SUM(total)\n" +
+"FROM orders\n" +
+"WHERE created_at between (?) and (?)\n" +
+"GROUP BY DATE(orders.created_at);";
+    
+    private String getTransactionsMonthly = "SELECT\n" +
+"month(orders.created_at),\n" +
+"order_id,\n" +
+"created_by,\n" +
+"SUM(total)\n" +
+"FROM orders\n" +
+"WHERE created_at between (?) and (?)\n" +
+"GROUP BY DATE(orders.created_at);";
+    
     private String getLogReports = "SELECT\n" +
 "DATE(payment.created_at),\n" +
 "REPLACE(payment.created_by,\"_\",\" \"),\n" +
@@ -440,6 +467,18 @@ public class SqlStatements {
     
     public String getTransactions(){
         return this.getTransactions;
+    }
+    
+    public String getTransactionsDaily() {
+        return this.getTransactionsDaily;
+    }
+    
+    public String getTransactionsWeekly() {
+        return this.getTransactionsWeekly;
+    }
+    
+    public String getTransactionsMonthly() {
+        return this.getTransactionsMonthly;
     }
     
     public String getLogReports(){
