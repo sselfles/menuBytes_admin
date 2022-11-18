@@ -227,7 +227,7 @@ public class SqlStatements {
 "created_by,\n" +
 "total\n" +
 "FROM orders\n" +
-"WHERE created_at between (?) and (?);";
+"20";
     
     private String getTransactionsWeekly = "SELECT\n" +
 "CONCAT(DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(1-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e'), ' TO ',\n" +
@@ -266,6 +266,27 @@ public class SqlStatements {
 "REPLACE(user.user_name,\"_\",\" \"),\n" +
 "CONCAT(\"Logged out \", user.log_out)\n" +
 "FROM user;";
+    
+    private String getLogReportsDaily = "SELECT\n" +
+"DATE(payment.created_at),\n" +
+"REPLACE(payment.created_by,\"_\",\" \"),\n" +
+"CONCAT(\"Made a payment of \", payment.payment_amount)\n" +
+"FROM payment\n" +
+"WHERE DATE(payment.created_at) BETWEEN (?) AND (?) AND payment_status = \"COMPLETED\" \n" +
+"UNION ALL\n" +
+"SELECT\n" +
+"DATE(user.log_in),\n" +
+"REPLACE(user.user_name,\"_\",\" \"),\n" +
+"CONCAT(\"Logged in \", user.log_in)\n" +
+"FROM user\n" +
+"WHERE user.deleted_at IS NULL AND DATE(user.log_in) between (?) and (?)\n" +
+"UNION ALL\n" +
+"SELECT\n" +
+"DATE(user.log_out),\n" +
+"REPLACE(user.user_name,\"_\",\" \"),\n" +
+"CONCAT(\"Logged out \", user.log_out)\n" +
+"FROM user\n" +
+"WHERE user.deleted_at IS NULL AND DATE(user.log_out) between (?) and (?);";
     
     private String retrieveUsersList = "SELECT user_type, user_name, device_type FROM menubytes.user WHERE deleted_at IS NULL;";
     
@@ -483,6 +504,10 @@ public class SqlStatements {
     
     public String getLogReports(){
         return this.getLogReports;
+    }
+    
+    public String getLogReportsDaily() {
+        return this.getLogReportsDaily;
     }
     
     public String getSelectedProductInfo() {

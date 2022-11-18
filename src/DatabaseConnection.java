@@ -762,6 +762,43 @@ public class DatabaseConnection {
         return logReports;
     }
     
+    public  ArrayList<Report> getLogReportsDaily(String from_date, String to_date){
+        Connection connection = null;
+        ArrayList<Report> salesReports = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getLogReportsDaily()); 
+        preparedStatement.setString(1, from_date);
+        preparedStatement.setString(2, to_date);
+        preparedStatement.setString(3, from_date);
+        preparedStatement.setString(4, to_date);
+        preparedStatement.setString(5, from_date);
+        preparedStatement.setString(6, to_date);
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getSalesReportDefault(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                              salesReports.add(new Report(
+                                      resultSet.getString(1), 
+                                      resultSet.getString(2), 
+                                      resultSet.getString(3)));
+                              
+            System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return salesReports;
+    }
+    
     public  ArrayList<User> retrieveUsersList(){
         Connection connection = null;
         ArrayList<User> usersArrayList = new ArrayList<>();
