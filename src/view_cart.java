@@ -764,7 +764,7 @@ public class view_cart extends javax.swing.JFrame{
         float cashReceived = Float.parseFloat(txt_cash_received.getText());
         float totalAmount = Float.parseFloat(txtTotal_amount.getText());
         
-        if(cashReceived <= totalAmount){
+        if(cashReceived >= totalAmount){
             System.out.println("CASH PAYMENT COMPLETED");
             DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
             DatabaseConnection.getInstance().updatePaidOrder(table_no);
