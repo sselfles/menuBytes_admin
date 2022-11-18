@@ -795,7 +795,9 @@ public class view_cart extends javax.swing.JFrame{
                 float totalAmount = Float.parseFloat(txtTotal_amount.getText());
 
                 float change = cashReceived - totalAmount;
-                lbl_change.setText(String.format("%.2f", change));
+                if (change > 0 ) {
+                    lbl_change.setText(String.format("%.2f", change));
+                }
                 
                 if(cashReceived < totalAmount) {
                     JOptionPane.showMessageDialog(null, "Cash Received and Total Amount do not match!\n Kindly check the amount and enter them again.", "Transaction Error", JOptionPane.PLAIN_MESSAGE);
