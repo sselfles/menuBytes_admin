@@ -344,7 +344,7 @@ public class SqlStatements {
 "((SELECT user_id from user where user_id = (?))),\n" +
 "(?),\n" +
 "(current_timestamp()),\n" +
-"((SELECT user_name from user where user_id = (?)))\n" +
+"((SELECT user_name from user where user_name = (?)))\n" +
 ");";
     
     private String insertOrderStatus = "INSERT INTO order_status(order_id, order_status, created_at, created_by)\n" +
@@ -352,7 +352,7 @@ public class SqlStatements {
 "(?),\n" +
 "(?),\n" +
 "((SELECT created_at FROM orders where order_id = (?))),\n" +
-"((SELECT user_name from user where user_id = 'cashier')));";
+"((SELECT user_name from user where user_name = 'cashier')));";
     
     private String insertOrderItems = "INSERT INTO order_items(order_id,product_id,quantity,product_bundle,has_addons, flavors)\n" +
 "VALUES((?),(?),(?),(?),(?),(?));";

@@ -52,17 +52,6 @@ public class dashboard extends javax.swing.JFrame {
         dashboard.setBackground(clickedColor);
         addRowToTableList();
         
-        
-    }
-    
-    public dashboard(String user_id) {
-        initComponents();
-        defaultColor = new Color(227,0,0);
-        clickedColor = new Color(255,0,0);
-        dashboard.setBackground(clickedColor);
-        this.user_id = user_id;
-        
-        
         Runnable refreshDatas = new Runnable() {
         public void run() {
 //        addTotalAmountToTable1();
@@ -80,10 +69,30 @@ public class dashboard extends javax.swing.JFrame {
         executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
     }
     
-    
-
-
-    
+    public dashboard(String user_id) {
+        initComponents();
+        defaultColor = new Color(227,0,0);
+        clickedColor = new Color(255,0,0);
+        dashboard.setBackground(clickedColor);
+        this.user_id = user_id;
+        
+        addRowToTableList();
+        Runnable refreshDatas = new Runnable() {
+        public void run() {
+//        addTotalAmountToTable1();
+//        addTotalAmountToTable2();  
+//        addTotalAmountToTable3();
+        addRowToListOrderQueueTable();
+        addDefaultRowToMenuList();
+        notifyCashierOfPayments();
+        retrieveKitchenLogs();
+            System.out.println("refreshed.");
+        }
+        };
+//        
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1377,6 +1386,7 @@ public class dashboard extends javax.swing.JFrame {
     }
 
     public void addRowToListOrderQueueTable(){
+        System.out.println("addRowToListOrderQueueTable");
         DefaultTableModel model = (DefaultTableModel)menu_list1.getModel();
         model.setRowCount(0);
         if(!orderListQueue().isEmpty()){
@@ -1453,15 +1463,6 @@ public class dashboard extends javax.swing.JFrame {
         for(int position = 0; position < usernameList.size(); position++){
             order_user.addItem(usernameList.get(position).getUser_name().toString());
         }
-        }
-    }
-       
-    public void insertOrder() {
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
-        
-        
-        for(int position = 0; position < model.getRowCount(); position++){
-            
         }
     }
     
@@ -1644,7 +1645,7 @@ public class dashboard extends javax.swing.JFrame {
             
             for(int position = 0; position < rowCount; position++){
                 String quantityColumn = model.getValueAt(position, 0).toString();
-                String product_id = null, quantity = null, product_bundle="false", has_addons="false", flavors = null, product_name; 
+                String product_id = null, quantity = null, product_bundle="0", has_addons="0", flavors = "IS NULL", product_name; 
                 if(quantityColumn.equals("-")){
                     if(quantityColumn.equals("Shawarma All Meat")){
                         has_addons = model.getValueAt(position, 1).toString();
@@ -1654,20 +1655,26 @@ public class dashboard extends javax.swing.JFrame {
                     }
                 } else {
                     quantity = model.getValueAt(position, 0).toString();
-                    product_name = model.getValueAt(position, 2).toString();
+                    product_name = model.getValueAt(position, 1).toString();
+//                    System.out.println("product_name : " + product_name);
                     
                     if(!getProductInfoQuery(product_name).isEmpty()){
                         ArrayList<ProductInfo> productInfo = getProductInfoQuery(product_name);
 
-                        product_id = productInfo.get(0).getProduct_name().toString();
-
+                        product_id = productInfo.get(0).getProduct_id().toString();
+//                        System.out.println("product ID : " + product_id);
                     }
                 }
+                
                 int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
+                
+                System.out.println(order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + has_addons + " " + flavors);
+                
                 DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
             }
             
             model.setRowCount(0);
+            order_total_amount.setText("-");
         } else {
             JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
@@ -1725,6 +1732,7 @@ public class dashboard extends javax.swing.JFrame {
     private void menu_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_listMouseClicked
         DefaultTableModel model = (DefaultTableModel) menu_list.getModel();
         int selectedRowIndex = menu_list.getSelectedRow();
+
         String product_name = model.getValueAt(selectedRowIndex, 0).toString();
         String product_price = model.getValueAt(selectedRowIndex, 1).toString();
         
