@@ -358,7 +358,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     
     public ArrayList logReportDaily(String from, String to){
         ArrayList<LogReport> logReport = new ArrayList<LogReport>();
-        logReport = DatabaseConnection.getInstance().getLogReports(from, to);
+        logReport = DatabaseConnection.getInstance().getLogReportsDaily(from, to);
         return logReport;
     }
     
@@ -482,10 +482,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         log_from = new com.toedter.calendar.JDateChooser();
         log_to = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
-        monthly_tab4 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        log_month_from = new com.toedter.calendar.JMonthChooser();
-        log_month_to = new com.toedter.calendar.JMonthChooser();
         btn_viewReceipt2 = new roundPanel();
         log_view = new javax.swing.JLabel();
         filter_log = new javax.swing.JButton();
@@ -1840,44 +1836,6 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         log_tabbedPAne.addTab("tab1", daily_weekly_tab1);
 
-        monthly_tab4.setOpaque(false);
-
-        jLabel37.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setText("to");
-
-        log_month_from.setBackground(new java.awt.Color(255, 255, 255));
-        log_month_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-
-        log_month_to.setBackground(new java.awt.Color(255, 255, 255));
-        log_month_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-
-        javax.swing.GroupLayout monthly_tab4Layout = new javax.swing.GroupLayout(monthly_tab4);
-        monthly_tab4.setLayout(monthly_tab4Layout);
-        monthly_tab4Layout.setHorizontalGroup(
-            monthly_tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab4Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(log_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(log_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
-        monthly_tab4Layout.setVerticalGroup(
-            monthly_tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(monthly_tab4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(monthly_tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(log_month_from, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(log_month_to, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 17, Short.MAX_VALUE))
-        );
-
-        log_tabbedPAne.addTab("tab1", monthly_tab4);
-
         log_reports_tab.add(log_tabbedPAne, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
         btn_viewReceipt2.setBackground(new java.awt.Color(255, 0, 0));
@@ -2393,7 +2351,18 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_filter_transactionActionPerformed
 
     private void filter_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_logActionPerformed
-        // TODO add your handling code here:
+        String from_date = ((JTextField)log_from.getDateEditor().getUiComponent()).getText();
+        String to_date = ((JTextField)log_to.getDateEditor().getUiComponent()).getText();
+        
+       
+        
+            if(log_from != null && log_to != null){
+                //daily
+                dailyTransactionReport(from_date, to_date); 
+            } else    {
+                JOptionPane.showMessageDialog(null, "Please pick a date for both from and to!", "Missing Date", JOptionPane.PLAIN_MESSAGE);
+            }
+                
     }//GEN-LAST:event_filter_logActionPerformed
 
     /**
@@ -2480,7 +2449,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2507,8 +2475,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.toedter.calendar.JDateChooser log_from;
-    private com.toedter.calendar.JMonthChooser log_month_from;
-    private com.toedter.calendar.JMonthChooser log_month_to;
     private javax.swing.JPanel log_reports;
     private javax.swing.JTable log_reports_list;
     private javax.swing.JPanel log_reports_tab;
@@ -2518,7 +2484,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logout;
     private javax.swing.JPanel monthly_tab;
     private javax.swing.JPanel monthly_tab3;
-    private javax.swing.JPanel monthly_tab4;
     private javax.swing.JPanel payment_settings;
     private javax.swing.JPanel payment_tab;
     private javax.swing.JTable product_list;

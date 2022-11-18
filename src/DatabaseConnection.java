@@ -762,9 +762,9 @@ public class DatabaseConnection {
         return logReports;
     }
     
-    public  ArrayList<Report> getLogReportsDaily(String from_date, String to_date){
+    public  ArrayList<LogReport> getLogReportsDaily(String from_date, String to_date){
         Connection connection = null;
-        ArrayList<Report> salesReports = new ArrayList<>();
+        ArrayList<LogReport> salesReports = new ArrayList<>();
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getLogReportsDaily()); 
@@ -782,7 +782,7 @@ public class DatabaseConnection {
             System.out.println("Database getSalesReportDefault(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
-                              salesReports.add(new Report(
+                              salesReports.add(new LogReport(
                                       resultSet.getString(1), 
                                       resultSet.getString(2), 
                                       resultSet.getString(3)));
