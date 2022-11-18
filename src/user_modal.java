@@ -469,7 +469,6 @@ public class user_modal extends javax.swing.JFrame {
         reset_password.setOpaque(false);
 
         reset_new_password.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        reset_new_password.setText("Password");
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel14.setText("Password :");
@@ -509,7 +508,6 @@ public class user_modal extends javax.swing.JFrame {
         jLabel17.setText("New Password :");
 
         new_password.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        new_password.setText("Password");
 
         javax.swing.GroupLayout reset_passwordLayout = new javax.swing.GroupLayout(reset_password);
         reset_password.setLayout(reset_passwordLayout);
