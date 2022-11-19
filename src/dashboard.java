@@ -59,7 +59,7 @@ public class dashboard extends javax.swing.JFrame {
 //        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
-        notifyCashierOfPayments();
+        notifyCashierEvents();
         retrieveKitchenLogs();
             System.out.println("refreshed.");
         }
@@ -84,7 +84,7 @@ public class dashboard extends javax.swing.JFrame {
 //        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
-        notifyCashierOfPayments();
+        notifyCashierEvents();
         retrieveKitchenLogs();
             System.out.println("refreshed.");
         }
@@ -1356,18 +1356,17 @@ public class dashboard extends javax.swing.JFrame {
         return userLogList;
     }
     
-    public void notifyCashierOfPayments(){
-        ArrayList<Payment> payments = new ArrayList<Payment>();
-        payments = DatabaseConnection.getInstance().notifyCashierOfPayments();
+    public void notifyCashierEvents(){
+        ArrayList<Notification> notifications = new ArrayList<Notification>();
+        notifications = DatabaseConnection.getInstance().notifyPanel();
         
         DefaultTableModel model = (DefaultTableModel)notification_table.getModel();
         model.setRowCount(0);
-        if(!payments.isEmpty()){
-        Object rowData[] = new Object[3];
-        for(int position = 0; position < payments.size(); position++){
-            rowData[0] = payments.get(position).getTable_no();
-            rowData[1] = payments.get(position).getPayment_method();
-            rowData[2] = payments.get(position).getStatus();
+        if(!notifications.isEmpty()){
+        Object rowData[] = new Object[2];
+        for(int position = 0; position < notifications.size(); position++){
+            rowData[0] = notifications.get(position).getTable_name();
+            rowData[1] = notifications.get(position).getRequest_name();
             model.addRow(rowData);
         }
         }
@@ -1445,7 +1444,7 @@ public class dashboard extends javax.swing.JFrame {
     
     public ArrayList tableListQueue(){
         ArrayList<Payment> paymentListQueue = new ArrayList<Payment>();
-        paymentListQueue = DatabaseConnection.getInstance().retrivePendingPayments();
+        paymentListQueue = DatabaseConnection.getInstance().returnUserNameAmountStatus();
         return paymentListQueue;
     }
     
@@ -1626,11 +1625,24 @@ public class dashboard extends javax.swing.JFrame {
         viewCart.setVisible(true);
     }//GEN-LAST:event_table_listMouseClicked
 
+    //TODO: CHECKOUT
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
         
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         int rowCount = Integer.valueOf(model.getRowCount());
         if(rowCount >= 0){
+            /*
+            order id = insertOrder_getOrderID(total_amount, user_id);
+                insertOrderStatus(order_id)
+                    for(order:table){
+                        insertOrderItems()    
+                        }
+                
+            */
+            
+            
+            
+            /*
             String username = order_user.getSelectedItem().toString();
             System.out.println("username : " +username);
             if(username.equals("take-out")){
@@ -1674,7 +1686,7 @@ public class dashboard extends javax.swing.JFrame {
             }
             
             model.setRowCount(0);
-            order_total_amount.setText("-");
+            order_total_amount.setText("-");*/
         } else {
             JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
