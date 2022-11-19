@@ -320,6 +320,11 @@ public class dashboard extends javax.swing.JFrame {
         notification_table.setShowVerticalLines(false);
         notification_table.getTableHeader().setResizingAllowed(false);
         notification_table.getTableHeader().setReorderingAllowed(false);
+        notification_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notification_tableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(notification_table);
         if (notification_table.getColumnModel().getColumnCount() > 0) {
             notification_table.getColumnModel().getColumn(0).setResizable(false);
@@ -1619,7 +1624,7 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table_list.getModel();
         int selectedRowIndex = table_list.getSelectedRow();
         String table_no = model.getValueAt(selectedRowIndex, 0).toString();
-        
+//        String amount = model.getValueAt(selectedRowIndex, 1).toString();
         
         view_cart viewCart = new view_cart(table_no);
         viewCart.setVisible(true);
@@ -1765,6 +1770,19 @@ public class dashboard extends javax.swing.JFrame {
     private void btn_refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_refreshMouseClicked
         addRowToTableList();
     }//GEN-LAST:event_btn_refreshMouseClicked
+
+    private void notification_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notification_tableMouseClicked
+        int result =JOptionPane.showConfirmDialog(this,"Are you sure that this concern has been resolved?", "Assistance Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION){
+            DefaultTableModel model = (DefaultTableModel) notification_table.getModel();
+            int selectedRowIndex = notification_table.getSelectedRow();
+            model.removeRow(selectedRowIndex);
+            
+//            JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Deletion Successful", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_notification_tableMouseClicked
     
     static Double price = 0.00;
     

@@ -31,6 +31,7 @@ public class view_cart extends javax.swing.JFrame{
      * Creates new form view_cart
      */
     private String table_no;
+    private String total;
     
     public void setTableNo(String table_no)
     {
@@ -40,14 +41,25 @@ public class view_cart extends javax.swing.JFrame{
     public String getTableNo(){
         return this.table_no;
     }
+    
+    public void setTotal(String total)
+    {
+        this.total = total;
+    } 
+    
+    public String getTotal(){
+        return this.total;
+    }
 
     public view_cart(String table_no) {
         initComponents();
         //Data to be displayed in the JTable
         this.table_no = table_no;
+        
         addRowToPendingJtable();  
         addRowToCompletedJtable();
         setSubtotal("PENDING");
+
     }
     
     
@@ -694,6 +706,7 @@ public class view_cart extends javax.swing.JFrame{
     public void setSubtotal(String status){
         String subTotal = null;
         subTotal = DatabaseConnection.getInstance().returnTotalAmountByTable(table_no);
+        System.out.println(subTotal);
         if(subTotal!=null){
             Double VAT = (Double.valueOf(subTotal)/ 1.12) * 0.12;
             txtVat.setText(String.format("%.2f", VAT));
@@ -701,6 +714,13 @@ public class view_cart extends javax.swing.JFrame{
             txtTotal_amount.setText(subTotal);
         }
     }
+    
+//    public void setValues(String total) {
+//        Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
+//        txtVat.setText(String.format("%.2f", VAT));
+//        txtSubtotal.setText(total);
+//        txtTotal_amount.setText(total);
+//    }
 
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked

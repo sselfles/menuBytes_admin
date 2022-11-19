@@ -57,7 +57,9 @@ public class product_details extends javax.swing.JFrame {
         initComponents();
         getProductInfo();
         
-        if(this.product_category.equals("shawarma") || this.product_name.equals("Samgyupsal Rice Bowl")) {
+        System.out.println("product category " + product_category);
+        
+        if(this.product_category.equals("shawarma") || this.product_name.equals("Samgyupsal Rice Bowl") || this.product_category.equals("bowl")) {
             jTabbedPane1.setSelectedIndex(0);
             shawarma_product_name.setText(product_name);
             
@@ -73,6 +75,12 @@ public class product_details extends javax.swing.JFrame {
                 all_meat_price.hide();
                 jLabel9.hide();
                 jLabel10.hide();
+            }
+            
+            System.out.println("bundle price : " + this.bundle);
+            
+            if (bundle == null){
+                bundled.hide();
             }
         }
         
