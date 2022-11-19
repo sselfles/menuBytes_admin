@@ -4,6 +4,10 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -23,6 +27,8 @@ public class payment_modal extends javax.swing.JFrame {
      * Creates new form payment_modal
      */
     JFileChooser chooser = new JFileChooser();
+    
+    FileInputStream inputStream;
     
     public payment_modal() {
         initComponents();
@@ -48,8 +54,8 @@ public class payment_modal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        txt_productName = new javax.swing.JTextField();
-        roundPanel3 = new roundPanel();
+        gcash_num = new javax.swing.JTextField();
+        btn_edit = new roundPanel();
         jLabel19 = new javax.swing.JLabel();
         file_name = new javax.swing.JLabel();
         btn_upload = new javax.swing.JButton();
@@ -88,27 +94,32 @@ public class payment_modal extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel18.setText("QR Code :");
 
-        txt_productName.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        gcash_num.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
-        roundPanel3.setBackground(new java.awt.Color(255, 0, 0));
-        roundPanel3.setRoundBottomLeft(30);
-        roundPanel3.setRoundBottomRight(30);
-        roundPanel3.setRoundTopLeft(30);
-        roundPanel3.setRoundTopRight(30);
+        btn_edit.setBackground(new java.awt.Color(255, 0, 0));
+        btn_edit.setRoundBottomLeft(30);
+        btn_edit.setRoundBottomRight(30);
+        btn_edit.setRoundTopLeft(30);
+        btn_edit.setRoundTopRight(30);
+        btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editMouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("EDIT");
 
-        javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
-        roundPanel3.setLayout(roundPanel3Layout);
-        roundPanel3Layout.setHorizontalGroup(
-            roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btn_editLayout = new javax.swing.GroupLayout(btn_edit);
+        btn_edit.setLayout(btn_editLayout);
+        btn_editLayout.setHorizontalGroup(
+            btn_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
-        roundPanel3Layout.setVerticalGroup(
-            roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_editLayout.setVerticalGroup(
+            btn_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
         );
 
@@ -158,13 +169,13 @@ public class payment_modal extends javax.swing.JFrame {
                                     .addComponent(file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(btn_upload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(txt_productName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))))
+                                .addComponent(gcash_num, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))))
                     .addGroup(edit_productLayout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(edit_productLayout.createSequentialGroup()
                         .addGap(380, 380, 380)
-                        .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(401, Short.MAX_VALUE))
         );
         edit_productLayout.setVerticalGroup(
@@ -179,14 +190,14 @@ public class payment_modal extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txt_productName, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gcash_num, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(edit_productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(file_name)
                     .addComponent(btn_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
-                .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -216,14 +227,45 @@ public class payment_modal extends javax.swing.JFrame {
     }//GEN-LAST:event_toggle_availabilityMouseClicked
 
     private void btn_uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_uploadMouseClicked
-        chooser.setAcceptAllFileFilterUsed(false);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
-        chooser.showOpenDialog(null);
-        File file = chooser.getSelectedFile();
-        String fileName = file.getName();
         
-        file_name.setText(fileName);
+        try {
+            
+            chooser.setAcceptAllFileFilterUsed(false);
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+
+//            File file = new File("qr.png ");
+
+            String fileName = file.getName();
+            
+            inputStream = new FileInputStream(file);
+            
+            file_name.setText(fileName);
+            
+            System.out.println(file);
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+//            try {
+//                inputStream.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        }
+        
     }//GEN-LAST:event_btn_uploadMouseClicked
+
+    private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
+        String payment_info = gcash_num.getText();
+        String payment_availability = toggle_availability.getText();
+        
+        DatabaseConnection.getInstance().updatePaymentSetting(payment_info, this.inputStream, payment_availability);
+        
+        close();
+    }//GEN-LAST:event_btn_editMouseClicked
 
     /**
      * @param args the command line arguments
@@ -261,9 +303,11 @@ public class payment_modal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private roundPanel btn_edit;
     private javax.swing.JButton btn_upload;
     private javax.swing.JPanel edit_product;
     private javax.swing.JLabel file_name;
+    private javax.swing.JTextField gcash_num;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -272,8 +316,6 @@ public class payment_modal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private roundPanel roundPanel3;
     private javax.swing.JToggleButton toggle_availability;
-    private javax.swing.JTextField txt_productName;
     // End of variables declaration//GEN-END:variables
 }

@@ -395,11 +395,18 @@ public class SqlStatements {
 "FROM assistance\n" +
 "WHERE assistance_status = true;";
 
+    private String updatePaymentSetting = "UPDATE payment_method SET\n" +
+"payment_info = (?), \n" +
+"payment_qr = (?), \n" +
+"payment_availability = (?)\n" +
+"WHERE payment_method_id = '1';";
+        
+    private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
+    
+    
     public String getNotifyPanel() {
         return notifyPanel;
     }
-    
-    
       
     public String getRetrieveUsersList() {
         return retrieveUsersList;
@@ -586,5 +593,13 @@ public class SqlStatements {
     
     public String insertOrderItems() {
         return this.insertOrderItems;
+    }
+    
+    public String updatePaymentSetting() {
+        return this.updatePaymentSetting;
+    }
+    
+    public String getPaymentSetting() {
+        return this.getPaymentSetting;
     }
 }

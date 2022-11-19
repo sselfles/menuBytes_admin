@@ -1,4 +1,5 @@
 
+import java.io.FileInputStream;
 import java.rmi.RemoteException;
 import java.sql.Array;
 import java.sql.Connection;
@@ -1278,6 +1279,62 @@ public class DatabaseConnection {
         }
         
         return notificationArrayList;
+    }
+        
+    public void updatePaymentSetting(String payment_info, FileInputStream payment_qr, String payment_availability){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSetting());
+            preparedStatement.setString(1, payment_info);
+            preparedStatement.setBlob(2,payment_qr);
+            preparedStatement.setString(3, payment_availability);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Image successfully uploaded.");
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    public ArrayList<PaymentMethod> getPaymentMethodInfo() {
+        Connection connection = null;
+        ArrayList<PaymentMethod> paymentArrayList = new ArrayList<PaymentMethod>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getPaymentSetting()); 
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database getUsername(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                  paymentArrayList.add(new PaymentMethod(
+                                            resultSet.getString(1),
+                                            resultSet.getBytes(2),
+                                            resultSet.getString(3)));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return paymentArrayList;
     }
 
  }

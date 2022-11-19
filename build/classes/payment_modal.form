@@ -102,7 +102,7 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="btn_upload" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txt_productName" alignment="0" pref="520" max="32767" attributes="0"/>
+                                      <Component id="gcash_num" alignment="0" pref="520" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -112,7 +112,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="380" max="-2" attributes="0"/>
-                              <Component id="roundPanel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_edit" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="401" max="32767" attributes="0"/>
@@ -132,7 +132,7 @@
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_productName" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="gcash_num" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -141,7 +141,7 @@
                           <Component id="btn_upload" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                      <Component id="roundPanel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_edit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -173,14 +173,14 @@
                 <Property name="text" type="java.lang.String" value="QR Code :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_productName">
+            <Component class="javax.swing.JTextField" name="gcash_num">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="24" style="0"/>
                 </Property>
               </Properties>
             </Component>
-            <Container class="roundPanel" name="roundPanel3">
+            <Container class="roundPanel" name="btn_edit">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -190,6 +190,9 @@
                 <Property name="roundTopLeft" type="int" value="30"/>
                 <Property name="roundTopRight" type="int" value="30"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_editMouseClicked"/>
+              </Events>
 
               <Layout>
                 <DimensionLayout dim="0">

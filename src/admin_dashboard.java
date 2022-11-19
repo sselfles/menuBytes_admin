@@ -8,13 +8,14 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
+//import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.lowagie.text.Table;
 import com.lowagie.text.pdf.PdfTable;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
@@ -28,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -63,6 +65,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     menu_modal menuModal = new menu_modal();
     payment_modal paymentModal = new payment_modal();
     int index;
+    
+    ImageIcon format;
     
     public admin_dashboard() {
         initComponents();
@@ -362,7 +366,30 @@ public class admin_dashboard extends javax.swing.JFrame {
         return logReport;
     }
     
-
+    public void displayPaymentInfo(){
+        if(!getPaymentMethodInfo().isEmpty()){
+            ArrayList<PaymentMethod> paymentArrayList = getPaymentMethodInfo();
+            
+            format = new ImageIcon(paymentArrayList.get(0).getPayment_qr());
+            Image mm;
+            mm = format.getImage();
+            Image img2 = mm.getScaledInstance(516, 563, Image.SCALE_SMOOTH);
+            ImageIcon image = new ImageIcon(img2);
+            
+            gcash_qr.setIcon(image);
+            
+            gcash_number.setText(paymentArrayList.get(0).getPayment_info().toString());
+            
+            gcash_availability.setText(paymentArrayList.get(0).getPayment_availability().toString());
+        }
+    }
+    
+    public ArrayList getPaymentMethodInfo(){
+        ArrayList<PaymentMethod> paymentListQueue = new ArrayList<PaymentMethod>();
+        paymentListQueue = DatabaseConnection.getInstance().getPaymentMethodInfo();
+        return paymentListQueue;
+    }
+    
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
@@ -1945,6 +1972,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void payment_settingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payment_settingsMouseClicked
         jTabbedPane1.setSelectedIndex(2);
+        displayPaymentInfo();
     }//GEN-LAST:event_payment_settingsMouseClicked
 
     private void payment_settingsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payment_settingsMousePressed
