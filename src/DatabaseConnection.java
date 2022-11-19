@@ -53,7 +53,7 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -112,12 +112,12 @@ public class DatabaseConnection {
         return orderArrayList;
     }
      
-     public ArrayList<Payment> retrivePendingPayments(){
+     public ArrayList<Payment> returnUserNameAmountStatus(){
          Connection connection = null;
         ArrayList<Payment> paymentArrayList = new ArrayList<>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrivePendingPayments());
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getReturnUserNameAmountStatus());
             System.out.println(getDateTime());
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
@@ -235,22 +235,25 @@ public class DatabaseConnection {
      }
      
         public ArrayList<Order> retrieveOrderBreakdownUsingOrderID(String order_id) {
-        Connection connection = null;
+                Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveOrderBreakdownUsingOrderID());
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactionBreakdown());
         preparedStatement.setInt(1, Integer.valueOf(order_id));
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("retrieveOrderBreakdownUsingOrderID: No Data Retrieved!");}
+            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
         else{
             while(resultSet.next()){
                       orderArrayList.add(new Order(
-                              resultSet.getString(1), 
-                              resultSet.getString(2), 
-                              resultSet.getString(3)));
+                                resultSet.getString(1), 
+                                resultSet.getString(2), 
+                                resultSet.getString(3),
+                                resultSet.getString(4),
+                                resultSet.getBoolean(5),
+                                resultSet.getString(6)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -1245,4 +1248,36 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        public ArrayList<Notification> notifyPanel() {
+        Connection connection = null;
+        ArrayList<Notification> notificationArrayList = new ArrayList<Notification>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getNotifyPanel()); 
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database getUsername(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                 notificationArrayList.add(new Notification(resultSet.getString(1), resultSet.getString(2)
+                                 ));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return notificationArrayList;
+    }
+
  }
