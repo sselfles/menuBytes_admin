@@ -1348,8 +1348,9 @@ public class dashboard extends javax.swing.JFrame {
             }
             
             if(logout.compareTo(login) < 0 ){
-                //if logout occured before login able buttons
+                //if logout occured before login disable buttons
                 abler = false;
+                System.out.println("Kitchen is logged in. You ave no access to these buttons right now.");
             }
         }
     }
@@ -1551,6 +1552,9 @@ public class dashboard extends javax.swing.JFrame {
                 addRowToListOrderQueueTable();
             }
         }
+        else {
+            System.out.println("DISABLED.");
+        }
     }//GEN-LAST:event_btn_doneMouseClicked
     
 //    private String order_id;
@@ -1692,6 +1696,53 @@ public class dashboard extends javax.swing.JFrame {
             
             model.setRowCount(0);
             order_total_amount.setText("-");*/
+            
+           
+            
+            String username = order_user.getSelectedItem().toString();
+            System.out.println("username : " +username);
+            if(username.equals("take-out")){
+                username = "cashier";
+            }
+            
+            String total = order_total_amount.getText();
+            
+            
+            
+            DatabaseConnection.getInstance().insertOrder(username, total);
+            
+            for(int position = 0; position < rowCount; position++){
+                String quantityColumn = model.getValueAt(position, 0).toString();
+                String product_id = null, quantity = null, product_bundle="0", has_addons="0", flavors = "IS NULL", product_name; 
+                if(quantityColumn.equals("-")){
+                    if(quantityColumn.equals("Shawarma All Meat")){
+                        has_addons = model.getValueAt(position, 1).toString();
+                    }
+                    else {
+                        flavors = model.getValueAt(position, 1).toString();
+                    }
+                } else {
+                    quantity = model.getValueAt(position, 0).toString();
+                    product_name = model.getValueAt(position, 1).toString();
+                    System.out.println("product_name : " + product_name);
+                    
+                    if(!getProductInfoQuery(product_name).isEmpty()){
+                        ArrayList<ProductInfo> productInfo = getProductInfoQuery(product_name);
+
+                        product_id = productInfo.get(0).getProduct_id().toString();
+                        System.out.println("product ID : " + product_id);
+                    }
+                }
+                
+                int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
+                
+                System.out.println(order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + has_addons + " " + flavors);
+                
+                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
+            }
+            
+            model.setRowCount(0);
+            order_total_amount.setText("-");
         } else {
             JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }

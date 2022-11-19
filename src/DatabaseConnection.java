@@ -1239,6 +1239,7 @@ public class DatabaseConnection {
             preparedStatement.setBoolean(4,Boolean.valueOf(product_bundle));
             preparedStatement.setBoolean(5, Boolean.valueOf(has_addons));
             preparedStatement.setString(6, flavors);
+            preparedStatement.executeUpdate();
             
             
             disconnect(null, preparedStatement, connection);
