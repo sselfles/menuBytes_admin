@@ -1345,5 +1345,35 @@ public class DatabaseConnection {
         
         return paymentArrayList;
     }
+    
+    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String remarks){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertPayment());
+            preparedStatement.setString(1, payment_amount);
+            preparedStatement.setString(2, amount_due);
+            preparedStatement.setString(3, payment_method);
+            preparedStatement.setString(4, payment_status);
+            
+            if (remarks != null){
+                preparedStatement.setString(6, remarks);
+            }
+            else {
+                preparedStatement.setNull(6, Types.NULL);
+            }
+            
+            preparedStatement.executeUpdate();
+            
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
  }

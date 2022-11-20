@@ -1,10 +1,12 @@
 
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -62,7 +64,40 @@ public class view_cart extends javax.swing.JFrame{
 
     }
     
+    public view_cart(String table_no, String total) {
+        initComponents();
+        //Data to be displayed in the JTable
+        this.table_no = table_no;
+        
+//        addRowToPendingJtable();  
+//        addRowToCompletedJtable();
+//        setSubtotal("PENDING");
+        
+            Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
+            txtVat.setText(String.format("%.2f", VAT));
+            txtSubtotal.setText(total);
+            txtTotal_amount.setText(total);
+    }
     
+    public void displayPaymentInfo(){
+        if(!getPaymentMethodInfo().isEmpty()){
+            ArrayList<PaymentMethod> paymentArrayList = getPaymentMethodInfo();
+            
+            ImageIcon format = new ImageIcon(paymentArrayList.get(0).getPayment_qr());
+            Image mm;
+            mm = format.getImage();
+            Image img2 = mm.getScaledInstance(format.getIconWidth(), 480, Image.SCALE_SMOOTH);
+            ImageIcon image = new ImageIcon(img2);
+            
+            gcash_qr.setIcon(image);
+        }
+    }
+    
+    public ArrayList getPaymentMethodInfo(){
+        ArrayList<PaymentMethod> paymentListQueue = new ArrayList<PaymentMethod>();
+        paymentListQueue = DatabaseConnection.getInstance().getPaymentMethodInfo();
+        return paymentListQueue;
+    }
     
     public view_cart() {
         initComponents();
@@ -94,7 +129,7 @@ public class view_cart extends javax.swing.JFrame{
         default_payment_info = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         gcash_payment_info = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        gcash_qr = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         amount = new javax.swing.JTextField();
@@ -110,7 +145,7 @@ public class view_cart extends javax.swing.JFrame{
         txt_cash_received = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         lbl_change = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        recieved_cash = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btn_pending_orders = new javax.swing.JButton();
@@ -289,9 +324,9 @@ public class view_cart extends javax.swing.JFrame{
         gcash_payment_info.setOpaque(false);
         gcash_payment_info.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/qr.jpg"))); // NOI18N
-        gcash_payment_info.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 631, -1));
+        gcash_qr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gcash_qr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/qr.jpg"))); // NOI18N
+        gcash_payment_info.add(gcash_qr, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 631, -1));
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel9.setText("Amount :");
@@ -383,13 +418,13 @@ public class view_cart extends javax.swing.JFrame{
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Received");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        recieved_cash.setBackground(new java.awt.Color(255, 0, 0));
+        recieved_cash.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        recieved_cash.setForeground(new java.awt.Color(255, 255, 255));
+        recieved_cash.setText("Received");
+        recieved_cash.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                recieved_cashMouseClicked(evt);
             }
         });
 
@@ -398,7 +433,7 @@ public class view_cart extends javax.swing.JFrame{
         cash_payment_infoLayout.setHorizontalGroup(
             cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cash_payment_infoLayout.createSequentialGroup()
                         .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -415,7 +450,7 @@ public class view_cart extends javax.swing.JFrame{
                                 .addComponent(lbl_username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(cash_payment_infoLayout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(recieved_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(71, 71, 71))
         );
         cash_payment_infoLayout.setVerticalGroup(
@@ -438,7 +473,7 @@ public class view_cart extends javax.swing.JFrame{
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_change, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(recieved_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109))
         );
 
@@ -729,6 +764,8 @@ public class view_cart extends javax.swing.JFrame{
         dashboard db = new dashboard();
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    
+    
     private void btn_gcashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_gcashMouseClicked
         jTabbedPane2.setSelectedIndex(1);
     }//GEN-LAST:event_btn_gcashMouseClicked
@@ -742,6 +779,7 @@ public class view_cart extends javax.swing.JFrame{
             lbl_username.setText(payment.get(0).getTable_no());
             
         }
+        lbl_amount_due.setText(txtTotal_amount.getText());
         
         
         
@@ -760,13 +798,32 @@ public class view_cart extends javax.swing.JFrame{
 
     private void gcash_receivedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gcash_receivedMouseClicked
         // TODO add your handling code here:
-        String amount = this.amount.getText().toString();
-        String reference_no = this.ref_number.getText().toString();
-        DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
-        DatabaseConnection.getInstance().updatePaidOrder(table_no);
         
-        if (this.table_no.equals("cashier")){
-            dashboard.checkout(this.table_no);
+        Double amountDue = Double.parseDouble(txtTotal_amount.getText());
+        Double amountPaid = Double.parseDouble(amount.getText());
+        
+        if (amountDue <= amountPaid) {
+            if (this.table_no.equals("cashier")){
+            
+                dashboard.checkout(this.table_no);
+
+                String payment_method = "GCash";
+                String payment_amount = amount.getText();
+                String amount_due = txtTotal_amount.getText();
+                String payment_status = "COMPLETED";
+                String remarks = ref_number.getText();
+
+                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+            }
+            else {
+            String amount = this.amount.getText().toString();
+            String reference_no = this.ref_number.getText().toString();
+            DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
+            DatabaseConnection.getInstance().updatePaidOrder(table_no);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Total amount and amount paid do not match!\nPlease check and enter them again.", "Payment amount do not match.", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_gcash_receivedMouseClicked
 
@@ -779,7 +836,7 @@ public class view_cart extends javax.swing.JFrame{
     }//GEN-LAST:event_lbl_changeCaretPositionChanged
     
     //CASH Payment RECEIVED
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void recieved_cashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recieved_cashMouseClicked
         // TODO add your handling code here:
         
         String received = txt_cash_received.getText().toString();
@@ -789,10 +846,24 @@ public class view_cart extends javax.swing.JFrame{
         float totalAmount = Float.parseFloat(txtTotal_amount.getText());
         
         if(cashReceived >= totalAmount){
-            System.out.println("CASH PAYMENT COMPLETED");
-            DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
-            DatabaseConnection.getInstance().updatePaidOrder(table_no);
+            
+            if (this.table_no.equals("cashier")){
+            
+                dashboard.checkout(this.table_no);
 
+                String payment_method = "Cash";
+                String payment_amount = txt_cash_received.getText();
+                String amount_due = txtTotal_amount.getText();
+                String payment_status = "COMPLETED";
+                String remarks = null;
+
+                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+            }
+            else {
+                System.out.println("CASH PAYMENT COMPLETED");
+                DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
+                DatabaseConnection.getInstance().updatePaidOrder(table_no);
+            }
             txt_cash_received.setText("0.00");
             lbl_change.setText("0.00");
             lbl_amount_due.setText("0.00");
@@ -802,7 +873,7 @@ public class view_cart extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null, "Cash Received and Total Amount do not match!\n Kindly check the amount and enter them again.", "Transaction Error", JOptionPane.PLAIN_MESSAGE);
         }
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_recieved_cashMouseClicked
 
     private void txt_cash_receivedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cash_receivedFocusLost
         
@@ -888,9 +959,9 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JPanel completed_orders_tav;
     private javax.swing.JPanel default_payment_info;
     private javax.swing.JPanel gcash_payment_info;
+    private javax.swing.JLabel gcash_qr;
     private javax.swing.JButton gcash_received;
     private javax.swing.JButton gcash_reject;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -903,7 +974,6 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -917,6 +987,7 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JScrollPane list_completed_orders;
     private javax.swing.JScrollPane list_pending_orders;
     private javax.swing.JPanel pending_orders_tab;
+    private javax.swing.JButton recieved_cash;
     private javax.swing.JTextField ref_number;
     private javax.swing.JTable tbl_completed_orders;
     private javax.swing.JTable tbl_pending_orders;

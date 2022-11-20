@@ -1507,6 +1507,8 @@ public class dashboard extends javax.swing.JFrame {
         }
     }
     
+    
+    
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
         addDefaultRowToMenuList();
@@ -1678,7 +1680,7 @@ public class dashboard extends javax.swing.JFrame {
         
         if(username.equals("take-out")){
             username = "cashier";
-            view_cart vc = new view_cart(username);
+            view_cart vc = new view_cart(username, order_total_amount.getText());
             vc.setVisible(true);
         } else {
             checkout(username);
