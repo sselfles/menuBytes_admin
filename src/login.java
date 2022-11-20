@@ -167,14 +167,26 @@ public class login extends javax.swing.JFrame {
                 if(username.equals("cashier")){
                     System.out.print("cashier loggin in.");
                     dashboard db = new dashboard("2");
-                    db.setVisible(true);
-                    close();
+                    if (db.isVisible()){
+                        db.setVisible(false);
+                        db.setVisible(true);
+                        close();
+                    } else {
+                        db.setVisible(true);
+                        close();
+                    }
                 }
                 if(username.equals("admin")){
                     System.out.print("admin loggin in.");
                     admin_dashboard db = new admin_dashboard();
-                    db.setVisible(true);
-                    close();
+                    if (db.isVisible()){
+                        db.setVisible(false);
+                        db.setVisible(true);
+                        close();
+                    } else {
+                        db.setVisible(true);
+                        close();
+                    }
                 }
                 JOptionPane.showMessageDialog(null, "Login Successful!", "Login Successful", JOptionPane.PLAIN_MESSAGE);
                 close();

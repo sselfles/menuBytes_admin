@@ -1937,8 +1937,14 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         login li = new login();
-        li.setVisible(true);
-        close();
+        if (li.isVisible()){
+            li.setVisible(false);
+            li.setVisible(true);
+            close();
+        } else {
+            li.setVisible(true);
+            close();
+        }
     }//GEN-LAST:event_logoutMouseClicked
 
     private void logoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMousePressed
@@ -2012,12 +2018,22 @@ public class admin_dashboard extends javax.swing.JFrame {
     private void btn_addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addUserMouseClicked
    
         user_modal userModal = new user_modal(0);
-        userModal.setVisible(true);
+        if (userModal.isVisible()){
+            userModal.setVisible(false);
+            userModal.setVisible(true);
+        } else {
+            userModal.setVisible(true);
+        }
     }//GEN-LAST:event_btn_addUserMouseClicked
 
     private void btn_editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editUserMouseClicked
-        user_modal um = new user_modal(1, userType, username, deviceType);
-        um.setVisible(true);
+        user_modal userModal = new user_modal(1, userType, username, deviceType);
+        if (userModal.isVisible()){
+            userModal.setVisible(false);
+            userModal.setVisible(true);
+        } else {
+            userModal.setVisible(true);
+        }
     }//GEN-LAST:event_btn_editUserMouseClicked
 
     private void btn_resetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetPasswordMouseClicked
@@ -2031,24 +2047,47 @@ public class admin_dashboard extends javax.swing.JFrame {
         System.out.println(userType + username + deviceType + "reset");
         
         user_modal userModal = new user_modal(2, username);
-        userModal.setVisible(true);
+        if (userModal.isVisible()){
+            userModal.setVisible(false);
+            userModal.setVisible(true);
+        } else {
+            userModal.setVisible(true);
+        }
     }//GEN-LAST:event_btn_resetPasswordMouseClicked
 
     private void btn_addMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMenuMouseClicked
         index = 0;
-        menuModal.setVisible(true);
-        menuModal.selectTab(index);
+        if (menuModal.isVisible()){
+            menuModal.setVisible(false);
+            menuModal.setVisible(true);
+            menuModal.selectTab(index);
+        } else {
+            menuModal.setVisible(true);
+            menuModal.selectTab(index);
+        }
+        
     }//GEN-LAST:event_btn_addMenuMouseClicked
 
     private void btn_editMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMenuMouseClicked
         System.out.println("oldName" + this.productName);
         
         menu_modal menu = new menu_modal(1, this.productName, this.availability);
-        menu.setVisible(true);
+        if (menu.isVisible()){
+            menu.setVisible(false);
+            menu.setVisible(true);
+        } else {
+            menu.setVisible(true);
+        }
     }//GEN-LAST:event_btn_editMenuMouseClicked
 
     private void btn_editPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editPaymentMouseClicked
-        paymentModal.setVisible(true);
+       
+        if (paymentModal.isVisible()){
+            paymentModal.setVisible(false);
+            paymentModal.setVisible(true);
+        } else {
+            paymentModal.setVisible(true);
+        }
     }//GEN-LAST:event_btn_editPaymentMouseClicked
 
     private void transactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionsMouseClicked
@@ -2179,7 +2218,12 @@ public class admin_dashboard extends javax.swing.JFrame {
         
         
         transaction_modal transactionModal = new transaction_modal(order_id, user);
-        transactionModal.setVisible(true);
+        if (transactionModal.isVisible()){
+            transactionModal.setVisible(false);
+            transactionModal.setVisible(true);
+        } else {
+            transactionModal.setVisible(true);
+        }
         
     }//GEN-LAST:event_sales_view1MouseClicked
 
