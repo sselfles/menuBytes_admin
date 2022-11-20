@@ -1882,9 +1882,11 @@ public class dashboard extends javax.swing.JFrame {
                 String user_name = model.getValueAt(selectedRowIndex, 0).toString();
                 if (description.equals("Assistance Request")) {
                     DatabaseConnection.getInstance().removeNotification(datetime.toString(), user_name);
+                   
                 }
+                
+                 model.removeRow(selectedRowIndex);
 
-                model.removeRow(selectedRowIndex);
             }
             
 //            JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Deletion Successful", JOptionPane.PLAIN_MESSAGE);
