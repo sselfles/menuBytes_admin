@@ -500,7 +500,7 @@ public class view_cart extends javax.swing.JFrame{
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btn_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(btn_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -518,7 +518,7 @@ public class view_cart extends javax.swing.JFrame{
                 .addGap(27, 27, 27))
         );
 
-        backgground.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 120));
+        backgground.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 510, 120));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
 

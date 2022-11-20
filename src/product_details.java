@@ -699,6 +699,7 @@ public class product_details extends javax.swing.JFrame {
         
         System.out.println("product_bundle product_details : " + this.bundleAbler);
         
+        
         if (this.product_name.charAt(0) == '4' || this.product_name.charAt(0) == '6' || this.product_name.charAt(0) == '1') { 
             if (this.count < this.limit) {
                 JOptionPane.showMessageDialog(null, "Please select " + this.limit + " flavor!", "Missing Flavor!", JOptionPane.PLAIN_MESSAGE);
