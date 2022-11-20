@@ -1289,6 +1289,27 @@ public class DatabaseConnection {
         
         return notificationArrayList;
     }
+    
+    public void removeNotification(String completed_at, String username){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().removeNotification());
+            preparedStatement.setString(1, completed_at);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Image successfully uploaded.");
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         
     public void updatePaymentSetting(String payment_info, FileInputStream payment_qr, String payment_availability){
 	Connection connection = null;

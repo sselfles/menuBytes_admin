@@ -394,6 +394,11 @@ public class SqlStatements {
 "IF(assistance_status, \"Assistance Request\",null)\n" +
 "FROM assistance\n" +
 "WHERE assistance_status = true;";
+    
+    private String removeNotification ="UPDATE assistance SET \n" +
+"assistance_status = 0,\n" +
+"completed_at = (?)\n" +
+"WHERE (SELECT user_id FROM user WHERE user_name = (?));";
 
     private String updatePaymentSetting = "UPDATE payment_method SET\n" +
 "payment_info = (?), \n" +
@@ -428,6 +433,10 @@ public class SqlStatements {
     
     public String getNotifyPanel() {
         return notifyPanel;
+    }
+    
+    public String removeNotification(){
+        return removeNotification;
     }
       
     public String getRetrieveUsersList() {

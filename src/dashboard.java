@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -1869,8 +1870,22 @@ public class dashboard extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION){
             DefaultTableModel model = (DefaultTableModel) notification_table.getModel();
-            int selectedRowIndex = notification_table.getSelectedRow();
-            model.removeRow(selectedRowIndex);
+            if(model.getRowCount()>0){
+                int selectedRowIndex = notification_table.getSelectedRow();
+                
+                String datetime=null;
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+                LocalDateTime now = LocalDateTime.now();  
+                datetime= dtf.format(now);
+                
+                String description = model.getValueAt(selectedRowIndex, 1).toString();
+                String user_name = model.getValueAt(selectedRowIndex, 0).toString();
+                if (description.equals("Assistance Request")) {
+                    DatabaseConnection.getInstance().removeNotification(datetime.toString(), user_name);
+                }
+
+                model.removeRow(selectedRowIndex);
+            }
             
 //            JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Deletion Successful", JOptionPane.PLAIN_MESSAGE);
         }
