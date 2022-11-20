@@ -5,11 +5,19 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
-import java.sql.Date;
+//import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -40,9 +48,11 @@ public class dashboard extends javax.swing.JFrame {
     JScrollPane scrollPane;
     
     private String user_id;
+    
     private String order_id;
     
-    Boolean abler = true;
+    static Boolean abler = true;
+    
     
     
     public dashboard() {
@@ -67,6 +77,8 @@ public class dashboard extends javax.swing.JFrame {
 //        
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
+        
+        productBundle.hide();
     }
     
     public dashboard(String user_id) {
@@ -92,6 +104,8 @@ public class dashboard extends javax.swing.JFrame {
 //        
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(refreshDatas, 0, 5, TimeUnit.SECONDS);
+        
+        productBundle.hide();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,6 +168,7 @@ public class dashboard extends javax.swing.JFrame {
         order_total_amount = new javax.swing.JLabel();
         btn_checkout = new roundPanel();
         place_order = new javax.swing.JLabel();
+        productBundle = new javax.swing.JRadioButton();
         btn_add_ons_category = new roundPanel();
         label_add_ons = new javax.swing.JLabel();
         icon_add_ons = new javax.swing.JLabel();
@@ -859,6 +874,8 @@ public class dashboard extends javax.swing.JFrame {
             .addComponent(place_order, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         );
 
+        productBundle.setText("jRadioButton1");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -868,14 +885,20 @@ public class dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(order_total_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_checkout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(10, 10, 10)
+                        .addComponent(productBundle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(order_total_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_checkout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -890,7 +913,9 @@ public class dashboard extends javax.swing.JFrame {
                     .addComponent(order_total_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(btn_checkout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(productBundle)
+                .addGap(46, 46, 46))
         );
 
         btn_add_ons_category.setBackground(new java.awt.Color(255, 255, 255));
@@ -1328,29 +1353,40 @@ public class dashboard extends javax.swing.JFrame {
         model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
         model.fireTableDataChanged();
         
+        productBundle.hide();
+        
     }
     
     public void retrieveKitchenLogs(){
         if(! menuDefaultList().isEmpty()){
-            ArrayList<User> userLogList = kitchenLogList();
-            Object rowData[] = new Object[2];
-            for(int position = 0; position < userLogList.size(); position++){
-                rowData[0] = userLogList.get(position).getLog_in();
-                rowData[1] = userLogList.get(position).getLog_out();
-            }
-
-            String login = (String) rowData[0];
-            String logout = (String) rowData[1];
-            
-            if(login.compareTo(logout) < 0 ){
-                //if login occured before logout able buttons
-                abler = true;
-            }
-            
-            if(logout.compareTo(login) < 0 ){
-                //if logout occured before login disable buttons
-                abler = false;
-                System.out.println("Kitchen is logged in. You ave no access to these buttons right now.");
+            try {
+                ArrayList<User> userLogList = kitchenLogList();
+                Object rowData[] = new Object[2];
+                for(int position = 0; position < userLogList.size(); position++){
+                    rowData[0] = userLogList.get(position).getLog_in();
+                    rowData[1] = userLogList.get(position).getLog_out();
+                }
+                
+                String in = rowData[0].toString();
+                String out = rowData[1].toString();
+                
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                Date login = formatter.parse(in);
+                Date logout = formatter.parse(out);
+                
+                if(login.compareTo(logout) < 0 ){
+                    //if login occured before logout able buttons
+                    abler = true;
+                    System.out.println("Kitchen is unavailable. You have access to these buttons.");
+                }
+                
+                if(logout.compareTo(login) < 0 ){
+                    //if logout occured before login disable buttons
+                    abler = false;
+                    System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1358,7 +1394,7 @@ public class dashboard extends javax.swing.JFrame {
     public ArrayList kitchenLogList(){
         ArrayList<User> userLogList = new ArrayList<User>();
         userLogList = DatabaseConnection.getInstance().retrieveKitchenLogs();
-        System.out.println(userLogList);
+//        System.out.println(userLogList);
         return userLogList;
     }
     
@@ -1474,6 +1510,7 @@ public class dashboard extends javax.swing.JFrame {
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
         addDefaultRowToMenuList();
+        order_user.removeAllItems();
         addItemtoComboBox();
         
     }//GEN-LAST:event_menuMouseClicked
@@ -1546,8 +1583,9 @@ public class dashboard extends javax.swing.JFrame {
         retrieveKitchenLogs();
         
         if(abler){
-            System.out.println("clicked complete");
+//            System.out.println("user_id : "+user_id+ " order_id : "+order_id);
             if(user_id!=null && order_id!=null){
+                System.out.println("clicked complete");
                 DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
                 addRowToListOrderQueueTable();
             }
@@ -1565,7 +1603,7 @@ public class dashboard extends javax.swing.JFrame {
         String order_id = model.getValueAt(selectedRowIndex, 0).toString();
         this.order_id = order_id;
         //debug order_id
-            System.out.println(order_id);
+//            System.out.println(order_id);
             //populate here
             addRowToListOrderBreakdownTable(order_id);
     }//GEN-LAST:event_menu_list1MouseClicked
@@ -1649,11 +1687,8 @@ public class dashboard extends javax.swing.JFrame {
                 
             */
             
-            
-            
-            /*
             String username = order_user.getSelectedItem().toString();
-            System.out.println("username : " +username);
+//            System.out.println("username : " +username);
             if(username.equals("take-out")){
                 username = "cashier";
             }
@@ -1664,64 +1699,12 @@ public class dashboard extends javax.swing.JFrame {
             
             DatabaseConnection.getInstance().insertOrder(username, total);
             
-            for(int position = 0; position < rowCount; position++){
-                String quantityColumn = model.getValueAt(position, 0).toString();
-                String product_id = null, quantity = null, product_bundle="0", has_addons="0", flavors = "IS NULL", product_name; 
-                if(quantityColumn.equals("-")){
-                    if(quantityColumn.equals("Shawarma All Meat")){
-                        has_addons = model.getValueAt(position, 1).toString();
-                    }
-                    else {
-                        flavors = model.getValueAt(position, 1).toString();
-                    }
-                } else {
-                    quantity = model.getValueAt(position, 0).toString();
-                    product_name = model.getValueAt(position, 1).toString();
-//                    System.out.println("product_name : " + product_name);
-                    
-                    if(!getProductInfoQuery(product_name).isEmpty()){
-                        ArrayList<ProductInfo> productInfo = getProductInfoQuery(product_name);
-
-                        product_id = productInfo.get(0).getProduct_id().toString();
-//                        System.out.println("product ID : " + product_id);
-                    }
-                }
-                
-                int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
-                
-                System.out.println(order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + has_addons + " " + flavors);
-                
-                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
-            }
-            
-            model.setRowCount(0);
-            order_total_amount.setText("-");*/
-            
-           
-            
-            String username = order_user.getSelectedItem().toString();
-            System.out.println("username : " +username);
-            if(username.equals("take-out")){
-                username = "cashier";
-            }
-            
-            String total = order_total_amount.getText();
-            
-            
-            
-            DatabaseConnection.getInstance().insertOrder(username, total);
             
             for(int position = 0; position < rowCount; position++){
                 String quantityColumn = model.getValueAt(position, 0).toString();
-                String product_id = null, quantity = null, product_bundle="0", has_addons="0", flavors = "IS NULL", product_name; 
-                if(quantityColumn.equals("-")){
-                    if(quantityColumn.equals("Shawarma All Meat")){
-                        has_addons = model.getValueAt(position, 1).toString();
-                    }
-                    else {
-                        flavors = model.getValueAt(position, 1).toString();
-                    }
-                } else {
+                String product_id = null, quantity = null, has_addons=null, flavors = null, product_name; 
+                
+                if (quantityColumn != "-") {
                     quantity = model.getValueAt(position, 0).toString();
                     product_name = model.getValueAt(position, 1).toString();
                     System.out.println("product_name : " + product_name);
@@ -1732,13 +1715,40 @@ public class dashboard extends javax.swing.JFrame {
                         product_id = productInfo.get(0).getProduct_id().toString();
                         System.out.println("product ID : " + product_id);
                     }
+                    position ++;
                 }
+                
+                if (position < rowCount ){
+                    quantityColumn = model.getValueAt(position, 0).toString();
+                    if(quantityColumn.equals("-")){
+
+                        if(model.getValueAt(position, 1).toString().contains("Shawarma")){
+                            has_addons = model.getValueAt(position, 1).toString();
+                            System.out.println(has_addons);
+                        }
+                        else { 
+                            flavors = model.getValueAt(position, 1).toString();
+                        }
+                    } else {
+                        position --;
+                    }
+                }
+                Boolean product_bundle = productBundle.isSelected();
+                Boolean addons;
+                
+                if (has_addons != null){
+                    addons = true;
+                } else { addons = false; }
+                
+                
+                System.out.println("addons : " + addons);
+                System.out.println("product_bundle dashboard : " + product_bundle);
                 
                 int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
                 
-                System.out.println(order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + has_addons + " " + flavors);
+                System.out.println("INSERT ORDER STATUS : "+order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + addons + " " + flavors);
                 
-                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, has_addons, flavors);
+                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, addons, flavors);
             }
             
             model.setRowCount(0);
@@ -1837,14 +1847,14 @@ public class dashboard extends javax.swing.JFrame {
     
     static Double price = 0.00;
     
-    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price, Boolean has_addOns, String flavors){
+    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price, Boolean product_bundle, Boolean has_addOns, String flavors){
         /*
         Pwede ka pa magintroduce ng parameters and variables dito para like for example,
         flavors, hasaddons, and bundle 
         para maipasa mo sa checkout
         sleep muna q mwa lab yu <<<333
         */
-        
+        productBundle.setSelected(product_bundle);
         price += Double.valueOf(dataRow_Price);
         
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
@@ -1988,6 +1998,7 @@ public class dashboard extends javax.swing.JFrame {
     private static javax.swing.JLabel order_total_amount;
     private javax.swing.JComboBox<String> order_user;
     private javax.swing.JLabel place_order;
+    private static javax.swing.JRadioButton productBundle;
     private javax.swing.JLabel remove_order;
     private javax.swing.JPanel rice_bowl_border_selected;
     private javax.swing.JPanel shawarma_border_selected;

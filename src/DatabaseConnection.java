@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -1086,7 +1087,7 @@ public class DatabaseConnection {
         ArrayList<User> userLogArrayList = new ArrayList<User>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRetrieveUsersList()); 
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().retrieveKitchenLogs()); 
         
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
@@ -1227,7 +1228,7 @@ public class DatabaseConnection {
         }
     }
     
-    public void insertOrderItems(int order_id, String product_id, String quantity, String product_bundle, String has_addons, String flavors){
+    public void insertOrderItems(int order_id, String product_id, String quantity, Boolean product_bundle, Boolean has_addons, String flavors){
 	Connection connection = null;
           
         try {
@@ -1238,7 +1239,14 @@ public class DatabaseConnection {
             preparedStatement.setString(3, quantity);
             preparedStatement.setBoolean(4,Boolean.valueOf(product_bundle));
             preparedStatement.setBoolean(5, Boolean.valueOf(has_addons));
-            preparedStatement.setString(6, flavors);
+            
+            if (flavors != null){
+                preparedStatement.setString(6, flavors);
+            }
+            else {
+                preparedStatement.setNull(6, Types.NULL);
+            }
+            
             preparedStatement.executeUpdate();
             
             

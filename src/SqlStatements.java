@@ -358,13 +358,13 @@ public class SqlStatements {
 "JOIN user \n" +
 "WHERE user.deleted_at is null AND payment.payment_status = 'PENDING' AND user.user_type = 'customer';";
     
-    private String retrievieKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
+    private String retrieveKitchenLogs = "SELECT log_in, log_out FROM menubytes.user where user_name = \"kitchen\";";
     
     private String getProductByCategory = "SELECT product_name, product_price, product_category FROM product where product_name = (?);";
     
     private String getUsername = "SELECT \n" +
 "IF(user_name = 'cashier', 'take-out', user_name) \n" +
-"FROM user WHERE user_name != 'admin' AND deleted_at IS NULL;";
+"FROM user WHERE user_name != 'admin' AND user_name != 'kitchen' AND deleted_at IS NULL;";
     
     private String insertOrder = "INSERT INTO orders(user_id, total, created_at, created_by) \n" +
 "VALUES(\n" +
@@ -531,8 +531,8 @@ public class SqlStatements {
         return this.retrivePendingPayments;
     }
     
-    public String getRetrievieKitchenLogs(){
-        return this.retrievieKitchenLogs;
+    public String retrieveKitchenLogs(){
+        return this.retrieveKitchenLogs;
     }
     
     public String getSalesReportDaily() {

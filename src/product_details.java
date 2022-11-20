@@ -32,12 +32,10 @@ public class product_details extends javax.swing.JFrame {
     Boolean has_addOns = false;
     String flavors = "";
     Boolean soloAbler = true;
-    Boolean bundleAbler = true;
+    static Boolean bundleAbler = false;
     
     int count = 0;
     int limit = 0;
-    
-    
     
     public product_details() {
         initComponents();
@@ -696,16 +694,21 @@ public class product_details extends javax.swing.JFrame {
         if (bulgogi.isSelected()) { this.flavors += bulgogi.getText().trim() + ", "; }
         if (sesame.isSelected()) { this.flavors += sesame.getText().trim() + ", "; }
         
+        if(bundled.isSelected()) { this.bundleAbler = true; }
+        else { this.bundleAbler = false; }
+        
+        System.out.println("product_bundle product_details : " + this.bundleAbler);
+        
         if (this.product_name.charAt(0) == '4' || this.product_name.charAt(0) == '6' || this.product_name.charAt(0) == '1') { 
             if (this.count < this.limit) {
                 JOptionPane.showMessageDialog(null, "Please select " + this.limit + " flavor!", "Missing Flavor!", JOptionPane.PLAIN_MESSAGE);
             } else {
-                dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
+                dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
                 
                 close();
             }
         } else {
-            dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.has_addOns, this.flavors);
+            dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
             
             close();
         }
