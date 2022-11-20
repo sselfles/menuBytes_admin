@@ -1674,7 +1674,19 @@ public class dashboard extends javax.swing.JFrame {
 
     //TODO: CHECKOUT
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
+        String username = order_user.getSelectedItem().toString();
         
+        if(username.equals("take-out")){
+            username = "cashier";
+            view_cart vc = new view_cart(username);
+            vc.setVisible(true);
+        } else {
+            checkout(username);
+        }
+                
+    }//GEN-LAST:event_btn_checkoutMouseClicked
+
+    public static void checkout(String username) {
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         int rowCount = Integer.valueOf(model.getRowCount());
         if(rowCount >= 0){
@@ -1686,12 +1698,6 @@ public class dashboard extends javax.swing.JFrame {
                         }
                 
             */
-            
-            String username = order_user.getSelectedItem().toString();
-//            System.out.println("username : " +username);
-            if(username.equals("take-out")){
-                username = "cashier";
-            }
             
             String total = order_total_amount.getText();
             
@@ -1751,15 +1757,17 @@ public class dashboard extends javax.swing.JFrame {
                 DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, addons, flavors);
             }
             
+            
             model.setRowCount(0);
             order_total_amount.setText("-");
+            
+            
         } else {
             JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
-                
-    }//GEN-LAST:event_btn_checkoutMouseClicked
-
-    public ArrayList getProductInfoQuery(String product_name){
+    }
+    
+    public static ArrayList getProductInfoQuery(String product_name){
         ArrayList<ProductInfo> productInfo = new ArrayList<ProductInfo>();
         productInfo = DatabaseConnection.getInstance().getProductInfo(product_name);
         return productInfo;

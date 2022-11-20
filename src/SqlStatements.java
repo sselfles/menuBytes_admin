@@ -403,6 +403,28 @@ public class SqlStatements {
         
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
+    private String insertPayment = "INSERT INTO payment\n" +
+"(\n" +
+"payment_amount,\n" +
+"amount_due,\n" +
+"payment_method,\n" +
+"payment_status,\n" +
+"created_by,\n" +
+"remarks\n" +
+")\n" +
+"VALUES(\n" +
+"(?),\n" +
+"(?),\n" +
+"(?),\n" +
+"(?),\n" +
+"'cashier',\n" +
+"(?)\n" +
+");";
+    
+    public String insertPayment() {
+        return this.insertPayment;
+    }
+    
     
     public String getNotifyPanel() {
         return notifyPanel;

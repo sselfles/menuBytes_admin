@@ -764,6 +764,10 @@ public class view_cart extends javax.swing.JFrame{
         String reference_no = this.ref_number.getText().toString();
         DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
         DatabaseConnection.getInstance().updatePaidOrder(table_no);
+        
+        if (this.table_no.equals("cashier")){
+            dashboard.checkout(this.table_no);
+        }
     }//GEN-LAST:event_gcash_receivedMouseClicked
 
     double cash_received = 0;
