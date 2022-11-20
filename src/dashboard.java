@@ -1543,8 +1543,14 @@ public class dashboard extends javax.swing.JFrame {
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         login li = new login();
-        li.setVisible(true);
-        close();      
+        if (li.isVisible()){
+            li.setVisible(false);
+            li.setVisible(true);
+            close();
+        } else {
+            li.setVisible(true);
+            close();
+        }      
     }//GEN-LAST:event_logoutMouseClicked
 
     private void logoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMousePressed
@@ -1671,7 +1677,12 @@ public class dashboard extends javax.swing.JFrame {
 //        String amount = model.getValueAt(selectedRowIndex, 1).toString();
         
         view_cart viewCart = new view_cart(table_no);
-        viewCart.setVisible(true);
+        if (viewCart.isVisible()){
+            viewCart.setVisible(false);
+            viewCart.setVisible(true);
+        } else {
+            viewCart.setVisible(true);
+        }
     }//GEN-LAST:event_table_listMouseClicked
 
     //TODO: CHECKOUT
@@ -1680,8 +1691,13 @@ public class dashboard extends javax.swing.JFrame {
         
         if(username.equals("take-out")){
             username = "cashier";
-            view_cart vc = new view_cart(username, order_total_amount.getText());
-            vc.setVisible(true);
+            view_cart viewCart = new view_cart(username, order_total_amount.getText());
+            if (viewCart.isVisible()){
+                viewCart.setVisible(false);
+                viewCart.setVisible(true);
+            } else {
+                viewCart.setVisible(true);
+            }
         } else {
             checkout(username);
         }
@@ -1826,7 +1842,12 @@ public class dashboard extends javax.swing.JFrame {
         
         
         product_details productDetails = new product_details(product_name, product_price);
-        productDetails.setVisible(true);
+        if (productDetails.isVisible()){
+            productDetails.setVisible(false);
+            productDetails.setVisible(true);
+        } else {
+            productDetails.setVisible(true);
+        }
     }//GEN-LAST:event_menu_listMouseClicked
 
     private void icon_add_onsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_add_onsMouseClicked
