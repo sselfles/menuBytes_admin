@@ -254,7 +254,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     public void dailyTransactionReport(String from, String to) {
-        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+        DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
             model.setRowCount(0);
             
             if(!transactionReportDaily(from, to).isEmpty()){
@@ -279,7 +279,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     public void weeklyTransactionReport(String from, String to) {
-        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+        DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
             model.setRowCount(0);
             
             System.out.println("monthly");
@@ -304,7 +304,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     public void monthlyTransactionReport(String from, String to) {
-        DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
+        DefaultTableModel model = (DefaultTableModel)transaction_list.getModel();
             model.setRowCount(0);
             
             System.out.println("monthly");
