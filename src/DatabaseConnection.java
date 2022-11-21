@@ -1241,7 +1241,7 @@ public class DatabaseConnection {
         return userArrayList;
     }
     
-    public int insertOrder(String user_id, String total){
+    public int insertOrder(String user_id, Double total){
 	Connection connection = null;
         int order_id = 0;
           
@@ -1249,7 +1249,7 @@ public class DatabaseConnection {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrder(), Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user_id);
-            preparedStatement.setDouble(2,Double.valueOf(total));
+            preparedStatement.setDouble(2,total);
             preparedStatement.setString(3, user_id);
             preparedStatement.executeUpdate();
             

@@ -1109,19 +1109,6 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="edit_order">
-                      <Properties>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/images/edit_logo.png"/>
-                        </Property>
-                      </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="320" y="30" width="41" height="52"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="remove_order">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -1129,6 +1116,9 @@
                           <Image iconType="3" name="/images/remove_logo.png"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="remove_orderMouseClicked"/>
+                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="380" y="30" width="41" height="52"/>
@@ -1630,7 +1620,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel44" min="-2" pref="187" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="order_detail_tableNo" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1645,7 +1635,7 @@
                                   <Component id="jLabel44" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox2" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="order_detail_tableNo" min="-2" pref="40" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane5" pref="277" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1662,7 +1652,7 @@
                         <Property name="text" type="java.lang.String" value="Order Details"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox2">
+                    <Component class="javax.swing.JComboBox" name="order_detail_tableNo">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="13" green="c" red="ff" type="rgb"/>
@@ -1672,11 +1662,11 @@
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="5">
-                            <StringItem index="0" value=" "/>
+                            <StringItem index="0" value=""/>
                             <StringItem index="1" value="Table 1"/>
                             <StringItem index="2" value="Table 2"/>
                             <StringItem index="3" value="Take-out"/>
-                            <StringItem index="4" value=" "/>
+                            <StringItem index="4" value=""/>
                           </StringArray>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>

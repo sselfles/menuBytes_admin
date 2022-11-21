@@ -617,8 +617,8 @@ public class view_cart extends javax.swing.JFrame{
             pending_orders_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pending_orders_tabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(list_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", pending_orders_tab);
@@ -686,8 +686,8 @@ public class view_cart extends javax.swing.JFrame{
             completed_orders_tavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(completed_orders_tavLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", completed_orders_tav);
