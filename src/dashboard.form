@@ -1661,13 +1661,7 @@
                           <Font name="Century Gothic" size="14" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value=""/>
-                            <StringItem index="1" value="Table 1"/>
-                            <StringItem index="2" value="Table 2"/>
-                            <StringItem index="3" value="Take-out"/>
-                            <StringItem index="4" value=""/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>

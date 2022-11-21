@@ -1108,7 +1108,6 @@ public class dashboard extends javax.swing.JFrame {
 
         order_detail_tableNo.setBackground(new java.awt.Color(255, 12, 19));
         order_detail_tableNo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        order_detail_tableNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Table 1", "Table 2", "Take-out", "" }));
         order_detail_tableNo.setEnabled(false);
 
         jLabel44.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
