@@ -1376,16 +1376,26 @@ public class dashboard extends javax.swing.JFrame {
                 Date login = formatter.parse(in);
                 Date logout = formatter.parse(out);
                 
-                if(login.compareTo(logout) < 0 ){
-                    //if login occured before logout able buttons
-                    abler = true;
-                    System.out.println("Kitchen is unavailable. You have access to these buttons.");
-                }
-                
-                if(logout.compareTo(login) < 0 ){
-                    //if logout occured before login disable buttons
+                if(login != null && logout != null) {
+                    if(login.compareTo(logout) < 0 ){
+                        //if login occured before logout able buttons
+                        abler = true;
+                        System.out.println("Kitchen is unavailable. You have access to these buttons.");
+                    }
+
+                    if(logout.compareTo(login) < 0 ){
+                        //if logout occured before login disable buttons
+                        abler = false;
+                        System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
+                    }
+                } else if (logout == null) {
+                    //initial set up
                     abler = false;
                     System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
+                } else if (login == null  && login == null){
+                    //no kitcen login yet
+                    abler = true;
+                    System.out.println("Kitchen is unavailable. You have access to these buttons.");
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
