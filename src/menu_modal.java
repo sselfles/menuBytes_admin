@@ -596,7 +596,6 @@ public class menu_modal extends javax.swing.JFrame {
         
         updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
         
-        
        
     }//GEN-LAST:event_btn_editProductMouseClicked
 

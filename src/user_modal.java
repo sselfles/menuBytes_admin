@@ -128,10 +128,10 @@ public class user_modal extends javax.swing.JFrame {
             if(!usernameDuplicateCheckerQuery(oldUsername).isEmpty()){
                 
                 if (updateUserType.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter a username.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please enter a user type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
                     
                 }else if (updateUsername.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter a user type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please enter a username.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
                     
                 }else if (updateDeviceType.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please enter a device type.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
@@ -596,6 +596,7 @@ public class user_modal extends javax.swing.JFrame {
         this.updateDeviceType = edit_cb_deviceType.getSelectedItem().toString();
         
         usernameExistChecker(this.updateUserType, this.updateUsername, this.updateDeviceType);
+        
     }//GEN-LAST:event_btn_editMouseClicked
 
     private void submit_password_restMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submit_password_restMouseClicked

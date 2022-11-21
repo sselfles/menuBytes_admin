@@ -35,6 +35,18 @@ public class payment_modal extends javax.swing.JFrame {
         initComponents();
     }
     
+    public payment_modal(String gcashNum, String gcashAvail) {
+        initComponents();
+        gcash_num.setText(gcashNum);
+        if (gcashAvail.equals("AVAILABLE")){
+            toggle_availability.setText(gcashAvail);
+            toggle_availability.setBackground(Color.green);
+        } else if (gcashAvail.equals("UNAVAILABLE")){
+            toggle_availability.setText(gcashAvail);
+            toggle_availability.setBackground(Color.red);
+        }
+    }
+    
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
@@ -211,6 +223,7 @@ public class payment_modal extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 680));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -262,13 +275,18 @@ public class payment_modal extends javax.swing.JFrame {
     private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
         String payment_info = gcash_num.getText();
         String payment_availability = toggle_availability.getText();
-        
+        System.out.println("FILE NAME : " + file_name.getText());
         if(payment_info == null){
             JOptionPane.showMessageDialog(null, "Please fill the GCash number.", "Missing Field!", JOptionPane.PLAIN_MESSAGE);
-        } else if (payment_info !=null && this.inputStream != null){
+        } else if (payment_info != null && this.inputStream != null){
             DatabaseConnection.getInstance().updatePaymentSettingWithImage(payment_info, this.inputStream, payment_availability);
-        } else if (payment_info !=null && this.inputStream == null){
+            JOptionPane.showMessageDialog(null, "Payment settings and Image successfully updated.", "Successfully Updated", JOptionPane.PLAIN_MESSAGE);
+            
+            admin_dashboard ad = new admin_dashboard();
+            ad.displayPaymentInfo();
+        } else if (payment_info != null && file_name.getText().equals("-")){
             DatabaseConnection.getInstance().updatePaymentSetting(payment_info, payment_availability);
+            JOptionPane.showMessageDialog(null, "Payment settings successfully updated.", "Successfully Updated", JOptionPane.PLAIN_MESSAGE);
         }
         
         

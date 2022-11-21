@@ -2047,18 +2047,22 @@ public class admin_dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) user_list.getModel();
 	int selectedRowIndex = user_list.getSelectedRow();
         
-        this.userType = model.getValueAt(selectedRowIndex, 0).toString();
-        this.username = model.getValueAt(selectedRowIndex, 1).toString();
-        this.deviceType = model.getValueAt(selectedRowIndex, 2).toString();
-        
-        System.out.println(userType + username + deviceType + "reset");
-        
-        user_modal userModal = new user_modal(2, username);
-        if (userModal.isVisible()){
-            userModal.setVisible(false);
-            userModal.setVisible(true);
+        if (selectedRowIndex >= 0){
+            this.userType = model.getValueAt(selectedRowIndex, 0).toString();
+            this.username = model.getValueAt(selectedRowIndex, 1).toString();
+            this.deviceType = model.getValueAt(selectedRowIndex, 2).toString();
+
+            System.out.println(userType + username + deviceType + "reset");
+
+            user_modal userModal = new user_modal(2, username);
+            if (userModal.isVisible()){
+                userModal.setVisible(false);
+                userModal.setVisible(true);
+            } else {
+                userModal.setVisible(true);
+            }
         } else {
-            userModal.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Please select an account to reset.", "Account Not Selected", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_resetPasswordMouseClicked
 
@@ -2076,24 +2080,31 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addMenuMouseClicked
 
     private void btn_editMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMenuMouseClicked
-        System.out.println("oldName" + this.productName);
+        DefaultTableModel model = (DefaultTableModel) product_list.getModel();
+        int selectedRowIndex = product_list.getSelectedRow();
         
-        menu_modal menu = new menu_modal(1, this.productName, this.availability);
-        if (menu.isVisible()){
-            menu.setVisible(false);
-            menu.setVisible(true);
+        if (selectedRowIndex >= 0){
+            menu_modal menu = new menu_modal(1, this.productName, this.availability);
+            if (menu.isVisible()){
+                menu.setVisible(false);
+                menu.setVisible(true);
+            } else {
+                menu.setVisible(true);
+            }
         } else {
-            menu.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Please select a product to edit.", "Account Not Selected", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_editMenuMouseClicked
 
     private void btn_editPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editPaymentMouseClicked
-       
-        if (paymentModal.isVisible()){
-            paymentModal.setVisible(false);
-            paymentModal.setVisible(true);
+        String gcashNum = gcash_number.getText();
+        String gcashAvail = gcash_availability.getText();
+        payment_modal payment = new payment_modal(gcashNum, gcashAvail);
+        if (payment.isVisible()){
+            payment.setVisible(false);
+            payment.setVisible(true);
         } else {
-            paymentModal.setVisible(true);
+            payment.setVisible(true);
         }
     }//GEN-LAST:event_btn_editPaymentMouseClicked
 
@@ -2320,14 +2331,19 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_user_listMouseClicked
 
     private void btn_deleteUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteUserMouseClicked
-        int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this account?", "Hold on...",
+        DefaultTableModel model = (DefaultTableModel) user_list.getModel();
+	int selectedRowIndex = user_list.getSelectedRow();
+        if (selectedRowIndex >= 0){
+            int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this account?", "Hold on...",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 DatabaseConnection.getInstance().deleteUser(username);
                 JOptionPane.showMessageDialog(null, "Successfully deleted " + username, "Account Deletion Successful", JOptionPane.PLAIN_MESSAGE);
             }
-        
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select an account to delete.", "Account Not Selected", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_btn_deleteUserMouseClicked
 
     private void product_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_listMouseClicked
@@ -2345,14 +2361,20 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_product_listMouseClicked
 
     private void btn_deleteMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteMenuMouseClicked
-        int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this product?", "Hold on...",
+        
+        int selectedRowIndex = product_list.getSelectedRow();
+        
+        if (selectedRowIndex >= 0){
+            int result =JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this product?", "Hold on...",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
             if(result == JOptionPane.YES_OPTION){
                 DatabaseConnection.getInstance().deleteProduct(this.productName);
                 JOptionPane.showMessageDialog(null, "Successfully deleted " + productName, "Product Deletion Successful", JOptionPane.PLAIN_MESSAGE);
             }
-        
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a product to edit.", "Account Not Selected", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_btn_deleteMenuMouseClicked
 
     private void filter_salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_salesActionPerformed

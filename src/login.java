@@ -207,7 +207,7 @@ public class login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         
-        if(username.equals("") || password.equals("")){
+        if(username.equals("Username") || password.equals("Password")){
              JOptionPane.showMessageDialog(null, "Do not leave any fields blank!", "Incomplete submission", JOptionPane.PLAIN_MESSAGE);
         } else{
             validateCredentials(username, password);

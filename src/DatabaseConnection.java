@@ -1387,7 +1387,7 @@ public class DatabaseConnection {
             preparedStatement.setString(2, payment_availability);
             preparedStatement.executeUpdate();
             
-            System.out.println("Image successfully uploaded.");
+//            System.out.println("PaymentSet.");
             
             disconnect(null, preparedStatement, connection);
                   

@@ -1574,14 +1574,19 @@ public class dashboard extends javax.swing.JFrame {
     private void btn_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rejectMouseClicked
         // TODO add your handling code here:
         retrieveKitchenLogs();
+        int rowCount = order_breakdown.getRowCount();
+        if (rowCount > 0) {
+            if (abler){
+                System.out.println("clicked reject");
+                if(user_id!=null && order_id!=null){
+                    DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
+                    addRowToListOrderQueueTable();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
+        }
         
-        if (abler){
-            System.out.println("clicked reject");
-            if(user_id!=null && order_id!=null){
-            DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
-            addRowToListOrderQueueTable();
-        }
-        }
         
     }//GEN-LAST:event_btn_rejectMouseClicked
 
@@ -1589,12 +1594,17 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         retrieveKitchenLogs();
         
-        if (abler){
-            System.out.println("clicked accept");
-            if(user_id!=null && order_id!=null){
-                DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
-                addRowToListOrderQueueTable();
+        int rowCount = order_breakdown.getRowCount();
+        if (rowCount > 0) {
+            if (abler){
+                System.out.println("clicked accept");
+                if(user_id!=null && order_id!=null){
+                    DatabaseConnection.getInstance().updateOrderStatusByOrderID("PREPARING", user_id, order_id);
+                    addRowToListOrderQueueTable();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_acceptMouseClicked
 
@@ -1602,16 +1612,20 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         retrieveKitchenLogs();
         
-        if(abler){
-//            System.out.println("user_id : "+user_id+ " order_id : "+order_id);
-            if(user_id!=null && order_id!=null){
-                System.out.println("clicked complete");
-                DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
-                addRowToListOrderQueueTable();
+        int rowCount = order_breakdown.getRowCount();
+        if (rowCount > 0) {
+            if(abler){
+                if(user_id!=null && order_id!=null){
+                    System.out.println("clicked complete");
+                    DatabaseConnection.getInstance().updateOrderStatusByOrderID("COMPLETED", user_id, order_id);
+                    addRowToListOrderQueueTable();
+                }
             }
-        }
-        else {
-            System.out.println("DISABLED.");
+            else {
+                System.out.println("DISABLED.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_doneMouseClicked
     
@@ -1702,18 +1716,23 @@ public class dashboard extends javax.swing.JFrame {
     //TODO: CHECKOUT
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
         String username = order_user.getSelectedItem().toString();
+        int rowCount = list_orders.getRowCount();
         
-        if(username.equals("take-out")){
-            username = "cashier";
-            view_cart viewCart = new view_cart(username, order_total_amount.getText());
-            if (viewCart.isVisible()){
-                viewCart.setVisible(false);
-                viewCart.setVisible(true);
+        if(rowCount > 0) {
+            if(username.equals("take-out")){
+                username = "cashier";
+                view_cart viewCart = new view_cart(username, order_total_amount.getText());
+                if (viewCart.isVisible()){
+                    viewCart.setVisible(false);
+                    viewCart.setVisible(true);
+                } else {
+                    viewCart.setVisible(true);
+                }
             } else {
-                viewCart.setVisible(true);
+                checkout(username);
             }
         } else {
-            checkout(username);
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
                 
     }//GEN-LAST:event_btn_checkoutMouseClicked
@@ -1910,7 +1929,12 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         int selectedRowIndex = list_orders.getSelectedRow();
         
-        model.removeRow(selectedRowIndex);
+        if (selectedRowIndex >= 0) {
+            model.removeRow(selectedRowIndex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select the order you wish to delete.", "Order Selection is missing!", JOptionPane.PLAIN_MESSAGE);
+        }
+        
     }//GEN-LAST:event_remove_orderMouseClicked
     
     static Double price = 0.00;

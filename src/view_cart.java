@@ -809,33 +809,40 @@ public class view_cart extends javax.swing.JFrame{
 
     private void gcash_receivedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gcash_receivedMouseClicked
         // TODO add your handling code here:
-        
-        Double amountDue = Double.parseDouble(txtTotal_amount.getText());
-        Double amountPaid = Double.parseDouble(amount.getText());
-        
-        if (amountDue <= amountPaid) {
-            if (this.table_no.equals("cashier")){
-            
-                dashboard.checkout(this.table_no);
+        if (!amount.getText().isEmpty()) {
+            Double amountDue = Double.parseDouble(txtTotal_amount.getText());
+            Double amountPaid = Double.parseDouble(amount.getText());
 
-                String payment_method = "GCash";
-                String payment_amount = amount.getText();
-                String amount_due = txtTotal_amount.getText();
-                String payment_status = "COMPLETED";
-                String remarks = ref_number.getText();
+            if (amountDue <= amountPaid) {
+                if (this.table_no.equals("cashier")){
 
-                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
-            }
-            else {
-            String amount = this.amount.getText().toString();
-            String reference_no = this.ref_number.getText().toString();
-            DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
-            DatabaseConnection.getInstance().updatePaidOrder(table_no);
+                    dashboard.checkout(this.table_no);
 
+                    String payment_method = "GCash";
+                    String payment_amount = amount.getText();
+                    String amount_due = txtTotal_amount.getText();
+                    String payment_status = "COMPLETED";
+                    String remarks = ref_number.getText();
+
+                    DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+                    JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
+                }
+                else {
+                String amount = this.amount.getText().toString();
+                String reference_no = this.ref_number.getText().toString();
+                DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
+                DatabaseConnection.getInstance().updatePaidOrder(table_no);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Total amount and amount paid do not match!\nPlease check and enter them again.", "Payment amount do not match.", JOptionPane.PLAIN_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Total amount and amount paid do not match!\nPlease check and enter them again.", "Payment amount do not match.", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter payment amount.", "Payment amount is missing!", JOptionPane.PLAIN_MESSAGE);
         }
+        
+        
+        
     }//GEN-LAST:event_gcash_receivedMouseClicked
 
     double cash_received = 0;
@@ -869,6 +876,7 @@ public class view_cart extends javax.swing.JFrame{
                 String remarks = null;
 
                 DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+                JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }
             else {
                 System.out.println("CASH PAYMENT COMPLETED");
