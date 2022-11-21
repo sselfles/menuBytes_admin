@@ -23,8 +23,11 @@ public class Order {
     private String created_by;
     private String product_availability;
     
-    private Boolean has_addOns;
+    private String has_addOns;
     private String flavors;
+    
+    
+    Boolean addOns;
 
     public Order(String order_id, String product_name, String quantity, String product_price, String grand_total, String table_no, String date, String order_status) {
         this.order_id = order_id;
@@ -49,7 +52,7 @@ public class Order {
         this.quantity = quantity;
         this.product_name = product_name;
     }
-    public Order(String order_id, String quantity, String product_name, String total_price, Boolean has_addOns, String flavors){
+    public Order(String order_id, String quantity, String product_name, String total_price, String has_addOns, String flavors){
         this.order_id = order_id;
         this.quantity = quantity;
         this.product_name = product_name;
@@ -58,7 +61,30 @@ public class Order {
         this.flavors = flavors;
     }
     
+    public Order(String order_id, String quantity, String product_name, String total_price, Boolean addOns, String flavors){
+        this.order_id = order_id;
+        this.quantity = quantity;
+        this.product_name = product_name;
+        this.total_price = total_price;
+        this.addOns = addOns;
+        this.flavors = flavors;
+    }
+    
+    public String getFlavors() {
+        return flavors;
+    }
        
+    public void setFlavors(String flavors) {
+        this.flavors = flavors;
+    }
+    
+    public String getHas_addOns() {
+        return has_addOns;
+    }
+       
+    public void setHas_addOns(String has_addOns) {
+        this.has_addOns = has_addOns;
+    }
     
     public String getProduct_id() {
         return product_id;

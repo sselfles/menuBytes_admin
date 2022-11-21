@@ -61,7 +61,15 @@ public class transaction_modal extends javax.swing.JFrame {
         
         for(int position = 0; position < orderArrayList.size(); position++){
             rowData[0] = orderArrayList.get(position).getQuantity();
-            rowData[1] = orderArrayList.get(position).getProduct_name();
+            
+            if (orderArrayList.get(position).getHas_addOns() != null) {
+                rowData[1] = orderArrayList.get(position).getProduct_name() + " " + orderArrayList.get(position).getHas_addOns();
+            } else if (orderArrayList.get(position).getFlavors() != null){
+                rowData[1] = orderArrayList.get(position).getProduct_name() + " " + orderArrayList.get(position).getFlavors();
+            } else {
+                rowData[1] = orderArrayList.get(position).getProduct_name();
+            }
+                    
             rowData[2] = orderArrayList.get(position).getTotal_price();
             
             total += Float.valueOf(rowData[2].toString());

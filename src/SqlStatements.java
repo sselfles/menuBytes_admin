@@ -257,12 +257,12 @@ public class SqlStatements {
 "total\n" +
 "FROM orders;";
     
-    //String order_id, String quantity, String product_name, String total_price, Boolean has_addOns, String flavors
     
-    private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity, \n" +
+    private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity,\n" +
 "(IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name)) AS Name,\n" +
 "IF((product.product_bundle IS NULL),product.product_price,product.product_bundle)*order_items.quantity AS Price,\n" +
-"order_items.has_addons, order_items.flavors\n" +
+"(IF((order_items.has_addons), \"Shawarma All Meat\", null)) as has_addons, \n" +
+"order_items.flavors\n" +
 "FROM order_items\n" +
 "INNER JOIN\n" +
 "product ON order_items.product_id = product.product_id\n" +
