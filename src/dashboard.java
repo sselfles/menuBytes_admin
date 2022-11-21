@@ -71,7 +71,7 @@ public class dashboard extends javax.swing.JFrame {
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
         notifyCashierEvents();
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
             System.out.println("refreshed.");
         }
         };
@@ -98,7 +98,7 @@ public class dashboard extends javax.swing.JFrame {
         addRowToListOrderQueueTable();
         addDefaultRowToMenuList();
         notifyCashierEvents();
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
             System.out.println("refreshed.");
         }
         };
@@ -1562,7 +1562,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rejectMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         
         if (abler){
             System.out.println("clicked reject");
@@ -1576,7 +1576,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_acceptMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         
         if (abler){
             System.out.println("clicked accept");
@@ -1589,7 +1589,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_doneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doneMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         
         if(abler){
 //            System.out.println("user_id : "+user_id+ " order_id : "+order_id);

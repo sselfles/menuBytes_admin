@@ -104,21 +104,21 @@ public class SqlStatements {
     private String checkUsernamePassword = "SELECT user_id FROM user WHERE user_name = (?) AND password = (?);";
     
     private String retrieveOrderListQueue = "SELECT \n" +
-            "orders.order_id, orders.created_by,orderitems.qty,order_status.order_status\n" +
-            "FROM orders\n" +
-            "JOIN\n" +
-            "(SELECT order_id, SUM(quantity) AS qty FROM order_items WHERE order_items.product_id != (15) GROUP BY order_id)\n" +
-            "AS orderitems ON orderitems.order_id = orders.order_id\n" +
-            "INNER JOIN\n" +
-            "order_status ON order_status.order_id = orders.order_id\n" +
-            "INNER JOIN\n" +
-            "user on user.user_id = user.user_id\n" +
-            "LEFT JOIN\n" +
-            "payment ON payment.created_by = orders.created_by\n" +
-            "WHERE order_status != \"REJECTED\" AND order_status != \"COMPLETED\"\n" +
-            "AND EXISTS (SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
-            "AND DATE(orders.created_at) = curdate() \n" +
-            "GROUP BY orders.order_id;";
+"orders.order_id, orders.created_by,orderitems.qty,order_status.order_status\n" +
+"FROM orders\n" +
+"JOIN\n" +
+"(SELECT order_id, SUM(quantity) AS qty FROM order_items WHERE order_items.product_id != (15) GROUP BY order_id)\n" +
+"AS orderitems ON orderitems.order_id = orders.order_id\n" +
+"INNER JOIN\n" +
+"order_status ON order_status.order_id = orders.order_id\n" +
+"INNER JOIN\n" +
+"user on user.user_id = user.user_id\n" +
+"LEFT JOIN\n" +
+"payment ON payment.created_by = orders.created_by\n" +
+"WHERE order_status != \"REJECTED\" AND order_status != \"COMPLETED\"\n" +
+"AND EXISTS (SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
+"AND DATE(orders.created_at) = curdate() \n" +
+"GROUP BY orders.order_id;";
     
     private String retrieveOrderBreakdownUsingOrderID = "SELECT order_items.order_id, order_items.quantity, \n" +
 "(IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name)) AS Name,\n" +
