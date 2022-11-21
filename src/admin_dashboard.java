@@ -266,7 +266,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                     rowData[0] = reportArrayList.get(position).getDate();
                     rowData[1] = reportArrayList.get(position).getTotal_quantity();
                     rowData[2] = reportArrayList.get(position).getTotal_amount();
-                    System.out.println("I AM HERE");
+                    
                     model.addRow(rowData);
                 }
             }
@@ -486,9 +486,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         transaction_list = new javax.swing.JTable();
         btn_viewReceipt1 = new roundPanel();
         sales_view1 = new javax.swing.JLabel();
-        cmb_transactions = new javax.swing.JComboBox<>();
         jPanel9 = new javax.swing.JPanel();
-        sales_tabbedPane1 = new javax.swing.JTabbedPane();
+        transactions_tabbedPane = new javax.swing.JTabbedPane();
         daily_weekly_tab3 = new javax.swing.JPanel();
         transactions_from = new com.toedter.calendar.JDateChooser();
         transactions_to = new com.toedter.calendar.JDateChooser();
@@ -498,6 +497,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         transaction_month_from = new com.toedter.calendar.JMonthChooser();
         transaction_month_to = new com.toedter.calendar.JMonthChooser();
         filter_transaction = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
         log_reports_tab = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -1620,15 +1620,6 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         transactions_tab.add(btn_viewReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 870, 250, 70));
 
-        cmb_transactions.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        cmb_transactions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly" }));
-        cmb_transactions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_transactionsActionPerformed(evt);
-            }
-        });
-        transactions_tab.add(cmb_transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 447, 68));
-
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1680,7 +1671,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        sales_tabbedPane1.addTab("tab1", daily_weekly_tab3);
+        transactions_tabbedPane.addTab("tab1", daily_weekly_tab3);
 
         monthly_tab3.setOpaque(false);
 
@@ -1718,9 +1709,9 @@ public class admin_dashboard extends javax.swing.JFrame {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        sales_tabbedPane1.addTab("tab1", monthly_tab3);
+        transactions_tabbedPane.addTab("tab1", monthly_tab3);
 
-        transactions_tab.add(sales_tabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
+        transactions_tab.add(transactions_tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 680, 100));
 
         filter_transaction.setBackground(new java.awt.Color(255, 0, 0));
         filter_transaction.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -1732,6 +1723,11 @@ public class admin_dashboard extends javax.swing.JFrame {
             }
         });
         transactions_tab.add(filter_transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 140, 200, 60));
+
+        jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel29.setText("Filter transactions from");
+        transactions_tab.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 480, -1));
 
         jTabbedPane1.addTab("tab1", transactions_tab);
 
@@ -2238,10 +2234,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_sales_view1MouseClicked
 
-    private void cmb_transactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_transactionsActionPerformed
-        addRowToTransaction();
-    }//GEN-LAST:event_cmb_transactionsActionPerformed
-
     private void log_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_viewMouseClicked
         
         chooser.setDialogTitle("Save");
@@ -2367,9 +2359,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
         String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
         
-       
-            
-            System.out.println(cmb_transactions.getSelectedIndex());
         
             if(sales_from != null && sales_to != null){
                     //daily
@@ -2403,36 +2392,18 @@ public class admin_dashboard extends javax.swing.JFrame {
         String to_date = ((JTextField)transactions_to.getDateEditor().getUiComponent()).getText();
         
        
-            
-            System.out.println(cmb_transactions.getSelectedIndex());
         
             if(transactions_from != null && transactions_to != null){
-                //daily
-                if (cmb_transactions.getSelectedIndex() == 0) {
+                
                     dailyTransactionReport(from_date, to_date); 
                     System.out.println("FROM DATE : " + from_date);
                     System.out.println("TO DATE : " + to_date);
-                }
-                //weekly
-                if (cmb_transactions.getSelectedIndex() == 1) {
-
-                    String from = from_date.substring(0, 9);
-                    String to = to_date.substring(0, 9);
-
-                    weeklyTransactionReport(from, to);
-                }
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Please pick a date for both from and to!", "Missing Date", JOptionPane.PLAIN_MESSAGE);
             }
         
-        //monthly
-        if (cmb_transactions.getSelectedIndex() == 2) {
-            
-            String from = String.valueOf(transaction_month_from.getMonth()+1);
-            String to = String.valueOf(transaction_month_to.getMonth()+1);
-            
-            monthlyTransactionReport(from, to);
-        }
     }//GEN-LAST:event_filter_transactionActionPerformed
 
     private void filter_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_logActionPerformed
@@ -2500,7 +2471,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private roundPanel btn_viewReceipt1;
     private roundPanel btn_viewReceipt2;
     private javax.swing.JComboBox<String> cmb_sales;
-    private javax.swing.JComboBox<String> cmb_transactions;
     private javax.swing.JPanel daily_weekly_tab;
     private javax.swing.JPanel daily_weekly_tab1;
     private javax.swing.JPanel daily_weekly_tab3;
@@ -2528,6 +2498,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -2581,7 +2552,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel sales_reports;
     private javax.swing.JPanel sales_reports_tab;
     private javax.swing.JTabbedPane sales_tabbedPane;
-    private javax.swing.JTabbedPane sales_tabbedPane1;
     private com.toedter.calendar.JDateChooser sales_to;
     private javax.swing.JLabel sales_view;
     private javax.swing.JLabel sales_view1;
@@ -2592,6 +2562,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel transactions;
     private com.toedter.calendar.JDateChooser transactions_from;
     private javax.swing.JPanel transactions_tab;
+    private javax.swing.JTabbedPane transactions_tabbedPane;
     private com.toedter.calendar.JDateChooser transactions_to;
     private javax.swing.JTable user_list;
     private javax.swing.JPanel user_tab;

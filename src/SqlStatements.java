@@ -296,7 +296,7 @@ public class SqlStatements {
 "created_by,\n" +
 "SUM(total)\n" +
 "FROM orders\n" +
-"WHERE created_at between (?) and (?)\n" +
+"WHERE month(orders.created_at) between (?) and (?)\n" +
 "GROUP BY DATE(orders.created_at);";
     
     private String getLogReports = "SELECT\n" +
