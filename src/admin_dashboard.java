@@ -2359,7 +2359,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
         String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
         
-        
             if(sales_from != null && sales_to != null){
                     //daily
                 if (cmb_sales.getSelectedIndex() == 0) {
@@ -2391,19 +2390,14 @@ public class admin_dashboard extends javax.swing.JFrame {
         String from_date = ((JTextField)transactions_from.getDateEditor().getUiComponent()).getText();
         String to_date = ((JTextField)transactions_to.getDateEditor().getUiComponent()).getText();
         
-       
-        
             if(transactions_from != null && transactions_to != null){
                 
                     dailyTransactionReport(from_date, to_date); 
                     System.out.println("FROM DATE : " + from_date);
                     System.out.println("TO DATE : " + to_date);
-                
-                
             } else {
                 JOptionPane.showMessageDialog(null, "Please pick a date for both from and to!", "Missing Date", JOptionPane.PLAIN_MESSAGE);
             }
-        
     }//GEN-LAST:event_filter_transactionActionPerformed
 
     private void filter_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_logActionPerformed
