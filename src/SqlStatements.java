@@ -374,6 +374,11 @@ public class SqlStatements {
 "product_category = (?), product_availability = (?)\n" +
 "WHERE product_name = (?);";
     
+    private String updateProductWithImage = "UPDATE product SET\n" +
+"product_name = (?), product_price = (?), product_bundle = (?), product_description = (?),\n" +
+"product_img = (?), product_category = (?), product_availability = (?)\n" +
+"WHERE product_name = (?);";
+    
     private String getProductInfo = "SELECT product_id, product_name, product_price, product_bundle, product_description, product_category, product_availability FROM product WHERE product_name = (?);";
     
     private String deleteProduct ="DELETE FROM product WHERE (product_name = (?));";
@@ -518,6 +523,10 @@ public class SqlStatements {
     
     public String updateProduct() {
         return updateProduct;
+    }
+    
+    public String updateProductWithImage() {
+        return this.updateProductWithImage;
     }
     
     public String getProductInfo() {

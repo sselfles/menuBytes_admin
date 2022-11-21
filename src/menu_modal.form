@@ -401,7 +401,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="btn_upload2">
+                <Component class="javax.swing.JButton" name="edit_upload">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -415,7 +415,7 @@
                     <Property name="text" type="java.lang.String" value="Upload Image"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_upload2MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="edit_uploadMouseClicked"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -596,7 +596,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="file_name1">
+                <Component class="javax.swing.JLabel" name="edit_img">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Century Gothic" size="24" style="0"/>

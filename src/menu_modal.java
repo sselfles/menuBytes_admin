@@ -3,7 +3,11 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -27,6 +31,8 @@ public class menu_modal extends javax.swing.JFrame {
     
     String oldName;
     String availability;
+    
+    FileInputStream inputStream = null;
     
     public menu_modal() {
         initComponents();
@@ -164,9 +170,18 @@ public class menu_modal extends javax.swing.JFrame {
                     }else if (productCateory.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please enter the product category.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
 
-                    }else if (productName!=null && productPrice!= null && productDescription != null && productCateory != null) {
+                    }else if (productName!=null && productPrice!= null && productDescription != null && productCateory != null && this.inputStream == null) {
                         System.out.println("No bundle");
                         DatabaseConnection.getInstance().updateProduct(productName, productPrice, bundledPrice, productDescription, productCateory, availability, this.oldName);
+                        JOptionPane.showMessageDialog(null, productName + " is successfully added.", "Product Successfully Added", JOptionPane.PLAIN_MESSAGE);
+
+                        admin_dashboard ad = new admin_dashboard();
+                        ad.addRowToProductList();
+
+                        close();
+                    } else if (productName!=null && productPrice!= null && productDescription != null && productCateory != null && this.inputStream != null) {
+                        System.out.println("No bundle");
+                        DatabaseConnection.getInstance().updateProductWithImage(productName, productPrice, bundledPrice, productDescription, this.inputStream, productCateory, availability, this.oldName);
                         JOptionPane.showMessageDialog(null, productName + " is successfully added.", "Product Successfully Added", JOptionPane.PLAIN_MESSAGE);
 
                         admin_dashboard ad = new admin_dashboard();
@@ -217,7 +232,7 @@ public class menu_modal extends javax.swing.JFrame {
         txt_product_name = new javax.swing.JTextField();
         product_price = new javax.swing.JTextField();
         edit_product = new javax.swing.JPanel();
-        btn_upload2 = new javax.swing.JButton();
+        edit_upload = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -229,7 +244,7 @@ public class menu_modal extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         edit_description = new javax.swing.JTextArea();
-        file_name1 = new javax.swing.JLabel();
+        edit_img = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         edit_product_name = new javax.swing.JTextField();
@@ -374,16 +389,16 @@ public class menu_modal extends javax.swing.JFrame {
         edit_product.setOpaque(false);
         edit_product.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_upload2.setBackground(new java.awt.Color(255, 0, 0));
-        btn_upload2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_upload2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_upload2.setText("Upload Image");
-        btn_upload2.addMouseListener(new java.awt.event.MouseAdapter() {
+        edit_upload.setBackground(new java.awt.Color(255, 0, 0));
+        edit_upload.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        edit_upload.setForeground(new java.awt.Color(255, 255, 255));
+        edit_upload.setText("Upload Image");
+        edit_upload.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_upload2MouseClicked(evt);
+                edit_uploadMouseClicked(evt);
             }
         });
-        edit_product.add(btn_upload2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 390, 166, 45));
+        edit_product.add(edit_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 390, 166, 45));
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -450,9 +465,9 @@ public class menu_modal extends javax.swing.JFrame {
 
         edit_product.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 818, 104));
 
-        file_name1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        file_name1.setText("-");
-        edit_product.add(file_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 321, 40));
+        edit_img.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        edit_img.setText("-");
+        edit_product.add(edit_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 321, 40));
 
         jLabel24.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel24.setText("Product Image :");
@@ -536,9 +551,27 @@ public class menu_modal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_addProductMouseClicked
 
-    private void btn_upload2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_upload2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_upload2MouseClicked
+    private void edit_uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edit_uploadMouseClicked
+        try {
+            
+            chooser.setAcceptAllFileFilterUsed(false);
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+
+            String fileName = file.getName();
+            
+            inputStream = new FileInputStream(file);
+            
+            file_name.setText(fileName);
+            
+            System.out.println(file);
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_edit_uploadMouseClicked
 
     private void btn_editProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editProductMouseClicked
         String productName = edit_product_name.getText();
@@ -548,7 +581,13 @@ public class menu_modal extends javax.swing.JFrame {
         String productCategory = edit_cb_category.getSelectedItem().toString();
         String availability = toggle_availability.getText();
         
-        updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
+        if (edit_img.getText().equals("-")){
+             updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
+        } else {
+        
+        }
+        
+       
     }//GEN-LAST:event_btn_editProductMouseClicked
 
     private void toggle_availabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggle_availabilityActionPerformed
@@ -602,17 +641,17 @@ public class menu_modal extends javax.swing.JFrame {
     private roundPanel btn_addProduct;
     private roundPanel btn_editProduct;
     private javax.swing.JButton btn_upload1;
-    private javax.swing.JButton btn_upload2;
     private javax.swing.JComboBox<String> cb_userType;
     private javax.swing.JTextArea description;
     private javax.swing.JTextField edit_bundled_price;
     private javax.swing.JComboBox<String> edit_cb_category;
     private javax.swing.JTextArea edit_description;
+    private javax.swing.JLabel edit_img;
     private javax.swing.JPanel edit_product;
     private javax.swing.JTextField edit_product_name;
     private javax.swing.JTextField edit_product_price;
+    private javax.swing.JButton edit_upload;
     private javax.swing.JLabel file_name;
-    private javax.swing.JLabel file_name1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -1073,6 +1073,32 @@ public class DatabaseConnection {
         }
     }
     
+    public  void updateProductWithImage ( String productName, String productPrice, String bundledPrice, String productDescription, FileInputStream product_image, String productCateory, String availability, String oldName ){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateProduct()); 
+        preparedStatement.setString(1, productName);
+        preparedStatement.setDouble(2, Double.valueOf(productPrice));
+        if (bundledPrice != null){
+                preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
+            }
+            else {
+                preparedStatement.setNull(3, Types.NULL);
+            }
+        preparedStatement.setString(4, productDescription);
+        preparedStatement.setBlob(5, product_image);
+        preparedStatement.setString(6, productCateory);
+        preparedStatement.setString(7, availability);
+        preparedStatement.setString(8, oldName);
+        preparedStatement.executeUpdate();
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public  ArrayList<ProductInfo> getProductInfo(String oldName){
         Connection connection = null;
         ArrayList<ProductInfo> productArrayList = new ArrayList<>();
