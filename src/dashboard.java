@@ -70,7 +70,7 @@ public class dashboard extends javax.swing.JFrame {
 //        addTotalAmountToTable2();  
 //        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
-        addDefaultRowToMenuList();
+//        addDefaultRowToMenuList();
         notifyCashierEvents();
         retrieveKitchenLogs();
             System.out.println("refreshed.");
@@ -97,7 +97,7 @@ public class dashboard extends javax.swing.JFrame {
 //        addTotalAmountToTable2();  
 //        addTotalAmountToTable3();
         addRowToListOrderQueueTable();
-        addDefaultRowToMenuList();
+//        addDefaultRowToMenuList();
         notifyCashierEvents();
         retrieveKitchenLogs();
             System.out.println("refreshed.");
@@ -1731,11 +1731,11 @@ public class dashboard extends javax.swing.JFrame {
                         }
                 
             */
-            
-//            String total = order_total_amount.getText();
-            
-            Double total = Double.parseDouble(order_total_amount.getText());
-            
+            Double total_temp = Double.parseDouble(order_total_amount.getText());
+            String total = String.format("%.2f", total_temp);
+//            String.f
+//            
+            System.out.println("THIS IS THE TOTAL" + total);
             DatabaseConnection.getInstance().insertOrder(username, total);
             
             
@@ -1950,7 +1950,7 @@ public class dashboard extends javax.swing.JFrame {
             model.addRow(rowDataDetail);
         }
         
-        
+        System.out.println("Order successfully passed to dashboard.");
     }
     
     public void close(){

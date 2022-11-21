@@ -618,7 +618,7 @@ public class view_cart extends javax.swing.JFrame{
             .addGroup(pending_orders_tabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(list_pending_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", pending_orders_tab);
@@ -687,12 +687,12 @@ public class view_cart extends javax.swing.JFrame{
             .addGroup(completed_orders_tavLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(list_completed_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", completed_orders_tav);
 
-        backgground.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        backgground.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 540));
 
         getContentPane().add(backgground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 840));
 
