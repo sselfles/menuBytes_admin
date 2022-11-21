@@ -1013,7 +1013,7 @@ public class DatabaseConnection {
         return productArrayList;
     }
     
-    public  void addProduct( String productName, String productPrice, String bundledPrice, String productDescription, String productCateory ){
+    public  void addProduct( String productName, String productPrice, String bundledPrice, String productDescription, FileInputStream productImage, String productCateory ){
         Connection connection = null;
         try{
         connection = getConnection();
@@ -1022,7 +1022,8 @@ public class DatabaseConnection {
         preparedStatement.setDouble(2, Double.valueOf(productPrice));
         preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
         preparedStatement.setString(4, productDescription);
-        preparedStatement.setString(5, productCateory);
+        preparedStatement.setBlob(5, productImage);
+        preparedStatement.setString(6, productCateory);
         preparedStatement.executeUpdate();
             disconnect(null, preparedStatement, connection);
         }
@@ -1031,7 +1032,7 @@ public class DatabaseConnection {
         }
     }
     
-    public  void addProductSolo( String productName, String productPrice, String productDescription, String productCateory ){
+    public  void addProductSolo( String productName, String productPrice, String productDescription, FileInputStream productImage, String productCateory ){
         Connection connection = null;
         try{
         connection = getConnection();
@@ -1039,7 +1040,8 @@ public class DatabaseConnection {
         preparedStatement.setString(1, productName);
         preparedStatement.setDouble(2, Double.valueOf(productPrice));
         preparedStatement.setString(3, productDescription);
-        preparedStatement.setString(4, productCateory);
+        preparedStatement.setBlob(4, productImage);
+        preparedStatement.setString(5, productCateory);
         preparedStatement.executeUpdate();
             disconnect(null, preparedStatement, connection);
         }

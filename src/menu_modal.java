@@ -103,8 +103,8 @@ public class menu_modal extends javax.swing.JFrame {
                     }else if (productCateory.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please enter the product category.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
 
-                    }else if( bundledPrice != null &&productName!=null && productPrice!= null && productDescription != null && productCateory != null){
-                        DatabaseConnection.getInstance().addProduct(productName, productPrice, bundledPrice, productDescription, productCateory);
+                    }else if( bundledPrice != null &&productName!=null && productPrice!= null && productDescription != null && productCateory != null && this.inputStream != null){
+                        DatabaseConnection.getInstance().addProduct(productName, productPrice, bundledPrice, productDescription, this.inputStream, productCateory);
                         JOptionPane.showMessageDialog(null, productName + " is successfully added.", "Product Successfully Added", JOptionPane.PLAIN_MESSAGE);
 
                         admin_dashboard ad = new admin_dashboard();
@@ -136,9 +136,9 @@ public class menu_modal extends javax.swing.JFrame {
                     }else if (productCateory.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please enter the product category.", "Missing Field", JOptionPane.PLAIN_MESSAGE);
 
-                    }else if (productName!=null && productPrice!= null && productDescription != null && productCateory != null) {
+                    }else if (productName!=null && productPrice!= null && productDescription != null && productCateory != null && this.inputStream != null) {
                         System.out.println("No bundle");
-                        DatabaseConnection.getInstance().addProductSolo(productName, productPrice, productDescription, productCateory);
+                        DatabaseConnection.getInstance().addProductSolo(productName, productPrice, productDescription, this.inputStream, productCateory);
                         JOptionPane.showMessageDialog(null, productName + " is successfully added.", "Product Successfully Added", JOptionPane.PLAIN_MESSAGE);
 
                         admin_dashboard ad = new admin_dashboard();
@@ -214,7 +214,7 @@ public class menu_modal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         add_product = new javax.swing.JPanel();
-        btn_upload1 = new javax.swing.JButton();
+        add_upload = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -290,16 +290,16 @@ public class menu_modal extends javax.swing.JFrame {
         add_product.setOpaque(false);
         add_product.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_upload1.setBackground(new java.awt.Color(255, 0, 0));
-        btn_upload1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_upload1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_upload1.setText("Upload Image");
-        btn_upload1.addMouseListener(new java.awt.event.MouseAdapter() {
+        add_upload.setBackground(new java.awt.Color(255, 0, 0));
+        add_upload.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        add_upload.setForeground(new java.awt.Color(255, 255, 255));
+        add_upload.setText("Upload Image");
+        add_upload.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_upload1MouseClicked(evt);
+                add_uploadMouseClicked(evt);
             }
         });
-        add_product.add(btn_upload1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 390, 166, 45));
+        add_product.add(add_upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 390, 166, 45));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -525,15 +525,28 @@ public class menu_modal extends javax.swing.JFrame {
         close();
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void btn_upload1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_upload1MouseClicked
-        chooser.setAcceptAllFileFilterUsed(false);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
-        chooser.showOpenDialog(null);
-        File file = chooser.getSelectedFile();
-        String fileName = file.getName();
-        
-        file_name.setText(fileName);
-    }//GEN-LAST:event_btn_upload1MouseClicked
+    private void add_uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_uploadMouseClicked
+        try {
+            
+            chooser.setAcceptAllFileFilterUsed(false);
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+
+            String fileName = file.getName();
+            
+            inputStream = new FileInputStream(file);
+            
+            file_name.setText(fileName);
+            
+            System.out.println(file);
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_add_uploadMouseClicked
 
     private void btn_addProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addProductMouseClicked
         String productName = txt_product_name.getText();
@@ -581,11 +594,8 @@ public class menu_modal extends javax.swing.JFrame {
         String productCategory = edit_cb_category.getSelectedItem().toString();
         String availability = toggle_availability.getText();
         
-        if (edit_img.getText().equals("-")){
-             updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
-        } else {
+        updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
         
-        }
         
        
     }//GEN-LAST:event_btn_editProductMouseClicked
@@ -638,9 +648,9 @@ public class menu_modal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add_product;
+    private javax.swing.JButton add_upload;
     private roundPanel btn_addProduct;
     private roundPanel btn_editProduct;
-    private javax.swing.JButton btn_upload1;
     private javax.swing.JComboBox<String> cb_userType;
     private javax.swing.JTextArea description;
     private javax.swing.JTextField edit_bundled_price;
