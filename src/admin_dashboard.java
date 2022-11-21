@@ -2027,12 +2027,23 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addUserMouseClicked
 
     private void btn_editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editUserMouseClicked
-        user_modal userModal = new user_modal(1, userType, username, deviceType);
-        if (userModal.isVisible()){
-            userModal.setVisible(false);
-            userModal.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel) user_list.getModel();
+        int selectedRowIndex = user_list.getSelectedRow();
+        
+        if(selectedRowIndex >= 0){
+            userType = model.getValueAt(selectedRowIndex, 0).toString();
+            username = model.getValueAt(selectedRowIndex, 1).toString();
+            deviceType = model.getValueAt(selectedRowIndex, 2).toString();
+
+            user_modal userModal = new user_modal(1, userType, username, deviceType);
+            if (userModal.isVisible()){
+                userModal.setVisible(false);
+                userModal.setVisible(true);
+            } else {
+                userModal.setVisible(true);
+            }
         } else {
-            userModal.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Please select an account to edit.", "Account Not Selected", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_editUserMouseClicked
 

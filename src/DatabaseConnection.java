@@ -55,7 +55,7 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.219.228:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -1055,7 +1055,12 @@ public class DatabaseConnection {
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateProduct()); 
         preparedStatement.setString(1, productName);
         preparedStatement.setDouble(2, Double.valueOf(productPrice));
-        preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
+        if (bundledPrice != null){
+                preparedStatement.setDouble(3, Double.valueOf(bundledPrice));
+            }
+            else {
+                preparedStatement.setNull(3, Types.NULL);
+            }
         preparedStatement.setString(4, productDescription);
         preparedStatement.setString(5, productCateory);
         preparedStatement.setString(6, availability);

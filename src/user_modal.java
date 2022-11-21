@@ -39,7 +39,7 @@ public class user_modal extends javax.swing.JFrame {
     
     public user_modal (int index, String userType, String username, String deviceType) {
         initComponents();
-        
+        System.out.println("edit account : " + userType + username + deviceType);
         this.oldUsername = username;
         
         jTabbedPane1.setSelectedIndex(index);
