@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
@@ -28,7 +29,7 @@ public class payment_modal extends javax.swing.JFrame {
      */
     JFileChooser chooser = new JFileChooser();
     
-    FileInputStream inputStream;
+    FileInputStream inputStream = null;
     
     public payment_modal() {
         initComponents();
@@ -262,7 +263,14 @@ public class payment_modal extends javax.swing.JFrame {
         String payment_info = gcash_num.getText();
         String payment_availability = toggle_availability.getText();
         
-        DatabaseConnection.getInstance().updatePaymentSetting(payment_info, this.inputStream, payment_availability);
+        if(payment_info == null){
+            JOptionPane.showMessageDialog(null, "Please fill the GCash number.", "Missing Field!", JOptionPane.PLAIN_MESSAGE);
+        } else if (payment_info !=null && this.inputStream != null){
+            DatabaseConnection.getInstance().updatePaymentSettingWithImage(payment_info, this.inputStream, payment_availability);
+        } else if (payment_info !=null && this.inputStream == null){
+            DatabaseConnection.getInstance().updatePaymentSetting(payment_info, payment_availability);
+        }
+        
         
         close();
     }//GEN-LAST:event_btn_editMouseClicked

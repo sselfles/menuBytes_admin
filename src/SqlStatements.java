@@ -430,9 +430,14 @@ public class SqlStatements {
 "completed_at = (?)\n" +
 "WHERE (SELECT user_id FROM user WHERE user_name = (?));";
 
-    private String updatePaymentSetting = "UPDATE payment_method SET\n" +
+    private String updatePaymentSettingWithImage = "UPDATE payment_method SET\n" +
 "payment_info = (?), \n" +
 "payment_qr = (?), \n" +
+"payment_availability = (?)\n" +
+"WHERE payment_method_id = '1';";
+    
+    private String updatePaymentSetting = "UPDATE payment_method SET\n" +
+"payment_info = (?), \n" +
 "payment_availability = (?)\n" +
 "WHERE payment_method_id = '1';";
         
@@ -674,6 +679,10 @@ public class SqlStatements {
     
     public String insertOrderItems() {
         return this.insertOrderItems;
+    }
+    
+    public String updatePaymentSettingWithImage() {
+        return this.updatePaymentSettingWithImage;
     }
     
     public String updatePaymentSetting() {

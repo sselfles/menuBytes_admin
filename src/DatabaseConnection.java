@@ -1376,13 +1376,34 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-    public void updatePaymentSetting(String payment_info, FileInputStream payment_qr, String payment_availability){
+    
+    public void updatePaymentSetting(String payment_info, String payment_availability){
 	Connection connection = null;
           
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSetting());
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSettingWithImage());
+            preparedStatement.setString(1, payment_info);
+            preparedStatement.setString(2, payment_availability);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Image successfully uploaded.");
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
+    public void updatePaymentSettingWithImage(String payment_info, FileInputStream payment_qr, String payment_availability){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSettingWithImage());
             preparedStatement.setString(1, payment_info);
             preparedStatement.setBlob(2,payment_qr);
             preparedStatement.setString(3, payment_availability);
