@@ -278,7 +278,7 @@ public class SqlStatements {
 "created_by,\n" +
 "total\n" +
 "FROM orders\n" +
-"20";
+"WHERE DATE(created_at) BETWEEN (?) AND (?);";
     
     private String getTransactionsWeekly = "SELECT\n" +
 "CONCAT(DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(1-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e'), ' TO ',\n" +

@@ -681,7 +681,7 @@ public class DatabaseConnection {
         resultSet = preparedStatement.executeQuery();
         
         if (!resultSet.isBeforeFirst()){
-            System.out.println("Database getSalesReportDefault(): No Data Retrieved!");}
+            System.out.println("Database getTransactionsDaily(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                               salesReports.add(new Report(

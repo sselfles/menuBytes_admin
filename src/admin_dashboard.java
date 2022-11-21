@@ -257,7 +257,6 @@ public class admin_dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)sales_report_list.getModel();
             model.setRowCount(0);
             
-            System.out.println("monthly");
             if(!transactionReportDaily(from, to).isEmpty()){
                 
                 ArrayList<Report> reportArrayList = transactionReportDaily(from, to);
@@ -267,6 +266,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                     rowData[0] = reportArrayList.get(position).getDate();
                     rowData[1] = reportArrayList.get(position).getTotal_quantity();
                     rowData[2] = reportArrayList.get(position).getTotal_amount();
+                    System.out.println("I AM HERE");
                     model.addRow(rowData);
                 }
             }
@@ -2410,6 +2410,8 @@ public class admin_dashboard extends javax.swing.JFrame {
                 //daily
                 if (cmb_transactions.getSelectedIndex() == 0) {
                     dailyTransactionReport(from_date, to_date); 
+                    System.out.println("FROM DATE : " + from_date);
+                    System.out.println("TO DATE : " + to_date);
                 }
                 //weekly
                 if (cmb_transactions.getSelectedIndex() == 1) {
