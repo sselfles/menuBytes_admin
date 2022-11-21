@@ -57,10 +57,9 @@ public class view_cart extends javax.swing.JFrame{
         initComponents();
         //Data to be displayed in the JTable
         this.table_no = table_no;
-        
+        setSubtotal(table_no);
         addRowToPendingJtable();  
         addRowToCompletedJtable();
-        setSubtotal("PENDING");
 
     }
     
@@ -71,12 +70,10 @@ public class view_cart extends javax.swing.JFrame{
         
 //        addRowToPendingJtable();  
 //        addRowToCompletedJtable();
-//        setSubtotal("PENDING");
+
+            setSubtotal(table_no);
         
-            Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
-            txtVat.setText(String.format("%.2f", VAT));
-            txtSubtotal.setText(total);
-            txtTotal_amount.setText(total);
+           
     }
     
     public void displayPaymentInfo(){
@@ -710,10 +707,17 @@ public class view_cart extends javax.swing.JFrame{
         return orderArrayList;
     }
     
+    public ArrayList ListPendingOrders(){
+        ArrayList<Order> orderArrayList = new ArrayList<Order>();
+        System.out.println(table_no);
+        orderArrayList = DatabaseConnection.getInstance().returnOrdersAccordingToStatusTableNoPending(table_no);
+        return orderArrayList;
+    }
+    
     public void addRowToPendingJtable(){
         DefaultTableModel model = (DefaultTableModel)tbl_pending_orders.getModel();
-        if(!ListOrders("PREPARING").isEmpty()){
-        ArrayList<Order> orderArrayList = ListOrders("PREPARING");
+        if(!ListPendingOrders().isEmpty()){
+        ArrayList<Order> orderArrayList = ListPendingOrders();
         Object rowData[] = new Object[3];
         for(int position = 0; position < orderArrayList.size(); position++){
             rowData[0] = orderArrayList.get(position).getQuantity();
@@ -750,12 +754,12 @@ public class view_cart extends javax.swing.JFrame{
         }
     }
     
-//    public void setValues(String total) {
-//        Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
-//        txtVat.setText(String.format("%.2f", VAT));
-//        txtSubtotal.setText(total);
-//        txtTotal_amount.setText(total);
-//    }
+    public void setValues(String total) {
+        Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
+        txtVat.setText(String.format("%.2f", VAT));
+        txtSubtotal.setText(total);
+        txtTotal_amount.setText(total);
+    }
 
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -768,6 +772,13 @@ public class view_cart extends javax.swing.JFrame{
     
     private void btn_gcashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_gcashMouseClicked
         jTabbedPane2.setSelectedIndex(1);
+        ArrayList<GCash> gCashArrayList = new ArrayList<>();
+        /*GCASH Displat Ref #*/
+        if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
+            gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
+            amount.setText(gCashArrayList.get(0).getAmount_due());
+            ref_number.setText(gCashArrayList.get(0).getRemarks());
+        }
     }//GEN-LAST:event_btn_gcashMouseClicked
 
     private void btn_cashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cashMouseClicked

@@ -55,7 +55,7 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.219.228:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -94,6 +94,39 @@ public class DatabaseConnection {
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
             System.out.println("Database returnOrdersAccordingToStatusTableNo(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      orderArrayList.add(new Order(
+                              resultSet.getString(1), 
+                              resultSet.getString(2), 
+                              resultSet.getString(3), 
+                              resultSet.getString(4), 
+                              resultSet.getString(5), 
+                              resultSet.getString(6), 
+                              resultSet.getString(7),
+                              resultSet.getString(8)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderArrayList;
+    }
+     
+      public ArrayList<Order> returnOrdersAccordingToStatusTableNoPending(String table_no)  {
+        Connection connection = null;
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getReturnOrdersAccordingToStatusTableNoPending());
+        
+        preparedStatement.setString(1, table_no);
+            System.out.println(getDateTime());
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database PENDING ORDERS(): No Data Retrieved!");}
         else{
             while(resultSet.next()){
                       orderArrayList.add(new Order(
@@ -157,7 +190,7 @@ public class DatabaseConnection {
             while(resultSet.next()){
                    total_amount = resultSet.getString(1);
             }}
-        disconnect(resultSet, preparedStatement, connection);
+            disconnect(resultSet, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -1396,5 +1429,28 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<GCash> getGCashAmountRemarks(String table_name) {
+        Connection connection = null;
+        ArrayList<GCash> gCashArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getgCashAmountRemarks());
+        preparedStatement.setString(1, table_name);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                gCashArrayList.add(new GCash(resultSet.getString(2), resultSet.getString(1)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gCashArrayList;
+     }
 
  }

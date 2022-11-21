@@ -65,19 +65,39 @@ public class SqlStatements {
 "payment ON payment.created_by = orders.created_by \n" +
 "WHERE order_status.order_status=(?) AND orders.created_by = (?) \n" +
 "AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
-    
-    //REVISE:DONE
-    private String returnTotalAmountByTable ="SELECT\n" +
-"SUM(orders.total) AS total_amount\n" +
-"FROM orders\n" +
+        
+        private String returnOrdersAccordingToStatusTableNoPending = "SELECT order_items.order_id,\n" +
+"product.product_name,\n" +
+"order_items.quantity,\n" +
+"IF(order_items.product_bundle,product.product_bundle,product.product_price) AS price,\n" +
+"cast(((IF(order_items.product_bundle,product.product_bundle,product.product_price))*(cast(order_items.quantity as decimal(13,2)))) as decimal(13,2))\n" +
+"AS total,\n" +
+"orders.created_by,\n" +
+"DATE(orders.created_at) AS date,\n" +
+"order_status.order_status\n" +
+"FROM order_items \n" +
 "INNER JOIN\n" +
-"order_status ON order_status.order_id = orders.order_id\n" +
-"LEFT JOIN\n" +
-"payment ON payment.created_by = orders.created_by\n" +
-"WHERE order_status != \"REJECTED\" \n" +
-"AND orders.created_by = (?) \n" +
-"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")\n" +
-"AND DATE(orders.created_at) = current_timestamp(); ";
+"product ON product.product_id = order_items.product_id\n" +
+"INNER JOIN\n" +
+"orders ON orders.order_id = order_items.order_id\n" +
+"INNER JOIN\n" +
+"order_status ON order_status.order_id = order_items.order_id\n" +
+"WHERE (order_status.order_status!=(\"REJECTED\") AND order_status.order_status!=(\"COMPLETED\")) AND orders.created_by = (?) " +
+"";
+
+    public String getReturnOrdersAccordingToStatusTableNoPending() {
+        return returnOrdersAccordingToStatusTableNoPending;
+    }
+    
+    //TODO
+    private String returnTotalAmountByTable ="SELECT \n" +
+"SUM(orders.total),\n" +
+"orders.created_by\n" +
+"FROM orders\n" +
+"INNER JOIN order_status\n" +
+"ON order_status.order_id = orders.order_id\n" +
+"WHERE (order_status.order_status != \"REJECTED\" )\n" +
+"AND orders.created_by = (?);";
     
     private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin');";
     
@@ -125,9 +145,14 @@ public class SqlStatements {
     private String retrieveAllProducts = "SELECT product_name, product_price, product_bundle\n" +
 "FROM product WHERE product_availability = \"available\";";
     
-    private String retrieveAmountDueTableName = "SELECT amount_due, created_by\n" +
-"FROM payment WHERE\n" +
-"created_by = (?) and payment_status = \"PENDING\"";
+    private String retrieveAmountDueTableName = "SELECT \n" +
+"SUM(orders.total),\n" +
+"orders.created_by\n" +
+"FROM orders\n" +
+"INNER JOIN order_status\n" +
+"ON order_status.order_id = orders.order_id\n" +
+"WHERE (order_status.order_status = \"PREPARING\" OR order_status.order_status = \"COMPLETED\")\n" +
+"AND orders.created_by = (?)";
 
     public String getRetrieveAmountDueTableName() {
         return retrieveAmountDueTableName;
@@ -425,6 +450,22 @@ public class SqlStatements {
 "'cashier',\n" +
 "(?)\n" +
 ");";
+    
+    private String gCashAmountRemarks = "SELECT\n" +
+"amount_due,\n" +
+"remarks\n" +
+"FROM \n" +
+"payment \n" +
+"WHERE payment_status = \"PENDING\"\n" +
+"AND created_by = (?);";
+    
+    
+
+    public String getgCashAmountRemarks() {
+        return gCashAmountRemarks;
+    }
+    
+    
     
     public String insertPayment() {
         return this.insertPayment;
