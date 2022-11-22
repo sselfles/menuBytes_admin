@@ -1261,6 +1261,7 @@ public class DatabaseConnection {
                         System.out.println("insertOrder : ID_DATA FOUND");}
                     if(resultSet.next()){
                         order_id = resultSet.getInt(1);
+                        System.out.println("insertOrder : SUCCESSFULLY ADDED TO ORDER");
                     }
             disconnect(resultSet, preparedStatement, connection);
             
@@ -1454,23 +1455,32 @@ public class DatabaseConnection {
         return paymentArrayList;
     }
     
-    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String remarks){
+    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks){
 	Connection connection = null;
           
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertPayment());
-            preparedStatement.setString(1, payment_amount);
-            preparedStatement.setString(2, amount_due);
-            preparedStatement.setString(3, payment_method);
-            preparedStatement.setString(4, payment_status);
-            
-            if (remarks != null){
-                preparedStatement.setString(6, remarks);
+//            preparedStatement.setObject(1, payment_amount, Types.VARCHAR);
+              if (payment_amount != null){
+                preparedStatement.setString(1, payment_amount);
             }
             else {
-                preparedStatement.setNull(6, Types.NULL);
+                preparedStatement.setNull(1, Types.NULL);
             }
+            preparedStatement.setString(2, amount_due);
+            preparedStatement.setObject(3, payment_method, Types.VARCHAR);
+            preparedStatement.setObject(4, payment_status, Types.VARCHAR);
+            preparedStatement.setString(5, created_by);
+            preparedStatement.setObject(6, remarks, Types.VARCHAR);
+//            if (remarks != null){
+//                preparedStatement.setString(6, remarks);
+//            }
+//            else {
+//                preparedStatement.setNull(6, Types.NULL);
+//            }
+            
+            System.out.println("insertPayment() : PAYMENT SUCCESSFULLY INSERTED.");
             
             preparedStatement.executeUpdate();
             

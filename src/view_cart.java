@@ -67,13 +67,12 @@ public class view_cart extends javax.swing.JFrame{
         initComponents();
         //Data to be displayed in the JTable
         this.table_no = table_no;
-        
-//        addRowToPendingJtable();  
-//        addRowToCompletedJtable();
-
-            setSubtotal(table_no);
-        
-           
+        lbl_username.setText(table_no);
+        lbl_amount_due.setText(total);
+        Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
+        txtVat.setText(String.format("%.2f", VAT));
+        txtSubtotal.setText(total);
+        txtTotal_amount.setText(total);
     }
     
     public void displayPaymentInfo(){
@@ -824,7 +823,7 @@ public class view_cart extends javax.swing.JFrame{
                     String payment_status = "COMPLETED";
                     String remarks = ref_number.getText();
 
-                    DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+                    DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks);
                     JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
                 }
                 else {
@@ -832,7 +831,7 @@ public class view_cart extends javax.swing.JFrame{
                 String reference_no = this.ref_number.getText().toString();
                 DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
                 DatabaseConnection.getInstance().updatePaidOrder(table_no);
-
+                
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Total amount and amount paid do not match!\nPlease check and enter them again.", "Payment amount do not match.", JOptionPane.PLAIN_MESSAGE);
@@ -875,7 +874,7 @@ public class view_cart extends javax.swing.JFrame{
                 String payment_status = "COMPLETED";
                 String remarks = null;
 
-                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, remarks);
+                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks);
                 JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }
             else {

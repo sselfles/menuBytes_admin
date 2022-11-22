@@ -54,6 +54,8 @@ public class dashboard extends javax.swing.JFrame {
     
     static Boolean abler = true;
     
+    static int orderID;
+    
     
     
     public dashboard() {
@@ -1510,12 +1512,12 @@ public class dashboard extends javax.swing.JFrame {
     public void addItemtoComboBox(){
         
         if(!usernameQuery().isEmpty()){
-        ArrayList<User> usernameList = usernameQuery();
-        Object rowData[] = new Object[4];
-        for(int position = 0; position < usernameList.size(); position++){
-            order_user.addItem(usernameList.get(position).getUser_name().toString());
-            order_detail_tableNo.addItem(usernameList.get(position).getUser_name().toString());
-        }
+            ArrayList<User> usernameList = usernameQuery();
+            Object rowData[] = new Object[4];
+            for(int position = 0; position < usernameList.size(); position++){
+                order_user.addItem(usernameList.get(position).getUser_name().toString());
+                order_detail_tableNo.addItem(usernameList.get(position).getUser_name().toString());
+            }
         }
     }
     
@@ -1736,25 +1738,21 @@ public class dashboard extends javax.swing.JFrame {
         }
                 
     }//GEN-LAST:event_btn_checkoutMouseClicked
-
+    
+    
     public static void checkout(String username) {
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         int rowCount = Integer.valueOf(model.getRowCount());
+        //making sure that the table is not empty
         if(rowCount >= 0){
-            /*
-            order id = insertOrder_getOrderID(total_amount, user_id);
-                insertOrderStatus(order_id)
-                    for(order:table){
-                        insertOrderItems()    
-                        }
-                
-            */
+            
+            //adding up all the prices
             Double total_temp = Double.parseDouble(order_total_amount.getText());
             String total = String.format("%.2f", total_temp);
-//            String.f
-//            
+            
+            
             System.out.println("THIS IS THE TOTAL" + total);
-            DatabaseConnection.getInstance().insertOrder(username, total);
+            int orderID = DatabaseConnection.getInstance().insertOrder(username, total);
             
             
             for(int position = 0; position < rowCount; position++){
@@ -1790,6 +1788,7 @@ public class dashboard extends javax.swing.JFrame {
                         position --;
                     }
                 }
+                
                 Boolean product_bundle = productBundle.isSelected();
                 Boolean addons;
                 
@@ -1801,14 +1800,13 @@ public class dashboard extends javax.swing.JFrame {
                 System.out.println("addons : " + addons);
                 System.out.println("product_bundle dashboard : " + product_bundle);
                 
-                int order_id = DatabaseConnection.getInstance().insertOrder(username, total);
                 
-                System.out.println("INSERT ORDER STATUS : "+order_id + " " + product_id + " " + quantity + " " + product_bundle + " " + addons + " " + flavors);
+                System.out.println("INSERT ORDER STATUS : "+ orderID + " " + product_id + " " + quantity + " " + product_bundle + " " + addons + " " + flavors);
                 
-                DatabaseConnection.getInstance().insertOrderItems(order_id, product_id, quantity, product_bundle, addons, flavors);
+                DatabaseConnection.getInstance().insertOrderItems(orderID, product_id, quantity, product_bundle, addons, flavors);
             }
             
-            
+            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
             model.setRowCount(0);
             order_total_amount.setText("-");
             
