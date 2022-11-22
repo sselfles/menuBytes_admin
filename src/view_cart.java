@@ -813,9 +813,10 @@ public class view_cart extends javax.swing.JFrame{
             Double amountPaid = Double.parseDouble(amount.getText());
 
             if (amountDue <= amountPaid) {
-                if (this.table_no.equals("cashier")){
-
-                    dashboard.checkout(this.table_no);
+                if (this.table_no.equals("take-out") || this.table_no.equals("dine-in")){
+                String cashier = "cashier";
+                
+                dashboard.checkout(cashier, this.table_no);
 
                     String payment_method = "GCash";
                     String payment_amount = amount.getText();
@@ -864,16 +865,18 @@ public class view_cart extends javax.swing.JFrame{
         
         if(cashReceived >= totalAmount){
             
-            if (this.table_no.equals("cashier")){
-            
-                dashboard.checkout(this.table_no);
+            if (this.table_no.equals("take-out") || this.table_no.equals("dine-in")){
+                String cashier = "cashier";
+                
+                dashboard.checkout(cashier, this.table_no);
 
                 String payment_method = "Cash";
                 String payment_amount = txt_cash_received.getText();
                 String amount_due = txtTotal_amount.getText();
                 String payment_status = "COMPLETED";
                 String remarks = null;
-
+                
+                System.out.println("Cash payment received successfully.");
                 DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks);
                 JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }

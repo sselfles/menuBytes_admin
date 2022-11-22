@@ -398,10 +398,10 @@ public class SqlStatements {
     
     private String insertOrder = "INSERT INTO orders(user_id, total, created_at, created_by) \n" +
 "VALUES(\n" +
-"((SELECT user_id from user where user_id = (?))),\n" +
+"((SELECT user_id from user where user_name = (?))),\n" +
 "(?),\n" +
 "(current_timestamp()),\n" +
-"((SELECT user_name from user where user_name = (?)))\n" +
+"(?)\n" +
 ");";
     
     private String insertOrderStatus = "INSERT INTO order_status(order_id, order_status, created_at, created_by)\n" +
@@ -443,8 +443,8 @@ public class SqlStatements {
         
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
-    private String insertPayment = "INSERT INTO payment(payment_amount, amount_due, payment_method, payment_status, created_by, remarks, created_at)\n" +
-"VALUES((?), (?), (?), (?), (?), (?), current_timestamp());";
+    private String insertPayment = "INSERT INTO payment(order_id, created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at)\n" +
+"VALUES((?), (?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp());";
     
     private String gCashAmountRemarks = "SELECT\n" +
 "amount_due,\n" +

@@ -64,7 +64,7 @@ public class dashboard extends javax.swing.JFrame {
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         addRowToTableList();
-        addItemtoComboBox();
+//        addItemtoComboBox();
         
         Runnable refreshDatas = new Runnable() {
         public void run() {
@@ -91,7 +91,7 @@ public class dashboard extends javax.swing.JFrame {
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         this.user_id = user_id;
-        addItemtoComboBox();
+//        addItemtoComboBox();
         addRowToTableList();
         Runnable refreshDatas = new Runnable() {
         public void run() {
@@ -793,6 +793,7 @@ public class dashboard extends javax.swing.JFrame {
 
         order_user.setBackground(new java.awt.Color(255, 12, 19));
         order_user.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        order_user.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "take-out", "dine-in" }));
         jPanel7.add(order_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 390, 40));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
@@ -1110,6 +1111,8 @@ public class dashboard extends javax.swing.JFrame {
 
         order_detail_tableNo.setBackground(new java.awt.Color(255, 12, 19));
         order_detail_tableNo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        order_detail_tableNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "take-out", "dine-in" }));
+        order_detail_tableNo.setSelectedIndex(-1);
         order_detail_tableNo.setEnabled(false);
 
         jLabel44.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -1509,26 +1512,27 @@ public class dashboard extends javax.swing.JFrame {
         return usernameList;
     }
     
-    public void addItemtoComboBox(){
-        
-        if(!usernameQuery().isEmpty()){
-            ArrayList<User> usernameList = usernameQuery();
-            Object rowData[] = new Object[4];
-            for(int position = 0; position < usernameList.size(); position++){
-                order_user.addItem(usernameList.get(position).getUser_name().toString());
-                order_detail_tableNo.addItem(usernameList.get(position).getUser_name().toString());
-            }
-        }
-    }
+//    public void addItemtoComboBox(){
+//        
+//        if(!usernameQuery().isEmpty()){
+//            ArrayList<User> usernameList = usernameQuery();
+//            Object rowData[] = new Object[4];
+//            for(int position = 0; position < usernameList.size(); position++){
+//                order_user.addItem(usernameList.get(position).getUser_name().toString());
+//                order_detail_tableNo.addItem(usernameList.get(position).getUser_name().toString());
+//            }
+//        }
+//    }
     
     
     
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         jTabbedPane1.setSelectedIndex(1); 
         addDefaultRowToMenuList();
-        order_user.removeAllItems();
-        addItemtoComboBox();
-        
+//        order_user.removeAllItems();
+//        addItemtoComboBox();
+        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_menuMouseClicked
 
     private void menuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMousePressed
@@ -1721,8 +1725,8 @@ public class dashboard extends javax.swing.JFrame {
         int rowCount = list_orders.getRowCount();
         
         if(rowCount > 0) {
-            if(username.equals("take-out")){
-                username = "cashier";
+            if(username.equals("take-out") || username.equals("dine-in")){
+//                username = "cashier";
                 view_cart viewCart = new view_cart(username, order_total_amount.getText());
                 if (viewCart.isVisible()){
                     viewCart.setVisible(false);
@@ -1730,9 +1734,7 @@ public class dashboard extends javax.swing.JFrame {
                 } else {
                     viewCart.setVisible(true);
                 }
-            } else {
-                checkout(username);
-            }
+            } 
         } else {
             JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
         }
@@ -1740,7 +1742,7 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_checkoutMouseClicked
     
     
-    public static void checkout(String username) {
+    public static void checkout(String cashier, String takeOut) {
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         int rowCount = Integer.valueOf(model.getRowCount());
         //making sure that the table is not empty
@@ -1752,7 +1754,7 @@ public class dashboard extends javax.swing.JFrame {
             
             
             System.out.println("THIS IS THE TOTAL" + total);
-            int orderID = DatabaseConnection.getInstance().insertOrder(username, total);
+            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, total);
             
             
             for(int position = 0; position < rowCount; position++){
@@ -1806,7 +1808,7 @@ public class dashboard extends javax.swing.JFrame {
                 DatabaseConnection.getInstance().insertOrderItems(orderID, product_id, quantity, product_bundle, addons, flavors);
             }
             
-            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
+//            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
             model.setRowCount(0);
             order_total_amount.setText("-");
             
@@ -2085,7 +2087,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> order_detail_tableNo;
     private javax.swing.JPanel order_queue_tab;
     private static javax.swing.JLabel order_total_amount;
-    private javax.swing.JComboBox<String> order_user;
+    private static javax.swing.JComboBox<String> order_user;
     private javax.swing.JLabel place_order;
     private static javax.swing.JRadioButton productBundle;
     private javax.swing.JLabel remove_order;
