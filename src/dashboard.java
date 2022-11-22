@@ -1754,7 +1754,7 @@ public class dashboard extends javax.swing.JFrame {
             
             
             System.out.println("THIS IS THE TOTAL" + total);
-            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, total);
+            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, takeOut, total);
             
             
             for(int position = 0; position < rowCount; position++){

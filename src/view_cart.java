@@ -34,6 +34,9 @@ public class view_cart extends javax.swing.JFrame{
      */
     private String table_no;
     private String total;
+    //WAG GALAWIN ang arraylist na tohsqxs
+     private static ArrayList<Order> orderArrayList = new ArrayList<>();
+   
     
     public void setTableNo(String table_no)
     {
@@ -566,14 +569,14 @@ public class view_cart extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Qty", "Product", "Price"
+                "Order ID", "Qty", "Product", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -596,11 +599,12 @@ public class view_cart extends javax.swing.JFrame{
         list_pending_orders.setViewportView(tbl_pending_orders);
         if (tbl_pending_orders.getColumnModel().getColumnCount() > 0) {
             tbl_pending_orders.getColumnModel().getColumn(0).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
             tbl_pending_orders.getColumnModel().getColumn(1).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbl_pending_orders.getColumnModel().getColumn(1).setPreferredWidth(20);
             tbl_pending_orders.getColumnModel().getColumn(2).setResizable(false);
-            tbl_pending_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tbl_pending_orders.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbl_pending_orders.getColumnModel().getColumn(3).setResizable(false);
+            tbl_pending_orders.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout pending_orders_tabLayout = new javax.swing.GroupLayout(pending_orders_tab);
@@ -635,14 +639,14 @@ public class view_cart extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Qty", "Product", "Price"
+                "Order ID", "Qty", "Product", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -665,11 +669,12 @@ public class view_cart extends javax.swing.JFrame{
         list_completed_orders.setViewportView(tbl_completed_orders);
         if (tbl_completed_orders.getColumnModel().getColumnCount() > 0) {
             tbl_completed_orders.getColumnModel().getColumn(0).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(0).setPreferredWidth(20);
             tbl_completed_orders.getColumnModel().getColumn(1).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbl_completed_orders.getColumnModel().getColumn(1).setPreferredWidth(20);
             tbl_completed_orders.getColumnModel().getColumn(2).setResizable(false);
-            tbl_completed_orders.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tbl_completed_orders.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbl_completed_orders.getColumnModel().getColumn(3).setResizable(false);
+            tbl_completed_orders.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout completed_orders_tavLayout = new javax.swing.GroupLayout(completed_orders_tav);
@@ -717,25 +722,30 @@ public class view_cart extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel)tbl_pending_orders.getModel();
         if(!ListPendingOrders().isEmpty()){
         ArrayList<Order> orderArrayList = ListPendingOrders();
-        Object rowData[] = new Object[3];
+        Object rowData[] = new Object[4];
         for(int position = 0; position < orderArrayList.size(); position++){
-            rowData[0] = orderArrayList.get(position).getQuantity();
-            rowData[1] = orderArrayList.get(position).getProduct_name();
-            rowData[2] = orderArrayList.get(position).getProduct_price();
+            rowData[0] = orderArrayList.get(position).getOrder_id();
+            rowData[1] = orderArrayList.get(position).getQuantity();
+            rowData[2] = orderArrayList.get(position).getProduct_name();
+            rowData[3] = orderArrayList.get(position).getProduct_price();
             model.addRow(rowData);
         }
         }
     }
     
+   
+   
     public void addRowToCompletedJtable(){
         DefaultTableModel model = (DefaultTableModel)tbl_completed_orders.getModel();
         if(!ListOrders("COMPLETED").isEmpty()){
         ArrayList<Order> orderArrayList = ListOrders("COMPLETED");
-        Object rowData[] = new Object[3];
+        this.orderArrayList = orderArrayList;
+        Object rowData[] = new Object[4];
         for(int position = 0; position < orderArrayList.size(); position++){
-            rowData[0] = orderArrayList.get(position).getQuantity();
-            rowData[1] = orderArrayList.get(position).getProduct_name();
-            rowData[2] = orderArrayList.get(position).getProduct_price();
+            rowData[0] = orderArrayList.get(position).getOrder_id();
+            rowData[1] = orderArrayList.get(position).getQuantity();
+            rowData[2] = orderArrayList.get(position).getProduct_name();
+            rowData[3] = orderArrayList.get(position).getProduct_price();
             model.addRow(rowData);
         }
         }
@@ -784,10 +794,11 @@ public class view_cart extends javax.swing.JFrame{
         jTabbedPane2.setSelectedIndex(2);
         ArrayList<Payment> payment = new ArrayList<>();
         payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
+        String payment_amount = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
         if(!payment.isEmpty()){
             lbl_amount_due.setText(payment.get(0).getAmount_due());
             lbl_username.setText(payment.get(0).getTable_no());
-            
+            txt_cash_received.setText(payment_amount);
         }
         lbl_amount_due.setText(txtTotal_amount.getText());
         
@@ -823,15 +834,37 @@ public class view_cart extends javax.swing.JFrame{
                     String amount_due = txtTotal_amount.getText();
                     String payment_status = "COMPLETED";
                     String remarks = ref_number.getText();
-
+                    
+                    //Get payment_id nito
                     DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks);
+                    
+                    //Get order_id generated rin from this transaction
+                    
+                    //No need for loop since 1 order lang toh
+                    //DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, order_id);
                     JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
                 }
                 else {
                 String amount = this.amount.getText().toString();
                 String reference_no = this.ref_number.getText().toString();
+                
+                 //Update Payment Status to Complete WAG GALAWIN
+                String payment_id = DatabaseConnection.getInstance().returnPaymentIDByTable(table_no);
+                        
                 DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
+                
+                //Insert Payment ID and Order ID to payment_transactions table, WAG GALAWIN ANG QUERY
+                if(payment_id != null){
+                    if(!orderArrayList.isEmpty()){
+                        for(int position = 0; position < orderArrayList.size(); position++){
+                        DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, orderArrayList.get(position).getOrder_id());
+                        }                   
+                    }
+                }
+                
+                //Updating of modified_at, WAG GALAWIN ANG QUERY
                 DatabaseConnection.getInstance().updatePaidOrder(table_no);
+                
                 
                 }
             } else {
@@ -877,12 +910,29 @@ public class view_cart extends javax.swing.JFrame{
                 String remarks = null;
                 
                 System.out.println("Cash payment received successfully.");
+                //Get payment_id nito
                 DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks);
+                 
+                //Get order_id from this transaction
+                
+                //No need for loop since 1 order lang toh
+                //DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, order_id);
                 JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }
             else {
                 System.out.println("CASH PAYMENT COMPLETED");
+                //WAG GALAWIN
+                String payment_id = DatabaseConnection.getInstance().returnPaymentIDByTable(table_no);
+               
                 DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
+                //Insert Payment ID and Order ID to payment_transactions table, WAG GALAWIN ANG QUERY
+                if(payment_id != null){
+                    if(!orderArrayList.isEmpty()){
+                        for(int position = 0; position < orderArrayList.size(); position++){
+                        DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, orderArrayList.get(position).getOrder_id());
+                        }                   
+                    }
+                }
                 DatabaseConnection.getInstance().updatePaidOrder(table_no);
             }
             txt_cash_received.setText("0.00");

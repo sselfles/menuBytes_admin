@@ -53,10 +53,10 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-//            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
-//                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
-                                    "admin", "admin");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
+                    "admin", "admin");
+//                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+//                                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
@@ -80,6 +80,7 @@ public class DatabaseConnection {
             System.out.println("Error: disconnect1");
         }
     }
+    
     
      public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no)  {
         Connection connection = null;
@@ -365,9 +366,27 @@ public class DatabaseConnection {
         }
         return orderArrayList;
      }
-     
+          /*
+                    statement = connection.prepareStatement(sqlStatements.getInsertIntoOrders(), Statement.RETURN_GENERATED_KEYS);
+                    double total = Double.valueOf(params[0]);
+                    String user_id = params[1];
+                    String created_at = returnDateTime();
+                    statement.setInt(1,Integer.valueOf(user_id));
+                    statement.setDouble(2,total);
+                    statement.setString(3,created_at);
+                    statement.setInt(4,Integer.valueOf(user_id));
+                    statement.executeUpdate();
+
+                    resultSet = statement.getGeneratedKeys();
+                    if (!resultSet.isBeforeFirst()) {
+                    } else {}
+                    if(resultSet.next()){
+                        order_id = resultSet.getInt(1);
+                    }
+     */
      public void updateGCashPayment(String amount, String referenceno, String table_no) {
         Connection connection = null;
+        String payment_id = null;
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateGCashPayment()); 
@@ -375,11 +394,37 @@ public class DatabaseConnection {
         preparedStatement.setString(2, referenceno);
         preparedStatement.setString(3, table_no);
         preparedStatement.executeUpdate();
-            disconnect(null, preparedStatement, connection);
+
+                    disconnect(null, preparedStatement, connection);
+                    
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+     }
+     
+     public String returnPaymentIDByTable(String table_name){
+         Connection connection = null;
+       String payment_id = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getPaymentIDFromTable());
+        preparedStatement.setString(1, table_name);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database returnPaymentIDByTable(): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                      payment_id = resultSet.getString(1);
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payment_id;
      }
      
      public void rejectGCashPayment(String amount, String referenceno, String table_no) {
@@ -397,13 +442,30 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
-     
+
      public void updatePaidOrder(String table_no) {
           Connection connection = null;
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdatePaidOrder()); 
         preparedStatement.setString(1, table_no);
+        preparedStatement.executeUpdate();
+
+            disconnect(null, preparedStatement, connection);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     //TODO*
+     public void insertIntoPaymentTransactions(String payment_id, String order_id){
+            Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getInsertIntoPaymentTransactions()); 
+        preparedStatement.setInt(1, Integer.valueOf(payment_id));
+        preparedStatement.setInt(2, Integer.valueOf(order_id));
         preparedStatement.executeUpdate();
             disconnect(null, preparedStatement, connection);
         }
@@ -1241,7 +1303,7 @@ public class DatabaseConnection {
         return userArrayList;
     }
     
-    public int insertOrder(String user_id, String total){
+    public int insertOrder(String user_id, String created_by, String total){
 	Connection connection = null;
         int order_id = 0;
           
@@ -1250,7 +1312,7 @@ public class DatabaseConnection {
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrder(), Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user_id);
             preparedStatement.setDouble(2,Double.valueOf(total));
-            preparedStatement.setString(3, user_id);
+            preparedStatement.setString(3, created_by);
             preparedStatement.executeUpdate();
             
             ResultSet resultSet;
@@ -1468,11 +1530,11 @@ public class DatabaseConnection {
             else {
                 preparedStatement.setNull(1, Types.NULL);
             }
-            preparedStatement.setString(2, amount_due);
-            preparedStatement.setObject(3, payment_method, Types.VARCHAR);
-            preparedStatement.setObject(4, payment_status, Types.VARCHAR);
-            preparedStatement.setString(5, created_by);
-            preparedStatement.setObject(6, remarks, Types.VARCHAR);
+                preparedStatement.setString(2, amount_due);
+                preparedStatement.setObject(3, payment_method, Types.VARCHAR);
+                preparedStatement.setObject(4, payment_status, Types.VARCHAR);
+                preparedStatement.setString(5, created_by);
+                preparedStatement.setObject(6, remarks, Types.VARCHAR);
 //            if (remarks != null){
 //                preparedStatement.setString(6, remarks);
 //            }
@@ -1493,6 +1555,32 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public String getCashPaymentAmountReceived(String table_no){
+    	Connection connection = null;
+        String payment_amount = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getCashAmountReceived());
+            preparedStatement.setString(1, table_no);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+                    if (!resultSet.isBeforeFirst()) {
+                        System.out.println("getPaymentAmountReceived: NO ID_DATA FOUND");
+                    } else {
+                        System.out.println("getPaymentAmountReceived: ID_DATA FOUND");}
+                    if(resultSet.next()){
+                        payment_amount = resultSet.getString(1);
+                    }
+            disconnect(resultSet, preparedStatement, connection);
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payment_amount;}
     
     public ArrayList<GCash> getGCashAmountRemarks(String table_name) {
         Connection connection = null;

@@ -12,11 +12,18 @@ public class Payment {
     private String table_no;
     private String table_name;
     private String payment_method;
+    private String payment_amount;
     private String total_amount;
     private String status;
     private String amount_due;
-    
 
+    public Payment(String payment_amount) {
+        this.payment_amount = payment_amount;
+    }
+
+
+
+    
     public Payment(String table_no,String total_amount, String status) {
         this.table_no = table_no;
         this.total_amount = total_amount;
@@ -32,6 +39,14 @@ public class Payment {
     public Payment(String amount_due,String table_no) {
         this.table_no = table_no;
         this.amount_due = amount_due;
+    }
+    
+        public String getPayment_amount() {
+        return payment_amount;
+    }
+
+    public void setPayment_amount(String payment_amount) {
+        this.payment_amount = payment_amount;
     }
     
 

@@ -104,10 +104,10 @@ public class SqlStatements {
     private String checkUsernamePassword = "SELECT user_id FROM user WHERE user_name = (?) AND password = (?);";
     
     private String retrieveOrderListQueue = "SELECT \n" +
-"orders.order_id, orders.created_by,orderitems.qty,order_status.order_status\n" +
+"orders.order_id, orders.created_by, orderitems.qty, order_status.order_status\n" +
 "FROM orders\n" +
 "JOIN\n" +
-"(SELECT order_id, SUM(quantity) AS qty FROM order_items WHERE order_items.product_id != (15) GROUP BY order_id)\n" +
+"(SELECT order_id, SUM(quantity) AS qty FROM order_items WHERE order_items.product_id != ((SELECT product_id FROM product WHERE product_name = \"Shawarma All Meat\")) GROUP BY order_id)\n" +
 "AS orderitems ON orderitems.order_id = orders.order_id\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = orders.order_id\n" +
@@ -116,7 +116,8 @@ public class SqlStatements {
 "LEFT JOIN\n" +
 "payment ON payment.created_by = orders.created_by\n" +
 "WHERE order_status != \"REJECTED\" AND order_status != \"COMPLETED\"\n" +
-"AND EXISTS (SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
+"AND (EXISTS(SELECT user_name FROM user WHERE user.user_name = orders.created_by)\n" +
+"OR orders.created_by = \"take-out\" OR orders.created_by = \"dine-in\")\n" +
 "AND DATE(orders.created_at) = curdate() \n" +
 "GROUP BY orders.order_id;";
     
@@ -168,6 +169,14 @@ public class SqlStatements {
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
     
+     private String getPaymentIDFromTable = "SELECT payment.payment_id FROM payment WHERE created_by = (?) and payment_status = \"PENDING\";";
+
+    public String getPaymentIDFromTable() {
+        return getPaymentIDFromTable;
+    }
+     
+     
+    
     private String rejectGCashPayment = "UPDATE payment\n" +
 "SET \n" +
 "created_by = concat(created_by, \"_\") ,\n" +
@@ -191,15 +200,26 @@ public class SqlStatements {
     public String getUpdateCashPayment() {
         return updateCashPayment;
     }
-     
-     
-    //"created_by = concat(created_by, \"_\") ,\n" +
-    private String updatePaidOrder = "UPDATE orders\n" +
+         
+     private String updatePaidOrder = "UPDATE orders\n" +
 "SET \n" +
 "modified_at = current_timestamp()\n" +
 "WHERE \n" +
 "created_by = (?);";
     
+     private String insertIntoPaymentTransactions = "INSERT INTO payment_transactions(payment_id,order_id)\n" +
+"VALUES\n" +
+"(\n" +
+"(?),\n" +
+"(?)\n" +
+");";
+
+    public String getInsertIntoPaymentTransactions() {
+        return insertIntoPaymentTransactions;
+    }
+     
+     
+     
     private String notifyCashierOfPayments = "SELECT payment.created_by, payment.payment_method, payment.payment_status\n" +
 "FROM\n" +
 "payment\n" +
@@ -443,7 +463,7 @@ public class SqlStatements {
         
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
-    private String insertPayment = "INSERT INTO payment(order_id, created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at)\n" +
+    private String insertPayment = "INSERT INTO payment(order_id,created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at)\n" +
 "VALUES((?), (?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp());";
     
     private String gCashAmountRemarks = "SELECT\n" +
@@ -454,6 +474,16 @@ public class SqlStatements {
 "WHERE payment_status = \"PENDING\"\n" +
 "AND created_by = (?);";
     
+       private String CashAmountReceived = "SELECT\n" +
+"payment_amount\n" +
+"FROM \n" +
+"payment \n" +
+"WHERE payment_status = \"PENDING\"\n" +
+"AND created_by = (?);";
+
+    public String getCashAmountReceived() {
+        return CashAmountReceived;
+    }
     
 
     public String getgCashAmountRemarks() {
