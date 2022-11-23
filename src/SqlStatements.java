@@ -383,10 +383,10 @@ public class SqlStatements {
     
     private String productDuplicateChecker = "SELECT product_name FROM product WHERE product_name = (?);";
     
-    private String addProduct = "INSERT INTO product (product_name, product_price, product_bundle, product_description, product_img, product_category, product_availability)\n" +
+    private String addProduct = "INSERT INTO product (product_name, product_price, product_bundle, product_description, product_image, product_category, product_availability)\n" +
 "VALUES ( (?), (?), (?), (?), (?), (?), \"available\" );";
     
-    private String addProductSolo = "INSERT INTO product (product_name, product_price, product_bundle, product_description,product_img, product_category, product_availability)\n" +
+    private String addProductSolo = "INSERT INTO product (product_name, product_price, product_bundle, product_description,product_image, product_category, product_availability)\n" +
 "VALUES ( (?), (?), NULL, (?), (?), (?), \"available\" );";
     
     private String updateProduct = "UPDATE product SET\n" +
@@ -396,7 +396,7 @@ public class SqlStatements {
     
     private String updateProductWithImage = "UPDATE product SET\n" +
 "product_name = (?), product_price = (?), product_bundle = (?), product_description = (?),\n" +
-"product_img = (?), product_category = (?), product_availability = (?)\n" +
+"product_image = (?), product_category = (?), product_availability = (?)\n" +
 "WHERE product_name = (?);";
     
     private String getProductInfo = "SELECT product_id, product_name, product_price, product_bundle, product_description, product_category, product_availability FROM product WHERE product_name = (?);";
