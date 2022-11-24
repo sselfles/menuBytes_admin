@@ -526,8 +526,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         label_backup = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         label_backup1 = new javax.swing.JLabel();
-        btn_restore = new javax.swing.JButton();
+        btn_chooseFile = new javax.swing.JButton();
         btn_backup = new javax.swing.JButton();
+        btn_restore = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -1996,16 +1997,16 @@ public class admin_dashboard extends javax.swing.JFrame {
         label_backup1.setText("jLabel21");
         backup_restore_tab.add(label_backup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 510, 570, 120));
 
-        btn_restore.setBackground(new java.awt.Color(255, 0, 0));
-        btn_restore.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        btn_restore.setForeground(new java.awt.Color(255, 255, 255));
-        btn_restore.setText("RESTORE");
-        btn_restore.addActionListener(new java.awt.event.ActionListener() {
+        btn_chooseFile.setBackground(new java.awt.Color(255, 0, 0));
+        btn_chooseFile.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        btn_chooseFile.setForeground(new java.awt.Color(255, 255, 255));
+        btn_chooseFile.setText("Choose File");
+        btn_chooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_restoreActionPerformed(evt);
+                btn_chooseFileActionPerformed(evt);
             }
         });
-        backup_restore_tab.add(btn_restore, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 280, 190));
+        backup_restore_tab.add(btn_chooseFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, 280, 80));
 
         btn_backup.setBackground(new java.awt.Color(255, 0, 0));
         btn_backup.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -2016,7 +2017,19 @@ public class admin_dashboard extends javax.swing.JFrame {
                 btn_backupActionPerformed(evt);
             }
         });
-        backup_restore_tab.add(btn_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 180, 280, 190));
+        backup_restore_tab.add(btn_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 170, 280, 80));
+
+        btn_restore.setBackground(new java.awt.Color(255, 0, 0));
+        btn_restore.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        btn_restore.setForeground(new java.awt.Color(255, 255, 255));
+        btn_restore.setText("RESTORE");
+        btn_restore.setActionCommand("RESTORE");
+        btn_restore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_restoreActionPerformed(evt);
+            }
+        });
+        backup_restore_tab.add(btn_restore, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 280, 80));
 
         jTabbedPane1.addTab("tab1", backup_restore_tab);
 
@@ -2592,22 +2605,16 @@ public class admin_dashboard extends javax.swing.JFrame {
     
     private void btn_backupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backupActionPerformed
         
-        chooser.setDialogTitle("Save");
-        chooser.setAcceptAllFileFilterUsed(false);
-        //will only select the directory/folders where the database will be saved
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.showOpenDialog(null);
-        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-            System.out.println("getCurrentDirectory(): " 
-               +  chooser.getCurrentDirectory());
-            System.out.println("getSelectedFile() : " 
-               +  chooser.getSelectedFile());
-        }
+       DatabaseConnection.getInstance().backupDatabase();
+       
     }//GEN-LAST:event_btn_backupActionPerformed
 
-    private void btn_restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restoreActionPerformed
+    private static String filepathname = null;
+    
+    private void btn_chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseFileActionPerformed
         try 
         {
+            JFileChooser chooser= new JFileChooser("C:\\MySQLBackup");
             chooser.setDialogTitle("Open");
             
             //disable all file types accepted option
@@ -2619,17 +2626,26 @@ public class admin_dashboard extends javax.swing.JFrame {
             File file = chooser.getSelectedFile();
 
             //file name
-            String fileName = file.getName();
+            filepathname = String.valueOf(file);
+            
             //will receive the file
             FileInputStream inputStream = new FileInputStream(file);
             
             
             System.out.println(file);
+            System.out.println(filepathname);
             
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_btn_chooseFileActionPerformed
+
+    private void btn_restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restoreActionPerformed
+        if(filepathname!=null){
+            DatabaseConnection.getInstance().restoreDatabaseFromFile(filepathname);
+        }
+        
     }//GEN-LAST:event_btn_restoreActionPerformed
 
     /**
@@ -2675,6 +2691,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private roundPanel btn_addMenu;
     private roundPanel btn_addUser;
     private javax.swing.JButton btn_backup;
+    private javax.swing.JButton btn_chooseFile;
     private roundPanel btn_deleteMenu;
     private roundPanel btn_deleteUser;
     private roundPanel btn_editMenu;
