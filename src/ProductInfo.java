@@ -17,7 +17,11 @@ public class ProductInfo {
     private String product_description;
     private String product_image;
     private String bundle;
-
+    private String quantity;
+    private boolean product_bundle;
+    private boolean has_addons;
+    private String flavors;
+    
     public ProductInfo(String product_id, String product_name, String product_price, String bundle, String product_description, String product_category, String product_availability) {
         this.product_id = product_id;
         this.product_name = product_name;
@@ -43,6 +47,57 @@ public class ProductInfo {
         this.product_price = product_price;
         this.bundle = bundle;
     }
+    
+//                  (orderID, product_id, quantity, product_bundle, addons, flavors);
+
+    public ProductInfo(String product_id, String quantity, boolean product_bundle, boolean has_addons, String flavors) {
+        this.product_id = product_id;
+        this.quantity = quantity;
+        this.product_bundle = product_bundle;
+        this.has_addons = has_addons;
+        this.flavors = flavors;
+    }
+
+    
+    public String getFlavors() {
+        return flavors;
+    }
+
+    public void setFlavors(String flavors) {
+        this.flavors = flavors;
+    }
+    
+    
+
+    public boolean isProduct_bundle() {
+        return product_bundle;
+    }
+
+    public void setProduct_bundle(boolean product_bundle) {
+        this.product_bundle = product_bundle;
+    }
+
+    public boolean isHas_addons() {
+        return has_addons;
+    }
+
+    public void setHas_addons(boolean has_addons) {
+        this.has_addons = has_addons;
+    }
+    
+    
+    
+
+    
+    
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+    
     
     
 

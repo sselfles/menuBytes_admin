@@ -21,7 +21,6 @@ public class OrderItems {
         this.total_price = total_price;
     }
     
-    
     public String getProduct_name() {
         return product_name;
     }
