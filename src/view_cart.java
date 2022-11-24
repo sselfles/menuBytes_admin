@@ -773,8 +773,8 @@ public class view_cart extends javax.swing.JFrame{
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         close();
-        view_cart vc = new view_cart();
-        dashboard db = new dashboard();
+//        view_cart vc = new view_cart();
+//        dashboard db = new dashboard();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     

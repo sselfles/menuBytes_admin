@@ -39,7 +39,7 @@ public class dashboard extends javax.swing.JFrame {
     /**
      * Creates new form dashboard
      */ 
-    
+        static DefaultTableModel list_orders_model;
     Color defaultColor, clickedColor;
     view_cart viewCart1;
     view_cart viewCart2;
@@ -91,6 +91,7 @@ public class dashboard extends javax.swing.JFrame {
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
         this.user_id = user_id;
+        list_orders_model = (DefaultTableModel) list_orders.getModel();
 //        addItemtoComboBox();
         addRowToTableList();
         Runnable refreshDatas = new Runnable() {
@@ -1355,13 +1356,15 @@ public class dashboard extends javax.swing.JFrame {
         System.out.println(product_quantity + product_name + product_total_amount); // working
         
 //TODO: ADD TO CART
-        DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
-        model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
-        model.fireTableDataChanged();
+//        DefaultTableModel model = (DefaultTableModel)list_orders.getModel();
+//        model.addRow(new Object[] { product_quantity, product_name, product_total_amount });
+//        model.fireTableDataChanged();
         
         productBundle.hide();
         
     }
+    
+    
     
     public void retrieveKitchenLogs(){
         if(! menuDefaultList().isEmpty()){
@@ -1531,8 +1534,9 @@ public class dashboard extends javax.swing.JFrame {
         addDefaultRowToMenuList();
 //        order_user.removeAllItems();
 //        addItemtoComboBox();
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
-        model.setRowCount(0);
+//TODO*
+//        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+//        model.setRowCount(0);
     }//GEN-LAST:event_menuMouseClicked
 
     private void menuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMousePressed
@@ -1849,13 +1853,15 @@ public class dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_notification_tableMouseClicked
 
+    
     private void remove_orderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_remove_orderMouseClicked
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         
         int selectedRowIndex = list_orders.getSelectedRow();
+
+           System.out.println("selectedRowIndex: " + String.valueOf(selectedRowIndex));
         
         if (selectedRowIndex >= 0) {
-            model.removeRow(selectedRowIndex);
+            list_orders_model.removeRow(selectedRowIndex);
             productArrayList.remove(selectedRowIndex);
         } else {
             JOptionPane.showMessageDialog(null, "Please select the order you wish to delete.", "Order Selection is missing!", JOptionPane.PLAIN_MESSAGE);
@@ -1867,6 +1873,8 @@ public class dashboard extends javax.swing.JFrame {
     
     private static ArrayList<ProductInfo> productArrayList = new ArrayList<>();
     
+    
+    
     public static void AddRowToListOrdersTable(String product_id, String quantity,String product_name,String product_price, Boolean product_bundle, Boolean has_addOns, String flavors){
 //              (orderID, product_id, quantity, product_bundle, addons, flavors);
 
@@ -1875,12 +1883,13 @@ public class dashboard extends javax.swing.JFrame {
         productBundle.setSelected(product_bundle);
         price += Double.valueOf(product_price);
         
-        DefaultTableModel list_orders_model = (DefaultTableModel) list_orders.getModel();
+        
         Object rowData[] = new Object[3];
         rowData[0] = quantity;
         rowData[1] = product_name;
         rowData[2] = product_price;
         list_orders_model.addRow(rowData);
+        
         
         order_total_amount.setText(String.format("%.2f", price));
         
@@ -1902,10 +1911,9 @@ public class dashboard extends javax.swing.JFrame {
     }
     
         public static void checkout(String cashier, String takeOut) {
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
-        int rowCount = Integer.valueOf(model.getRowCount());
+        int productArrayList_size = productArrayList.size();
         //making sure that the table is not empty
-        if(rowCount >= 0){
+        if(productArrayList_size > 0){
             
             //adding up all the prices
             Double total_temp = Double.parseDouble(order_total_amount.getText());
@@ -1929,7 +1937,8 @@ public class dashboard extends javax.swing.JFrame {
             }
                 productArrayList.clear();
 //            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
-            model.setRowCount(0);
+            list_orders_model.setRowCount(0);
+
             order_total_amount.setText("-");
             
             
