@@ -23,7 +23,7 @@ public class SqlStatements {
      
         private String returnUserNameAmountStatus = "Select \n" +
 "user_name,\n" +
-"SUM(orders.total) AS total_amount,\n" +
+"IF((DATE(orders.created_at) = curdate()),SUM(orders.total),0)AS total_amount,\n" +
 "IF((COUNT(IF(order_status.order_status=\"PENDING\" OR order_status.order_status=\"IN QUEUE\" OR order_status.order_status=\"PREPARING\" ,1,NULL))),\"PENDING\", \"\") AS status\n" +
 "FROM user\n" +
 "LEFT JOIN orders ON orders.created_by = user.user_name\n" +
@@ -33,13 +33,13 @@ public class SqlStatements {
 "UNION\n" +
 "Select \n" +
 "user_name,\n" +
-"SUM(orders.total) AS total_amount,\n" +
+"IF((DATE(orders.created_at) = curdate()),SUM(orders.total),0)AS total_amount,\n" +
 "IF((COUNT(IF(order_status.order_status=\"PENDING\" OR order_status.order_status=\"IN QUEUE\" OR order_status.order_status=\"PREPARING\" ,1,NULL))),\"PENDING\", \"\") AS status\n" +
 "FROM user\n" +
 "RIGHT JOIN orders ON orders.created_by = user.user_name\n" +
 "RIGHT JOIN order_status ON order_status.order_id = orders.order_id\n" +
 "WHERE user_type = \"customer\"\n" +
-"GROUP BY user.user_id";
+"GROUP BY user.user_id;";
 
     public String getReturnUserNameAmountStatus() {
         return returnUserNameAmountStatus;
@@ -64,7 +64,7 @@ public class SqlStatements {
 "LEFT JOIN\n" +
 "payment ON payment.created_by = orders.created_by \n" +
 "WHERE order_status.order_status=(?) AND orders.created_by = (?) \n" +
-"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\")";
+"AND (payment.payment_status IS NULL OR payment.payment_status = \"PENDING\") AND DATE(orders.created_at) = current_date()";
         
         private String returnOrdersAccordingToStatusTableNoPending = "SELECT order_items.order_id,\n" +
 "product.product_name,\n" +
@@ -82,7 +82,7 @@ public class SqlStatements {
 "orders ON orders.order_id = order_items.order_id\n" +
 "INNER JOIN\n" +
 "order_status ON order_status.order_id = order_items.order_id\n" +
-"WHERE (order_status.order_status!=(\"REJECTED\") AND order_status.order_status!=(\"COMPLETED\")) AND orders.created_by = (?) " +
+"WHERE (order_status.order_status!=(\"REJECTED\") AND order_status.order_status!=(\"COMPLETED\")) AND orders.created_by = (?) AND DATE(orders.created_at) = current_date() " +
 "";
 
     public String getReturnOrdersAccordingToStatusTableNoPending() {
@@ -97,7 +97,7 @@ public class SqlStatements {
 "INNER JOIN order_status\n" +
 "ON order_status.order_id = orders.order_id\n" +
 "WHERE (order_status.order_status != \"REJECTED\" )\n" +
-"AND orders.created_by = (?);";
+"AND orders.created_by = (?) AND DATE(orders.created_at) = current_date();";
     
     private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin');";
     
