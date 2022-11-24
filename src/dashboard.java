@@ -1708,7 +1708,7 @@ public class dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table_list.getModel();
         int selectedRowIndex = table_list.getSelectedRow();
         String table_no = model.getValueAt(selectedRowIndex, 0).toString();
-//        String amount = model.getValueAt(selectedRowIndex, 1).toString();
+//        String amount = list_orders_model.getValueAt(selectedRowIndex, 1).toString();
         
         view_cart viewCart = new view_cart(table_no);
         if (viewCart.isVisible()){
@@ -1851,10 +1851,12 @@ public class dashboard extends javax.swing.JFrame {
 
     private void remove_orderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_remove_orderMouseClicked
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        
         int selectedRowIndex = list_orders.getSelectedRow();
         
         if (selectedRowIndex >= 0) {
             model.removeRow(selectedRowIndex);
+            productArrayList.remove(selectedRowIndex);
         } else {
             JOptionPane.showMessageDialog(null, "Please select the order you wish to delete.", "Order Selection is missing!", JOptionPane.PLAIN_MESSAGE);
         }
@@ -1873,12 +1875,12 @@ public class dashboard extends javax.swing.JFrame {
         productBundle.setSelected(product_bundle);
         price += Double.valueOf(product_price);
         
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        DefaultTableModel list_orders_model = (DefaultTableModel) list_orders.getModel();
         Object rowData[] = new Object[3];
         rowData[0] = quantity;
         rowData[1] = product_name;
         rowData[2] = product_price;
-        model.addRow(rowData);
+        list_orders_model.addRow(rowData);
         
         order_total_amount.setText(String.format("%.2f", price));
         
@@ -1887,13 +1889,13 @@ public class dashboard extends javax.swing.JFrame {
             rowDataDetail[0] = "-";
             rowDataDetail[1] = "Shawarma All Meat";
             rowDataDetail[2] = "-";
-            model.addRow(rowDataDetail);
+            list_orders_model.addRow(rowDataDetail);
         } else if (!flavors.isEmpty()) {
             Object rowDataDetail[] = new Object[3];
             rowDataDetail[0] = "-";
             rowDataDetail[1] = flavors;
             rowDataDetail[2] = "-";
-            model.addRow(rowDataDetail);
+            list_orders_model.addRow(rowDataDetail);
         }
         
         System.out.println("Order successfully passed to dashboard.");
