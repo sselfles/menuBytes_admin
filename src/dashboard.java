@@ -1741,83 +1741,7 @@ public class dashboard extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_btn_checkoutMouseClicked
     
-    
-    public static void checkout(String cashier, String takeOut) {
-        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
-        int rowCount = Integer.valueOf(model.getRowCount());
-        //making sure that the table is not empty
-        if(rowCount >= 0){
-            
-            //adding up all the prices
-            Double total_temp = Double.parseDouble(order_total_amount.getText());
-            String total = String.format("%.2f", total_temp);
-            
-            
-            System.out.println("THIS IS THE TOTAL" + total);
-            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, takeOut, total);
-            
-            
-            for(int position = 0; position < rowCount; position++){
-                String quantityColumn = model.getValueAt(position, 0).toString();
-                String product_id = null, quantity = null, has_addons=null, flavors = null, product_name; 
-                
-                if (quantityColumn != "-") {
-                    quantity = model.getValueAt(position, 0).toString();
-                    product_name = model.getValueAt(position, 1).toString();
-                    System.out.println("product_name : " + product_name);
-                    
-                    if(!getProductInfoQuery(product_name).isEmpty()){
-                        ArrayList<ProductInfo> productInfo = getProductInfoQuery(product_name);
-
-                        product_id = productInfo.get(0).getProduct_id().toString();
-                        System.out.println("product ID : " + product_id);
-                    }
-                    position ++;
-                }
-                
-                if (position < rowCount ){
-                    quantityColumn = model.getValueAt(position, 0).toString();
-                    if(quantityColumn.equals("-")){
-
-                        if(model.getValueAt(position, 1).toString().contains("Shawarma")){
-                            has_addons = model.getValueAt(position, 1).toString();
-                            System.out.println(has_addons);
-                        }
-                        else { 
-                            flavors = model.getValueAt(position, 1).toString();
-                        }
-                    } else {
-                        position --;
-                    }
-                }
-                
-                Boolean product_bundle = productBundle.isSelected();
-                Boolean addons;
-                
-                if (has_addons != null){
-                    addons = true;
-                } else { addons = false; }
-                
-                
-                System.out.println("addons : " + addons);
-                System.out.println("product_bundle dashboard : " + product_bundle);
-                
-                
-                System.out.println("INSERT ORDER STATUS : "+ orderID + " " + product_id + " " + quantity + " " + product_bundle + " " + addons + " " + flavors);
-                
-                DatabaseConnection.getInstance().insertOrderItems(orderID, product_id, quantity, product_bundle, addons, flavors);
-            }
-            
-//            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
-            model.setRowCount(0);
-            order_total_amount.setText("-");
-            
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
-        }
-    }
-    
+        
     public static ArrayList getProductInfoQuery(String product_name){
         ArrayList<ProductInfo> productInfo = new ArrayList<ProductInfo>();
         productInfo = DatabaseConnection.getInstance().getProductInfo(product_name);
@@ -1939,23 +1863,22 @@ public class dashboard extends javax.swing.JFrame {
     
     static Double price = 0.00;
     
-    public static void AddRowToListOrdersTable(String dataRow_Qty,String dataRow_Product,String dataRow_Price, Boolean product_bundle, Boolean has_addOns, String flavors){
-        /*
-        Pwede ka pa magintroduce ng parameters and variables dito para like for example,
-        flavors, hasaddons, and bundle 
-        para maipasa mo sa checkout
-        sleep muna q mwa lab yu <<<333
-        */
+    private static ArrayList<ProductInfo> productArrayList = new ArrayList<>();
+    
+    public static void AddRowToListOrdersTable(String product_id, String quantity,String product_name,String product_price, Boolean product_bundle, Boolean has_addOns, String flavors){
+//              (orderID, product_id, quantity, product_bundle, addons, flavors);
+
+        productArrayList.add(new ProductInfo(product_id, quantity, product_bundle, has_addOns, flavors));
+        
         productBundle.setSelected(product_bundle);
-        price += Double.valueOf(dataRow_Price);
+        price += Double.valueOf(product_price);
         
         DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
         Object rowData[] = new Object[3];
-        rowData[0] = dataRow_Qty;
-        rowData[1] = dataRow_Product;
-        rowData[2] = dataRow_Price;
+        rowData[0] = quantity;
+        rowData[1] = product_name;
+        rowData[2] = product_price;
         model.addRow(rowData);
-        
         
         order_total_amount.setText(String.format("%.2f", price));
         
@@ -1974,6 +1897,43 @@ public class dashboard extends javax.swing.JFrame {
         }
         
         System.out.println("Order successfully passed to dashboard.");
+    }
+    
+        public static void checkout(String cashier, String takeOut) {
+        DefaultTableModel model = (DefaultTableModel) list_orders.getModel();
+        int rowCount = Integer.valueOf(model.getRowCount());
+        //making sure that the table is not empty
+        if(rowCount >= 0){
+            
+            //adding up all the prices
+            Double total_temp = Double.parseDouble(order_total_amount.getText());
+            String total = String.format("%.2f", total_temp);System.out.println("THIS IS THE TOTAL" + total);
+            
+            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, takeOut, total);
+            
+            if(orderID!=0){
+                DatabaseConnection.getInstance().insertOrderStatus(orderID);
+            }
+            
+            for(int position = 0; position < productArrayList.size(); position++){
+                                
+                DatabaseConnection.getInstance().insertOrderItems(orderID, 
+                        productArrayList.get(position).getProduct_id(), 
+                        productArrayList.get(position).getQuantity(), 
+                        productArrayList.get(position).isProduct_bundle(), 
+                        productArrayList.get(position).isHas_addons(), 
+                        productArrayList.get(position).getFlavors());
+                
+            }
+                
+//            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
+            model.setRowCount(0);
+            order_total_amount.setText("-");
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter your order!", "No Orders Found.", JOptionPane.PLAIN_MESSAGE);
+        }
     }
     
     public void close(){

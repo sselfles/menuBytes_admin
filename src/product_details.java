@@ -24,7 +24,7 @@ public class product_details extends javax.swing.JFrame {
     /**
      * Creates new form product_details
      */
-    
+    String product_id;
     String product_name;
     String product_price;
     String product_category;
@@ -102,6 +102,7 @@ public class product_details extends javax.swing.JFrame {
     public void getProductInfo(){
         if(!getProductInfoQuery().isEmpty()){
             ArrayList<ProductInfo> productInfo = getProductInfoQuery();
+            this.product_id = productInfo.get(0).getProduct_id();
             this.product_price = productInfo.get(0).getProduct_price();
             this.product_category = productInfo.get(0).getProduct_category();
             this.bundle = productInfo.get(0).getBundle();
@@ -704,12 +705,12 @@ public class product_details extends javax.swing.JFrame {
             if (this.count < this.limit) {
                 JOptionPane.showMessageDialog(null, "Please select " + this.limit + " flavor!", "Missing Flavor!", JOptionPane.PLAIN_MESSAGE);
             } else {
-                dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
+                dashboard.AddRowToListOrdersTable(product_id,product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
                 
                 close();
             }
         } else {
-            dashboard.AddRowToListOrdersTable(product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
+            dashboard.AddRowToListOrdersTable(product_id,product_quantity.getText().toString(), this.product_name, product_total_amount.getText().toString(), this.bundleAbler, this.has_addOns, this.flavors);
             
             close();
         }

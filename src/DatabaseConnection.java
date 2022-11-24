@@ -1,5 +1,8 @@
 
+import java.awt.HeadlessException;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.sql.Array;
 import java.sql.Connection;
@@ -9,11 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -1604,5 +1609,66 @@ public class DatabaseConnection {
         }
         return gCashArrayList;
      }
+    
+    public static void Backupdbtosql() {
+    try {
+
+        String dbName = "menubytes";
+        String dbUser = "admin";
+        String dbPass = "admin";
+
+        String savePath = "C:\\MySQLBackup\\";
+        
+        String date = java.time.LocalDate.now().toString();
+        
+        String filename = dbName + date + ".sql";
+
+        String executeCmd = "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin " +
+"mysqldump --host 192.168.1.6 -P 3306 -u " + dbUser + " -p" + dbPass + " " + dbName +" > " + savePath + filename;
+
+        /*NOTE: Executing the command here*/
+        Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+        int processComplete = runtimeProcess.waitFor();
+
+        /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
+        if (processComplete == 0) {
+            System.out.println("Backup Complete");
+        } else {
+            System.out.println("Backup Failure");
+        }
+
+    } catch (IOException | InterruptedException ex) {
+        JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
+    }
+}
+    
+    public static void Restoredbfromsql(String filePathName) {
+        try {
+            
+             String dbName = "menubytes";
+             String dbUser = "admin";
+             String dbPass = "admin";
+
+            String restorePathFilename = "C:\\MySQLBackup\\menubytes_new.sql";
+            
+
+            String executeCmd = "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin " +
+"mysql -h 192.168.1.6 -u " + dbUser + " -p"+ dbPass +" +" + dbName +" < " + restorePathFilename;
+
+            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
+
+            if (processComplete == 0) {
+                JOptionPane.showMessageDialog(null, "Successfully restored from SQL : " + filePathName);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error at restoring");
+            }
+
+
+        } catch (IOException | InterruptedException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, "Error at Restoredbfromsql" + ex.getMessage());
+        }
+
+    }
 
  }
