@@ -18,6 +18,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,6 +35,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -61,6 +64,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     String availability;
     
     JFileChooser chooser = new JFileChooser();
+    FileInputStream inputStream = null;
     
     menu_modal menuModal = new menu_modal();
     payment_modal paymentModal = new payment_modal();
@@ -420,6 +424,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         logout = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        backup_restore = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -512,6 +518,16 @@ public class admin_dashboard extends javax.swing.JFrame {
         btn_viewReceipt2 = new roundPanel();
         log_view = new javax.swing.JLabel();
         filter_log = new javax.swing.JButton();
+        backup_restore_tab = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        label_backup = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        label_backup1 = new javax.swing.JLabel();
+        btn_restore = new javax.swing.JButton();
+        btn_backup = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -746,6 +762,38 @@ public class admin_dashboard extends javax.swing.JFrame {
         );
 
         sidePane.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 930, 360, 70));
+
+        backup_restore.setBackground(new java.awt.Color(227, 0, 0));
+        backup_restore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backup_restoreMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                backup_restoreMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                backup_restoreMouseReleased(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setText("Data Backup & Restore");
+
+        javax.swing.GroupLayout backup_restoreLayout = new javax.swing.GroupLayout(backup_restore);
+        backup_restore.setLayout(backup_restoreLayout);
+        backup_restoreLayout.setHorizontalGroup(
+            backup_restoreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backup_restoreLayout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        backup_restoreLayout.setVerticalGroup(
+            backup_restoreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        sidePane.add(backup_restore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 360, 70));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 1020));
 
@@ -1904,6 +1952,74 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab1", log_reports_tab);
 
+        backup_restore_tab.setOpaque(false);
+        backup_restore_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jLabel35.setText("DATA BACKUP AND RESTORE");
+        backup_restore_tab.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 0, 822, 120));
+
+        jSeparator7.setBackground(new java.awt.Color(255, 0, 0));
+        jSeparator7.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSeparator7.setPreferredSize(new java.awt.Dimension(0, 5));
+        backup_restore_tab.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 447, 25));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        backup_restore_tab.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 770, 40));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel2.setText("Data Restore");
+        backup_restore_tab.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 420, 70));
+
+        label_backup.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        label_backup.setText("jLabel21");
+        backup_restore_tab.add(label_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 570, 120));
+
+        jLabel21.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel21.setText("Data Backup");
+        backup_restore_tab.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 420, 70));
+
+        label_backup1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        label_backup1.setText("jLabel21");
+        backup_restore_tab.add(label_backup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 510, 570, 120));
+
+        btn_restore.setBackground(new java.awt.Color(255, 0, 0));
+        btn_restore.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        btn_restore.setForeground(new java.awt.Color(255, 255, 255));
+        btn_restore.setText("RESTORE");
+        btn_restore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_restoreActionPerformed(evt);
+            }
+        });
+        backup_restore_tab.add(btn_restore, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 280, 190));
+
+        btn_backup.setBackground(new java.awt.Color(255, 0, 0));
+        btn_backup.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        btn_backup.setForeground(new java.awt.Color(255, 255, 255));
+        btn_backup.setText("BACKUP");
+        btn_backup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backupActionPerformed(evt);
+            }
+        });
+        backup_restore_tab.add(btn_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 180, 280, 190));
+
+        jTabbedPane1.addTab("tab1", backup_restore_tab);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 1560, 1000));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.jpg"))); // NOI18N
@@ -1924,6 +2040,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_account_managementMousePressed
 
@@ -1950,6 +2067,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(clickedColor);
     }//GEN-LAST:event_logoutMousePressed
 
@@ -1965,6 +2083,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_product_managementMousePressed
 
@@ -1984,6 +2103,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_payment_settingsMousePressed
 
@@ -2004,6 +2124,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(clickedColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_sales_reportsMousePressed
 
@@ -2120,6 +2241,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(clickedColor);
         log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_transactionsMousePressed
 
@@ -2140,6 +2262,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         sales_reports.setBackground(defaultColor);
         transactions.setBackground(defaultColor);
         log_reports.setBackground(clickedColor);
+        backup_restore.setBackground(defaultColor);
         logout.setBackground(defaultColor);
     }//GEN-LAST:event_log_reportsMousePressed
 
@@ -2437,6 +2560,78 @@ public class admin_dashboard extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_filter_logActionPerformed
 
+    private void backup_restoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backup_restoreMouseClicked
+        jTabbedPane1.setSelectedIndex(6);
+        
+        final String backup = "Always save your data in a backup file/storage. This will protect the database against data loss and reconstruct the database after data loss.";
+        final String restore = "In case of data corruption or loss, remember that you can restore the backed up data you've save.";
+        final String html = "<html><body style='width: %1spx'>%1s";
+        label_backup.setText(String.format(html, 300, backup));
+        
+        
+            
+    }//GEN-LAST:event_backup_restoreMouseClicked
+
+    private void backup_restoreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backup_restoreMousePressed
+        account_management.setBackground(defaultColor);
+        product_management.setBackground(defaultColor);
+        payment_settings.setBackground(defaultColor);
+        sales_reports.setBackground(defaultColor);
+        transactions.setBackground(defaultColor);
+        log_reports.setBackground(defaultColor);
+        backup_restore.setBackground(clickedColor);
+        logout.setBackground(defaultColor);
+    }//GEN-LAST:event_backup_restoreMousePressed
+
+    private void backup_restoreMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backup_restoreMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backup_restoreMouseReleased
+
+    
+    
+    
+    private void btn_backupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backupActionPerformed
+        
+        chooser.setDialogTitle("Save");
+        chooser.setAcceptAllFileFilterUsed(false);
+        //will only select the directory/folders where the database will be saved
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.showOpenDialog(null);
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            System.out.println("getCurrentDirectory(): " 
+               +  chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " 
+               +  chooser.getSelectedFile());
+        }
+    }//GEN-LAST:event_btn_backupActionPerformed
+
+    private void btn_restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restoreActionPerformed
+        try 
+        {
+            chooser.setDialogTitle("Open");
+            
+            //disable all file types accepted option
+            chooser.setAcceptAllFileFilterUsed(false);
+            
+            //types of files that will be saved/retreived
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("SQL", "sql"));
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+
+            //file name
+            String fileName = file.getName();
+            //will receive the file
+            FileInputStream inputStream = new FileInputStream(file);
+            
+            
+            System.out.println(file);
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(payment_modal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_restoreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2475,14 +2670,18 @@ public class admin_dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel account_management;
     private javax.swing.JLabel background;
+    private javax.swing.JPanel backup_restore;
+    private javax.swing.JPanel backup_restore_tab;
     private roundPanel btn_addMenu;
     private roundPanel btn_addUser;
+    private javax.swing.JButton btn_backup;
     private roundPanel btn_deleteMenu;
     private roundPanel btn_deleteUser;
     private roundPanel btn_editMenu;
     private roundPanel btn_editPayment;
     private roundPanel btn_editUser;
     private roundPanel btn_resetPassword;
+    private javax.swing.JButton btn_restore;
     private roundPanel btn_viewReceipt;
     private roundPanel btn_viewReceipt1;
     private roundPanel btn_viewReceipt2;
@@ -2507,7 +2706,9 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -2520,6 +2721,8 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2533,6 +2736,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2544,8 +2748,11 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel label_backup;
+    private javax.swing.JLabel label_backup1;
     private com.toedter.calendar.JDateChooser log_from;
     private javax.swing.JPanel log_reports;
     private javax.swing.JTable log_reports_list;

@@ -58,10 +58,10 @@ public class DatabaseConnection {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
-                    "admin", "admin");
-//                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
-//                                    "admin", "admin");
+//            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
+//                    "admin", "admin");
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+                                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
