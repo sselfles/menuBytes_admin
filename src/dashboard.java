@@ -1925,7 +1925,7 @@ public class dashboard extends javax.swing.JFrame {
                         productArrayList.get(position).getFlavors());
                 
             }
-                
+                productArrayList.clear();
 //            DatabaseConnection.getInstance().insertPayment(null, total, null, null, username, null);
             model.setRowCount(0);
             order_total_amount.setText("-");
