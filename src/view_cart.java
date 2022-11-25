@@ -78,6 +78,11 @@ public class view_cart extends javax.swing.JFrame{
         txtTotal_amount.setText(total);
     }
     
+    public void cleargcashtextfields(){
+        amount.setText("");
+        ref_number.setText("");
+    }
+    
     public void displayPaymentInfo(){
         if(!getPaymentMethodInfo().isEmpty()){
             ArrayList<PaymentMethod> paymentArrayList = getPaymentMethodInfo();
@@ -842,6 +847,7 @@ public class view_cart extends javax.swing.JFrame{
                     
                     //No need for loop since 1 order lang toh
                     //DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, order_id);
+                    cleargcashtextfields();
                     JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
                 }
                 else {
@@ -863,6 +869,7 @@ public class view_cart extends javax.swing.JFrame{
                 }
                 
                 //Updating of modified_at, WAG GALAWIN ANG QUERY
+                cleargcashtextfields();
                 DatabaseConnection.getInstance().updatePaidOrder(table_no);
                 
                 
@@ -870,6 +877,7 @@ public class view_cart extends javax.swing.JFrame{
             } else {
                 JOptionPane.showMessageDialog(null, "Total amount and amount paid do not match!\nPlease check and enter them again.", "Payment amount do not match.", JOptionPane.PLAIN_MESSAGE);
             }
+           
         } else {
             JOptionPane.showMessageDialog(null, "Please enter payment amount.", "Payment amount is missing!", JOptionPane.PLAIN_MESSAGE);
         }
@@ -978,6 +986,7 @@ public class view_cart extends javax.swing.JFrame{
         String amount = this.amount.getText().toString();
         String reference_no = this.ref_number.getText().toString();
         DatabaseConnection.getInstance().rejectGCashPayment(amount, reference_no, table_no);
+        cleargcashtextfields();
     }//GEN-LAST:event_gcash_rejectMouseClicked
     
     public void close(){
