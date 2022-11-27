@@ -153,7 +153,7 @@ public class menu_modal extends javax.swing.JFrame {
             }
     }
     
-    public void updateProductCheckerupdateProduct( String productName, String productPrice, String bundledPrice, String productDescription, String productCateory, String availability, String oldName ) {
+    public void updateProductChecker( String productName, String productPrice, String bundledPrice, String productDescription, String productCateory, String availability, String oldName ) {
         
         
             if(!productDuplicateCheckerQuery(productName).isEmpty()){
@@ -576,7 +576,7 @@ public class menu_modal extends javax.swing.JFrame {
             
             inputStream = new FileInputStream(file);
             
-            file_name.setText(fileName);
+            edit_img.setText(fileName);
             
             System.out.println(file);
             
@@ -589,12 +589,17 @@ public class menu_modal extends javax.swing.JFrame {
     private void btn_editProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editProductMouseClicked
         String productName = edit_product_name.getText();
         String productPrice = edit_product_price.getText();
-        String bundledPrice = edit_bundled_price.getText();
+        String bundledPrice;
+                if (edit_bundled_price.getText().isEmpty()) {
+                    bundledPrice = null;
+                } else {
+                    bundledPrice = edit_bundled_price.getText();
+                }
         String productDescription = edit_description.getText();
         String productCategory = edit_cb_category.getSelectedItem().toString();
         String availability = toggle_availability.getText();
         
-        updateProductCheckerupdateProduct( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
+        updateProductChecker( productName, productPrice, bundledPrice, productDescription, productCategory, availability, this.oldName );
         
        
     }//GEN-LAST:event_btn_editProductMouseClicked

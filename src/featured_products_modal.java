@@ -95,7 +95,7 @@ public class featured_products_modal extends javax.swing.JFrame {
         title.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("FEATURED PRODUCTS");
-        getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1280, 80));
+        getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1240, 80));
 
         display_label.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         display_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -230,7 +230,7 @@ public class featured_products_modal extends javax.swing.JFrame {
                     .addGap(0, 2, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 930, 400, 70));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 920, 400, 70));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

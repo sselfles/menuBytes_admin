@@ -1216,7 +1216,7 @@ public class DatabaseConnection {
         Connection connection = null;
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateProduct()); 
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateProductWithImage()); 
         preparedStatement.setString(1, productName);
         preparedStatement.setDouble(2, Double.valueOf(productPrice));
         if (bundledPrice != null){
