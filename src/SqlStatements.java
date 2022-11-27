@@ -99,7 +99,7 @@ public class SqlStatements {
 "WHERE (order_status.order_status != \"REJECTED\" )\n" +
 "AND orders.created_by = (?) AND DATE(orders.created_at) = current_date();";
     
-    private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin');";
+    private String checkUsernameExistence = "SELECT user_id FROM user WHERE (user_name = (?) and user_type = 'cashier') OR (user_name = (?) and user_type = 'admin') OR (user_name = (?) and user_type = 'manager');";
     
     private String checkUsernamePassword = "SELECT user_id FROM user WHERE user_name = (?) AND password = (?);";
     
@@ -463,8 +463,8 @@ public class SqlStatements {
         
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
-    private String insertPayment = "INSERT INTO payment(order_id,created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at)\n" +
-"VALUES((?), (?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp());";
+    private String insertPayment = "INSERT INTO payment(created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at, remarks)\n" +
+"VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp());";
     
     private String gCashAmountRemarks = "SELECT\n" +
 "amount_due,\n" +
@@ -480,7 +480,18 @@ public class SqlStatements {
 "payment \n" +
 "WHERE payment_status = \"PENDING\"\n" +
 "AND created_by = (?);";
+       
+       private String updateFeaturedProducts = "UPDATE featured_products SET product_image = (?) WHERE id = (?);";
+       private String retrieveFeaturedProducts = "SELECT product_image FROM featured_products;";
 
+    public String updateFeaturedProducts() {
+        return updateFeaturedProducts;
+    } 
+    
+    public String retrieveFeaturedProducts() {
+        return retrieveFeaturedProducts;
+    }
+       
     public String getCashAmountReceived() {
         return CashAmountReceived;
     }

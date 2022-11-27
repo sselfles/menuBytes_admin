@@ -255,7 +255,7 @@ public class user_modal extends javax.swing.JFrame {
         jLabel7.setText("Type of Device :");
 
         cb_userType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "cashier", "customer" }));
+        cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "manager", "cashier", "customer" }));
 
         cb_deviceType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         cb_deviceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMPUTER", "TABLET", "MOBILE" }));
@@ -361,7 +361,7 @@ public class user_modal extends javax.swing.JFrame {
         jLabel10.setText("Edit User");
 
         edit_cb_userType.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        edit_cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "cashier", "customer" }));
+        edit_cb_userType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "manager", "cashier", "customer" }));
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel11.setText("Username :");

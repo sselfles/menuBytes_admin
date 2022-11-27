@@ -560,11 +560,6 @@ public class dashboard extends javax.swing.JFrame {
         btn_shawarma_category.setRoundBottomRight(10);
         btn_shawarma_category.setRoundTopLeft(10);
         btn_shawarma_category.setRoundTopRight(10);
-        btn_shawarma_category.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_shawarma_categoryMouseClicked(evt);
-            }
-        });
         btn_shawarma_category.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_shawarma.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -1780,10 +1775,6 @@ public class dashboard extends javax.swing.JFrame {
         add_ons_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.white));
         addRowToMenuList("beverage");
     }//GEN-LAST:event_icon_DrinksMouseClicked
-
-    private void btn_shawarma_categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_shawarma_categoryMouseClicked
-
-    }//GEN-LAST:event_btn_shawarma_categoryMouseClicked
 
     private void icon_shawarmaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_shawarmaMouseClicked
         shawarma_border_selected.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));

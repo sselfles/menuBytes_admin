@@ -62,7 +62,9 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
+//                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
+//                                    "admin", "admin");
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -279,6 +281,7 @@ public class DatabaseConnection {
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getCheckUsernameExistence());
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, username);
+        preparedStatement.setString(3, username);
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
@@ -1589,31 +1592,32 @@ public class DatabaseConnection {
         return paymentArrayList;
     }
     
-    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks){
+    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks, String change){
 	Connection connection = null;
           
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertPayment());
 //            preparedStatement.setObject(1, payment_amount, Types.VARCHAR);
-              if (payment_amount != null){
-                preparedStatement.setString(1, payment_amount);
+            preparedStatement.setString(1, created_by);
+            if (payment_amount != null){
+                preparedStatement.setString(2, payment_amount);
             }
             else {
-                preparedStatement.setNull(1, Types.NULL);
+                preparedStatement.setNull(2, Types.NULL);
             }
-                preparedStatement.setString(2, amount_due);
-                preparedStatement.setObject(3, payment_method, Types.VARCHAR);
-                preparedStatement.setObject(4, payment_status, Types.VARCHAR);
-                preparedStatement.setString(5, created_by);
-                preparedStatement.setObject(6, remarks, Types.VARCHAR);
-//            if (remarks != null){
-//                preparedStatement.setString(6, remarks);
-//            }
-//            else {
-//                preparedStatement.setNull(6, Types.NULL);
-//            }
-            
+                preparedStatement.setString(3, amount_due);
+                preparedStatement.setString(4, change);
+                preparedStatement.setObject(5, payment_method, Types.VARCHAR);
+                preparedStatement.setObject(6, payment_status, Types.VARCHAR);
+//                preparedStatement.setObject(6, remarks, Types.VARCHAR);
+            if (remarks != null){
+                preparedStatement.setString(7, remarks);
+            }
+            else {
+                preparedStatement.setNull(7, Types.NULL);
+            }
+//            
             System.out.println("insertPayment() : PAYMENT SUCCESSFULLY INSERTED.");
             
             preparedStatement.executeUpdate();
@@ -1677,6 +1681,56 @@ public class DatabaseConnection {
         return gCashArrayList;
      }
     
+    public void updateFeaturedProducts(FileInputStream inputStream, int id){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updateFeaturedProducts());
+            preparedStatement.setBlob(1, inputStream);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Image successfully uploaded.");
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
 
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList<Product> retrieveFeaturedProducts() {
+        Connection connection = null;
+        ArrayList<Product> paymentArrayList = new ArrayList<Product>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().retrieveFeaturedProducts()); 
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database retrieveFeaturedProducts(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                  paymentArrayList.add(new Product(
+                                            resultSet.getBytes(1)));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return paymentArrayList;
+    }
     
  }

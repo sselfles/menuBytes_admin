@@ -177,9 +177,9 @@ public class login extends javax.swing.JFrame {
                         close();
                     }
                 }
-                if(username.equals("admin")){
+                if(username.equals("admin") || username.equals("manager")){
                     System.out.print("admin loggin in.");
-                    admin_dashboard db = new admin_dashboard();
+                    admin_dashboard db = new admin_dashboard(username);
                     if (db.isVisible()){
                         db.setVisible(false);
                         db.setVisible(true);

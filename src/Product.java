@@ -16,6 +16,7 @@ public class Product {
     private String product_category;
     private String product_description;
     private String product_image;
+    private byte[] featured_images;
 
     public Product(String product_id, String product_name, String product_price, String product_availability) {
         this.product_id = product_id;
@@ -51,6 +52,17 @@ public class Product {
         this.product_name = product_name;
     }
     
+    public Product(byte[] featured_images){
+        this.featured_images = featured_images;
+    }
+    
+    public byte[] getFeatured_images(){
+        return featured_images;
+    }
+    
+    public void setFeatured_images(byte[] featured_images){
+        this.featured_images = featured_images;
+    }
     
 
     public String getProduct_category() {
