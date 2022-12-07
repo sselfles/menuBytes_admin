@@ -245,8 +245,8 @@ public class transaction_modal extends javax.swing.JFrame {
 //            System.out.println("getSelectedFile() : " 
 //               +  chooser.getSelectedFile());
 //        }
-////        File file = chooser.getSelectedFile();
-////        String fileName = file.getName();
+//        File file = chooser.getSelectedFile();
+//        String fileName = file.getName();
 //        
 //        
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  

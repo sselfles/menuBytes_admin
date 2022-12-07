@@ -2433,19 +2433,24 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
         DefaultTableModel model = (DefaultTableModel) transaction_list.getModel();
-        int selectedRowIndex = transaction_list.getSelectedRow();
-        String order_id = model.getValueAt(selectedRowIndex, 1).toString();
-        String user = model.getValueAt(selectedRowIndex, 2).toString();
-        String total = model.getValueAt(selectedRowIndex, 3).toString();
         
-        transaction_modal transactionModal = new transaction_modal(order_id, user, total);
-        if (transactionModal.isVisible()){
-            transactionModal.setVisible(false);
-            transactionModal.setVisible(true);
-        } else {
-            transactionModal.setVisible(true);
+        if(transaction_list.getSelectedRow() > 0){
+            int selectedRowIndex = transaction_list.getSelectedRow();
+            String order_id = model.getValueAt(selectedRowIndex, 1).toString();
+            String user = model.getValueAt(selectedRowIndex, 2).toString();
+            String total = model.getValueAt(selectedRowIndex, 3).toString();
+
+            transaction_modal transactionModal = new transaction_modal(order_id, user, total);
+            if (transactionModal.isVisible()){
+                transactionModal.setVisible(false);
+                transactionModal.setVisible(true);
+            } else {
+                transactionModal.setVisible(true);
+            }
         }
-        
+        else{
+            JOptionPane.showMessageDialog(null, "Please select a transaction you wish to view.", "Transaction Not Selected", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_sales_view1MouseClicked
 
     private void log_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_viewMouseClicked
