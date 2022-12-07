@@ -271,33 +271,37 @@ public class SqlStatements {
 "GROUP BY DATE(orders.created_at);";
     
     private String getTransactions = "SELECT\n" +
-"DATE(created_at),\n" +
-"order_id,\n" +
-"created_by,\n" +
-"total\n" +
-"FROM orders;";
+"payment.completed_at,\n" +
+"payment_transactions.payment_id,\n" +
+"payment.created_by,\n" +
+"payment.amount_due\n" +
+"FROM payment\n" +
+"INNER JOIN\n" +
+"payment_transactions ON payment.payment_id = payment_transactions.payment_id";
     
     
-    private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity,\n" +
-"(IF((order_items.product_bundle),CONCAT(\"B1G1 \",product.product_name),product.product_name)) AS Name,\n" +
-"IF((product.product_bundle IS NULL),product.product_price,product.product_bundle)*order_items.quantity AS Price,\n" +
-"(IF((order_items.has_addons), \"Shawarma All Meat\", null)) as has_addons, \n" +
-"order_items.flavors\n" +
-"FROM order_items\n" +
+    private String getTransactionBreakdown = "SELECT\n" +
+"payment_transactions.payment_id,\n" +
+"order_items.quantity,\n" +
+"IF(order_items.flavors IS NOT NULL,CONCAT(IF(order_items.product_bundle,CONCAT(\"B1G1 \", product.product_name),product.product_name), order_items.flavors), IF(order_items.product_bundle,CONCAT(\"B1G1 \", product.product_name),product.product_name)) AS 'Product',\n" +
+"IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price'\n" +
+"FROM payment\n" +
+"INNER JOIN\n" +
+"payment_transactions ON payment.payment_id = payment_transactions.payment_id\n" +
+"INNER JOIN\n" +
+"order_items ON order_items.order_id = payment_transactions.order_id\n" +
 "INNER JOIN\n" +
 "product ON order_items.product_id = product.product_id\n" +
-"INNER JOIN\n" +
-"orders ON order_items.order_id = orders.order_id\n" +
-"LEFT JOIN\n" +
-"payment ON payment.created_by = orders.created_by\n" +
-"WHERE order_items.order_id = (?);";
+"WHERE payment_transactions.payment_id = (?);";
     
     private String getTransactionsDaily = "SELECT\n" +
-"DATE(created_at),\n" +
-"order_id,\n" +
-"created_by,\n" +
-"total\n" +
-"FROM orders\n" +
+"payment.completed_at,\n" +
+"payment_transactions.payment_id,\n" +
+"payment.created_by,\n" +
+"payment.amount_due\n" +
+"FROM payment\n" +
+"INNER JOIN\n" +
+"payment_transactions ON payment.payment_id = payment_transactions.payment_id\n" +
 "WHERE DATE(created_at) BETWEEN (?) AND (?);";
     
     private String getTransactionsWeekly = "SELECT\n" +
@@ -443,6 +447,12 @@ public class SqlStatements {
 "(SELECT user_name FROM user WHERE user_id = (assistance.user_id)),\n" +
 "IF(assistance_status, \"Assistance Request\",null)\n" +
 "FROM assistance\n" +
+"WHERE assistance_status = true\n" +
+"UNION\n" +
+"SELECT\n" +
+"(SELECT user_name FROM user WHERE user_id = (or_request.user_id)),\n" +
+"IF(assistance_status, \"OR Request\",null)\n" +
+"FROM or_request\n" +
 "WHERE assistance_status = true;";
     
     private String removeNotification ="UPDATE assistance SET \n" +
@@ -464,7 +474,7 @@ public class SqlStatements {
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
     private String insertPayment = "INSERT INTO payment(created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at, remarks)\n" +
-"VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp());";
+"VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp(), (?));";
     
     private String gCashAmountRemarks = "SELECT\n" +
 "amount_due,\n" +
@@ -482,7 +492,38 @@ public class SqlStatements {
 "AND created_by = (?);";
        
        private String updateFeaturedProducts = "UPDATE featured_products SET product_image = (?) WHERE id = (?);";
+       
        private String retrieveFeaturedProducts = "SELECT product_image FROM featured_products;";
+       
+       private String getInvoice = "SELECT\n" +
+"payment_transactions.order_id, payment_transactions.order_id,\n" +
+"payment.payment_amount AS 'Total Amount Due',\n" +
+"payment.payment_change,\n" +
+"payment.payment_method,\n" +
+"payment.completed_at,\n" +
+"payment.created_by,\n" +
+"order_items.quantity,\n" +
+"IF(order_items.product_bundle,CONCAT(\"B1G1 \", product.product_name),product.product_name) AS 'Product Name',\n" +
+"IF(order_items.product_bundle,product.product_bundle,product.product_price) AS 'Product Price'\n" +
+"FROM payment\n" +
+"INNER JOIN\n" +
+"payment_transactions ON payment.payment_id = payment_transactions.payment_id\n" +
+"INNER JOIN\n" +
+"order_items ON order_items.order_id = payment_transactions.order_id\n" +
+"INNER JOIN\n" +
+"product ON order_items.product_id = product.product_id\n" +
+"WHERE order_items.order_id = (?);";
+       
+       private String getGcashAvailability = "SELECT payment_availability FROM payment_method;";
+       
+    
+    public String getGcashAvailability(){
+        return getGcashAvailability;
+    }
+       
+    public String getInvoice() {
+        return getInvoice;
+    }
 
     public String updateFeaturedProducts() {
         return updateFeaturedProducts;

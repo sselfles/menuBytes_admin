@@ -44,6 +44,7 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("6.14FoodHub");
+        setName("LOGIN"); // NOI18N
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -167,14 +168,15 @@ public class login extends javax.swing.JFrame {
             if(check_match_password!=null){
                 if(username.equals("cashier")){
                     System.out.print("cashier loggin in.");
-                    dashboard db = new dashboard("2");
+                    dashboard db = new dashboard("2", username);
                     if (db.isVisible()){
                         db.setVisible(false);
                         db.setVisible(true);
-                        close();
+//                        close();
+                    this.setVisible(false);
                     } else {
                         db.setVisible(true);
-                        close();
+//                        close();
                     }
                 }
                 if(username.equals("admin") || username.equals("manager")){

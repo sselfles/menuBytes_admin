@@ -20,6 +20,10 @@ public class PaymentMethod {
         this.payment_availability = payment_availability;
     }
     
+    public PaymentMethod(String payment_availability) {
+        this.payment_availability = payment_availability;
+    }
+    
 
     public String getPayment_info() {
         return payment_info;

@@ -85,11 +85,12 @@ public class dashboard extends javax.swing.JFrame {
         productBundle.hide();
     }
     
-    public dashboard(String user_id) {
+    public dashboard(String user_id, String username) {
         initComponents();
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
         dashboard.setBackground(clickedColor);
+        in_username.setText(username);
         this.user_id = user_id;
         list_orders_model = (DefaultTableModel) list_orders.getModel();
 //        addItemtoComboBox();
@@ -131,6 +132,8 @@ public class dashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         notification_table = new javax.swing.JTable();
+        jLabel38 = new javax.swing.JLabel();
+        in_username = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -240,7 +243,7 @@ public class dashboard extends javax.swing.JFrame {
             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        sidePane.add(dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 360, 70));
+        sidePane.add(dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 360, 70));
 
         menu.setBackground(new java.awt.Color(227, 0, 0));
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,7 +276,7 @@ public class dashboard extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        sidePane.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 360, 70));
+        sidePane.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 360, 70));
 
         logout.setBackground(new java.awt.Color(227, 0, 0));
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,7 +354,17 @@ public class dashboard extends javax.swing.JFrame {
             notification_table.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        sidePane.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 320, 490));
+        sidePane.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 320, 410));
+
+        jLabel38.setFont(new java.awt.Font("Century Gothic", 0, 28)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setText("Hi!");
+        sidePane.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        in_username.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        in_username.setForeground(new java.awt.Color(255, 255, 255));
+        in_username.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sidePane.add(in_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 300, 50));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 1020));
 
@@ -1901,7 +1914,7 @@ public class dashboard extends javax.swing.JFrame {
         System.out.println("Order successfully passed to dashboard.");
     }
     
-        public static void checkout(String cashier, String takeOut) {
+        public static void checkout(String cashier, String takeOut, int orderID) {
         int productArrayList_size = productArrayList.size();
         //making sure that the table is not empty
         if(productArrayList_size > 0){
@@ -1909,8 +1922,6 @@ public class dashboard extends javax.swing.JFrame {
             //adding up all the prices
             Double total_temp = Double.parseDouble(order_total_amount.getText());
             String total = String.format("%.2f", total_temp);System.out.println("THIS IS THE TOTAL" + total);
-            
-            int orderID = DatabaseConnection.getInstance().insertOrder(cashier, takeOut, total);
             
             if(orderID!=0){
                 DatabaseConnection.getInstance().insertOrderStatus(orderID);
@@ -1973,7 +1984,6 @@ public class dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new dashboard().setVisible(true);
-                
             }
         });
     }
@@ -2002,6 +2012,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel icon_bowl;
     private javax.swing.JLabel icon_chicken;
     private javax.swing.JLabel icon_shawarma;
+    private javax.swing.JLabel in_username;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -2011,6 +2022,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;

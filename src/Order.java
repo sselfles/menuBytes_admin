@@ -39,7 +39,8 @@ public class Order {
         this.date = date;
         this.order_status = order_status;
     }
-
+    
+    //transaction modal breakdown and more dependencies
     public Order(String order_id, String created_by, String total_quantity, String order_status ) {
         this.order_id = order_id;
         this.created_by = created_by;

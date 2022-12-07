@@ -57,7 +57,7 @@ public class DatabaseConnection {
      }
      
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         Connection connection = null;
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
@@ -542,7 +542,10 @@ public class DatabaseConnection {
         preparedStatement.setInt(1, Integer.valueOf(payment_id));
         preparedStatement.setInt(2, Integer.valueOf(order_id));
         preparedStatement.executeUpdate();
-            disconnect(null, preparedStatement, connection);
+        
+        System.out.println("Sucess! insertIntoPaymentTransactions()");
+        
+        disconnect(null, preparedStatement, connection);
         }
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -776,13 +779,13 @@ public class DatabaseConnection {
         return transactionsReports;
     }
     
-    public ArrayList<Order> getTransactionBreakdown(String order_id) {
+    public ArrayList<Order> getTransactionBreakdown(String payment_id) {
         Connection connection = null;
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactionBreakdown());
-        preparedStatement.setInt(1, Integer.valueOf(order_id));
+        preparedStatement.setInt(1, Integer.valueOf(payment_id));
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
@@ -793,9 +796,7 @@ public class DatabaseConnection {
                                 resultSet.getString(1), 
                                 resultSet.getString(2), 
                                 resultSet.getString(3),
-                                resultSet.getString(4),
-                                resultSet.getString(5),
-                                resultSet.getString(6)));
+                                resultSet.getString(4)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
@@ -1520,7 +1521,7 @@ public class DatabaseConnection {
           
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSettingWithImage());
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().updatePaymentSetting());
             preparedStatement.setString(1, payment_info);
             preparedStatement.setString(2, payment_availability);
             preparedStatement.executeUpdate();
@@ -1571,7 +1572,7 @@ public class DatabaseConnection {
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.isBeforeFirst()){
-                System.out.println("Database getUsername(): No Data Retrieved!");
+                System.out.println("Database getPaymentMethodInfo(): No Data Retrieved!");
             }
             else{
                 while(resultSet.next()){
@@ -1592,12 +1593,13 @@ public class DatabaseConnection {
         return paymentArrayList;
     }
     
-    public void insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks, String change){
+    public int insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks, String change){
 	Connection connection = null;
+        int payment_id = 0;
           
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertPayment());
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertPayment(), Statement.RETURN_GENERATED_KEYS);
 //            preparedStatement.setObject(1, payment_amount, Types.VARCHAR);
             preparedStatement.setString(1, created_by);
             if (payment_amount != null){
@@ -1621,15 +1623,26 @@ public class DatabaseConnection {
             System.out.println("insertPayment() : PAYMENT SUCCESSFULLY INSERTED.");
             
             preparedStatement.executeUpdate();
+            ResultSet resultSet;
+            resultSet = preparedStatement.getGeneratedKeys();
+                    if (!resultSet.isBeforeFirst()) {
+                        System.out.println("insertPayment : NO ID_DATA FOUND");
+                    } else {
+                        System.out.println("insertPayment : ID_DATA FOUND");}
+                    if(resultSet.next()){
+                        payment_id = resultSet.getInt(1);
+                        System.out.println("insertPayment : SUCCESSFULLY ADDED TO ORDER");
+                    }
             
             
-            disconnect(null, preparedStatement, connection);
+            disconnect(resultSet, preparedStatement, connection);
                   
         }
 
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return payment_id;
     }
     
     public String getCashPaymentAmountReceived(String table_no){
@@ -1733,4 +1746,34 @@ public class DatabaseConnection {
         return paymentArrayList;
     }
     
- }
+    public ArrayList<PaymentMethod> getGcashAvailability() {
+        Connection connection = null;
+        ArrayList<PaymentMethod> paymentArrayList = new ArrayList<PaymentMethod>();
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getGcashAvailability()); 
+            
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Database getGcashAvailability(): No Data Retrieved!");
+            }
+            else{
+                while(resultSet.next()){
+                                  paymentArrayList.add(new PaymentMethod(
+                                            resultSet.getString(1)));
+                }
+            }
+            disconnect(resultSet, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return paymentArrayList;
+    }
+}

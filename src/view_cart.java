@@ -118,6 +118,13 @@ public class view_cart extends javax.swing.JFrame{
         return paymentListQueue;
     }
     
+    public String getGcashAvailability(){
+        ArrayList<PaymentMethod> paymentArrayList = new ArrayList<PaymentMethod>();
+        paymentArrayList = DatabaseConnection.getInstance().getGcashAvailability();
+        String availability = paymentArrayList.get(0).getPayment_availability();
+        return availability;
+    }
+    
     public view_cart() {
         initComponents();
     }
@@ -510,22 +517,22 @@ public class view_cart extends javax.swing.JFrame{
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_pending_orders.setBackground(new java.awt.Color(255, 255, 255));
+        btn_pending_orders.setBackground(new java.awt.Color(255, 0, 0));
         btn_pending_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_pending_orders.setForeground(new java.awt.Color(255, 0, 0));
+        btn_pending_orders.setForeground(new java.awt.Color(255, 255, 255));
         btn_pending_orders.setText("Pending Orders");
-        btn_pending_orders.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 5, 5, 1, new java.awt.Color(255, 0, 0)));
+        btn_pending_orders.setBorder(null);
         btn_pending_orders.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_pending_ordersMouseClicked(evt);
             }
         });
 
-        btn_completed_orders.setBackground(new java.awt.Color(238, 0, 0));
+        btn_completed_orders.setBackground(new java.awt.Color(255, 255, 255));
         btn_completed_orders.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btn_completed_orders.setForeground(new java.awt.Color(255, 255, 255));
+        btn_completed_orders.setForeground(new java.awt.Color(255, 0, 0));
         btn_completed_orders.setText("Completed Orders");
-        btn_completed_orders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 0, 0), 1, true));
+        btn_completed_orders.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 5, 5, 1, new java.awt.Color(255, 0, 0)));
         btn_completed_orders.setMaximumSize(new java.awt.Dimension(107, 23));
         btn_completed_orders.setMinimumSize(new java.awt.Dimension(107, 23));
         btn_completed_orders.setPreferredSize(new java.awt.Dimension(107, 23));
@@ -800,13 +807,19 @@ public class view_cart extends javax.swing.JFrame{
     
     
     private void btn_gcashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_gcashMouseClicked
-        jTabbedPane2.setSelectedIndex(1);
-        ArrayList<GCash> gCashArrayList = new ArrayList<>();
-        /*GCASH Displat Ref #*/
-        if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
-            gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
-            amount.setText(gCashArrayList.get(0).getAmount_due());
-            ref_number.setText(gCashArrayList.get(0).getRemarks());
+        System.out.println("getGcashAvailability() " + getGcashAvailability());
+        if (getGcashAvailability().equals("AVAILABLE")){
+            jTabbedPane2.setSelectedIndex(1);
+            ArrayList<GCash> gCashArrayList = new ArrayList<>();
+            /*GCASH Displat Ref #*/
+            if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
+                gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
+                amount.setText(gCashArrayList.get(0).getAmount_due());
+                ref_number.setText(gCashArrayList.get(0).getRemarks());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "GCash payment is unavailable at the moment.", "Hold up!", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btn_gcashMouseClicked
 
@@ -861,22 +874,23 @@ public class view_cart extends javax.swing.JFrame{
             if (amountDue <= amountPaid) {
                 if (this.table_no.equals("take-out") || this.table_no.equals("dine-in")){
                 String cashier = "cashier";
-                
-                dashboard.checkout(cashier, this.table_no);
 
                     String payment_method = "GCash";
                     String payment_amount = amount.getText();
                     String amount_due = txtTotal_amount.getText();
                     String payment_status = "COMPLETED";
                     String remarks = ref_number.getText();
+                
+                    int orderID = DatabaseConnection.getInstance().insertOrder(cashier, this.table_no, amount_due);
+
+                    dashboard.checkout(cashier, this.table_no, orderID);
                     
                     //Get payment_id nito
-                    DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, null);
+                    int paymentID = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, null);
                     
-                    //Get order_id generated rin from this transaction
                     
                     //No need for loop since 1 order lang toh
-                    //DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, order_id);
+                    DatabaseConnection.getInstance().insertIntoPaymentTransactions(String.valueOf(paymentID), String.valueOf(orderID));
                     cleargcashtextfields();
                     JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
                 }
@@ -943,8 +957,6 @@ public class view_cart extends javax.swing.JFrame{
             
             if (this.table_no.equals("take-out") || this.table_no.equals("dine-in")){
                 String cashier = "cashier";
-                
-                dashboard.checkout(cashier, this.table_no);
 
                 String payment_method = "Cash";
                 String payment_amount = txt_cash_received.getText();
@@ -953,13 +965,19 @@ public class view_cart extends javax.swing.JFrame{
                 String remarks = null;
                 
                 System.out.println("Cash payment received successfully.");
+                
+                int orderID = DatabaseConnection.getInstance().insertOrder(cashier, this.table_no, amount_due);
+
+                dashboard.checkout(cashier, this.table_no, orderID);
+                
+                
                 //Get payment_id nito
-                DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, computeChange());
+                int payment_id = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, computeChange());
                  
                 //Get order_id from this transaction
                 
                 //No need for loop since 1 order lang toh
-                //DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, order_id);
+                DatabaseConnection.getInstance().insertIntoPaymentTransactions(String.valueOf(payment_id), String.valueOf(orderID));
                 clearCashTextFields();
                 JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }

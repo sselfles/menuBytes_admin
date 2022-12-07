@@ -278,16 +278,16 @@ public class payment_modal extends javax.swing.JFrame {
         System.out.println("FILE NAME : " + file_name.getText());
         if(payment_info == null){
             JOptionPane.showMessageDialog(null, "Please fill the GCash number.", "Missing Field!", JOptionPane.PLAIN_MESSAGE);
+        } else if (payment_info != null && this.inputStream == null){
+            DatabaseConnection.getInstance().updatePaymentSetting(payment_info, payment_availability);
+            JOptionPane.showMessageDialog(null, "Payment settings successfully updated.", "Successfully Updated", JOptionPane.PLAIN_MESSAGE);
         } else if (payment_info != null && this.inputStream != null){
             DatabaseConnection.getInstance().updatePaymentSettingWithImage(payment_info, this.inputStream, payment_availability);
             JOptionPane.showMessageDialog(null, "Payment settings and Image successfully updated.", "Successfully Updated", JOptionPane.PLAIN_MESSAGE);
             
             admin_dashboard ad = new admin_dashboard();
             ad.displayPaymentInfo();
-        } else if (payment_info != null && file_name.getText().equals("-")){
-            DatabaseConnection.getInstance().updatePaymentSetting(payment_info, payment_availability);
-            JOptionPane.showMessageDialog(null, "Payment settings successfully updated.", "Successfully Updated", JOptionPane.PLAIN_MESSAGE);
-        }
+        } 
         
         
         close();

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="216" pageHeight="360" whenNoDataType="NoDataSection" columnWidth="176" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="8a607ed4-537c-452a-a7cc-023e870864b0">
+	<property name="ireport.zoom" value="5.054470284992949"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="337"/>
+	<parameter name="orderId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+payment_transactions.payment_id,
+payment_transactions.order_id, 
+payment_transactions.order_id,
+payment.payment_amount AS 'Total Amount Due',
+payment.payment_change,
+payment.amount_due,
+payment.payment_method,
+payment.completed_at,
+payment.created_by,
+order_items.quantity,
+IF(order_items.flavors IS NOT NULL,CONCAT(IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name), order_items.flavors), IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name)) AS 'Product',
+IF(order_items.product_bundle,product.product_bundle,product.product_price) AS 'Price',
+IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price'
+FROM payment
+INNER JOIN
+payment_transactions ON payment.payment_id = payment_transactions.payment_id
+INNER JOIN
+order_items ON order_items.order_id = payment_transactions.order_id
+INNER JOIN
+product ON order_items.product_id = product.product_id
+WHERE payment_transactions.payment_id = $P{orderId};]]>
+	</queryString>
+	<field name="payment_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="order_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total Amount Due" class="java.math.BigDecimal"/>
+	<field name="payment_change" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount_due" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payment_method" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="completed_at" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_by" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Product" class="java.lang.String"/>
+	<field name="Price" class="java.math.BigDecimal"/>
+	<field name="total price" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="56" height="58" uuid="cb0d7ec2-3aac-49c9-bfa7-0000c76f3f5c"/>
+				<imageExpression><![CDATA["C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\images\\mainlogo_thumbnail.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="56" y="30" width="130" height="24" uuid="5094ed96-e8e3-413a-98a3-7c6108d08319"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="6"/>
+				</textElement>
+				<text><![CDATA[9th Avenue Barangay North Signal Extension Taguig City, Taguig, Philippines]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="0" width="130" height="30" uuid="605f2d0c-f3f9-4b7e-8a37-15f170852bb0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6.14 FOODHUB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="43" height="10" uuid="a04b3f3a-21b4-48ad-9fd8-a9023200b39a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment ID:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="77" width="176" height="1" uuid="c4246893-404a-4bff-ad5e-03c60f8ec5ef"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="43" y="59" width="33" height="10" uuid="c2b40973-c418-437f-8bbb-62c9df581504"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payment_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="59" width="74" height="10" uuid="68e06ef3-a18e-4d63-b538-5d1fbe337e96"/>
+				<textElement textAlignment="Right">
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_by}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="102" y="0" width="18" height="10" uuid="2b9657fb-079f-496e-9b67-24af990e5fb6"/>
+				<textElement>
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="10" uuid="0fb65a33-710d-4d91-bb60-b73cf00a0e4c"/>
+				<textElement>
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Product]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="0" width="44" height="10" uuid="9b5adf6a-2ef6-4e8d-965e-e1950a0859cb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<line>
+				<reportElement x="176" y="15" width="1" height="1" uuid="992f63b1-28a9-447e-b52b-4fc661051ed0"/>
+			</line>
+			<line>
+				<reportElement x="202" y="16" width="1" height="1" uuid="23baad04-c9b3-4f33-980a-e58e372655d8"/>
+			</line>
+			<line>
+				<reportElement x="0" y="12" width="176" height="1" uuid="ca346e29-cbfb-4c3a-b4d2-825204442cd4"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="102" y="0" width="18" height="9" uuid="32cb78e9-b8dc-4e65-b4f3-f4814fd4a5c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="9" width="30" height="11" uuid="01c4f645-cf6e-41ca-bb04-1973a07c6044"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="91" height="22" uuid="68644e9c-a54b-43e8-b4bf-5c455a619505"/>
+				<textElement>
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Product}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="104" y="9" width="10" height="11" uuid="c1e37fdb-bd26-4135-a143-88442aa25131"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<text><![CDATA[@]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="0" width="38" height="20" uuid="fc6f3285-c43a-4b8e-a250-9ea54da5e84c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="0" width="100" height="10" uuid="0dea31ea-2d88-45a5-a092-6ad831e9351d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{completed_at}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="50" width="100" height="20" uuid="1b6d136d-4062-420f-babf-c0758b8c9bf5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount_due}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="70" width="100" height="10" uuid="706825cf-4290-4e3f-b225-293a69a8f58a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Amount Due}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="80" width="100" height="10" uuid="dfe3d92c-2967-4bdd-9a58-50d6971c2ba8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payment_change}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="46" width="176" height="1" uuid="906d2299-b693-4a8d-a6a0-6b98742fcd6c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="94" width="176" height="1" uuid="71846482-2117-4bde-924f-4c13973dcf80"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="50" width="76" height="20" uuid="c5bfc4f1-b7a1-44e0-8254-b6f6f7767795"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="70" width="74" height="10" uuid="b26535f8-ec17-4348-bc08-4203e18b00e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Received:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="80" width="74" height="10" uuid="d4cb3b87-5201-4855-b9da-a56279e3a2c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<text><![CDATA[Change:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

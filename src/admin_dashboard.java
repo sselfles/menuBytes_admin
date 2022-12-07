@@ -85,7 +85,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         initComponents();
         defaultColor = new Color(227,0,0);
         clickedColor = new Color(255,0,0);
-        
+        in_username.setText(user_name);
         if(user_name.equals("manager")){
             jTabbedPane1.setSelectedIndex(1);
             product_management.setBackground(clickedColor);
@@ -438,6 +438,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         backup_restore = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
+        in_username = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -809,6 +811,16 @@ public class admin_dashboard extends javax.swing.JFrame {
         );
 
         sidePane.add(backup_restore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 770, 360, 70));
+
+        in_username.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        in_username.setForeground(new java.awt.Color(255, 255, 255));
+        in_username.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sidePane.add(in_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 300, 50));
+
+        jLabel38.setFont(new java.awt.Font("Century Gothic", 0, 28)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setText("Hi!");
+        sidePane.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         getContentPane().add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 1020));
 
@@ -2424,9 +2436,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         int selectedRowIndex = transaction_list.getSelectedRow();
         String order_id = model.getValueAt(selectedRowIndex, 1).toString();
         String user = model.getValueAt(selectedRowIndex, 2).toString();
+        String total = model.getValueAt(selectedRowIndex, 3).toString();
         
-        
-        transaction_modal transactionModal = new transaction_modal(order_id, user);
+        transaction_modal transactionModal = new transaction_modal(order_id, user, total);
         if (transactionModal.isVisible()){
             transactionModal.setVisible(false);
             transactionModal.setVisible(true);
@@ -2786,6 +2798,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel gcash_availability;
     private javax.swing.JLabel gcash_number;
     private javax.swing.JLabel gcash_qr;
+    private javax.swing.JLabel in_username;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2816,6 +2829,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

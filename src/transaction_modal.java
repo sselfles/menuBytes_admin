@@ -12,11 +12,22 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,50 +45,45 @@ public class transaction_modal extends javax.swing.JFrame {
      * Creates new form transaction_modal
      */
     
-    String order_id;
+    String payment_id;
     
     public transaction_modal() {
         initComponents();
     }
     
-    public transaction_modal(String order_id, String user) {
-        this.order_id = order_id;
+    public transaction_modal(String payment_id, String user, String total) {
+        this.payment_id = payment_id;
         initComponents();
-        order_num.setText(order_id);
+        order_num.setText(payment_id);
         username.setText(user);
-        addRowToTransactionBreakdown(order_id);
-        
-        
+        addRowToTransactionBreakdown(payment_id);
+        total_amount.setText(total);
     }
     
-    public void addRowToTransactionBreakdown(String order_id){
+    public void addRowToTransactionBreakdown(String payment_id){
         DefaultTableModel model = (DefaultTableModel)breakdown.getModel();
         model.setRowCount(0);
-        if(!transactionListQuery(order_id).isEmpty()){
-        ArrayList<Order> orderArrayList = transactionListQuery(order_id);
-        Object rowData[] = new Object[3];
-        
-        float total = 0;
-        
-        for(int position = 0; position < orderArrayList.size(); position++){
-            rowData[0] = orderArrayList.get(position).getQuantity();
-            
-            if (orderArrayList.get(position).getHas_addOns() != null) {
-                rowData[1] = orderArrayList.get(position).getProduct_name() + " " + orderArrayList.get(position).getHas_addOns();
-            } else if (orderArrayList.get(position).getFlavors() != null){
-                rowData[1] = orderArrayList.get(position).getProduct_name() + " " + orderArrayList.get(position).getFlavors();
-            } else {
-                rowData[1] = orderArrayList.get(position).getProduct_name();
+        if(!transactionListQuery(payment_id).isEmpty()){
+            ArrayList<Order> orderArrayList = transactionListQuery(payment_id);
+            Object rowData[] = new Object[3];
+
+            float total = 0;
+
+            for(int position = 0; position < orderArrayList.size(); position++){
+                rowData[0] = orderArrayList.get(position).getCreated_by();
+
+                if (orderArrayList.get(position).getHas_addOns() != null) {
+                    rowData[1] = orderArrayList.get(position).getTotal_quantity() + " " + orderArrayList.get(position).getHas_addOns();
+                } else if (orderArrayList.get(position).getFlavors() != null){
+                    rowData[1] = orderArrayList.get(position).getTotal_quantity() + " " + orderArrayList.get(position).getFlavors();
+                } else {
+                    rowData[1] = orderArrayList.get(position).getTotal_quantity();
+                }
+                Double priceFormat = Double.valueOf(orderArrayList.get(position).getOrder_status());
+                rowData[2] = String.format("%.2f", priceFormat);
+
+                model.addRow(rowData);
             }
-                    
-            rowData[2] = orderArrayList.get(position).getTotal_price();
-            
-            total += Float.valueOf(rowData[2].toString());
-            
-            model.addRow(rowData);
-        }
-        
-        total_amount.setText(String.format("%.2f", total));
         }
     }
     
@@ -121,12 +127,13 @@ public class transaction_modal extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         username.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        username.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         username.setText("-");
         jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 210, -1));
 
         order_num.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         order_num.setText("-");
-        jPanel1.add(order_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 210, -1));
+        jPanel1.add(order_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 160, -1));
 
         total_amount.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         total_amount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -134,7 +141,7 @@ public class transaction_modal extends javax.swing.JFrame {
         jPanel1.add(total_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 480, 220, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel4.setText("Order #");
+        jLabel4.setText("Payment #");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
@@ -227,85 +234,145 @@ public class transaction_modal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Save");
-        chooser.setAcceptAllFileFilterUsed(false);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.showOpenDialog(null);
-        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-            System.out.println("getCurrentDirectory(): " 
-               +  chooser.getCurrentDirectory());
-            System.out.println("getSelectedFile() : " 
-               +  chooser.getSelectedFile());
-        }
-//        File file = chooser.getSelectedFile();
-//        String fileName = file.getName();
-        
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-        LocalDateTime now = LocalDateTime.now();  
-        String datetime= dtf.format(now);
-        
-//        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
-        String dateOfSalesReport = "Order Number " + this.order_id + " Transaction Detail" +(".pdf");
-        Document doc = new Document();
-        String saveFolderPath = chooser.getSelectedFile().toString();
-              
-        
-        try {
-            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
-            
-            doc.open();
-            //Logo
-//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-//            Image img = Image.getInstance(path.toAbsolutePath().toString());
-//            img.setSpacingAfter(TOP_ALIGNMENT);
-//            doc.add(img);
-            
-            //Header
-//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-//            Chunk chunk = new Chunk("SALES REPORT", font);
-//
-//            doc.add(chunk);
-            
-            int columnCount = 4;
-            PdfPTable receiptTable = new PdfPTable(columnCount);
-            
-            receiptTable.setHorizontalAlignment(0);
-            receiptTable.addCell("Date");
-            receiptTable.addCell("Order Number");
-            receiptTable.addCell("Username");
-            receiptTable.addCell("Total Amount");
-            
-            System.out.println(breakdown.getRowCount());
-            for(int rowCount = 0; rowCount < breakdown.getRowCount(); rowCount++){
-                
-                String quantity = breakdown.getValueAt(rowCount, 0).toString();
-                String product = breakdown.getValueAt(rowCount, 1).toString();
-                String price = breakdown.getValueAt(rowCount, 2).toString();
-                
-                receiptTable.addCell(quantity);
-                receiptTable.addCell(product);
-                receiptTable.addCell(price);
-            }
-            
-            doc.add(receiptTable);
-            doc.close();
-            
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-//        catch (URISyntaxException ex) {
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.setDialogTitle("Save");
+//        chooser.setAcceptAllFileFilterUsed(false);
+//        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        chooser.showOpenDialog(null);
+//        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+//            System.out.println("getCurrentDirectory(): " 
+//               +  chooser.getCurrentDirectory());
+//            System.out.println("getSelectedFile() : " 
+//               +  chooser.getSelectedFile());
+//        }
+////        File file = chooser.getSelectedFile();
+////        String fileName = file.getName();
+//        
+//        
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+//        LocalDateTime now = LocalDateTime.now();  
+//        String datetime= dtf.format(now);
+//        
+////        String dateOfSalesReport = "Transactions Report (" + datetime + ")"+(".pdf");
+//        String dateOfSalesReport = "Order Number " + this.order_id + " Transaction Detail" +(".pdf");
+//        Document doc = new Document();
+//        String saveFolderPath = chooser.getSelectedFile().toString();
+//              
+//        
+//        try {
+//            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
+//            
+//            doc.open();
+//            //Logo
+////            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+////            Image img = Image.getInstance(path.toAbsolutePath().toString());
+////            img.setSpacingAfter(TOP_ALIGNMENT);
+////            doc.add(img);
+//            
+//            //Header
+////            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+////            Chunk chunk = new Chunk("SALES REPORT", font);
+////
+////            doc.add(chunk);
+//            
+//            int columnCount = 4;
+//            PdfPTable receiptTable = new PdfPTable(columnCount);
+//            
+//            receiptTable.setHorizontalAlignment(0);
+//            receiptTable.addCell("Date");
+//            receiptTable.addCell("Order Number");
+//            receiptTable.addCell("Username");
+//            receiptTable.addCell("Total Amount");
+//            
+//            System.out.println(breakdown.getRowCount());
+//            for(int rowCount = 0; rowCount < breakdown.getRowCount(); rowCount++){
+//                
+//                String quantity = breakdown.getValueAt(rowCount, 0).toString();
+//                String product = breakdown.getValueAt(rowCount, 1).toString();
+//                String price = breakdown.getValueAt(rowCount, 2).toString();
+//                
+//                receiptTable.addCell(quantity);
+//                receiptTable.addCell(product);
+//                receiptTable.addCell(price);
+//            }
+//            
+//            doc.add(receiptTable);
+//            doc.close();
+//            
+//            
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (DocumentException ex) {
 //            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
 //        } 
-        catch (IOException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
+////        catch (URISyntaxException ex) {
+////            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+////        } 
+//        catch (IOException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+            printInvoice();
     }//GEN-LAST:event_downloadActionPerformed
 
+    public void printInvoice(){
+        try{
+//            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\transactions.jrxml");
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\report1.jrxml");
+            
+//            String query = "SELECT\n" +
+//"     payment_transactions.`payment_id` AS payment_transactions_payment_id,\n" +
+//"     payment_transactions.`order_id` AS payment_transactions_order_id,\n" +
+//"     product.`product_id` AS product_product_id,\n" +
+//"     product.`product_name` AS product_product_name,\n" +
+//"     product.`product_price` AS product_product_price,\n" +
+//"     product.`product_bundle` AS product_product_bundle,\n" +
+//"     product.`product_description` AS product_product_description,\n" +
+//"     product.`product_image` AS product_product_image,\n" +
+//"     product.`product_category` AS product_product_category,\n" +
+//"     product.`product_availability` AS product_product_availability,\n" +
+//"     order_items.`order_id` AS order_items_order_id,\n" +
+//"     order_items.`product_id` AS order_items_product_id,\n" +
+//"     order_items.`quantity` AS order_items_quantity,\n" +
+//"     order_items.`product_bundle` AS order_items_product_bundle,\n" +
+//"     order_items.`has_addons` AS order_items_has_addons,\n" +
+//"     order_items.`flavors` AS order_items_flavors,\n" +
+//"     payment.`payment_id` AS payment_payment_id,\n" +
+//"     payment.`created_by` AS payment_created_by,\n" +
+//"     payment.`payment_amount` AS payment_payment_amount,\n" +
+//"     payment.`amount_due` AS payment_amount_due,\n" +
+//"     payment.`payment_change` AS payment_payment_change,\n" +
+//"     payment.`payment_method` AS payment_payment_method,\n" +
+//"     payment.`payment_status` AS payment_payment_status,\n" +
+//"     payment.`created_at` AS payment_created_at,\n" +
+//"     payment.`completed_at` AS payment_completed_at,\n" +
+//"     payment.`remarks` AS payment_remarks\n" +
+//"FROM \n" +
+//"     `payment` payment INNER JOIN `payment_transactions` payment_transactions ON payment.`payment_id` = payment_transactions.`payment_id`\n" +
+//"     INNER JOIN order_items ON order_items.order_id = payment_transactions.order_id\n" +
+//"     INNER JOIN product ON order_items.product_id = product.product_id\n" +
+//"WHERE order_items.order_id = (?);";
+//            
+//            JRDesignQuery designQuery = new JRDesignQuery();
+//            designQuery.setText(query);
+//            jasper.setQuery(designQuery);
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("orderId", this.payment_id);
+            System.out.println(this.payment_id);
+            
+            
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         close();
     }//GEN-LAST:event_backActionPerformed
