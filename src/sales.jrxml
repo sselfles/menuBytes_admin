@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sales Report" pageWidth="612" pageHeight="792" columnWidth="468" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" whenResourceMissingType="Empty" uuid="00c2f1bf-45bd-4ca0-a724-c56afbdb3e87">
+	<property name="ireport.zoom" value="1.9487171000000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="336"/>
+	<parameter name="total_quantity" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_sales" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+DATE(orders.created_at) as 'created_at',
+SUM(order_items.quantity) as 'quantity',
+SUM(orders.total) as 'total'
+FROM orders
+INNER JOIN
+order_items ON orders.order_id = order_items.order_id
+GROUP BY DATE(orders.created_at)]]>
+	</queryString>
+	<field name="created_at" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<image>
+				<reportElement x="49" y="0" width="83" height="81" uuid="04b378c5-2815-4849-acde-800b773e5f4b"/>
+				<imageExpression><![CDATA["C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\mainlogo_thumbnail.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="132" y="7" width="285" height="36" uuid="e44976a5-7e54-4eb3-a9f8-b6397f5655c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6.14 FOODHUB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="43" width="285" height="32" uuid="1a6fb70a-cfbe-4af8-aafa-03b1a2d3ff70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<text><![CDATA[9th Avenue Barangay North Signal Extension Taguig City, Taguig, Philippines]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="468" height="35" uuid="64f24aad-5ff9-425f-b99f-49564b2620bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALES REPORT]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="af7c0770-507f-40ff-9958-088535f0d12e"/>
+				<text><![CDATA[created_at]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="1" width="100" height="20" uuid="fa83f8f9-9fcd-4e57-938c-59d379ecf4a7"/>
+				<text><![CDATA[quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="100" height="20" uuid="b2f709bc-881b-4485-bdae-04f3cab8e12c"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="27dbd0a0-f220-47e1-b6eb-ec05f058af88"/>
+				<textFieldExpression><![CDATA[$F{created_at}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="0" width="100" height="20" uuid="8ea016f6-bc3e-4720-9bac-9b3e3decd8e6"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="100" height="20" uuid="fae32007-1863-4dff-a2fe-96b29ed4e6da"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="287" y="24" width="100" height="20" uuid="ae12e0bb-39f5-4afc-98a0-c367644cb5ba"/>
+				<text><![CDATA[column footer]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="315" y="18" width="100" height="20" uuid="a2efef34-3558-4ecb-aa74-39a3200caf44"/>
+				<text><![CDATA[footer]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="368" y="0" width="100" height="20" uuid="078a0d71-e3e3-48e6-a3ca-b57c9381cf1f"/>
+				<textFieldExpression><![CDATA[$P{total_sales}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="0" width="100" height="20" uuid="2d70534a-c187-4b14-abc7-44ea2d2fa097"/>
+				<textFieldExpression><![CDATA[$P{total_quantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -29,6 +29,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -37,6 +38,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -2356,79 +2364,115 @@ public class admin_dashboard extends javax.swing.JFrame {
         if(selectedIndex == 0 || selectedIndex == 1) sales_tabbedPane.setSelectedIndex(0);
         else if (selectedIndex == 2 ) sales_tabbedPane.setSelectedIndex(1);
     }//GEN-LAST:event_cmb_salesActionPerformed
-
-    private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
-        
-        chooser.setDialogTitle("Save");
-        chooser.setAcceptAllFileFilterUsed(false);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.showOpenDialog(null);
-        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-            System.out.println("getCurrentDirectory(): " 
-               +  chooser.getCurrentDirectory());
-            System.out.println("getSelectedFile() : " 
-               +  chooser.getSelectedFile());
-        }
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-        LocalDateTime now = LocalDateTime.now();  
-        String datetime= dtf.format(now);
-        
-        String dateOfSalesReport = "Sales Report (" + datetime + ")"+(".pdf");
-        Document doc = new Document();
-        String saveFolderPath = chooser.getSelectedFile().toString();
-              
-        
-        try {
-            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
+    
+    public void printSalesDefault(){
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\sales.jrxml");
             
-            doc.open();
-            //Logo
-//            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-//            Image img = Image.getInstance(path.toAbsolutePath().toString());
-//            img.setSpacingAfter(TOP_ALIGNMENT);
-//            doc.add(img);
-            
-            //Header
-//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-//            Chunk chunk = new Chunk("SALES REPORT", font);
-//
-//            doc.add(chunk);
-            
-            int columnCount = 3;
-            PdfPTable receiptTable = new PdfPTable(columnCount);
-            
-            receiptTable.setHorizontalAlignment(0);
-            receiptTable.addCell("Date");
-            receiptTable.addCell("Quality Sales");
-            receiptTable.addCell("Total Sales");
-            System.out.println(sales_report_list.getRowCount());
-            for(int rowCount = 0; rowCount < sales_report_list.getRowCount(); rowCount++){
+            DefaultTableModel model = (DefaultTableModel) sales_report_list.getModel();
+            int rowCount = sales_report_list.getRowCount();
+            double total_sales = 0.0;
+            double sales = 0.0;
+            double total_quantity = 0.0;
+            double quantity =0.0;
+            for(int i = 0; i < rowCount; i++){
+                sales = Double.valueOf(model.getValueAt(i, 1).toString());
+                quantity = Double.valueOf(model.getValueAt(i, 2).toString());
                 
-                String date = sales_report_list.getValueAt(rowCount, 0).toString();
-                String quality = sales_report_list.getValueAt(rowCount, 1).toString();
-                String total = sales_report_list.getValueAt(rowCount, 2).toString();
-                
-                receiptTable.addCell(date);
-                receiptTable.addCell(quality);
-                receiptTable.addCell(total);
+                total_sales += quantity;
+                total_quantity += sales;
             }
             
-            doc.add(receiptTable);
-            doc.close();
+            System.out.println("total_quantity " + total_quantity);
+            System.out.println("total_sales " + total_sales);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("total_quantity", String.format("%.2f", total_quantity));
+            params.put("total_sales", String.format("%.2f", total_sales));
             
             
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-//        catch (URISyntaxException ex) {
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
+        printSalesDefault();
+//        chooser.setDialogTitle("Save");
+//        chooser.setAcceptAllFileFilterUsed(false);
+//        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        chooser.showOpenDialog(null);
+//        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+//            System.out.println("getCurrentDirectory(): " 
+//               +  chooser.getCurrentDirectory());
+//            System.out.println("getSelectedFile() : " 
+//               +  chooser.getSelectedFile());
+//        }
+//        
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+//        LocalDateTime now = LocalDateTime.now();  
+//        String datetime= dtf.format(now);
+//        
+//        String dateOfSalesReport = "Sales Report (" + datetime + ")"+(".pdf");
+//        Document doc = new Document();
+//        String saveFolderPath = chooser.getSelectedFile().toString();
+//              
+//        
+//        try {
+//            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
+//            
+//            doc.open();
+//            //Logo
+////            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
+////            Image img = Image.getInstance(path.toAbsolutePath().toString());
+////            img.setSpacingAfter(TOP_ALIGNMENT);
+////            doc.add(img);
+//            
+//            //Header
+////            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+////            Chunk chunk = new Chunk("SALES REPORT", font);
+////
+////            doc.add(chunk);
+//            
+//            int columnCount = 3;
+//            PdfPTable receiptTable = new PdfPTable(columnCount);
+//            
+//            receiptTable.setHorizontalAlignment(0);
+//            receiptTable.addCell("Date");
+//            receiptTable.addCell("Quality Sales");
+//            receiptTable.addCell("Total Sales");
+//            System.out.println(sales_report_list.getRowCount());
+//            for(int rowCount = 0; rowCount < sales_report_list.getRowCount(); rowCount++){
+//                
+//                String date = sales_report_list.getValueAt(rowCount, 0).toString();
+//                String quality = sales_report_list.getValueAt(rowCount, 1).toString();
+//                String total = sales_report_list.getValueAt(rowCount, 2).toString();
+//                
+//                receiptTable.addCell(date);
+//                receiptTable.addCell(quality);
+//                receiptTable.addCell(total);
+//            }
+//            
+//            doc.add(receiptTable);
+//            doc.close();
+//            
+//            
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (DocumentException ex) {
 //            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
 //        } 
-        catch (IOException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
+////        catch (URISyntaxException ex) {
+////            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+////        } 
+//        catch (IOException ex) {
+//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_sales_viewMouseClicked
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
