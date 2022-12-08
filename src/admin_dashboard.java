@@ -2867,8 +2867,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             System.out.println("getSelectedFile() : " 
                +  chooser.getSelectedFile());
         }
-        File file = chooser.getSelectedFile();
-        String fileName = file.getName();
+        File filePath = chooser.getSelectedFile();
         
        DatabaseConnection.getInstance().backupDatabase();
        JOptionPane.showMessageDialog(null, "Awesome! Database has been successfully backed up!", "SUCCESS!", JOptionPane.PLAIN_MESSAGE);
