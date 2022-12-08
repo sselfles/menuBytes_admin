@@ -317,56 +317,16 @@ public class transaction_modal extends javax.swing.JFrame {
 
     public void printInvoice(){
         try{
-//            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\transactions.jrxml");
             JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\report1.jrxml");
-            
-//            String query = "SELECT\n" +
-//"     payment_transactions.`payment_id` AS payment_transactions_payment_id,\n" +
-//"     payment_transactions.`order_id` AS payment_transactions_order_id,\n" +
-//"     product.`product_id` AS product_product_id,\n" +
-//"     product.`product_name` AS product_product_name,\n" +
-//"     product.`product_price` AS product_product_price,\n" +
-//"     product.`product_bundle` AS product_product_bundle,\n" +
-//"     product.`product_description` AS product_product_description,\n" +
-//"     product.`product_image` AS product_product_image,\n" +
-//"     product.`product_category` AS product_product_category,\n" +
-//"     product.`product_availability` AS product_product_availability,\n" +
-//"     order_items.`order_id` AS order_items_order_id,\n" +
-//"     order_items.`product_id` AS order_items_product_id,\n" +
-//"     order_items.`quantity` AS order_items_quantity,\n" +
-//"     order_items.`product_bundle` AS order_items_product_bundle,\n" +
-//"     order_items.`has_addons` AS order_items_has_addons,\n" +
-//"     order_items.`flavors` AS order_items_flavors,\n" +
-//"     payment.`payment_id` AS payment_payment_id,\n" +
-//"     payment.`created_by` AS payment_created_by,\n" +
-//"     payment.`payment_amount` AS payment_payment_amount,\n" +
-//"     payment.`amount_due` AS payment_amount_due,\n" +
-//"     payment.`payment_change` AS payment_payment_change,\n" +
-//"     payment.`payment_method` AS payment_payment_method,\n" +
-//"     payment.`payment_status` AS payment_payment_status,\n" +
-//"     payment.`created_at` AS payment_created_at,\n" +
-//"     payment.`completed_at` AS payment_completed_at,\n" +
-//"     payment.`remarks` AS payment_remarks\n" +
-//"FROM \n" +
-//"     `payment` payment INNER JOIN `payment_transactions` payment_transactions ON payment.`payment_id` = payment_transactions.`payment_id`\n" +
-//"     INNER JOIN order_items ON order_items.order_id = payment_transactions.order_id\n" +
-//"     INNER JOIN product ON order_items.product_id = product.product_id\n" +
-//"WHERE order_items.order_id = (?);";
-//            
-//            JRDesignQuery designQuery = new JRDesignQuery();
-//            designQuery.setText(query);
-//            jasper.setQuery(designQuery);
             
             HashMap<String, Object> params = new HashMap<>();
             params.put("orderId", this.payment_id);
             System.out.println(this.payment_id);
             
-            
-            
             JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
             
-            JasperViewer.viewReport(jasperPrint);
+            JasperViewer.viewReport(jasperPrint, false);
             
         } catch (Exception e){
             JOptionPane.showMessageDialog(rootPane, e);

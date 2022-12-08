@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -18,6 +19,13 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -864,7 +872,25 @@ public class view_cart extends javax.swing.JFrame{
         btn_pending_orders.setForeground(Color.black);
         
     }//GEN-LAST:event_btn_completed_ordersMouseClicked
-
+    
+    public void printInvoice(String payment_id){
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\report1.jrxml");
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("orderId", payment_id);
+            System.out.println(payment_id);
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
     private void gcash_receivedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gcash_receivedMouseClicked
         // TODO add your handling code here:
         if (!amount.getText().isEmpty()) {
@@ -891,6 +917,7 @@ public class view_cart extends javax.swing.JFrame{
                     
                     //No need for loop since 1 order lang toh
                     DatabaseConnection.getInstance().insertIntoPaymentTransactions(String.valueOf(paymentID), String.valueOf(orderID));
+                    printInvoice(String.valueOf(paymentID));
                     cleargcashtextfields();
                     JOptionPane.showMessageDialog(null, "GCash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
                 }
@@ -908,7 +935,8 @@ public class view_cart extends javax.swing.JFrame{
                         if(!orderArrayList.isEmpty()){
                             for(int position = 0; position < orderArrayList.size(); position++){
                             DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, orderArrayList.get(position).getOrder_id());
-                            }                   
+                            } 
+                            printInvoice(payment_id);
                         }
                     }
 
@@ -978,6 +1006,8 @@ public class view_cart extends javax.swing.JFrame{
                 
                 //No need for loop since 1 order lang toh
                 DatabaseConnection.getInstance().insertIntoPaymentTransactions(String.valueOf(payment_id), String.valueOf(orderID));
+                printInvoice(String.valueOf(payment_id));
+                
                 clearCashTextFields();
                 JOptionPane.showMessageDialog(null, "Cash payment received successfully.", "Payment Successful!.", JOptionPane.PLAIN_MESSAGE);
             }
@@ -992,7 +1022,8 @@ public class view_cart extends javax.swing.JFrame{
                     if(!orderArrayList.isEmpty()){
                         for(int position = 0; position < orderArrayList.size(); position++){
                         DatabaseConnection.getInstance().insertIntoPaymentTransactions(payment_id, orderArrayList.get(position).getOrder_id());
-                        }                   
+                        } 
+                        printInvoice(payment_id);
                     }
                 }
                 clearCashTextFields();

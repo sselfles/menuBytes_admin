@@ -355,7 +355,7 @@ public class DatabaseConnection {
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
-            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
+            System.out.println("retrieveOrderBreakdownUsingOrderID: No Data Retrieved!");}
         else{
             while(resultSet.next()){
                       orderArrayList.add(new Order(
@@ -784,7 +784,7 @@ public class DatabaseConnection {
         ArrayList<Order> orderArrayList = new ArrayList<>();
         try{
         connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getTransactionBreakdown());
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getInvoice());
         preparedStatement.setInt(1, Integer.valueOf(payment_id));
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
@@ -1440,7 +1440,7 @@ public class DatabaseConnection {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().insertOrderItems());
             preparedStatement.setInt(1, Integer.valueOf(order_id));
-            preparedStatement.setString(2,product_id);
+            preparedStatement.setString(2, product_id);
             preparedStatement.setString(3, quantity);
             preparedStatement.setBoolean(4,Boolean.valueOf(product_bundle));
             preparedStatement.setBoolean(5, Boolean.valueOf(has_addons));

@@ -1548,7 +1548,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         daily_weekly_tab.setOpaque(false);
 
-        sales_from.setDateFormatString("yyyyMM/dd hh:mm:ss");
+        sales_from.setDateFormatString("yyyy/MM/dd hh:mm:ss");
         sales_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         sales_to.setDateFormatString("yyyy/MM/dd hh:mm:ss");
@@ -1592,6 +1592,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         sales_month_from.setBackground(new java.awt.Color(255, 255, 255));
         sales_month_from.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        sales_month_from.setMonth(0);
 
         sales_month_to.setBackground(new java.awt.Color(255, 255, 255));
         sales_month_to.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
@@ -2373,7 +2374,7 @@ public class admin_dashboard extends javax.swing.JFrame {
             int rowCount = sales_report_list.getRowCount();
             double total_sales = 0.0;
             double sales = 0.0;
-            double total_quantity = 0.0;
+            int total_quantity = 0;
             double quantity =0.0;
             for(int i = 0; i < rowCount; i++){
                 sales = Double.valueOf(model.getValueAt(i, 1).toString());
@@ -2386,15 +2387,196 @@ public class admin_dashboard extends javax.swing.JFrame {
             System.out.println("total_quantity " + total_quantity);
             System.out.println("total_sales " + total_sales);
             HashMap<String, Object> params = new HashMap<>();
-            params.put("total_quantity", String.format("%.2f", total_quantity));
+            params.put("total_quantity", String.valueOf(total_quantity));
             params.put("total_sales", String.format("%.2f", total_sales));
-            
-            
             
             JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
             
-            JasperViewer.viewReport(jasperPrint);
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    public void printSalesDaily(String from, String to){
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\salesDaily.jrxml");
+            
+            DefaultTableModel model = (DefaultTableModel) sales_report_list.getModel();
+            int rowCount = sales_report_list.getRowCount();
+            double total_sales = 0.0;
+            double sales = 0.0;
+            int total_quantity = 0;
+            double quantity =0.0;
+            for(int i = 0; i < rowCount; i++){
+                sales = Double.valueOf(model.getValueAt(i, 1).toString());
+                quantity = Double.valueOf(model.getValueAt(i, 2).toString());
+                
+                total_sales += quantity;
+                total_quantity += sales;
+            }
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("total_quantity", String.valueOf(total_quantity));
+            params.put("total_sales", String.format("%.2f", total_sales));
+            params.put("from", from);
+            params.put("to", to);
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    public void printSalesWeekly(String from, String to){
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\salesWeekly.jrxml");
+            
+            DefaultTableModel model = (DefaultTableModel) sales_report_list.getModel();
+            int rowCount = sales_report_list.getRowCount();
+            double total_sales = 0.0;
+            double sales = 0.0;
+            int total_quantity = 0;
+            double quantity =0.0;
+            for(int i = 0; i < rowCount; i++){
+                sales = Double.valueOf(model.getValueAt(i, 1).toString());
+                quantity = Double.valueOf(model.getValueAt(i, 2).toString());
+                
+                total_sales += quantity;
+                total_quantity += sales;
+            }
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("total_quantity", String.valueOf(total_quantity));
+            params.put("total_sales", String.format("%.2f", total_sales));
+            params.put("from", from);
+            params.put("to", to);
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    public void printSalesMonthly(String from, String to){
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\report2.jrxml");
+            
+            DefaultTableModel model = (DefaultTableModel) sales_report_list.getModel();
+            int rowCount = sales_report_list.getRowCount();
+            double total_sales = 0.0;
+            double sales = 0.0;
+            int total_quantity = 0;
+            double quantity =0.0;
+            for(int i = 0; i < rowCount; i++){
+                sales = Double.valueOf(model.getValueAt(i, 1).toString());
+                quantity = Double.valueOf(model.getValueAt(i, 2).toString());
+                
+                total_sales += quantity;
+                total_quantity += sales;
+            }
+            String from_month = null, to_month = null;
+            
+            switch(sales_month_from.getMonth()){
+                case 0:
+                    from_month = "January";
+                    break;
+                case 1:
+                    from_month = "February";
+                    break;
+                case 2:
+                    from_month = "March";
+                    break;
+                case 3:
+                    from_month = "April";
+                    break;
+                case 4:
+                    from_month = "May";
+                    break;
+                case 5:
+                    from_month = "June";
+                    break;
+                case 6:
+                    from_month = "July";
+                    break;
+                case 7:
+                    from_month = "August";
+                    break;
+                case 8:
+                    from_month = "September";
+                    break;
+                case 9:
+                    from_month = "October";
+                    break;
+                case 10:
+                    from_month = "November";
+                    break;
+                case 11:
+                    from_month = "December";
+                    break;    
+            }
+            
+            switch(sales_month_to.getMonth()){
+                case 0:
+                    to_month = "January";
+                    break;
+                case 1:
+                    to_month = "February";
+                    break;
+                case 2:
+                    to_month = "March";
+                    break;
+                case 3:
+                    to_month = "April";
+                    break;
+                case 4:
+                    to_month = "May";
+                    break;
+                case 5:
+                    to_month = "June";
+                    break;
+                case 6:
+                    to_month = "July";
+                    break;
+                case 7:
+                    to_month = "August";
+                    break;
+                case 8:
+                    to_month = "September";
+                    break;
+                case 9:
+                    to_month = "October";
+                    break;
+                case 10:
+                    to_month = "November";
+                    break;
+                case 11:
+                    to_month = "December";
+                    break;    
+            }
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("total_quantity", String.valueOf(total_quantity));
+            params.put("total_sales", String.format("%.2f", total_sales));
+            params.put("from", from);
+            params.put("to", to);
+            params.put("from_month", from_month);
+            params.put("to_month", to_month);
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint, false);
             
         } catch (Exception e){
             JOptionPane.showMessageDialog(rootPane, e);
@@ -2402,77 +2584,26 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
     
     private void sales_viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_viewMouseClicked
-        printSalesDefault();
-//        chooser.setDialogTitle("Save");
-//        chooser.setAcceptAllFileFilterUsed(false);
-//        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        chooser.showOpenDialog(null);
-//        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-//            System.out.println("getCurrentDirectory(): " 
-//               +  chooser.getCurrentDirectory());
-//            System.out.println("getSelectedFile() : " 
-//               +  chooser.getSelectedFile());
-//        }
-//        
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-//        LocalDateTime now = LocalDateTime.now();  
-//        String datetime= dtf.format(now);
-//        
-//        String dateOfSalesReport = "Sales Report (" + datetime + ")"+(".pdf");
-//        Document doc = new Document();
-//        String saveFolderPath = chooser.getSelectedFile().toString();
-//              
-//        
-//        try {
-//            PdfWriter.getInstance(doc, new FileOutputStream(saveFolderPath+"\\"+dateOfSalesReport));
-//            
-//            doc.open();
-//            //Logo
-////            Path path = Paths.get(ClassLoader.getSystemResource("mainlogo_thumbnail.png").toURI());
-////            Image img = Image.getInstance(path.toAbsolutePath().toString());
-////            img.setSpacingAfter(TOP_ALIGNMENT);
-////            doc.add(img);
-//            
-//            //Header
-////            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-////            Chunk chunk = new Chunk("SALES REPORT", font);
-////
-////            doc.add(chunk);
-//            
-//            int columnCount = 3;
-//            PdfPTable receiptTable = new PdfPTable(columnCount);
-//            
-//            receiptTable.setHorizontalAlignment(0);
-//            receiptTable.addCell("Date");
-//            receiptTable.addCell("Quality Sales");
-//            receiptTable.addCell("Total Sales");
-//            System.out.println(sales_report_list.getRowCount());
-//            for(int rowCount = 0; rowCount < sales_report_list.getRowCount(); rowCount++){
-//                
-//                String date = sales_report_list.getValueAt(rowCount, 0).toString();
-//                String quality = sales_report_list.getValueAt(rowCount, 1).toString();
-//                String total = sales_report_list.getValueAt(rowCount, 2).toString();
-//                
-//                receiptTable.addCell(date);
-//                receiptTable.addCell(quality);
-//                receiptTable.addCell(total);
-//            }
-//            
-//            doc.add(receiptTable);
-//            doc.close();
-//            
-//            
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (DocumentException ex) {
-//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
-////        catch (URISyntaxException ex) {
-////            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-////        } 
-//        catch (IOException ex) {
-//            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String from_date = ((JTextField)sales_from.getDateEditor().getUiComponent()).getText();
+        String to_date = ((JTextField)sales_to.getDateEditor().getUiComponent()).getText();
+        String from = String.valueOf(sales_month_from.getMonth()+1);
+        String to = String.valueOf(sales_month_to.getMonth()+1);
+        
+        if(cmb_sales.getSelectedIndex() == 0 && from_date.isEmpty() && to_date.isEmpty()){
+            printSalesDefault();
+        }
+        else if(cmb_sales.getSelectedIndex() == 0 && !from_date.isEmpty() && !to_date.isEmpty()){
+            printSalesDaily(from_date, to_date);
+        }
+        else if(cmb_sales.getSelectedIndex() == 1 && !from_date.isEmpty() && !to_date.isEmpty()){
+            printSalesDaily(from_date, to_date);
+        }
+        else if(cmb_sales.getSelectedIndex() == 2){
+            printSalesMonthly(from, to);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Please specify the dates of the report you wish to view.", "Error generating the report", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_sales_viewMouseClicked
 
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked

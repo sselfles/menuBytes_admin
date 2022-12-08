@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sales Report" pageWidth="612" pageHeight="792" columnWidth="468" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" whenResourceMissingType="Empty" uuid="00c2f1bf-45bd-4ca0-a724-c56afbdb3e87">
-	<property name="ireport.zoom" value="1.9487171000000016"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="total_quantity" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -54,74 +54,131 @@ GROUP BY DATE(orders.created_at)]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="69" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="468" height="35" uuid="64f24aad-5ff9-425f-b99f-49564b2620bf"/>
+				<reportElement x="0" y="11" width="468" height="35" uuid="64f24aad-5ff9-425f-b99f-49564b2620bf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="24" isBold="true"/>
+					<font fontName="Century Gothic" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SALES REPORT]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="57" width="468" height="1" uuid="bc6581a1-6f7c-49b8-b133-924e2312d387"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="34" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="20" uuid="af7c0770-507f-40ff-9958-088535f0d12e"/>
-				<text><![CDATA[created_at]]></text>
+				<reportElement x="0" y="4" width="100" height="20" uuid="af7c0770-507f-40ff-9958-088535f0d12e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="171" y="1" width="100" height="20" uuid="fa83f8f9-9fcd-4e57-938c-59d379ecf4a7"/>
-				<text><![CDATA[quantity]]></text>
+				<reportElement x="187" y="5" width="70" height="20" uuid="fa83f8f9-9fcd-4e57-938c-59d379ecf4a7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="0" width="100" height="20" uuid="b2f709bc-881b-4485-bdae-04f3cab8e12c"/>
-				<text><![CDATA[total]]></text>
+				<reportElement x="368" y="4" width="100" height="20" uuid="b2f709bc-881b-4485-bdae-04f3cab8e12c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="28" width="468" height="1" uuid="2f07c82c-4006-4772-9e85-2561f5e18c1e"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="100" height="20" uuid="27dbd0a0-f220-47e1-b6eb-ec05f058af88"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{created_at}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="171" y="0" width="100" height="20" uuid="8ea016f6-bc3e-4720-9bac-9b3e3decd8e6"/>
+				<reportElement x="187" y="0" width="70" height="20" uuid="8ea016f6-bc3e-4720-9bac-9b3e3decd8e6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="368" y="0" width="100" height="20" uuid="fae32007-1863-4dff-a2fe-96b29ed4e6da"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="171" y="11" width="100" height="20" uuid="8d930c1d-414b-4867-9d9e-7342f4f5e81a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="11" width="100" height="20" uuid="2b6338c6-20b4-41b7-b389-b195539ee644"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_sales}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="6" width="468" height="1" uuid="d4ce33b7-20ef-4dc3-9e11-b785cd045135"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
 			<staticText>
-				<reportElement x="287" y="24" width="100" height="20" uuid="ae12e0bb-39f5-4afc-98a0-c367644cb5ba"/>
-				<text><![CDATA[column footer]]></text>
+				<reportElement x="0" y="11" width="100" height="20" uuid="94e16f1f-207e-48a9-8032-1f0811a62293"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL :]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="34" width="468" height="1" uuid="d140cde2-ac13-4b0f-b7c6-50a71f4dea55"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
 		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
+			<textField pattern="yyyy.MMMMM.dd GGG hh:mm aaa">
+				<reportElement x="320" y="0" width="148" height="14" uuid="24fd88c2-45da-4788-bf43-7d65f58ca9d7"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="315" y="18" width="100" height="20" uuid="a2efef34-3558-4ecb-aa74-39a3200caf44"/>
-				<text><![CDATA[footer]]></text>
+				<reportElement x="0" y="17" width="468" height="34" uuid="34c25058-63c5-4ed7-bbfb-f31e2a0ef3f7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font fontName="Century Gothic" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CONFIDENTIALITY NOTICE:  The contents of this report and any attachments are intended solely for the addressee(s) and may contain confidential and/or privileged information and may be legally protected from disclosure. If you are not the intended recipient of this report, or if this message has been addressed to you in error, please immediately alert the sender. If you are not the intended recipient, you are hereby notified that any use, dissemination, copying, or storage of this report or its attachments is strictly prohibited.]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch">
-			<textField>
-				<reportElement x="368" y="0" width="100" height="20" uuid="078a0d71-e3e3-48e6-a3ca-b57c9381cf1f"/>
-				<textFieldExpression><![CDATA[$P{total_sales}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="171" y="0" width="100" height="20" uuid="2d70534a-c187-4b14-abc7-44ea2d2fa097"/>
-				<textFieldExpression><![CDATA[$P{total_quantity}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="8" splitType="Stretch"/>
 	</summary>
 </jasperReport>

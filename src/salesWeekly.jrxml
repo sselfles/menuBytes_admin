@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="WEEKLY SALES REPORT" language="groovy" pageWidth="612" pageHeight="792" columnWidth="468" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" whenResourceMissingType="Empty" uuid="05cc829b-d43c-4a4a-9c46-cc31d91a96d4">
+	<property name="ireport.zoom" value="2.5937424601000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="141"/>
+	<parameter name="from" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="to" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_sales" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_quantity" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+CONCAT(DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(1-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e'), ' TO ',
+DATE_FORMAT(DATE_ADD(orders.created_at, INTERVAL(7-DAYOFWEEK(orders.created_at)) DAY),'%Y/%m/%e')) AS DateRange,
+SUM(order_items.quantity),
+SUM(orders.total)
+FROM orders
+INNER JOIN
+order_items ON orders.order_id = order_items.order_id
+WHERE created_at between $P{from} and $P{to}
+GROUP BY DateRange;]]>
+	</queryString>
+	<field name="DateRange" class="java.lang.String"/>
+	<field name="SUM(order_items.quantity)" class="java.math.BigDecimal"/>
+	<field name="SUM(orders.total)" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="44" width="285" height="32" uuid="1a18bae3-9445-42d0-b594-ae2f577ef4c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<text><![CDATA[9th Avenue Barangay North Signal Extension Taguig City, Taguig, Philippines]]></text>
+			</staticText>
+			<image>
+				<reportElement x="50" y="1" width="83" height="81" uuid="68a37af7-fbd5-415d-95ae-317d2f6135a1"/>
+				<imageExpression><![CDATA["C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\mainlogo_thumbnail.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="133" y="8" width="285" height="36" uuid="de26fc98-bfc9-4e44-9428-c11c6fa512ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6.14 FOODHUB]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="468" height="35" uuid="37303b59-f495-44d9-b346-43ee583ad9a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WEEKLY SALES REPORT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="67" width="468" height="1" uuid="e7f01d98-882c-41bb-ba4d-b3635c07d78c"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="40" width="224" height="21" uuid="80b96772-9fcd-44f8-b9d3-31749afda480"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{from}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="40" width="229" height="20" uuid="cf886dad-da61-451a-bcc2-49a9c8aba116"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{to}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="224" y="41" width="15" height="20" uuid="3e67daed-c7e4-4c30-8ca6-a1d5aa7abcaa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[~]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="4" width="100" height="20" uuid="14552e65-53a0-4bb8-b396-ae787b34607a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="4" width="100" height="20" uuid="280827ee-dbe5-4509-9075-f5e0b6e5692c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="5" width="70" height="20" uuid="61f62de9-9296-45de-8931-3b31e0d3d534"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="28" width="468" height="1" uuid="de256314-7223-4777-8791-d347791c954d"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="c74edfd1-c177-44d0-85ef-a32b4a334d4e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DateRange}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="0" width="70" height="20" uuid="a3875899-5fde-4482-9391-81172da0d948"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(order_items.quantity)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="100" height="20" uuid="d1802da6-f254-4aab-a64e-c72bb43bfb4c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(orders.total)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="188" y="11" width="70" height="20" uuid="f22561be-adf7-4a95-b2fc-b1e55846ffdf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="11" width="100" height="20" uuid="2bec7436-fff7-4f10-b39e-89fb0094bef6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_sales}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="11" width="100" height="20" uuid="7fa15d78-4e88-422d-b733-4aa888d0d2f9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="34" width="468" height="1" uuid="ae24aa5b-dca7-4545-8344-7eb0e20e72ff"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="6" width="468" height="1" uuid="58f074de-b2c1-430e-8333-d144775dbece"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="yyyy.MMMMM.dd GGG hh:mm aaa">
+				<reportElement x="320" y="0" width="148" height="14" uuid="f874501c-1367-4ccd-a827-6476c7d3f648"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="17" width="468" height="34" uuid="0b03e30b-b3aa-476e-99eb-50f8871c9f09"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font fontName="Century Gothic" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CONFIDENTIALITY NOTICE:  The contents of this report and any attachments are intended solely for the addressee(s) and may contain confidential and/or privileged information and may be legally protected from disclosure. If you are not the intended recipient of this report, or if this message has been addressed to you in error, please immediately alert the sender. If you are not the intended recipient, you are hereby notified that any use, dissemination, copying, or storage of this report or its attachments is strictly prohibited.]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="3" splitType="Stretch"/>
+	</summary>
+</jasperReport>
