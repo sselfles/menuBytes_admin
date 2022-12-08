@@ -1864,7 +1864,7 @@ public class dashboard extends javax.swing.JFrame {
 
            System.out.println("selectedRowIndex: " + String.valueOf(selectedRowIndex));
         
-        if (selectedRowIndex >= 0) {
+        if (selectedRowIndex > 0) {
             list_orders_model.removeRow(selectedRowIndex);
             productArrayList.remove(selectedRowIndex);
         } else {
