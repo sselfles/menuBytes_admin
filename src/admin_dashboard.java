@@ -2856,6 +2856,19 @@ public class admin_dashboard extends javax.swing.JFrame {
     
     
     private void btn_backupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backupActionPerformed
+       JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Save");
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.showOpenDialog(null);
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            System.out.println("getCurrentDirectory(): " 
+               +  chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " 
+               +  chooser.getSelectedFile());
+        }
+        File file = chooser.getSelectedFile();
+        String fileName = file.getName();
         
        DatabaseConnection.getInstance().backupDatabase();
        JOptionPane.showMessageDialog(null, "Awesome! Database has been successfully backed up!", "SUCCESS!", JOptionPane.PLAIN_MESSAGE);
