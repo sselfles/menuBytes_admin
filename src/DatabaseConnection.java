@@ -56,16 +56,15 @@ public class DatabaseConnection {
            return datetime;
      }
      
-
     public static Connection getConnection() {
         Connection connection = null;
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-//                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
-//                                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
                                     "admin", "admin");
+//                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+//                                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
@@ -122,7 +121,12 @@ public class DatabaseConnection {
         JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
     }
 }
-    
+ 
+   static final String DB_URL = "jdbc:mysql://192.168.1.6:3306/";
+   static final String USER = "admin";
+   static final String PASS = "admin";
+   
+        
         public static void restoreDatabaseFromFile(String filePathName) {
         try {
             
@@ -132,8 +136,22 @@ public class DatabaseConnection {
 
             String restorePathFilename = filePathName;
             
+            Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+            ResultSet rs = null;
+            
+         
+             try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                     
+                ) {
+                 Statement stmt = conn.createStatement();
+                 System.out.println("check if a database exists using java...");
 
-            String executeCmd = "mysql -h 192.168.1.6 -u " + dbUser + " -p"+ dbPass +" " + dbName +" < " + restorePathFilename;
+                 System.out.println("Creating a new database...");
+                 String sql = "CREATE DATABASE IF NOT EXISTS menubytes; ";
+                 stmt.executeUpdate(sql);
+                 System.out.println("Database created successfully...");
+                           
+        String executeCmd = "mysql -h 192.168.1.6 -u " + dbUser + " -p"+ dbPass +" " + dbName +" < " + restorePathFilename;
                     /*NOTE: Executing the command here*/
         ProcessBuilder builder = new ProcessBuilder(
         "cmd.exe", "/c","cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin && "+ executeCmd);
@@ -152,6 +170,10 @@ public class DatabaseConnection {
         } catch (IOException | HeadlessException ex) {
             JOptionPane.showMessageDialog(null, "Error at Restoredbfromsql" + ex.getMessage());
         }
+             
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } 
 
     }
     
