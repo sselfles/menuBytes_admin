@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -18,7 +19,6 @@ import javax.swing.JOptionPane;
  * @author Gelay
  */
 public class login extends javax.swing.JFrame {
-
     /**
      * Creates new form login
      */
@@ -139,6 +139,7 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 990));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed

@@ -277,7 +277,8 @@ public class SqlStatements {
 "payment.amount_due\n" +
 "FROM payment\n" +
 "INNER JOIN\n" +
-"payment_transactions ON payment.payment_id = payment_transactions.payment_id";
+"payment_transactions ON payment.payment_id = payment_transactions.payment_id\n" +
+"GROUP BY payment.completed_at";
     
     
     private String getTransactionBreakdown = "SELECT order_items.order_id, order_items.quantity,\n" +
@@ -459,7 +460,16 @@ public class SqlStatements {
 "assistance_status = 0,\n" +
 "completed_at = (?)\n" +
 "WHERE (SELECT user_id FROM user WHERE user_name = (?));";
+    
+    private String removeORNotification ="UPDATE or_request SET \n" +
+"assistance_status = 0,\n" +
+"completed_at = (?)\n" +
+"WHERE (SELECT user_id FROM user WHERE user_name = (?));";
 
+    public String getRemoveORNotification() {
+        return removeORNotification;
+    }
+    
     private String updatePaymentSettingWithImage = "UPDATE payment_method SET\n" +
 "payment_info = (?), \n" +
 "payment_qr = (?), \n" +

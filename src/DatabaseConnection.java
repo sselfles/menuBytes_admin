@@ -1,6 +1,7 @@
 
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -61,10 +62,10 @@ public class DatabaseConnection {
         try {
 //            connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
 //                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
-                                    "admin", "admin");
-//                connection = DriverManager.getConnection("jdbc:mysql://192.168.100.77:3306/menubytes",
+//                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
 //                                    "admin", "admin");
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.131:3306/menubytes",
+                                    "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
         }
@@ -89,20 +90,20 @@ public class DatabaseConnection {
         }
     }
     
-        public static void backupDatabase() {
+        public static void backupDatabase(File filePath) {
     try {
 
         String dbName = "menubytes";
         String dbUser = "admin";
         String dbPass = "admin";
 
-        String savePath = "C:\\MySQLBackup\\";
+        String savePath = filePath+"\\";
         
         String date = java.time.LocalDate.now().toString();
         
         String filename = dbName + "_" + date + ".sql";
 
-        String executeCmd = "mysqldump --host 192.168.1.6 -P 3306 -u " + dbUser + " -p" + dbPass + " " + dbName +" > " + savePath + filename;
+        String executeCmd = "mysqldump --host 192.168.254.131 -P 3306 -u " + dbUser + " -p" + dbPass + " " + dbName +" > " + savePath + filename;
 
         /*NOTE: Executing the command here*/
         ProcessBuilder builder = new ProcessBuilder(
@@ -116,13 +117,14 @@ public class DatabaseConnection {
             if (line == null) { break; }
             System.out.println(line);
         }
+        JOptionPane.showMessageDialog(null, "Awesome! Database has been successfully backed up!", "SUCCESS!", JOptionPane.PLAIN_MESSAGE);
 
     } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
     }
 }
  
-   static final String DB_URL = "jdbc:mysql://192.168.1.6:3306/";
+   static final String DB_URL = "jdbc:mysql://192.168.254.131:3306/";
    static final String USER = "admin";
    static final String PASS = "admin";
    
@@ -151,7 +153,7 @@ public class DatabaseConnection {
                  stmt.executeUpdate(sql);
                  System.out.println("Database created successfully...");
                            
-        String executeCmd = "mysql -h 192.168.1.6 -u " + dbUser + " -p"+ dbPass +" " + dbName +" < " + restorePathFilename;
+        String executeCmd = "mysql -h 192.168.254.131 -u " + dbUser + " -p"+ dbPass +" " + dbName +" < " + restorePathFilename;
                     /*NOTE: Executing the command here*/
         ProcessBuilder builder = new ProcessBuilder(
         "cmd.exe", "/c","cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin && "+ executeCmd);
@@ -1538,6 +1540,26 @@ public class DatabaseConnection {
         }
     }
     
+    public void removeORNotification(String completed_at, String username){
+	Connection connection = null;
+          
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getRemoveORNotification());
+            preparedStatement.setString(1, completed_at);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Removed OR notif.");
+            
+            disconnect(null, preparedStatement, connection);
+                  
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void updatePaymentSetting(String payment_info, String payment_availability){
 	Connection connection = null;
           

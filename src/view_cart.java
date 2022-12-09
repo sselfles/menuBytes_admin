@@ -816,32 +816,38 @@ public class view_cart extends javax.swing.JFrame{
     
     private void btn_gcashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_gcashMouseClicked
         System.out.println("getGcashAvailability() " + getGcashAvailability());
-        if (getGcashAvailability().equals("AVAILABLE")){
-            jTabbedPane2.setSelectedIndex(1);
-            ArrayList<GCash> gCashArrayList = new ArrayList<>();
-            /*GCASH Displat Ref #*/
-            if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
-                gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
-                amount.setText(gCashArrayList.get(0).getAmount_due());
-                ref_number.setText(gCashArrayList.get(0).getRemarks());
+            if (getGcashAvailability().equals("AVAILABLE")){
+                jTabbedPane2.setSelectedIndex(1);
+                ArrayList<GCash> gCashArrayList = new ArrayList<>();
+                /*GCASH Displat Ref #*/
+                if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
+                    gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
+                    amount.setText(gCashArrayList.get(0).getAmount_due());
+                    ref_number.setText(gCashArrayList.get(0).getRemarks());
+                }
             }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "GCash payment is unavailable at the moment.", "Hold up!", JOptionPane.PLAIN_MESSAGE);
-        }
+            else{
+                JOptionPane.showMessageDialog(null, "GCash payment is unavailable at the moment.", "Hold up!", JOptionPane.PLAIN_MESSAGE);
+            }
     }//GEN-LAST:event_btn_gcashMouseClicked
 
     private void btn_cashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cashMouseClicked
         jTabbedPane2.setSelectedIndex(2);
-        ArrayList<Payment> payment = new ArrayList<>();
-        payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
-        String payment_amount = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
-        if(!payment.isEmpty()){
-            lbl_amount_due.setText(payment.get(0).getAmount_due());
-            lbl_username.setText(payment.get(0).getTable_no());
-            txt_cash_received.setText(payment_amount);
-        }
-        lbl_amount_due.setText(txtTotal_amount.getText());
+            ArrayList<Payment> payment = new ArrayList<>();
+            payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
+            String payment_amount = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
+            if(!payment.isEmpty()){
+                lbl_amount_due.setText(payment.get(0).getAmount_due());
+                lbl_username.setText(payment.get(0).getTable_no());
+                txt_cash_received.setText(payment_amount);
+
+                double amountDue = Double.parseDouble(payment.get(0).getAmount_due().toString());
+                double cashReceived = Double.parseDouble(payment_amount);
+
+                lbl_change.setText(String.format("%.2f", cashReceived - amountDue));
+            }
+            lbl_amount_due.setText(txtTotal_amount.getText());
+        
         
         
         

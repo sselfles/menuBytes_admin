@@ -2106,6 +2106,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, -6, 1920, 1030));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void account_managementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMouseClicked
@@ -2119,14 +2120,16 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_account_managementMouseClicked
 
     private void account_managementMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMousePressed
-        account_management.setBackground(clickedColor);
-        product_management.setBackground(defaultColor);
-        payment_settings.setBackground(defaultColor);
-        sales_reports.setBackground(defaultColor);
-        transactions.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
-        backup_restore.setBackground(defaultColor);
-        logout.setBackground(defaultColor);
+        if (!this.username.equals("manager")){
+            account_management.setBackground(clickedColor);
+            product_management.setBackground(defaultColor);
+            payment_settings.setBackground(defaultColor);
+            sales_reports.setBackground(defaultColor);
+            transactions.setBackground(defaultColor);
+            log_reports.setBackground(defaultColor);
+            backup_restore.setBackground(defaultColor);
+            logout.setBackground(defaultColor);
+        }
     }//GEN-LAST:event_account_managementMousePressed
 
     private void account_managementMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_managementMouseReleased
@@ -2345,14 +2348,16 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_log_reportsMouseClicked
 
     private void log_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMousePressed
-        account_management.setBackground(defaultColor);
-        product_management.setBackground(defaultColor);
-        payment_settings.setBackground(defaultColor);
-        sales_reports.setBackground(defaultColor);
-        transactions.setBackground(defaultColor);
-        log_reports.setBackground(clickedColor);
-        backup_restore.setBackground(defaultColor);
-        logout.setBackground(defaultColor);
+        if (!this.username.equals("manager")) {
+            account_management.setBackground(defaultColor);
+            product_management.setBackground(defaultColor);
+            payment_settings.setBackground(defaultColor);
+            sales_reports.setBackground(defaultColor);
+            transactions.setBackground(defaultColor);
+            log_reports.setBackground(clickedColor);
+            backup_restore.setBackground(defaultColor);
+            logout.setBackground(defaultColor);
+        }
     }//GEN-LAST:event_log_reportsMousePressed
 
     private void log_reportsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_reportsMouseReleased
@@ -2609,7 +2614,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private void sales_view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sales_view1MouseClicked
         DefaultTableModel model = (DefaultTableModel) transaction_list.getModel();
         
-        if(transaction_list.getSelectedRow() > 0){
+        if(transaction_list.getSelectedRow() >= 0){
             int selectedRowIndex = transaction_list.getSelectedRow();
             String order_id = model.getValueAt(selectedRowIndex, 1).toString();
             String user = model.getValueAt(selectedRowIndex, 2).toString();
@@ -2838,14 +2843,16 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_backup_restoreMouseClicked
 
     private void backup_restoreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backup_restoreMousePressed
-        account_management.setBackground(defaultColor);
-        product_management.setBackground(defaultColor);
-        payment_settings.setBackground(defaultColor);
-        sales_reports.setBackground(defaultColor);
-        transactions.setBackground(defaultColor);
-        log_reports.setBackground(defaultColor);
-        backup_restore.setBackground(clickedColor);
-        logout.setBackground(defaultColor);
+        if(!this.user_name.equals("manager")){
+            account_management.setBackground(defaultColor);
+            product_management.setBackground(defaultColor);
+            payment_settings.setBackground(defaultColor);
+            sales_reports.setBackground(defaultColor);
+            transactions.setBackground(defaultColor);
+            log_reports.setBackground(defaultColor);
+            backup_restore.setBackground(clickedColor);
+            logout.setBackground(defaultColor);
+        }
     }//GEN-LAST:event_backup_restoreMousePressed
 
     private void backup_restoreMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backup_restoreMouseReleased
@@ -2869,9 +2876,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         }
         File filePath = chooser.getSelectedFile();
         
-       DatabaseConnection.getInstance().backupDatabase();
-       JOptionPane.showMessageDialog(null, "Awesome! Database has been successfully backed up!", "SUCCESS!", JOptionPane.PLAIN_MESSAGE);
-       
+       DatabaseConnection.getInstance().backupDatabase(filePath);
     }//GEN-LAST:event_btn_backupActionPerformed
 
     private static String filepathname = null;
@@ -2879,7 +2884,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private void btn_chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseFileActionPerformed
         try 
         {
-            JFileChooser chooser= new JFileChooser("C:\\MySQLBackup");
+            JFileChooser chooser= new JFileChooser();
             chooser.setDialogTitle("Open");
             
             //disable all file types accepted option
@@ -2896,7 +2901,15 @@ public class admin_dashboard extends javax.swing.JFrame {
             //will receive the file
             FileInputStream inputStream = new FileInputStream(file);
             
-            
+            if (file != null) 
+            {
+                JOptionPane.showMessageDialog(null, "You have seleced " + file.getName() + ".", "File uploaded!", JOptionPane.PLAIN_MESSAGE) ;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "No file selected.", "Hold up!", JOptionPane.PLAIN_MESSAGE);
+            }
+                    
             System.out.println(file);
             System.out.println(filepathname);
             
@@ -2908,7 +2921,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     private void btn_restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restoreActionPerformed
         if(filepathname!=null){
-            DatabaseConnection.getInstance().restoreDatabaseFromFile(filepathname);
+                DatabaseConnection.getInstance().restoreDatabaseFromFile(filepathname);
         }
         else {
             JOptionPane.showMessageDialog(null, "Please select a file first.", "File not found!", JOptionPane.PLAIN_MESSAGE);
