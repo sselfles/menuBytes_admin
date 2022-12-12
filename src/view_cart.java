@@ -73,6 +73,26 @@ public class view_cart extends javax.swing.JFrame{
         setSubtotal(table_no);
         addRowToPendingJtable();  
         addRowToCompletedJtable();
+        
+        System.out.println("view cart CALLED");
+        ArrayList<Cash> CashArrayList = new ArrayList<>(); 
+        System.out.println("table_no: "+table_no);
+        CashArrayList = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
+        if(!DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no).isEmpty()){
+            if(!CashArrayList.get(0).getDiscount_amount().equals(null)){
+            txtDiscount.setText(CashArrayList.get(0).getDiscount_amount());
+            }
+            txtTotal_amount.setText(CashArrayList.get(0).getAmount_due());
+        }
+        
+        ArrayList<GCash> gCashArrayList = new ArrayList<>();
+        if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
+                gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
+                if(!gCashArrayList.get(0).getDiscount_amount().equals(null)){
+                txtDiscount.setText(gCashArrayList.get(0).getDiscount_amount());
+                }
+                txtTotal_amount.setText(gCashArrayList.get(0).getAmount_due());
+        }
 
     }
     
@@ -81,11 +101,15 @@ public class view_cart extends javax.swing.JFrame{
         //Data to be displayed in the JTable
         this.table_no = table_no;
         lbl_username.setText(table_no);
-        lbl_amount_due.setText(total);
+        gcash_username.setText(table_no);
+        txt_amount_due_cash.setText(total);
         Double VAT = (Double.valueOf(total)/ 1.12) * 0.12;
         txtVat.setText(String.format("%.2f", VAT));
         txtSubtotal.setText(total);
         txtTotal_amount.setText(total);
+        
+        
+        
     }
     
     public void cleargcashtextfields(){
@@ -99,7 +123,7 @@ public class view_cart extends javax.swing.JFrame{
     public void clearCashTextFields(){
         txt_cash_received.setText("0.00");
         lbl_change.setText("0.00");
-        lbl_amount_due.setText("0.00");
+        txt_amount_due_cash.setText("0.00");
         lbl_username.setText("-");
         txtTotal_amount.setText("0.00");
         txtVat.setText("0.00");
@@ -154,7 +178,7 @@ public class view_cart extends javax.swing.JFrame{
         txtVat = new javax.swing.JLabel();
         txtTotal_amount = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtVat1 = new javax.swing.JLabel();
+        txtDiscount = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         backgground = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -183,18 +207,18 @@ public class view_cart extends javax.swing.JFrame{
         jLabel12 = new javax.swing.JLabel();
         lbl_username = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        lbl_amount_due = new javax.swing.JLabel();
+        txt_amount_due_cash = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txt_cash_received = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         lbl_change = new javax.swing.JLabel();
         recieved_cash = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbDiscountType_Cash = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtDiscountAmount_Cash = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtIDNumber_Cash = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btn_pending_orders = new javax.swing.JButton();
@@ -243,23 +267,19 @@ public class view_cart extends javax.swing.JFrame{
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel5.setText("Discount :");
 
-        txtVat1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtVat1.setText("0.00");
+        txtDiscount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtDiscount.setText("0.00");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtVat1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(347, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtVat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(txtDiscount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -281,7 +301,7 @@ public class view_cart extends javax.swing.JFrame{
                     .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtVat1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -475,8 +495,8 @@ public class view_cart extends javax.swing.JFrame{
             gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gcash_payment_infoLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gcash_username, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(gcash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -519,8 +539,8 @@ public class view_cart extends javax.swing.JFrame{
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel13.setText("Amount Due : ");
 
-        lbl_amount_due.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lbl_amount_due.setText("0.00");
+        txt_amount_due_cash.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txt_amount_due_cash.setText("0.00");
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel14.setText("Cash Received :");
@@ -566,15 +586,15 @@ public class view_cart extends javax.swing.JFrame{
         jLabel21.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel21.setText("Discount Type :");
 
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
-        jComboBox1.setSelectedIndex(-1);
+        cmbDiscountType_Cash.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        cmbDiscountType_Cash.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
+        cmbDiscountType_Cash.setSelectedIndex(-1);
 
         jLabel22.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel22.setText("Discount Amount :");
 
         jLabel23.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel23.setText("Discount Amount :");
+        jLabel23.setText("ID Number:");
 
         javax.swing.GroupLayout cash_payment_infoLayout = new javax.swing.GroupLayout(cash_payment_info);
         cash_payment_info.setLayout(cash_payment_infoLayout);
@@ -585,36 +605,35 @@ public class view_cart extends javax.swing.JFrame{
                 .addComponent(recieved_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(cash_payment_infoLayout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(lbl_amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(cash_payment_infoLayout.createSequentialGroup()
-                            .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(68, 68, 68)
-                            .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbl_change, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_cash_received, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(cash_payment_infoLayout.createSequentialGroup()
-                            .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(68, 68, 68)
-                            .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbl_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(47, 47, 47))
+                            .addComponent(txtIDNumber_Cash, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(cash_payment_infoLayout.createSequentialGroup()
+                                .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_change, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_cash_received, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_amount_due_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(cash_payment_infoLayout.createSequentialGroup()
+                                .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbl_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbDiscountType_Cash, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtDiscountAmount_Cash, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         cash_payment_infoLayout.setVerticalGroup(
             cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,23 +645,23 @@ public class view_cart extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDiscountType_Cash, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDiscountAmount_Cash, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cash_payment_infoLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtIDNumber_Cash, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_amount_due_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(cash_payment_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -937,7 +956,7 @@ public class view_cart extends javax.swing.JFrame{
             Double VAT = (Double.valueOf(subTotal)/ 1.12) * 0.12;
             txtVat.setText(String.format("%.2f", VAT));
             txtSubtotal.setText(subTotal);
-            txtTotal_amount.setText(subTotal);
+//            txtTotal_amount.setText(subTotal);
         }
     }
     
@@ -965,7 +984,15 @@ public class view_cart extends javax.swing.JFrame{
                 /*GCASH Displat Ref #*/
                 if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
                     gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
+                if(gCashArrayList.get(0).getDiscount_type().equals("pwd")){
+                    gcash_discountType.setSelectedIndex(0);
+                }
+                if(gCashArrayList.get(0).getDiscount_type().equals("senior")){
+                    gcash_discountType.setSelectedIndex(1);
+                }
                     amount.setText(gCashArrayList.get(0).getAmount_due());
+                    gcash_discountAmount.setText(gCashArrayList.get(0).getAmount_due());
+                    gcash_idNumber.setText(gCashArrayList.get(0).getDiscount_id());
                     ref_number.setText(gCashArrayList.get(0).getRemarks());
                 }
             }
@@ -978,18 +1005,33 @@ public class view_cart extends javax.swing.JFrame{
         jTabbedPane2.setSelectedIndex(2);
             ArrayList<Payment> payment = new ArrayList<>();
             payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
-            String payment_amount = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
+            ArrayList<Cash> CashArrayList = new ArrayList<>(); 
+            CashArrayList = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
             if(!payment.isEmpty()){
-                lbl_amount_due.setText(payment.get(0).getAmount_due());
+                if(!CashArrayList.get(0).getDiscount_amount().equals(null)){
+                txtDiscount.setText(CashArrayList.get(0).getDiscount_amount());
+                }
+                txtTotal_amount.setText(CashArrayList.get(0).getAmount_due());
+                
                 lbl_username.setText(payment.get(0).getTable_no());
-                txt_cash_received.setText(payment_amount);
+                if(CashArrayList.get(0).getDiscount_type().equals("pwd")){
+                    cmbDiscountType_Cash.setSelectedIndex(0);
+                }
+                if(CashArrayList.get(0).getDiscount_type().equals("senior")){
+                    cmbDiscountType_Cash.setSelectedIndex(1);
+                }
+                
+                txtDiscountAmount_Cash.setText(CashArrayList.get(0).getDiscount_amount());
+                txtIDNumber_Cash.setText(CashArrayList.get(0).getDiscount_id());
+                txt_amount_due_cash.setText(CashArrayList.get(0).getAmount_due());
+                txt_cash_received.setText(CashArrayList.get(0).getPayment_amount());
 
-                double amountDue = Double.parseDouble(payment.get(0).getAmount_due().toString());
-                double cashReceived = Double.parseDouble(payment_amount);
+                double amountDue = Double.parseDouble(txt_amount_due_cash.getText());
+                double cashReceived = Double.parseDouble(txt_cash_received.getText());
 
                 lbl_change.setText(String.format("%.2f", cashReceived - amountDue));
             }
-            lbl_amount_due.setText(txtTotal_amount.getText());
+            txt_amount_due_cash.setText(txtTotal_amount.getText());
         
         
         
@@ -1114,7 +1156,7 @@ public class view_cart extends javax.swing.JFrame{
     }//GEN-LAST:event_lbl_changeCaretPositionChanged
     
     public String computeChange(){
-        Double amountDue = Double.parseDouble(lbl_amount_due.getText());
+        Double amountDue = Double.parseDouble(txt_amount_due_cash.getText());
         Double amountReceived = Double.parseDouble(txt_cash_received.getText());
         
         return String.format("%.2f", amountReceived-amountDue);
@@ -1267,6 +1309,7 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JButton btn_gcash;
     private javax.swing.JButton btn_pending_orders;
     private javax.swing.JPanel cash_payment_info;
+    private javax.swing.JComboBox<String> cmbDiscountType_Cash;
     private javax.swing.JPanel completed_orders_tav;
     private javax.swing.JPanel default_payment_info;
     private javax.swing.JTextField gcash_discountAmount;
@@ -1276,7 +1319,6 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JButton gcash_received;
     private javax.swing.JButton gcash_reject;
     private javax.swing.JLabel gcash_username;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1304,9 +1346,6 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lbl_amount_due;
     private javax.swing.JLabel lbl_change;
     private javax.swing.JLabel lbl_username;
     private javax.swing.JScrollPane list_completed_orders;
@@ -1316,10 +1355,13 @@ public class view_cart extends javax.swing.JFrame{
     private javax.swing.JTextField ref_number;
     private javax.swing.JTable tbl_completed_orders;
     private javax.swing.JTable tbl_pending_orders;
+    private javax.swing.JLabel txtDiscount;
+    private javax.swing.JTextField txtDiscountAmount_Cash;
+    private javax.swing.JTextField txtIDNumber_Cash;
     private javax.swing.JLabel txtSubtotal;
     private javax.swing.JLabel txtTotal_amount;
     private javax.swing.JLabel txtVat;
-    private javax.swing.JLabel txtVat1;
+    private javax.swing.JLabel txt_amount_due_cash;
     private javax.swing.JTextField txt_cash_received;
     // End of variables declaration//GEN-END:variables
 

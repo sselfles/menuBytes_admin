@@ -20,6 +20,15 @@ public class SqlStatements {
                 return instance;
             }
 	}
+        
+        
+        private String fullName = "SELECT full_name FROM user WHERE user_name = (?) AND password = (?);";
+
+    public String getFullName() {
+        return fullName;
+    }
+        
+        
      
         private String returnUserNameAmountStatus = "Select \n" +
 "user_name,\n" +
@@ -486,7 +495,17 @@ public class SqlStatements {
     private String insertPayment = "INSERT INTO payment(created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at, remarks)\n" +
 "VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp(), (?));";
     
+//    private String gCashAmountRemarks = "SELECT\n" +
+//"amount_due,\n" +
+//"remarks\n" +
+//"FROM \n" +
+//"payment \n" +
+//"WHERE payment_status = \"PENDING\"\n" +
+//"AND created_by = (?);";
     private String gCashAmountRemarks = "SELECT\n" +
+"discount_type,\n" +
+"discount_amount,\n" +
+"discount_id,\n" +
 "amount_due,\n" +
 "remarks\n" +
 "FROM \n" +
@@ -494,8 +513,19 @@ public class SqlStatements {
 "WHERE payment_status = \"PENDING\"\n" +
 "AND created_by = (?);";
     
-       private String CashAmountReceived = "SELECT\n" +
-"payment_amount\n" +
+//       private String CashAmountReceived = "SELECT\n" +
+//"payment_amount\n" +
+//"FROM \n" +
+//"payment \n" +
+//"WHERE payment_status = \"PENDING\"\n" +
+//"AND created_by = (?);";
+//       
+           private String CashAmountReceived = "SELECT\n" +
+"discount_type,\n" +
+"discount_amount,\n" +
+"discount_id,\n" +
+"payment_amount,\n" +
+"amount_due\n" +
 "FROM \n" +
 "payment \n" +
 "WHERE payment_status = \"PENDING\"\n" +

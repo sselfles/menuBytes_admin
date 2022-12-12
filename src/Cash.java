@@ -8,42 +8,20 @@
  *
  * @author Natania
  */
-public class GCash{
+public class Cash{
     
-    private String remarks; 
     private String discount_type; 
     private String discount_amount; 
     private String discount_id; 
+    private String payment_amount;
     private String amount_due;
 
-    public GCash(String remarks, String amount_due) {
-        this.remarks = remarks;
-        this.amount_due = amount_due;
-    }
-
-    public GCash(String discount_type, String discount_amount, String discount_id, String amount_due, String remarks) {
-        this.remarks = remarks;
+  
+    public Cash(String discount_type, String discount_amount, String discount_id, String payment_amount, String amount_due) {
         this.discount_type = discount_type;
         this.discount_amount = discount_amount;
         this.discount_id = discount_id;
-        this.amount_due = amount_due;
-    }
-
-    
-    
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getAmount_due() {
-        return amount_due;
-    }
-
-    public void setAmount_due(String amount_due) {
+        this.payment_amount = payment_amount;
         this.amount_due = amount_due;
     }
 
@@ -70,9 +48,22 @@ public class GCash{
     public void setDiscount_id(String discount_id) {
         this.discount_id = discount_id;
     }
-    
-    
-    
-    
+
+    public String getPayment_amount() {
+        return payment_amount;
+    }
+
+    public void setPayment_amount(String payment_amount) {
+        this.payment_amount = payment_amount;
+    }
+
+    public String getAmount_due() {
+        return amount_due;
+    }
+
+    public void setAmount_due(String amount_due) {
+        this.amount_due = amount_due;
+    }
+   
     
 }

@@ -168,6 +168,7 @@ public class login extends javax.swing.JFrame {
         if(check_username!=null){
             if(check_match_password!=null){
                 if(username.equals("cashier")){
+                    DatabaseConnection.getInstance().setFull_name(DatabaseConnection.getInstance().returnFullName(username, password));
                     System.out.print("cashier loggin in.");
                     dashboard db = new dashboard("2", username);
                     if (db.isVisible()){

@@ -48,18 +48,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtVat1" min="-2" pref="88" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="347" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtVat" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
-                              <Component id="txtSubtotal" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="txtDiscount" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
+                      <Component id="txtVat" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
+                      <Component id="txtSubtotal" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
@@ -87,7 +80,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtVat1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="txtDiscount" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -166,7 +159,7 @@
             <Property name="text" type="java.lang.String" value="Discount :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtVat1">
+        <Component class="javax.swing.JLabel" name="txtDiscount">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="14" style="0"/>
@@ -445,9 +438,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel18" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="gcash_username" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="gcash_username" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -654,46 +647,45 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="79" max="32767" attributes="0"/>
+                              <EmptySpace pref="58" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel23" min="-2" pref="182" max="-2" attributes="0"/>
-                                      <EmptySpace min="68" pref="68" max="-2" attributes="0"/>
-                                      <Component id="jTextField2" min="-2" pref="279" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel13" min="-2" pref="182" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                                      <Component id="lbl_amount_due" min="-2" pref="279" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jLabel14" min="-2" pref="182" max="-2" attributes="0"/>
-                                              <Component id="jLabel15" min="-2" pref="182" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbl_change" min="-2" pref="279" max="-2" attributes="0"/>
-                                              <Component id="txt_cash_received" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel12" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
-                                              <Component id="jLabel21" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
-                                              <Component id="jLabel22" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel23" min="-2" pref="182" max="-2" attributes="0"/>
                                           <EmptySpace min="68" pref="68" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lbl_username" max="32767" attributes="0"/>
-                                              <Component id="jComboBox1" max="32767" attributes="0"/>
-                                              <Component id="jTextField1" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
+                                          <Component id="txtIDNumber_Cash" min="-2" pref="279" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jLabel14" min="-2" pref="182" max="-2" attributes="0"/>
+                                                  <Component id="jLabel15" min="-2" pref="182" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lbl_change" min="-2" pref="279" max="-2" attributes="0"/>
+                                                  <Component id="txt_cash_received" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
+                                                  <Component id="txt_amount_due_cash" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel12" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
+                                                  <Component id="jLabel21" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
+                                                  <Component id="jLabel22" alignment="1" min="-2" pref="182" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="68" pref="68" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="lbl_username" max="32767" attributes="0"/>
+                                                  <Component id="cmbDiscountType_Cash" max="32767" attributes="0"/>
+                                                  <Component id="txtDiscountAmount_Cash" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <Component id="jLabel13" min="-2" pref="182" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <EmptySpace pref="68" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -708,14 +700,14 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel21" max="32767" attributes="0"/>
-                                  <Component id="jComboBox1" min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="cmbDiscountType_Cash" min="-2" pref="46" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel22" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="jTextField1" min="-2" pref="41" max="-2" attributes="0"/>
+                                      <Component id="txtDiscountAmount_Cash" min="-2" pref="41" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -723,13 +715,13 @@
                                   <Component id="jLabel23" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="jTextField2" min="-2" pref="41" max="-2" attributes="0"/>
+                                      <Component id="txtIDNumber_Cash" min="-2" pref="41" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel13" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                                  <Component id="lbl_amount_due" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="txt_amount_due_cash" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -773,7 +765,7 @@
                         <Property name="text" type="java.lang.String" value="Amount Due : "/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_amount_due">
+                    <Component class="javax.swing.JLabel" name="txt_amount_due_cash">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Century Gothic" size="18" style="1"/>
@@ -847,7 +839,7 @@
                         <Property name="text" type="java.lang.String" value="Discount Type :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox1">
+                    <Component class="javax.swing.JComboBox" name="cmbDiscountType_Cash">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Century Gothic" size="18" style="0"/>
@@ -872,17 +864,17 @@
                         <Property name="text" type="java.lang.String" value="Discount Amount :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField1">
+                    <Component class="javax.swing.JTextField" name="txtDiscountAmount_Cash">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel23">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Century Gothic" size="18" style="0"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Discount Amount :"/>
+                        <Property name="text" type="java.lang.String" value="ID Number:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField2">
+                    <Component class="javax.swing.JTextField" name="txtIDNumber_Cash">
                     </Component>
                   </SubComponents>
                 </Container>

@@ -64,7 +64,7 @@ public class DatabaseConnection {
 //                    "admin", "admin");
 //                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
 //                                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.131:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -179,6 +179,39 @@ public class DatabaseConnection {
 
     }
     
+        public static String full_name = null;
+
+    public static String getFull_name() {
+        return full_name;
+    }
+
+    public static void setFull_name(String full_name) {
+        DatabaseConnection.full_name = full_name;
+    }
+        
+        
+      public String returnFullName(String user_name,String password)  {
+                 Connection connection = null;
+         String fullname = null;
+                          try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getFullName());
+        preparedStatement.setString(1, user_name);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database returnFullName): No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                   fullname = resultSet.getString(1);
+            }}
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return fullname;
+    }
     
      public ArrayList<Order> returnOrdersAccordingToStatusTableNo(String status,String table_no)  {
         Connection connection = null;
@@ -1689,31 +1722,28 @@ public class DatabaseConnection {
         return payment_id;
     }
     
-    public String getCashPaymentAmountReceived(String table_no){
+    public ArrayList<Cash> getCashPaymentAmountReceived(String table_no){
     	Connection connection = null;
-        String payment_amount = null;
-          
-        try {
-            connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getCashAmountReceived());
-            preparedStatement.setString(1, table_no);
-            
-            ResultSet resultSet = preparedStatement.executeQuery();
-            
-                    if (!resultSet.isBeforeFirst()) {
-                        System.out.println("getPaymentAmountReceived: NO ID_DATA FOUND");
-                    } else {
-                        System.out.println("getPaymentAmountReceived: ID_DATA FOUND");}
-                    if(resultSet.next()){
-                        payment_amount = resultSet.getString(1);
-                    }
+        ArrayList<Cash> CashArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getCashAmountReceived());
+        preparedStatement.setString(1, table_no);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("getTransactionBreakdown: No Data Retrieved!");}
+        else{
+            while(resultSet.next()){
+                CashArrayList.add(new Cash(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5)));
+            }}
             disconnect(resultSet, preparedStatement, connection);
         }
-
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return payment_amount;}
+        return CashArrayList;
+    }
     
     public ArrayList<GCash> getGCashAmountRemarks(String table_name) {
         Connection connection = null;
@@ -1728,7 +1758,7 @@ public class DatabaseConnection {
             System.out.println("getTransactionBreakdown: No Data Retrieved!");}
         else{
             while(resultSet.next()){
-                gCashArrayList.add(new GCash(resultSet.getString(2), resultSet.getString(1)));
+                gCashArrayList.add(new GCash(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5)));
             }}
             disconnect(resultSet, preparedStatement, connection);
         }
