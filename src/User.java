@@ -25,7 +25,7 @@ public class User {
         this.user_password = user_password;
         this.device_type = device_type;
     }
-    
+    //Also used for getVerificationPassword
     public User(String user_name) {
         this.user_name = user_name;
     }

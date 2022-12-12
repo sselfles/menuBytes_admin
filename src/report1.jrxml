@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="216" pageHeight="360" whenNoDataType="NoDataSection" columnWidth="176" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="8a607ed4-537c-452a-a7cc-023e870864b0">
-	<property name="ireport.zoom" value="5.054470284992949"/>
+	<property name="ireport.zoom" value="2.593742460100005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="337"/>
+	<property name="ireport.y" value="222"/>
 	<parameter name="orderId" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -20,7 +20,8 @@ payment.created_by,
 order_items.quantity,
 IF(order_items.flavors IS NOT NULL,CONCAT(IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name), order_items.flavors), IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name)) AS 'Product',
 IF(order_items.product_bundle,product.product_bundle,product.product_price) AS 'Price',
-IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price'
+IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price',
+payment.processed_by
 FROM payment
 INNER JOIN
 payment_transactions ON payment.payment_id = payment_transactions.payment_id
@@ -62,7 +63,7 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="56" height="58" uuid="cb0d7ec2-3aac-49c9-bfa7-0000c76f3f5c"/>
 				<imageExpression><![CDATA["C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\images\\mainlogo_thumbnail.png"]]></imageExpression>
@@ -86,10 +87,10 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Payment ID:]]></text>
+				<text><![CDATA[Order #:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="77" width="176" height="1" uuid="c4246893-404a-4bff-ad5e-03c60f8ec5ef"/>
+				<reportElement x="0" y="87" width="176" height="1" uuid="c4246893-404a-4bff-ad5e-03c60f8ec5ef"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dashed"/>
 				</graphicElement>
@@ -102,8 +103,8 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				<textFieldExpression><![CDATA[$F{payment_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="102" y="59" width="74" height="10" uuid="68e06ef3-a18e-4d63-b538-5d1fbe337e96"/>
-				<textElement textAlignment="Right">
+				<reportElement x="0" y="72" width="74" height="10" uuid="68e06ef3-a18e-4d63-b538-5d1fbe337e96"/>
+				<textElement>
 					<font fontName="Century Gothic" size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{created_by}]]></textFieldExpression>

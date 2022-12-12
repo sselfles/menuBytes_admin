@@ -521,6 +521,12 @@ public class SqlStatements {
        
        private String getGcashAvailability = "SELECT payment_availability FROM payment_method;";
        
+      private String getPasswordVerification = "SELECT password FROM menubytes.user WHERE user_type = 'admin' OR user_type = 'manager';";
+       
+    
+    public String getPasswordVerification(){
+        return getPasswordVerification;
+    }
     
     public String getGcashAvailability(){
         return getGcashAvailability;

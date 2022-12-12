@@ -141,7 +141,7 @@ public class transaction_modal extends javax.swing.JFrame {
         jPanel1.add(total_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 480, 220, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel4.setText("Payment #");
+        jLabel4.setText("Order #");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N

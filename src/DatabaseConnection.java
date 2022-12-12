@@ -1820,4 +1820,32 @@ public class DatabaseConnection {
         
         return paymentArrayList;
     }
+    
+    public  ArrayList<User> getPasswordVerification(){
+        Connection connection = null;
+        ArrayList<User> passwordArrayList = new ArrayList<>();
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getPasswordVerification()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database getPasswordVerification(): No Data Retrieved!");
+        }
+        else{
+            while(resultSet.next()){
+                              passwordArrayList.add(new User(
+                                      resultSet.getString(1)));
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return passwordArrayList;
+    }
 }

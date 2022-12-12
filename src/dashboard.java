@@ -1571,15 +1571,15 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMouseReleased
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        login li = new login();
-        if (li.isVisible()){
-            li.setVisible(false);
-            li.setVisible(true);
+        audit_modal auditModal = new audit_modal();
+        if (auditModal.isVisible()){
+            auditModal.setVisible(false);
+            auditModal.setVisible(true);
             close();
         } else {
-            li.setVisible(true);
+            auditModal.setVisible(true);
             close();
-        }      
+        }
     }//GEN-LAST:event_logoutMouseClicked
 
     private void logoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMousePressed
@@ -1596,7 +1596,14 @@ public class dashboard extends javax.swing.JFrame {
             if (abler){
                 System.out.println("clicked reject");
                 if(user_id!=null && order_id!=null){
-                    DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
+                    void_verification voidVerification = new void_verification();
+                    if (voidVerification.isVisible()){
+                        voidVerification.setVisible(false);
+                        voidVerification.setVisible(true);
+                    } else {
+                        voidVerification.setVisible(true);
+                    }
+//                    DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
                     addRowToListOrderQueueTable();
                 }
             }
