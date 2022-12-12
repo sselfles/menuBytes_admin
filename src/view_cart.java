@@ -79,7 +79,7 @@ public class view_cart extends javax.swing.JFrame{
         System.out.println("table_no: "+table_no);
         CashArrayList = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
         if(!DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no).isEmpty()){
-            if(!CashArrayList.get(0).getDiscount_amount().equals(null)){
+            if(CashArrayList.get(0).getDiscount_amount()!=null){
             txtDiscount.setText(CashArrayList.get(0).getDiscount_amount());
             }
             txtTotal_amount.setText(CashArrayList.get(0).getAmount_due());
@@ -88,7 +88,7 @@ public class view_cart extends javax.swing.JFrame{
         ArrayList<GCash> gCashArrayList = new ArrayList<>();
         if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
                 gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
-                if(!gCashArrayList.get(0).getDiscount_amount().equals(null)){
+                if(gCashArrayList.get(0).getDiscount_amount()!=null){
                 txtDiscount.setText(gCashArrayList.get(0).getDiscount_amount());
                 }
                 txtTotal_amount.setText(gCashArrayList.get(0).getAmount_due());
@@ -984,14 +984,16 @@ public class view_cart extends javax.swing.JFrame{
                 /*GCASH Displat Ref #*/
                 if(!DatabaseConnection.getInstance().getGCashAmountRemarks(table_no).isEmpty()){
                     gCashArrayList = DatabaseConnection.getInstance().getGCashAmountRemarks(table_no);
-                if(gCashArrayList.get(0).getDiscount_type().equals("pwd")){
+                    if(gCashArrayList.get(0).getDiscount_type()!=null){
+                        if(gCashArrayList.get(0).getDiscount_type().equals("pwd")){
                     gcash_discountType.setSelectedIndex(0);
-                }
-                if(gCashArrayList.get(0).getDiscount_type().equals("senior")){
-                    gcash_discountType.setSelectedIndex(1);
-                }
+                        }
+                        if(gCashArrayList.get(0).getDiscount_type().equals("senior")){
+                            gcash_discountType.setSelectedIndex(1);
+                        }
+                    }
                     amount.setText(gCashArrayList.get(0).getAmount_due());
-                    gcash_discountAmount.setText(gCashArrayList.get(0).getAmount_due());
+                    gcash_discountAmount.setText(gCashArrayList.get(0).getDiscount_amount());
                     gcash_idNumber.setText(gCashArrayList.get(0).getDiscount_id());
                     ref_number.setText(gCashArrayList.get(0).getRemarks());
                 }
@@ -1004,22 +1006,24 @@ public class view_cart extends javax.swing.JFrame{
     private void btn_cashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cashMouseClicked
         jTabbedPane2.setSelectedIndex(2);
             ArrayList<Payment> payment = new ArrayList<>();
-            payment = DatabaseConnection.getInstance().retrieveAmountDueTableName(table_no);
             ArrayList<Cash> CashArrayList = new ArrayList<>(); 
             CashArrayList = DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no);
-            if(!payment.isEmpty()){
-                if(!CashArrayList.get(0).getDiscount_amount().equals(null)){
+            if(!DatabaseConnection.getInstance().getCashPaymentAmountReceived(table_no).isEmpty()){
+                if(CashArrayList.get(0).getDiscount_amount()!= null){
                 txtDiscount.setText(CashArrayList.get(0).getDiscount_amount());
                 }
                 txtTotal_amount.setText(CashArrayList.get(0).getAmount_due());
                 
-                lbl_username.setText(payment.get(0).getTable_no());
-                if(CashArrayList.get(0).getDiscount_type().equals("pwd")){
-                    cmbDiscountType_Cash.setSelectedIndex(0);
+                lbl_username.setText(table_no);
+                if(CashArrayList.get(0).getDiscount_type()!=null){
+                    if(CashArrayList.get(0).getDiscount_type().equals("pwd")){
+                        cmbDiscountType_Cash.setSelectedIndex(0);
+                    }
+                    if(CashArrayList.get(0).getDiscount_type().equals("senior")){
+                        cmbDiscountType_Cash.setSelectedIndex(1);
+                    }
                 }
-                if(CashArrayList.get(0).getDiscount_type().equals("senior")){
-                    cmbDiscountType_Cash.setSelectedIndex(1);
-                }
+                
                 
                 txtDiscountAmount_Cash.setText(CashArrayList.get(0).getDiscount_amount());
                 txtIDNumber_Cash.setText(CashArrayList.get(0).getDiscount_id());
