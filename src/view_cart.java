@@ -1140,7 +1140,7 @@ public class view_cart extends javax.swing.JFrame{
                      //Update Payment Status to Complete WAG GALAWIN
                     String payment_id = DatabaseConnection.getInstance().returnPaymentIDByTable(table_no);
 
-                    DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no);
+                    DatabaseConnection.getInstance().updateGCashPayment(amount, reference_no, table_no, this.username);
 
                     //Insert Payment ID and Order ID to payment_transactions table, WAG GALAWIN ANG QUERY
                     if(payment_id != null){
@@ -1228,7 +1228,7 @@ public class view_cart extends javax.swing.JFrame{
                 //WAG GALAWIN
                 String payment_id = DatabaseConnection.getInstance().returnPaymentIDByTable(table_no);
                
-                DatabaseConnection.getInstance().updateCashPayment(received, change, table_no);
+                DatabaseConnection.getInstance().updateCashPayment(received, change, table_no, this.username);
                 //Insert Payment ID and Order ID to payment_transactions table, WAG GALAWIN ANG QUERY
                 if(payment_id != null){
                     if(!orderArrayList.isEmpty()){

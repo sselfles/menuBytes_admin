@@ -516,7 +516,7 @@ public class DatabaseConnection {
                         order_id = resultSet.getInt(1);
                     }
      */
-     public void updateGCashPayment(String amount, String referenceno, String table_no) {
+     public void updateGCashPayment(String amount, String referenceno, String table_no, String username) {
         Connection connection = null;
         String payment_id = null;
         try{
@@ -524,7 +524,8 @@ public class DatabaseConnection {
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateGCashPayment()); 
         preparedStatement.setDouble(1, Double.valueOf(amount));
         preparedStatement.setString(2, referenceno);
-        preparedStatement.setString(3, table_no);
+        preparedStatement.setString(3, username);
+        preparedStatement.setString(4, table_no);
         preparedStatement.executeUpdate();
 
                     disconnect(null, preparedStatement, connection);
@@ -658,14 +659,15 @@ public class DatabaseConnection {
         return payments;
      }
      
-     public void updateCashPayment(String amount, String change, String table_no){
+     public void updateCashPayment(String amount, String change, String table_no, String username){
         Connection connection = null;
         try{
         connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateCashPayment()); 
         preparedStatement.setDouble(1, Double.valueOf(amount));
         preparedStatement.setDouble(2, Double.valueOf(change));
-        preparedStatement.setString(3, table_no);
+        preparedStatement.setString(3, username);
+        preparedStatement.setString(4, table_no);
         preparedStatement.executeUpdate();
             disconnect(null, preparedStatement, connection);
         }
