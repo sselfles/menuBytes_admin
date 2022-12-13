@@ -1728,7 +1728,7 @@ public class dashboard extends javax.swing.JFrame {
         String table_no = model.getValueAt(selectedRowIndex, 0).toString();
 //        String amount = list_orders_model.getValueAt(selectedRowIndex, 1).toString();
         
-        view_cart viewCart = new view_cart(table_no);
+        view_cart viewCart = new view_cart(table_no, in_username.getText());
         if (viewCart.isVisible()){
             viewCart.setVisible(false);
             viewCart.setVisible(true);
@@ -1745,7 +1745,7 @@ public class dashboard extends javax.swing.JFrame {
         if(rowCount > 0) {
             if(username.equals("take-out") || username.equals("dine-in")){
 //                username = "cashier";
-                view_cart viewCart = new view_cart(username, order_total_amount.getText());
+                view_cart viewCart = new view_cart(username, order_total_amount.getText(), in_username.getText());
                 if (viewCart.isVisible()){
                     viewCart.setVisible(false);
                     viewCart.setVisible(true);

@@ -64,7 +64,7 @@ public class DatabaseConnection {
 //                    "admin", "admin");
 //                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
 //                                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.131:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -1670,7 +1670,8 @@ public class DatabaseConnection {
         return paymentArrayList;
     }
     
-    public int insertPayment(String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks, String change){
+    public int insertPayment
+        (String payment_amount, String amount_due, String payment_method, String payment_status, String created_by, String remarks, String change, String subtotal, String discount_id, String discount_amount, String discount_type, String processed_by){
 	Connection connection = null;
         int payment_id = 0;
           
@@ -1690,12 +1691,30 @@ public class DatabaseConnection {
                 preparedStatement.setObject(5, payment_method, Types.VARCHAR);
                 preparedStatement.setObject(6, payment_status, Types.VARCHAR);
 //                preparedStatement.setObject(6, remarks, Types.VARCHAR);
-            if (remarks != null){
-                preparedStatement.setString(7, remarks);
-            }
-            else {
-                preparedStatement.setNull(7, Types.NULL);
-            }
+                if (remarks != null){
+                    preparedStatement.setString(7, remarks);
+                }
+                else {
+                    preparedStatement.setNull(7, Types.NULL);
+                }
+                if (subtotal != null){
+                    preparedStatement.setString(8, subtotal);
+                }
+                else {
+                    preparedStatement.setNull(8, Types.NULL);
+                }
+                if (discount_id != null){
+                    preparedStatement.setString(9, discount_id);
+                    preparedStatement.setString(10, discount_amount);
+                    preparedStatement.setString(11, discount_type);
+                }
+                else {
+                    preparedStatement.setNull(9, Types.NULL);
+                    preparedStatement.setNull(10, Types.NULL);
+                    preparedStatement.setNull(11, Types.NULL);
+                }
+                preparedStatement.setString(12, processed_by);
+                
 //            
             System.out.println("insertPayment() : PAYMENT SUCCESSFULLY INSERTED.");
             

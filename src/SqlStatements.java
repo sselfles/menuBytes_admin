@@ -492,8 +492,8 @@ public class SqlStatements {
         
     private String getPaymentSetting = "SELECT payment_info, payment_qr, payment_availability from payment_method;";
     
-    private String insertPayment = "INSERT INTO payment(created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at, remarks)\n" +
-"VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp(), (?));";
+    private String insertPayment = "INSERT INTO payment(created_by, payment_amount, amount_due, payment_change, payment_method, payment_status, created_at, completed_at, remarks, subtotal, discount_id, discount_amount, discount_type, processed_by)\n" +
+"VALUES((?), (?), (?), (?), (?),(?), current_timestamp(), current_timestamp(), (?), (?), (?), (?), (?), (?));";
     
 //    private String gCashAmountRemarks = "SELECT\n" +
 //"amount_due,\n" +

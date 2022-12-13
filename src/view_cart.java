@@ -44,6 +44,7 @@ public class view_cart extends javax.swing.JFrame{
      */
     private String table_no;
     private String total;
+    String username;
     //WAG GALAWIN ang arraylist na tohsqxs
      private static ArrayList<Order> orderArrayList = new ArrayList<>();
    
@@ -66,10 +67,11 @@ public class view_cart extends javax.swing.JFrame{
         return this.total;
     }
 
-    public view_cart(String table_no) {
+    public view_cart(String table_no, String username) {
         initComponents();
         //Data to be displayed in the JTable
         this.table_no = table_no;
+        this.username = username;
         setSubtotal(table_no);
         addRowToPendingJtable();  
         addRowToCompletedJtable();
@@ -96,10 +98,11 @@ public class view_cart extends javax.swing.JFrame{
 
     }
     
-    public view_cart(String table_no, String total) {
+    public view_cart(String table_no, String total, String username) {
         initComponents();
         //Data to be displayed in the JTable
         this.table_no = table_no;
+        this.username = username;
         lbl_username.setText(table_no);
         gcash_username.setText(table_no);
         txt_amount_due_cash.setText(total);
@@ -455,6 +458,13 @@ public class view_cart extends javax.swing.JFrame{
         gcash_discountType.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         gcash_discountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
         gcash_discountType.setSelectedIndex(-1);
+        gcash_discountType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gcash_discountTypeActionPerformed(evt);
+            }
+        });
+
+        gcash_discountAmount.setEditable(false);
 
         javax.swing.GroupLayout gcash_payment_infoLayout = new javax.swing.GroupLayout(gcash_payment_info);
         gcash_payment_info.setLayout(gcash_payment_infoLayout);
@@ -589,9 +599,16 @@ public class view_cart extends javax.swing.JFrame{
         cmbDiscountType_Cash.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cmbDiscountType_Cash.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
         cmbDiscountType_Cash.setSelectedIndex(-1);
+        cmbDiscountType_Cash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDiscountType_CashActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel22.setText("Discount Amount :");
+
+        txtDiscountAmount_Cash.setEditable(false);
 
         jLabel23.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel23.setText("ID Number:");
@@ -1070,7 +1087,7 @@ public class view_cart extends javax.swing.JFrame{
     
     public void printInvoice(String payment_id){
         try{
-            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\report1.jrxml");
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\Transactions Receipt.jrxml");
             
             HashMap<String, Object> params = new HashMap<>();
             params.put("orderId", payment_id);
@@ -1107,7 +1124,7 @@ public class view_cart extends javax.swing.JFrame{
                     dashboard.checkout(cashier, this.table_no, orderID);
                     
                     //Get payment_id nito
-                    int paymentID = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, null);
+                    int paymentID = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, null, txtSubtotal.getText(), gcash_idNumber.getText(), gcash_discountAmount.getText(), gcash_discountType.getSelectedItem().toString(), this.username);
                     
                     
                     //No need for loop since 1 order lang toh
@@ -1195,7 +1212,7 @@ public class view_cart extends javax.swing.JFrame{
                 
                 
                 //Get payment_id nito
-                int payment_id = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, computeChange());
+                int payment_id = DatabaseConnection.getInstance().insertPayment(payment_amount, amount_due, payment_method, payment_status, this.table_no, remarks, computeChange(), txtSubtotal.getText(), txtIDNumber_Cash.getText(), txtDiscountAmount_Cash.getText(), cmbDiscountType_Cash.getSelectedItem().toString(), this.username);
                  
                 //Get order_id from this transaction
                 
@@ -1265,6 +1282,32 @@ public class view_cart extends javax.swing.JFrame{
         DatabaseConnection.getInstance().rejectGCashPayment(amount, reference_no, table_no);
         cleargcashtextfields();
     }//GEN-LAST:event_gcash_rejectMouseClicked
+
+    private void gcash_discountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gcash_discountTypeActionPerformed
+        int index = gcash_discountType.getSelectedIndex();
+        Double subtotal = Double.parseDouble(txtSubtotal.getText());
+        
+        if ((index == 0 || index == 1) && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
+            
+            Double total_amount = Double.parseDouble(txtTotal_amount.getText());
+            String discountAmount = String.format("%.2f", total_amount*.2);
+            gcash_discountAmount.setText(discountAmount);
+            txtTotal_amount.setText(String.valueOf(total_amount - (total_amount*0.2)));
+        }
+    }//GEN-LAST:event_gcash_discountTypeActionPerformed
+
+    private void cmbDiscountType_CashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDiscountType_CashActionPerformed
+        int index = cmbDiscountType_Cash.getSelectedIndex();
+        Double subtotal = Double.parseDouble(txtSubtotal.getText());
+        if (index == 0 || index == 1 && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
+            Double total_amount = Double.parseDouble(txtTotal_amount.getText());
+            String discountAmount = String.format("%.2f", total_amount*.2);
+            
+            txtDiscountAmount_Cash.setText(discountAmount);
+            txtTotal_amount.setText(String.valueOf(total_amount - (total_amount*0.2)));
+            txt_amount_due_cash.setText(String.valueOf(total_amount - (total_amount*0.2)));
+        }
+    }//GEN-LAST:event_cmbDiscountType_CashActionPerformed
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

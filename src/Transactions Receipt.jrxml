@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="216" pageHeight="360" whenNoDataType="NoDataSection" columnWidth="176" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="8a607ed4-537c-452a-a7cc-023e870864b0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionReceipt" pageWidth="216" pageHeight="360" whenNoDataType="NoDataSection" columnWidth="176" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="8a607ed4-537c-452a-a7cc-023e870864b0">
 	<property name="ireport.zoom" value="2.593742460100005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="222"/>
+	<property name="ireport.y" value="218"/>
 	<parameter name="orderId" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -14,14 +14,18 @@ payment_transactions.order_id,
 payment.payment_amount AS 'Total Amount Due',
 payment.payment_change,
 payment.amount_due,
+payment.processed_by,
 payment.payment_method,
 payment.completed_at,
 payment.created_by,
 order_items.quantity,
+payment.discount_type,
+payment.discount_amount,
+payment.discount_id,
+payment.subtotal,
 IF(order_items.flavors IS NOT NULL,CONCAT(IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name), order_items.flavors), IF(order_items.product_bundle,CONCAT("B1G1 ", product.product_name),product.product_name)) AS 'Product',
 IF(order_items.product_bundle,product.product_bundle,product.product_price) AS 'Price',
-IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price',
-payment.processed_by
+IF(order_items.product_bundle,product.product_bundle,product.product_price)*order_items.quantity AS 'total price'
 FROM payment
 INNER JOIN
 payment_transactions ON payment.payment_id = payment_transactions.payment_id
@@ -44,6 +48,9 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 	<field name="amount_due" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="processed_by" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="payment_method" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -56,6 +63,18 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 	<field name="quantity" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="discount_type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discount_amount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discount_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="Product" class="java.lang.String"/>
 	<field name="Price" class="java.math.BigDecimal"/>
 	<field name="total price" class="java.lang.Double"/>
@@ -65,18 +84,18 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 	<title>
 		<band height="89" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="56" height="58" uuid="cb0d7ec2-3aac-49c9-bfa7-0000c76f3f5c"/>
+				<reportElement x="-5" y="0" width="56" height="58" uuid="cb0d7ec2-3aac-49c9-bfa7-0000c76f3f5c"/>
 				<imageExpression><![CDATA["C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\images\\mainlogo_thumbnail.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="56" y="30" width="130" height="24" uuid="5094ed96-e8e3-413a-98a3-7c6108d08319"/>
+				<reportElement x="51" y="30" width="130" height="24" uuid="5094ed96-e8e3-413a-98a3-7c6108d08319"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="6"/>
 				</textElement>
 				<text><![CDATA[9th Avenue Barangay North Signal Extension Taguig City, Taguig, Philippines]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="56" y="0" width="130" height="30" uuid="605f2d0c-f3f9-4b7e-8a37-15f170852bb0"/>
+				<reportElement x="51" y="0" width="130" height="30" uuid="605f2d0c-f3f9-4b7e-8a37-15f170852bb0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="18" isBold="true"/>
 				</textElement>
@@ -109,6 +128,17 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{created_by}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="91" y="59" width="83" height="10" uuid="bc8caf2e-7aaa-4554-94db-601759893b11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processed_by}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="0" width="100" height="20" uuid="e3d397e6-3bb1-45eb-8fa4-4e0c7662156e"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -158,21 +188,14 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="9" width="30" height="11" uuid="01c4f645-cf6e-41ca-bb04-1973a07c6044"/>
+				<reportElement x="109" y="9" width="30" height="11" uuid="01c4f645-cf6e-41ca-bb04-1973a07c6044"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="7" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="91" height="22" uuid="68644e9c-a54b-43e8-b4bf-5c455a619505"/>
-				<textElement>
-					<font fontName="Century Gothic" size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Product}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="104" y="9" width="10" height="11" uuid="c1e37fdb-bd26-4135-a143-88442aa25131"/>
+				<reportElement x="102" y="9" width="10" height="11" uuid="c1e37fdb-bd26-4135-a143-88442aa25131"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="7"/>
 				</textElement>
@@ -184,6 +207,13 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 					<font fontName="Century Gothic" size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="91" height="22" uuid="68644e9c-a54b-43e8-b4bf-5c455a619505"/>
+				<textElement>
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Product}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -225,7 +255,7 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				<textFieldExpression><![CDATA[$F{payment_change}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="46" width="176" height="1" uuid="906d2299-b693-4a8d-a6a0-6b98742fcd6c"/>
+				<reportElement x="0" y="14" width="176" height="1" uuid="906d2299-b693-4a8d-a6a0-6b98742fcd6c"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dashed"/>
 				</graphicElement>
@@ -257,6 +287,48 @@ WHERE payment_transactions.payment_id = $P{orderId};]]>
 				</textElement>
 				<text><![CDATA[Change:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="75" height="9" uuid="44551ca2-9b99-4039-81a8-6849ae1a215a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<text><![CDATA[Discount Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="37" width="76" height="10" uuid="25b8f625-b463-42bc-90c6-270768fa8f22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Discount Amount:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="28" width="100" height="9" uuid="0e6885bf-cd5b-458f-b460-0d39887b26f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discount_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="37" width="100" height="10" uuid="0fff0e94-449d-4525-916a-3583e3bc4a1e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discount_amount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="18" width="76" height="10" uuid="5e12c5fe-9ed4-434f-a791-b194a3e2acbf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="77" y="18" width="100" height="10" uuid="332239e4-d2af-4eb9-b685-d40f5b708d1a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
