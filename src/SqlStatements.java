@@ -174,7 +174,7 @@ public class SqlStatements {
 "payment_status = \"COMPLETE\",\n" +
 "payment_amount = (?),\n" +
 "remarks = (?),\n" +
-"completed_at = current_timestamp()\n" +
+"completed_at = current_timestamp(),\n" +
             "processed_by = (?)\n" +
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
@@ -203,8 +203,8 @@ public class SqlStatements {
 "payment_status = \"COMPLETE\",\n" +
 "payment_amount = (?),\n" +
 "payment_change = (?),\n" +
-"completed_at = current_timestamp()\n" +
-             "processed_by = (?)\n" +
+"completed_at = current_timestamp(),\n" +
+"processed_by = (?)\n" +
 "WHERE \n" +
 "created_by = (?) and payment_status = \"PENDING\";";
 

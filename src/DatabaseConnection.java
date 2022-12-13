@@ -64,7 +64,7 @@ public class DatabaseConnection {
 //                    "admin", "admin");
 //                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
 //                                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.131:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -666,7 +666,7 @@ public class DatabaseConnection {
         PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateCashPayment()); 
         preparedStatement.setDouble(1, Double.valueOf(amount));
         preparedStatement.setDouble(2, Double.valueOf(change));
-        preparedStatement.setString(3, username);
+        preparedStatement.setString(3, "Cashier");
         preparedStatement.setString(4, table_no);
         preparedStatement.executeUpdate();
             disconnect(null, preparedStatement, connection);
