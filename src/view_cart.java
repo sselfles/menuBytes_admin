@@ -431,8 +431,8 @@ public class view_cart extends javax.swing.JFrame{
         gcash_reject.setBackground(new java.awt.Color(255, 0, 0));
         gcash_reject.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         gcash_reject.setForeground(new java.awt.Color(255, 255, 255));
-        gcash_reject.setText("Reject");
         gcash_reject.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        gcash_reject.setLabel("Void");
         gcash_reject.setOpaque(false);
         gcash_reject.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -456,8 +456,7 @@ public class view_cart extends javax.swing.JFrame{
         jLabel20.setText("Discount Amount:");
 
         gcash_discountType.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        gcash_discountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
-        gcash_discountType.setSelectedIndex(-1);
+        gcash_discountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen", "Government" }));
         gcash_discountType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gcash_discountTypeActionPerformed(evt);
@@ -597,8 +596,7 @@ public class view_cart extends javax.swing.JFrame{
         jLabel21.setText("Discount Type :");
 
         cmbDiscountType_Cash.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        cmbDiscountType_Cash.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen" }));
-        cmbDiscountType_Cash.setSelectedIndex(-1);
+        cmbDiscountType_Cash.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen", "Government" }));
         cmbDiscountType_Cash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbDiscountType_CashActionPerformed(evt);
@@ -1287,7 +1285,7 @@ public class view_cart extends javax.swing.JFrame{
         int index = gcash_discountType.getSelectedIndex();
         Double subtotal = Double.parseDouble(txtSubtotal.getText());
         
-        if ((index == 0 || index == 1) && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
+        if ((index >= 0) && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
             
             Double total_amount = Double.parseDouble(txtTotal_amount.getText());
             String discountAmount = String.format("%.2f", total_amount*.2);
@@ -1299,7 +1297,7 @@ public class view_cart extends javax.swing.JFrame{
     private void cmbDiscountType_CashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDiscountType_CashActionPerformed
         int index = cmbDiscountType_Cash.getSelectedIndex();
         Double subtotal = Double.parseDouble(txtSubtotal.getText());
-        if (index == 0 || index == 1 && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
+        if (index >=0 && !txtTotal_amount.getText().equals(String.valueOf(subtotal - (subtotal*0.2)))){
             Double total_amount = Double.parseDouble(txtTotal_amount.getText());
             String discountAmount = String.format("%.2f", total_amount*.2);
             
