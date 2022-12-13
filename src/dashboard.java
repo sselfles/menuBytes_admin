@@ -74,7 +74,7 @@ public class dashboard extends javax.swing.JFrame {
         addRowToListOrderQueueTable();
 //        addDefaultRowToMenuList();
         notifyCashierEvents();
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         addRowToTableList();
             System.out.println("refreshed.");
         }
@@ -104,7 +104,7 @@ public class dashboard extends javax.swing.JFrame {
         addRowToListOrderQueueTable();
 //        addDefaultRowToMenuList();
         notifyCashierEvents();
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         addRowToTableList();
             System.out.println("refreshed.");
         }
@@ -1218,7 +1218,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel42.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("Reject");
+        jLabel42.setText("Void");
 
         javax.swing.GroupLayout btn_rejectLayout = new javax.swing.GroupLayout(btn_reject);
         btn_reject.setLayout(btn_rejectLayout);
@@ -1373,49 +1373,49 @@ public class dashboard extends javax.swing.JFrame {
     
     
     
-    public void retrieveKitchenLogs(){
-        if(! menuDefaultList().isEmpty()){
-            try {
-                ArrayList<User> userLogList = kitchenLogList();
-                Object rowData[] = new Object[2];
-                for(int position = 0; position < userLogList.size(); position++){
-                    rowData[0] = userLogList.get(position).getLog_in();
-                    rowData[1] = userLogList.get(position).getLog_out();
-                }
-                
-                String in = rowData[0].toString();
-                String out = rowData[1].toString();
-                
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                Date login = formatter.parse(in);
-                Date logout = formatter.parse(out);
-                
-                if(login != null && logout != null) {
-                    if(login.compareTo(logout) < 0 ){
-                        //if login occured before logout able buttons
-                        abler = true;
-                        System.out.println("Kitchen is unavailable. You have access to these buttons.");
-                    }
-
-                    if(logout.compareTo(login) < 0 ){
-                        //if logout occured before login disable buttons
-                        abler = false;
-                        System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
-                    }
-                } else if (logout == null) {
-                    //initial set up
-                    abler = false;
-                    System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
-                } else if (login == null  && login == null){
-                    //no kitcen login yet
-                    abler = true;
-                    System.out.println("Kitchen is unavailable. You have access to these buttons.");
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+//    public void retrieveKitchenLogs(){
+//        if(! menuDefaultList().isEmpty()){
+//            try {
+//                ArrayList<User> userLogList = kitchenLogList();
+//                Object rowData[] = new Object[2];
+//                for(int position = 0; position < userLogList.size(); position++){
+//                    rowData[0] = userLogList.get(position).getLog_in();
+//                    rowData[1] = userLogList.get(position).getLog_out();
+//                }
+//                
+//                String in = rowData[0].toString();
+//                String out = rowData[1].toString();
+//                
+//                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+//                Date login = formatter.parse(in);
+//                Date logout = formatter.parse(out);
+//                
+//                if(login != null && logout != null) {
+//                    if(login.compareTo(logout) < 0 ){
+//                        //if login occured before logout able buttons
+//                        abler = true;
+//                        System.out.println("Kitchen is unavailable. You have access to these buttons.");
+//                    }
+//
+//                    if(logout.compareTo(login) < 0 ){
+//                        //if logout occured before login disable buttons
+//                        abler = false;
+//                        System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
+//                    }
+//                } else if (logout == null) {
+//                    //initial set up
+//                    abler = false;
+//                    System.out.println("Kitchen is logged in. You have no access to these buttons right now.");
+//                } else if (login == null  && login == null){
+//                    //no kitcen login yet
+//                    abler = true;
+//                    System.out.println("Kitchen is unavailable. You have access to these buttons.");
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
     
     public ArrayList kitchenLogList(){
         ArrayList<User> userLogList = new ArrayList<User>();
@@ -1578,7 +1578,6 @@ public class dashboard extends javax.swing.JFrame {
             close();
         } else {
             auditModal.setVisible(true);
-            close();
         }
     }//GEN-LAST:event_logoutMouseClicked
 
@@ -1590,13 +1589,13 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rejectMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         int rowCount = order_breakdown.getRowCount();
         if (rowCount > 0) {
             if (abler){
                 System.out.println("clicked reject");
                 if(user_id!=null && order_id!=null){
-                    void_verification voidVerification = new void_verification();
+                    void_verification voidVerification = new void_verification(this.user_id, this.order_id);
                     if (voidVerification.isVisible()){
                         voidVerification.setVisible(false);
                         voidVerification.setVisible(true);
@@ -1616,7 +1615,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_acceptMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         
         int rowCount = order_breakdown.getRowCount();
         if (rowCount > 0) {
@@ -1634,7 +1633,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btn_doneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doneMouseClicked
         // TODO add your handling code here:
-        retrieveKitchenLogs();
+//        retrieveKitchenLogs();
         
         int rowCount = order_breakdown.getRowCount();
         if (rowCount > 0) {

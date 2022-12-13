@@ -5,9 +5,10 @@
         <group>
             <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/SqlStatements.java</file>
             <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/DatabaseConnection.java</file>
+            <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/audit_modal.java</file>
             <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/dashboard.java</file>
             <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/view_cart.java</file>
-            <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/void_verification.java</file>
+            <file>file:/C:/Users/Gelay/Documents/menuBytes_admin/src/audit_tally.jrxml</file>
         </group>
     </open-files>
 </project-private>

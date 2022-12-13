@@ -4,7 +4,17 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,11 +31,66 @@ public class audit_modal extends javax.swing.JFrame {
     /**
      * Creates new form audit_modal
      */
+    
+    Double total_amount;
+    int total_quantity;
+    
     public audit_modal() {
         initComponents();
         txtPassword.hide();
+        this.total_amount = Double.valueOf(DatabaseConnection.getInstance().auditValidation());
+        System.out.println("total_amount " + total_amount);
     }
     
+    
+    public ArrayList getPasswordVerification(){
+        ArrayList<User> passwordList = new ArrayList<User>();
+        passwordList = DatabaseConnection.getInstance().getPasswordVerification();
+        return passwordList;
+    }
+    
+    public void passList(){
+        if(!getPasswordVerification().isEmpty()){
+            ArrayList<User> passwordList = getPasswordVerification();
+            String password = String.valueOf(txtPassword.getPassword());
+            for(int position = 0; position < passwordList.size(); position++){
+                if(password.equals(passwordList.get(position).getUser_name().toString())){
+                    login li = new login();
+                    dashboard db = new dashboard();
+                    if (li.isVisible()){
+                        li.setVisible(false);
+                        li.setVisible(true);
+                        db.setVisible(false);
+                        close();
+                    } else {
+                        li.setVisible(true);
+                        db.setVisible(false);
+                        close();
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong, please contact the administrator or manager in charge.", "Error", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        }
+    }
+    
+//    public ArrayList auditValidation(){
+//        ArrayList<OrderItems> orderListQueue = new ArrayList<OrderItems>();
+//        orderListQueue = DatabaseConnection.getInstance().auditValidation();
+//        return orderListQueue;
+//    }
+//
+//    public void audit(){
+//        if(!auditValidation().isEmpty()){
+//            ArrayList<OrderItems> orderArrayList = auditValidation();
+//            Object rowData[] = new Object[4];
+//            for(int position = 0; position < orderArrayList.size(); position++){
+//                rowData[0] = orderArrayList.get(position).getTotal_amount();
+//                this.total_amount = this.total_amount + Double.valueOf(rowData[0].toString());
+//            }
+//        }
+//    }
     
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
@@ -49,9 +114,10 @@ public class audit_modal extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         bg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Audit Tally");
         setName("audit"); // NOI18N
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
@@ -100,18 +166,8 @@ public class audit_modal extends javax.swing.JFrame {
         jPanel1.add(audit_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 480, 80));
 
         txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        txtPassword.setForeground(java.awt.Color.lightGray);
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPassword.setText("Please enter verification password");
-        txtPassword.setEchoChar('\u0000');
-        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPasswordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPasswordFocusLost(evt);
-            }
-        });
+        txtPassword.setText("pass");
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 480, 70));
 
         bg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,10 +187,26 @@ public class audit_modal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintActionPerformed
         
+        try{
+            JasperDesign jasper = JRXmlLoader.load("C:\\Users\\Gelay\\Documents\\menuBytes_admin\\src\\audit_tally.jrxml");
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("total", DatabaseConnection.getInstance().auditValidation());
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, DatabaseConnection.getConnection());
+            
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    
     }//GEN-LAST:event_PrintActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -142,43 +214,20 @@ public class audit_modal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        if (txtPassword.getText().equals("Please enter verification password")){
-            if(audit_amount.getText().equals("")){
+        if (txtPassword.getText().equals("pass")){
+            String audit = String.format("%.2f", Double.parseDouble(audit_amount.getText()));
+            String total = String.format("%.2f", this.total_amount);
+            System.out.println ("audit " + audit);
+            System.out.println ("total " + total);
+            if(audit.equals(total)){
                 txtPassword.show();
             } else {
-
+                JOptionPane.showMessageDialog(null, "Something went wrong, please contact the administrator or manager in charge.", "Error", JOptionPane.PLAIN_MESSAGE);
             }
-        } else {
-            login li = new login();
-            dashboard db = new dashboard();
-            if (li.isVisible()){
-                li.setVisible(false);
-                li.setVisible(true);
-                db.setVisible(false);
-                close();
-            } else {
-                li.setVisible(true);
-                db.setVisible(false);
-                close();
-            }
+        } else { 
+            passList();
         }
     }//GEN-LAST:event_submitActionPerformed
-
-    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
-        if (txtPassword.getText().equals("Please enter verfication password")) {
-            txtPassword.setForeground(Color.black);
-            txtPassword.setEchoChar('●');
-            txtPassword.setText("");
-        }
-    }//GEN-LAST:event_txtPasswordFocusGained
-
-    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-        if (txtPassword.getText().equals("")) {
-            txtPassword.setForeground(Color.LIGHT_GRAY);
-            txtPassword.setEchoChar('\u0000');
-            txtPassword.setText("Please enter verfication password");
-        }
-    }//GEN-LAST:event_txtPasswordFocusLost
 
     /**
      * @param args the command line arguments

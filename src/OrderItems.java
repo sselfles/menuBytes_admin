@@ -14,6 +14,8 @@ public class OrderItems {
     String total_price;
     Boolean has_addOns;
     String flavors;
+    String total_amount;
+    String total_quantity;
     
     public OrderItems  (String quantity, String product_name, String total_price) {
         this.quantity = quantity;
@@ -21,8 +23,28 @@ public class OrderItems {
         this.total_price = total_price;
     }
     
+    public OrderItems  (String total_amount) {
+        this.total_amount = total_amount;
+    }
+    
     public String getProduct_name() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(String total_amount) {
+        this.total_amount = total_amount;
+    }
+    
+    public String getTotal_amount() {
         return product_name;
+    }
+
+    public void setTotal_quantity(String total_quantity) {
+        this.total_quantity = total_quantity;
+    }
+    
+    public String getTotal_quantity() {
+        return total_quantity;
     }
 
     public void setProduct_name(String product_name) {

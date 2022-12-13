@@ -457,6 +457,7 @@ public class view_cart extends javax.swing.JFrame{
 
         gcash_discountType.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         gcash_discountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen", "Government" }));
+        gcash_discountType.setSelectedIndex(-1);
         gcash_discountType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gcash_discountTypeActionPerformed(evt);
@@ -597,6 +598,7 @@ public class view_cart extends javax.swing.JFrame{
 
         cmbDiscountType_Cash.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cmbDiscountType_Cash.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PWD", "Senior Citizen", "Government" }));
+        cmbDiscountType_Cash.setSelectedIndex(-1);
         cmbDiscountType_Cash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbDiscountType_CashActionPerformed(evt);
@@ -985,8 +987,6 @@ public class view_cart extends javax.swing.JFrame{
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         close();
-//        view_cart vc = new view_cart();
-//        dashboard db = new dashboard();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     
@@ -1005,6 +1005,9 @@ public class view_cart extends javax.swing.JFrame{
                         }
                         if(gCashArrayList.get(0).getDiscount_type().equals("senior")){
                             gcash_discountType.setSelectedIndex(1);
+                        }
+                        if(gCashArrayList.get(0).getDiscount_type().equals("government")){
+                            gcash_discountType.setSelectedIndex(2);
                         }
                     }
                     amount.setText(gCashArrayList.get(0).getAmount_due());
@@ -1036,6 +1039,9 @@ public class view_cart extends javax.swing.JFrame{
                     }
                     if(CashArrayList.get(0).getDiscount_type().equals("senior")){
                         cmbDiscountType_Cash.setSelectedIndex(1);
+                    }
+                    if(CashArrayList.get(0).getDiscount_type().equals("government")){
+                        cmbDiscountType_Cash.setSelectedIndex(2);
                     }
                 }
                 

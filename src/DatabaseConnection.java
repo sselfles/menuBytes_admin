@@ -64,7 +64,7 @@ public class DatabaseConnection {
 //                    "admin", "admin");
 //                connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/menubytes",
 //                                    "admin", "admin");
-                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.126:3306/menubytes",
+                connection = DriverManager.getConnection("jdbc:mysql://192.168.254.131:3306/menubytes",
                                     "admin", "admin");
         } catch (SQLException ex) {
             System.out.println("CONNECTION ERROR: "+ex.getMessage());
@@ -1898,5 +1898,46 @@ public class DatabaseConnection {
         }
         
         return passwordArrayList;
+    }
+    
+    public  String auditValidation(){
+        Connection connection = null;
+        String totalTallyList = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().auditValidation()); 
+        
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            System.out.println("Database auditValidation(): No Data Retrieved!");
+        }
+        else{
+            while(resultSet.next()){
+                              totalTallyList = resultSet.getString(1);
+            }}
+            disconnect(resultSet, preparedStatement, connection);
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return totalTallyList;
+    }
+    
+    public void updateRejectOrder(String order_id){
+        Connection connection = null;
+        try{
+        connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlStatements.getInstance().getUpdateOrderRejected()); 
+        preparedStatement.setString(1,order_id);
+        preparedStatement.executeUpdate();
+        
+        }
+        
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

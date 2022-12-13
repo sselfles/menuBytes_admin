@@ -148,6 +148,7 @@ public class SqlStatements {
 "updated_at = (?),\n" +
 "updated_by = (SELECT user_name FROM user WHERE user_id = (?))\n" +
 "WHERE order_id = (?);";
+    
 
     private String retrieveProductsAccordingToCategory = "SELECT product.product_name, product.product_price, product.product_bundle\n" +
 "FROM product WHERE product_category = (?) AND product_availability = \"available\";";
@@ -554,7 +555,20 @@ public class SqlStatements {
        private String getGcashAvailability = "SELECT payment_availability FROM payment_method;";
        
       private String getPasswordVerification = "SELECT password FROM menubytes.user WHERE user_type = 'admin' OR user_type = 'manager';";
+      
+      private String auditValidation = "SELECT SUM(amount_due) FROM payment WHERE DATE(completed_at) = date(now())";
+      
+      private String updateOrderRejected = "UPDATE orders SET created_by = CONCAT(created_by,\"_\") WHERE order_id=(?)";
+
+    public String getUpdateOrderRejected() {
+        return updateOrderRejected;
+    }
+      
        
+    
+    public String auditValidation(){
+        return auditValidation;
+    }
     
     public String getPasswordVerification(){
         return getPasswordVerification;

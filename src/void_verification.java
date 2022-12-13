@@ -28,21 +28,24 @@ public class void_verification extends javax.swing.JFrame {
         initComponents();
         this.user_id = user_id;
         this.order_id = order_id;
+        order_num.setText("Order #" + order_id);
     }
     
     public void_verification() {
         initComponents();
     }
     
-    public void addRowToTableList(){
+    public void rejectOrder(){
         if(!getPasswordVerification().isEmpty()){
             ArrayList<User> passwordList = getPasswordVerification();
             Object rowData[] = new Object[4];
             String password = String.valueOf(txtPassword.getPassword());
             
             for(int position = 0; position < passwordList.size(); position++){
+                System.out.println("passwordList.get(position).getUser_name().toString() " + passwordList.get(position).getUser_name().toString());
                 if(password.equals(passwordList.get(position).getUser_name().toString())){
                     DatabaseConnection.getInstance().updateOrderStatusByOrderID("REJECTED", user_id, order_id);
+                    DatabaseConnection.getInstance().updateRejectOrder(order_id);
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Something went wrong, please contact the administrator or manager in charge.", "Error", JOptionPane.PLAIN_MESSAGE);
@@ -67,24 +70,24 @@ public class void_verification extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        order_num = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         submit = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Order # ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 620, 90));
+        order_num.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        order_num.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        order_num.setText("Order # ");
+        jPanel1.add(order_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 620, 90));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,6 +113,11 @@ public class void_verification extends javax.swing.JFrame {
         submit.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 255, 255));
         submit.setText("Submit");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
         jPanel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 230, 70));
 
         cancel.setBackground(new java.awt.Color(255, 0, 0));
@@ -162,6 +170,10 @@ public class void_verification extends javax.swing.JFrame {
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         close();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        rejectOrder();
+    }//GEN-LAST:event_submitActionPerformed
     
     
     public void close(){
@@ -206,9 +218,9 @@ public class void_verification extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
     private javax.swing.JButton cancel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel order_num;
     private javax.swing.JButton submit;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
